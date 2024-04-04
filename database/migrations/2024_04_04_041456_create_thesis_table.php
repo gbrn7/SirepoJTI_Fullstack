@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_category')->constrained('thesis_category');
             $table->foreignId('id_user')->constrained('users');
             $table->string('title');
+            $table->string('file_name');
             $table->text('abstract');
             $table->timestamps();
         });
