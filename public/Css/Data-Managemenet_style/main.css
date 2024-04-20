@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
+body {
+  font-family: "Poppins", sans-serif;
+  transition: all 0.5s ease-out;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background-color: #f5f5f5;
+  height: 100dvh;
+}
+body p {
+  color: #2d4059;
+}
+body .ls-b {
+  letter-spacing: -1px;
+}
+body .ls-s {
+  letter-spacing: -0.5px;
+}
+body .content-wrapper .breadcrumbs-box {
+  border-bottom: 0.5px solid #8d8d8d;
+}
+body .content-wrapper .breadcrumbs-box .page-title {
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .breadcrumbs-box .page-title {
+    font-size: 16px;
+    letter-spacing: -1px;
+  }
+}
+body .content-wrapper .breadcrumbs-box .breadcrumb-item {
+  font-size: 14px;
+  letter-spacing: -0.5px;
+}
+body .content-wrapper .breadcrumbs-box .breadcrumb-item a {
+  color: #2d4059;
+}
+body .content-wrapper .breadcrumbs-box .breadcrumb-item.active {
+  color: #648bbf;
+}
+body .content-wrapper .input-group {
+  width: 100%;
+  box-shadow: -1px 24px 26px -8px rgba(0, 0, 0, 0.15);
+}
+body .content-wrapper .main-content .table-wrapper .table thead tr th {
+  background-color: #ea5455;
+  letter-spacing: 0.5px;
+}
+body .content-wrapper .main-content .table-wrapper .table tbody .btn-detail {
+  background-color: #2d4059;
+}
+body .content-wrapper .main-content .table-wrapper .table tbody tr td {
+  font-weight: 300;
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .main-content .table-wrapper .table tbody tr td {
+    font-size: 14px;
+    letter-spacing: -0.5px;
+  }
+}
+@media (max-width: 767.98px) {
+  body .content-wrapper .main-content .table-wrapper .table tbody tr td {
+    font-size: 12px;
+  }
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .main-content .table-wrapper .table tbody tr td .btn {
+    font-size: 14px;
+    letter-spacing: -0.5px;
+  }
+}
+@media (max-width: 767.98px) {
+  body .content-wrapper .main-content .table-wrapper .table tbody tr td .btn {
+    font-size: 12px;
+  }
+}/*# sourceMappingURL=main.css.map */

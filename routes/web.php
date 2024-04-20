@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
+Route::get('/home', [HomeController::class, 'homeView'])->name('home');
+Route::get('/home/detailDocument', [HomeController::class, 'detailDocument'])->name('detail.document');
+
+// Route::middleware(['auth'])->group(function () {
+    Route::resource('my-document', userController::class);
+// });
+
+Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
+Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+

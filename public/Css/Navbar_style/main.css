@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
+.navbar p {
+  color: #2d4059;
+}
+.navbar span {
+  color: #2d4059;
+}
+.navbar .dropdown-menu {
+  background-color: #2d4059;
+}
+.navbar .dropdown-item:hover {
+  background-color: #b14e56;
+}
+.navbar .img-avatar {
+  height: 50px;
+  width: 50px;
+  border-radius: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.footer-wrapper {
+  z-index: 500;
+  border-top: 1px solid #8d8d8d;
+}
+.footer-wrapper .footer-logo {
+  max-width: 40px;
+}
+.footer-wrapper .footer-content {
+  font-size: 14px;
+}
+@media (max-width: 767.98px) {
+  .footer-wrapper .footer-text {
+    font-size: 12px;
+  }
+}/*# sourceMappingURL=main.css.map */

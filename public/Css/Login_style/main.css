@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
+
+*{
+  font-family: 'Poppins', sans-serif;
+}
+
+.login {
+  height: 100dvh;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+
+.copyright{
+    font-size: 12px;
+}
+
+.header h1 {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: -0.07em;
+  color: #000000;
+}
+@media (max-width: 575.98px) {
+  .header h1  {
+      font-size: 20px;
+  }
+
+  .w-sm-75{
+    width: 75%;
+  }
+}
+
+.link-text{
+  font-size: 14px;
+  color: black;
+}
+
+.link-text:hover{
+  text-decoration: underline !important;
+
+}
+
+.signin-box{
+/* From https://css.glass */
+background: rgba(255, 255, 255, 0.33);
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(5.5px);
+-webkit-backdrop-filter: blur(5.5px);
+border: 1px solid rgba(255, 255, 255, 0.23);
+}
+
+.login-form label {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000000;
+}
+
+.login-form input {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.05em;
+  color: #736A6A;
+
+}
+
+.password-container{
+  position: relative;
+}
+
+.pass-wrapper{
+  position: relative;
+}
+
+.pass-icon {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  right: 6px;
+  top: 4px;
+}
+
+.header-logo{
+  max-width: 60px;
+}
+  
+
+.login-form span {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 15px;
+  color: #ff1010;
+  margin-bottom: 20px;
+}
+
+.login-form .login-btn {
+  font-weight: 600;
+  font-size: 20px;
+  background-color: #EA5455;
+  color: white;  
+}
+
+.login-right .auth-footer{
+  font-size: 12px;
+}
+
+.login-img {
+  position: absolute;
+  border: 3px solid #FFFFFF;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  border-radius: 41px;
+}
+
+@media (max-width: 1400px){
+    .login-img {
+        margin-left: -90px;
+    }
+  }
+
+@media (max-width: 575.98px) {
+.header-logo{
+    max-width: 50px;
+    }
+
+  .header h1  {
+      font-size: 24px;
+  }
+  .pass-icon {
+      width: 15px;
+      height: 15px;
+      right: 6px;
+      top: 8px;
+  }
+  .login-form label{
+      font-size: 10px;
+  }
+  .login-form input {
+      font-size: 10px;
+  }
+  .login-form span {
+      font-size: 8px;
+  }
+  .login-form .login-btn{
+      font-size: 12px;
+  }
+  .login-right .auth-footer{
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,35 @@
+.offcanvas {
+    background-color: #2d4059;
+
+    .close-icon {
+        cursor: pointer;
+    }
+
+    .offcanvas-header {
+        border-bottom: 1px solid #8d8d8d;
+    }
+
+    .Nav-text {
+        font-size: 18px;
+
+        @include media-breakpoint-down(md) {
+            font-size: 12px;
+        }
+    }
+
+    .nav-item:hover {
+        background-color: #b14e56;
+    }
+
+    .sidebar-logo {
+        max-width: 75%;
+
+        @include media-breakpoint-down(md) {
+            max-width: 60%;
+        }
+    }
+
+    .offcanvas.show ~ body {
+        padding-right: 200px;
+    }
+}

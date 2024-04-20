@@ -1,0 +1,105 @@
+@extends('layouts.base')
+
+@section('title', 'Detail Document')
+
+@section('custom_css_link', asset('Css/Detail-Document_style/main.css'))
+
+@section('breadcrumbs')
+<div class="breadcrumbs-box mt-1 py-2">
+  <div class="page-title mb-1">Detail Document</div>
+  <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
+    <ol class="breadcrumb m-0">
+      <li class="breadcrumb-item">
+        <a href="{{route('home')}}" class="text-decoration-none">Home Search</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">
+        Big data for government policy: Potential implementations of
+        bigdata for official statistics in Indonesia
+      </li>
+    </ol>
+  </nav>
+</div>
+@endsection
+
+@section('main-content')
+<div class="main-content mt-3">
+  <div class="header-content">
+    <div class="thesis-title fw-semibold text-capitalize">
+      Big data for government policy: Potential implementations of
+      bigdata for official statistics in Indonesia
+    </div>
+    <div class="thesis-identity mt-1 fw-normal">
+      Ade Susilo - Sistem Informasi Bisnis
+    </div>
+  </div>
+  <div class="body-content mt-3">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#overview-tab-pane"
+          type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true">
+          Overview
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#pdf-tab-pane" type="button"
+          role="tab" aria-controls="pdf-tab-pane" aria-selected="false">
+          File PDF
+        </button>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane overview-wrapper fade show active" id="overview-tab-pane" role="tabpanel"
+        aria-labelledby="home-tab" tabindex="0">
+        <div class="info-wrapper abstract-wrapper mt-2">
+          <div class="title fw-medium">Abstract :</div>
+          <div class="body fw-light">
+            Statistics Indonesia is an Indonesian Government Agency
+            which is carrying out government duties in the field of
+            statistics. Until now, Statistics Indonesia has been
+            carrying out data collection in three ways: censuses,
+            surveys, and compilation of administrative products.
+            Consumer price data collection through the Survey of
+            Consumer Prices which is conducted by Statistics Indonesia
+            take place in weekly, two weekly, and monthly. Until now,
+            Statistics Indonesia has not publication in daily frequency
+            especially for Consumer Price Index (CPI) and inflation
+            product. Nowadays, big data is rapidly evolving and emerging
+            from a variety of sources. Utilization of big data can
+            provide opportunities for organizations to become smarter
+            and more productive. Inthis paper, researcher identified
+            that big data can be combined in statistical methodology as
+            a part of data source in Statistics Indonesia.
+          </div>
+        </div>
+        <div class="info-wrapper date-publication-wrapper">
+          <div class="title fw-medium">Date Of publication :</div>
+          <div class="body fw-light">12 January 2024</div>
+        </div>
+        <div class="info-wrapper author-wrapper">
+          <div class="title fw-medium">Author :</div>
+          <div class="body fw-light">Gadhis Pramestya Arifin</div>
+        </div>
+        <div class="info-wrapper prody-wrapper">
+          <div class="title fw-medium">Program Study :</div>
+          <div class="body fw-light">Sistem Informasi Bisnis</div>
+        </div>
+        <div class="info-wrapper majority-wrapper">
+          <div class="title fw-medium">Majority :</div>
+          <div class="body fw-light">Teknologi Informasi</div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="pdf-tab-pane" role="tabpanel" aria-labelledby="pdf-tab-pane" tabindex="0">
+        <div class="pdf-wrapper d-flex align-items-center gap-2">
+          <p class="mb-0">
+            A strategy to create daily Consumer Price Index by using big
+            data in Statistics Indonesia
+          </p>
+          <a href="#" class="text-decoration-none">
+            <i class="ri-file-download-line fs-5 text-danger"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+@endsection

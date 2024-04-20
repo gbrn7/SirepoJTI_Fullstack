@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
+.footer-wrapper {
+  z-index: 500;
+  border-top: 0.5px solid #8d8d8d;
+}
+.footer-wrapper .footer-logo {
+  max-width: 40px;
+}
+.footer-wrapper .footer-text {
+  font-size: 14px;
+  letter-spacing: -0.5px;
+}
+@media (max-width: 767.98px) {
+  .footer-wrapper .footer-text {
+    font-size: 12px;
+  }
+}/*# sourceMappingURL=main.css.map */

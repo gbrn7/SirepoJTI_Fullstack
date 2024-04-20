@@ -1,0 +1,107 @@
+body {
+  font-family: "Poppins", sans-serif;
+  transition: all 0.5s ease-out;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  background-color: #f5f5f5;
+  min-height: 100dvh;
+
+  p {
+    color: #2d4059;
+  }
+
+  .ls-b {
+    letter-spacing: -1px;
+  }
+
+  .ls-s {
+    letter-spacing: -0.5px;
+  }
+
+  .content-wrapper {
+    .breadcrumbs-box {
+      border-bottom: 0.5px solid #8d8d8d;
+      .page-title {
+        font-size: 20px;
+        letter-spacing: -1px;
+
+        @include media-breakpoint-down(lg) {
+          font-size: 16px;
+          letter-spacing: -1px;
+        }
+      }
+
+      .breadcrumb-item {
+        font-size: 14px;
+        letter-spacing: -0.5px;
+      }
+      .breadcrumb-item a {
+        color: #2d4059;
+      }
+
+      .breadcrumb-item.active {
+        color: #648bbf;
+      }
+    }
+
+    .main-content {
+      .header-content {
+        .thesis-title {
+          font-size: 28px;
+          color: #ea5455;
+          letter-spacing: -1px;
+
+          @include media-breakpoint-down(lg) {
+            font-size: 24px;
+            letter-spacing: -1px;
+          }
+
+          @include media-breakpoint-down(md) {
+            font-size: 20px;
+            letter-spacing: 0px;
+          }
+        }
+
+        .thesis-identity {
+          color: #f07b3f;
+          letter-spacing: -0.5px;
+
+          @include media-breakpoint-down(md) {
+            font-size: 14px;
+          }
+        }
+      }
+
+      .body-content {
+        .nav-tabs {
+          .nav-link.active {
+            color: #648bbf;
+          }
+          .nav-link {
+            color: #2d4059;
+          }
+        }
+
+        .tab-content {
+          .overview-wrapper {
+            .info-wrapper {
+              color: #2d4059;
+              margin-bottom: 12px;
+
+              .title {
+                margin-bottom: 4px;
+                letter-spacing: -0.5px;
+              }
+
+              .body {
+                @include media-breakpoint-down(md) {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

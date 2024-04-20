@@ -1,0 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@100;300;400;500;600;700;900&display=swap");
+.offcanvas {
+  background-color: #2d4059;
+}
+.offcanvas .close-icon {
+  cursor: pointer;
+}
+.offcanvas .offcanvas-header {
+  border-bottom: 1px solid #8d8d8d;
+}
+.offcanvas .Nav-text {
+  font-size: 18px;
+}
+@media (max-width: 767.98px) {
+  .offcanvas .Nav-text {
+    font-size: 12px;
+  }
+}
+.offcanvas .nav-item:hover {
+  background-color: #b14e56;
+}
+.offcanvas .sidebar-logo {
+  max-width: 75%;
+}
+@media (max-width: 767.98px) {
+  .offcanvas .sidebar-logo {
+    max-width: 60%;
+  }
+}
+.offcanvas .offcanvas.show ~ body {
+  padding-right: 200px;
+}/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,16 @@
+.footer-wrapper {
+    z-index: 500;
+    border-top: 0.5px solid #8d8d8d;
+
+    .footer-logo {
+        max-width: 40px;
+    }
+
+    .footer-text {
+        font-size: 14px;
+        letter-spacing: -0.5px;
+        @include media-breakpoint-down(md) {
+            font-size: 12px;
+        }
+    }
+}
