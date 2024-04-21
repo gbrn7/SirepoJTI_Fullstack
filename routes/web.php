@@ -17,8 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
-Route::get('/home', [HomeController::class, 'homeView'])->name('home');
-Route::get('/home/detailDocument', [HomeController::class, 'detailDocument'])->name('detail.document');
+
+Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionTitle'])->name('getSuggestionTitle');
+Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
+
+Route::group(['prefix' => 'home'], function() {
+    Route::get('/', [HomeController::class, 'homeView'])->name('home');
+    Route::get('/detailDocument', [HomeController::class, 'detailDocument'])->name('detail.document');
+
+});
 
 // Route::middleware(['auth'])->group(function () {
     Route::resource('my-document', userController::class);

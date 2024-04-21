@@ -14,15 +14,19 @@ class ProgramStudy extends Seeder
      */
     public function run(): void
     {
-        ModelsProgramStudy::insert(
+        ModelsProgramStudy::insert([
             [
             'id_majority' => 1,
             'name' => 'Teknik Informatika',
+            'created_at' => now(),
+            'updated_at' => now()
             ],
             [
             'id_majority' => 1,
             'name' => 'Sistem Informasi Bisnis',
+            'created_at' => now(),
+            'updated_at' => now()
             ],
-        );
+        ]);
     }
 }

@@ -12,6 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public $timestamps = true;
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +28,8 @@ class User extends Authenticatable
         'password',
         'role',
         'profile_picture',
+        'created_at',
+        'updated_at'
     ];
 
     /**
@@ -34,7 +39,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -45,4 +49,8 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function programStudy(){
+        return $this->belongsTo(programStudy::class, 'id_program_study', 'id');
+    }
 }

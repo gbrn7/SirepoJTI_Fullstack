@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Thesis extends Model
 {
     use HasFactory;
+    public $timestamps = true;
     protected $table = 'thesis';
 
     protected $fillable = [
@@ -16,6 +17,8 @@ class Thesis extends Model
         'title',
         'file_name',
         'abstract',
+        'created_at',
+        'updated_at'
     ];
 
     public function category(){

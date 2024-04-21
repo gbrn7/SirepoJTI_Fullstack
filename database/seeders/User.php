@@ -15,16 +15,27 @@ class user extends Seeder
      */
     public function run(): void
     {
-        ModelsUser::insert(
+        ModelsUser::insert([
             [
             'id_program_study' => 1,
             'name' => 'Farhan',
             'username' => 'farhan12',
             'email' => 'farhan123@gmail.com',
             'password' => Hash::make('userpass'),
-            'role' => 'student',
             'profile_picture' => 'user.png',
+            'created_at' => now(),
+            'updated_at' => now()
             ],
-        );
+            [
+            'id_program_study' => 2,
+            'name' => 'Khoir',
+            'username' => 'khoir12',
+            'email' => 'khoir123@gmail.com',
+            'password' => Hash::make('userpass'),
+            'profile_picture' => 'user.png',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+        ]);
     }
 }

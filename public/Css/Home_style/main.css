@@ -115,11 +115,16 @@ body .content-wrapper .content .filter-box {
   background-color: white;
   border-radius: 16px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
 }
-body .content-wrapper .content .filter-box .body-filter .checkbox {
-  width: 20px;
-  height: 20px;
-  position: absolute;
+body .content-wrapper .content .filter-box input::-webkit-outer-spin-button,
+body .content-wrapper .content .filter-box input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+body .content-wrapper .content .filter-box input[type=number] {
+  -moz-appearance: textfield;
 }
 body .content-wrapper .content .thesis-list-box .pagination-nav {
   font-size: 12px;
@@ -146,4 +151,9 @@ body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis
 body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-abstract {
   font-size: 12px;
   color: #2d4059;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }/*# sourceMappingURL=main.css.map */

@@ -18,8 +18,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('role');
-            $table->string('profile_picture')->unique();
+            $table->string('profile_picture');
             $table->rememberToken();
             $table->timestamps();
         });

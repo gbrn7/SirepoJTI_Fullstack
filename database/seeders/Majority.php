@@ -16,6 +16,8 @@ class Majority extends Seeder
         ModelsMajority::insert(
             [
             'name' => 'Teknologi Informasi',
+            'created_at' => now(),
+            'updated_at' => now()
             ],
         );
     }

@@ -109,15 +109,20 @@ body {
             .filter-box {
                 background-color: white;
                 border-radius: 16px;
-                .body-filter {
-                    .checkbox {
-                        width: 20px;
-                        height: 20px;
-                        position: absolute;
-                    }
-                }
 
                 box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+                /* Chrome, Safari, Edge, Opera */
+                input::-webkit-outer-spin-button,
+                input::-webkit-inner-spin-button {
+                    -webkit-appearance: none;
+                    margin: 0;
+                }
+
+                /* Firefox */
+                input[type="number"] {
+                    -moz-appearance: textfield;
+                }
             }
 
             .thesis-list-box {
@@ -151,6 +156,11 @@ body {
                         .thesis-abstract {
                             font-size: 12px;
                             color: #2d4059;
+                            overflow: hidden;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3; /* number of lines to show */
+                            line-clamp: 3;
+                            -webkit-box-orient: vertical;
                         }
                     }
                 }

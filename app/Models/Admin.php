@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Admin extends Model
 {
     use HasFactory;
+    public $timestamps = true;
     protected $table = 'admin';
 
     protected $fillable = [
@@ -17,6 +18,8 @@ class Admin extends Model
         'password',
         'role',
         'profile_picture',
+        'created_at',
+        'updated_at'
     ];
 
 
