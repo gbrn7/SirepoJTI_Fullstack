@@ -65,6 +65,9 @@ body .content-wrapper .main-content .header-content .thesis-identity {
     font-size: 14px;
   }
 }
+body .content-wrapper .main-content .header-content .thesis-author:hover {
+  text-decoration: underline !important;
+}
 body .content-wrapper .main-content .body-content .nav-tabs .nav-link.active {
   color: #648bbf;
 }

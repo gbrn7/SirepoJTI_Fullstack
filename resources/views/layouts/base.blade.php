@@ -19,9 +19,12 @@
   <link rel="stylesheet" href="{{asset('Css/Navbar_style/main.css')}}" />
   <link rel="stylesheet" href="{{asset('Css/Off-canvase_style/main.css')}}" />
   <link rel="stylesheet" href="{{asset('Css/Footer_style/main.css')}}" />
+
 </head>
 
 <body class="d-flex flex-column justify-content-between">
+  @include('sweetalert::alert')
+
   <div class="content-up">
     <!-- Navbar -->
     @include('layouts.navbar')

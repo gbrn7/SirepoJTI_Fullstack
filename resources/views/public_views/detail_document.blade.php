@@ -13,8 +13,7 @@
         <a href="{{route('home')}}" class="text-decoration-none">Home Search</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Big data for government policy: Potential implementations of
-        bigdata for official statistics in Indonesia
+        {{$document->title}}
       </li>
     </ol>
   </nav>
@@ -25,12 +24,13 @@
 <div class="main-content mt-3">
   <div class="header-content">
     <div class="thesis-title fw-semibold text-capitalize">
-      Big data for government policy: Potential implementations of
-      bigdata for official statistics in Indonesia
+      {{$document->title}}
+
     </div>
-    <div class="thesis-identity mt-1 fw-normal">
-      Ade Susilo - Sistem Informasi Bisnis
-    </div>
+    <a href="user-document.html" class="d-block text-decoration-none thesis-author mb-1 thesis-identity" mt-1
+      fw-normal">
+      {{$document->user->name}} - {{$document->user->programStudy->name}}
+    </a>
   </div>
   <div class="body-content mt-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -53,50 +53,38 @@
         <div class="info-wrapper abstract-wrapper mt-2">
           <div class="title fw-medium">Abstract :</div>
           <div class="body fw-light">
-            Statistics Indonesia is an Indonesian Government Agency
-            which is carrying out government duties in the field of
-            statistics. Until now, Statistics Indonesia has been
-            carrying out data collection in three ways: censuses,
-            surveys, and compilation of administrative products.
-            Consumer price data collection through the Survey of
-            Consumer Prices which is conducted by Statistics Indonesia
-            take place in weekly, two weekly, and monthly. Until now,
-            Statistics Indonesia has not publication in daily frequency
-            especially for Consumer Price Index (CPI) and inflation
-            product. Nowadays, big data is rapidly evolving and emerging
-            from a variety of sources. Utilization of big data can
-            provide opportunities for organizations to become smarter
-            and more productive. Inthis paper, researcher identified
-            that big data can be combined in statistical methodology as
-            a part of data source in Statistics Indonesia.
+            {{$document->abstract}}
           </div>
         </div>
         <div class="info-wrapper date-publication-wrapper">
           <div class="title fw-medium">Date Of publication :</div>
-          <div class="body fw-light">12 January 2024</div>
+          <div class="body fw-light">{{$document->created_at->format('d F Y')}}</div>
         </div>
         <div class="info-wrapper author-wrapper">
           <div class="title fw-medium">Author :</div>
-          <div class="body fw-light">Gadhis Pramestya Arifin</div>
+          <div class="body fw-light">{{$document->user->name}}</div>
         </div>
         <div class="info-wrapper prody-wrapper">
           <div class="title fw-medium">Program Study :</div>
-          <div class="body fw-light">Sistem Informasi Bisnis</div>
+          <div class="body fw-light">{{$document->user->programStudy->name}}</div>
         </div>
         <div class="info-wrapper majority-wrapper">
           <div class="title fw-medium">Majority :</div>
-          <div class="body fw-light">Teknologi Informasi</div>
+          <div class="body fw-light">{{$document->user->programStudy->majority->name}}</div>
         </div>
       </div>
       <div class="tab-pane fade" id="pdf-tab-pane" role="tabpanel" aria-labelledby="pdf-tab-pane" tabindex="0">
-        <div class="pdf-wrapper d-flex align-items-center gap-2">
-          <p class="mb-0">
-            A strategy to create daily Consumer Price Index by using big
-            data in Statistics Indonesia
-          </p>
-          <a href="#" class="text-decoration-none">
+        <div class="pdf-wrapper d-flex align-items-center gap-2 mt-2">
+          @auth
+          <p class="mb-0">{{$document->title}}</p>
+          <a target="blank" href="{{route('detail.document.download', $document->id)}}" class="text-decoration-none">
             <i class="ri-file-download-line fs-5 text-danger"></i>
           </a>
+          @else
+          <a href="{{route('signIn.user')}}" class="mb-0 text-decoration-none d-flex align-items-center gap-1"><i
+              class="ri-login-circle-line"></i>Sign
+            In To Download</a>
+          @endauth
         </div>
       </div>
     </div>

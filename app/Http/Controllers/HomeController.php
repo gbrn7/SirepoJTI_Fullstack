@@ -59,11 +59,6 @@ class HomeController extends Controller
         return view('public_views.home', ['thesis' => $thesis, 'categories' => $categories, 'prodys' => $prodys]);
     }
 
-    public function detailDocument()
-    {
-        return view('public_views.detail_document');
-    }
-
     public function getSuggestionTitle( Request $request)
     {
         $searchInput = $request->title;

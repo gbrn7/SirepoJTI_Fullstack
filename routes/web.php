@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
@@ -23,8 +24,11 @@ Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'
 
 Route::group(['prefix' => 'home'], function() {
     Route::get('/', [HomeController::class, 'homeView'])->name('home');
-    Route::get('/detailDocument', [HomeController::class, 'detailDocument'])->name('detail.document');
 
+    Route::group(['prefix' => 'document'], function() {
+        Route::get('/{id}', [DocumentController::class, 'detailDocument'])->name('detail.document');
+        Route::get('/{id}/download', [DocumentController::class, 'downloadPDF'])->name('detail.document.download');
+    });
 });
 
 // Route::middleware(['auth'])->group(function () {
