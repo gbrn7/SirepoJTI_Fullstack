@@ -43,6 +43,12 @@ body .content-wrapper .input-group {
   width: 100%;
   box-shadow: -1px 24px 26px -8px rgba(0, 0, 0, 0.15);
 }
+body .content-wrapper .main-content .dataTables_paginate .pagination {
+  justify-content: end;
+}
+body .content-wrapper .main-content .table-wrapper .dataTables_filter {
+  display: none;
+}
 body .content-wrapper .main-content .table-wrapper .table thead tr th {
   background-color: #ea5455;
   letter-spacing: 0.5px;

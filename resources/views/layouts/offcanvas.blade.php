@@ -16,7 +16,7 @@
             class="Nav-text">My
             Document</span></a>
       </li>
-      @auth
+      {{-- @auth --}}
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
           href="user-management.html"><i class="ri-team-line nav-icon fs-5"></i><span class="Nav-text">User
@@ -24,7 +24,7 @@
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="catagory-management.html"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
+          href="{{route('categories.index')}}"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
             class="Nav-text">Category Management</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
@@ -33,7 +33,7 @@
             class="Nav-text">My
             Document</span></a>
       </li>
-      @endauth
+      {{-- @endauth --}}
 
     </ul>
   </div>

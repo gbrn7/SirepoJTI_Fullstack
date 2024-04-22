@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
@@ -29,7 +30,11 @@ Route::group(['prefix' => 'home'], function() {
         Route::get('/{id}', [DocumentController::class, 'detailDocument'])->name('detail.document');
         Route::get('/{id}/download', [DocumentController::class, 'downloadPDF'])->name('detail.document.download');
     });
+
+    Route::resource('categories', CategoryController::class);
+
 });
+
 
 // Route::middleware(['auth'])->group(function () {
     Route::resource('my-document', userController::class);

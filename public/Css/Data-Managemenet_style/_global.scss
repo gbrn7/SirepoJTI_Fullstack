@@ -53,7 +53,16 @@ body {
     }
 
     .main-content {
+      .dataTables_paginate {
+        .pagination {
+          justify-content: end;
+        }
+      }
+
       .table-wrapper {
+        .dataTables_filter {
+          display: none;
+        }
         .table {
           thead {
             tr {

@@ -200,7 +200,7 @@ return [
     |
     */
 
-    'timer_progress_bar' => env('SWEET_ALERT_TIMER_PROGRESS_BAR', false),
+    'timer_progress_bar' => env('SWEET_ALERT_TIMER_PROGRESS_BAR', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -212,7 +212,7 @@ return [
 
     'middleware' => [
 
-        'autoClose' => env('SWEET_ALERT_MIDDLEWARE_AUTO_CLOSE', false),
+        'autoClose' => env('SWEET_ALERT_MIDDLEWARE_AUTO_CLOSE', true),
 
         'toast_position' => env('SWEET_ALERT_MIDDLEWARE_TOAST_POSITION', 'top-end'),
 
