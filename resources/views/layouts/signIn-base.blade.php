@@ -19,6 +19,8 @@
 </head>
 
 <body>
+  @include('sweetalert::alert')
+
   <section class="login row justify-content-between">
     <div class="content-left col-lg-7 d-none d-lg-block h-100" style="
           background: url('@yield('background_url')');
@@ -41,7 +43,13 @@
           <form action="@yield('form_action')" method="post">
             @csrf
             <div class="login-form d-flex flex-column gap-1 gap-lg-3 mt-3">
-              <input name="email" class="form-control text-black" id="email" placeholder="Masukan username" />
+              <div class="username-input-wrapper">
+                <input name="username" value="{{old('email')}}" class="form-control text-black" id="username"
+                  placeholder="Masukan username" />
+                @error('username')
+                <small class="form-text mt-1 text-danger">{{ $message }}</small>
+                @enderror
+              </div>
               <div class="password-container">
                 <div class="pass-wrapper">
                   <input name="password" type="password" class="form-control text-" id="password"

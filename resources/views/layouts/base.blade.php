@@ -26,6 +26,7 @@
   @include('sweetalert::alert')
 
   <div class="content-up">
+
     <!-- Navbar -->
     @include('layouts.navbar')
 

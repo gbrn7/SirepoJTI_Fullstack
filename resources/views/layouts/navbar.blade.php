@@ -5,15 +5,18 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    @guest
-    <a href="{{route('signIn.user')}}" class="login-link text-decoration-none d-flex align-items-center gap-1 "><i
-        class="ri-login-circle-line"></i>Sign in</a>
-    @endguest
-    @auth
+    @if (auth()->user() || Auth::guard('admin')->user())
     <div class="dropdown">
       <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle"
         href="user-edit-profile.html" role="button" aria-current="page" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="{{asset('img/Ellipse 4.png')}}" class="img-fluid img-avatar" />
+        @auth
+        <img src="{{asset('storage/Profile/'.(auth()->user()->profile_picture ? auth()->user()->profile_picture :
+      'default.png'))}}" class="img-fluid img-avatar" />
+        @endauth
+        @auth('admin')
+        <img src="{{asset('storage/Profile/'.(auth()->guard('admin')->user()->profile_picture ? auth()->user()->profile_picture :
+      'default.png'))}}" class="img-fluid img-avatar" />
+        @endauth
       </a>
       <ul class="dropdown-menu dropdown-menu-end px-2">
         <li class="rounded-2 dropdown-list my-profile">
@@ -21,12 +24,15 @@
               class="ri-user-3-line me-2 text-white"></i>Edit Profile</a>
         </li>
         <li class="rounded-2 dropdown-list">
-          <a href="" class="dropdown-item rounded-2 text-white"><i
+          <a href="{{route('signIn.user.logout')}}" class="dropdown-item rounded-2 text-white"><i
               class="ri-logout-circle-line me-2 text-white"></i>Sign
             Out</a>
         </li>
       </ul>
     </div>
-    @endauth
+    @else
+    <a href="{{route('signIn.user')}}" class="login-link text-decoration-none d-flex align-items-center gap-1 "><i
+        class="ri-login-circle-line"></i>Sign in</a>
+    @endif
   </div>
 </nav>

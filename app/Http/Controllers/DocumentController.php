@@ -17,7 +17,7 @@ class DocumentController extends Controller
         return view('public_views.detail_document', ['document' => $document]);
     }
 
-    public function downloadPDF($id)
+    public function downloadDocument($id)
     {
         $document = Thesis::with('user.programStudy.majority')->find($id);
 
@@ -25,6 +25,9 @@ class DocumentController extends Controller
 
         // Donwload PDF
         // return Storage::download('public/Document/'.$document->file_name);
+        // Get document from storage
+        // return Storage::get('Document/'.$document->file_name);
+        
         // Stream PDF
         return response()->file('storage/Document/'.$document->file_name);
     }

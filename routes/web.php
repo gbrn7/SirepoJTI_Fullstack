@@ -28,7 +28,7 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::group(['prefix' => 'document'], function() {
         Route::get('/{id}', [DocumentController::class, 'detailDocument'])->name('detail.document');
-        Route::get('/{id}/download', [DocumentController::class, 'downloadPDF'])->name('detail.document.download');
+        Route::get('/{id}/download', [DocumentController::class, 'downloadDocument'])->name('detail.document.download');
     });
 
     Route::resource('categories', CategoryController::class);
@@ -41,5 +41,8 @@ Route::group(['prefix' => 'home'], function() {
 // });
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
-Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
+Route::get('/signOut', [AuthController::class, 'logout'])->name('signIn.user.logout');
 
+Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::post('/signIn/admin', 'Auth\AdminLoginController@login')->name('admin.login.post');

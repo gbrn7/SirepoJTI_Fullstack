@@ -20,7 +20,6 @@ class Admin extends Seeder
             'username' => 'adminsirepojti',
             'email' => 'adminsirepojti@gmail.com',
             'password' => Hash::make('adminpass'),
-            'profile_picture' => 'admin.png',
             'created_at' => now(),
             'updated_at' => now()
             ],

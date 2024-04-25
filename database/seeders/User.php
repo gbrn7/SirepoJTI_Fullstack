@@ -22,7 +22,6 @@ class user extends Seeder
             'username' => 'farhan12',
             'email' => 'farhan123@gmail.com',
             'password' => Hash::make('userpass'),
-            'profile_picture' => 'user.png',
             'created_at' => now(),
             'updated_at' => now()
             ],
@@ -32,7 +31,6 @@ class user extends Seeder
             'username' => 'khoir12',
             'email' => 'khoir123@gmail.com',
             'password' => Hash::make('userpass'),
-            'profile_picture' => 'user.png',
             'created_at' => now(),
             'updated_at' => now()
             ],
