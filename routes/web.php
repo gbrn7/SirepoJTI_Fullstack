@@ -29,6 +29,8 @@ Route::group(['prefix' => 'home'], function() {
     Route::group(['prefix' => 'document'], function() {
         Route::get('/{id}', [DocumentController::class, 'detailDocument'])->name('detail.document');
         Route::get('/{id}/download', [DocumentController::class, 'downloadDocument'])->name('detail.document.download');
+        Route::get('/user/{id}', [DocumentController::class, 'userDocument'])->name('user.document');
+        Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
     Route::resource('categories', CategoryController::class);

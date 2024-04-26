@@ -14,7 +14,6 @@ class User extends Authenticatable
 
     public $timestamps = true;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -50,7 +49,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function programStudy(){
+    public function programStudy()
+    {
         return $this->belongsTo(programStudy::class, 'id_program_study', 'id');
     }
+
+    public function document()
+    {
+        return $this->hasMany(Thesis::class, 'id_user', 'id');
+    }
+
 }

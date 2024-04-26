@@ -51,7 +51,7 @@
         </tr>
       </thead>
       <tbody id="tableBody">
-        @foreach ($categories as $category)
+        @forelse ($categories as $category)
         <tr>
           <td>{{$loop->iteration}}</td>
           <td>{{$category->category}}</td>
@@ -64,7 +64,11 @@
               class="btn btn-warning edit-btn text-white">Edit</div>
           </td>
         </tr>
-        @endforeach
+        @empty
+        <tr>
+          <td colspan="3" class="text-center">Document Not Found</td>
+        </tr>
+        @endforelse
       </tbody>
     </table>
   </div>
@@ -179,12 +183,13 @@
         $('#deleteForm').attr('action', deleteLink);
       });
 
+      @if(count($categories)>0)
       $('.search-input').keyup(function() {
           let table = $('#category-table').DataTable();
           table.search($(this).val()).draw();
       });
 
-
-      $('#category-table').DataTable();
+      $('#category-table').DataTable();        
+      @endif
 </script>
 @endpush

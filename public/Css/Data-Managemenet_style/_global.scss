@@ -63,6 +63,9 @@ body {
         .dataTables_filter {
           display: none;
         }
+        .dataTables_wrapper .row:first-child {
+          display: none;
+        }
         .table {
           thead {
             tr {

@@ -23,15 +23,15 @@
 <form action="{{route('home')}}">
   <div class="col-lg-11 col-12">
     <div class="input-group">
-      <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search"
+      <input type="text" class="form-control py-2 px-3 search-input border-0 " placeholder="Search"
         aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ request()->get('title')}}"
         name="title" list="titleListOption" />
       <datalist id="titleListOption" class="titleListOption">
-
-        <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
-          id="basic-addon2">
-          <i class="ri-search-line"></i>
-        </button>
+      </datalist>
+      <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
+        id="basic-addon2">
+        <i class="ri-search-line"></i>
+      </button>
     </div>
     <div class="content d-md-flex mt-4">
       <div class="col-lg-2 col-12 col-md-3">
@@ -94,29 +94,30 @@
       </div>
       <div class="col-lg-10 ps-lg-4 mt-3 mt-md-0 ps-md-3 thesis-list-box">
         <div class="pagination-nav">
-          <span class="fw-light">Showing page {{$thesis->currentPage() }} of about {{$thesis->lastPage()}} pages</span>
+          <span class="fw-light">Showing page {{$documents->currentPage() }} of about {{$documents->lastPage()}}
+            pages</span>
         </div>
         <div class="thesis-box mt-2 d-flex flex-column gap-2">
-          @forelse ($thesis as $item)
+          @forelse ($documents as $document)
           <div class="thesis-item">
-            <a href="{{route('detail.document', $item->thesis_id)}}"
+            <a href="{{route('detail.document', $document->document_id)}}"
               class="thesis-title text-decoration-none mb-1 fw-semibold">
-              {{$item->thesis_title}}
+              {{$document->document_title}}
             </a>
-            <a href="user-document.html" class="d-block text-decoration-none thesis-author mb-1">
-              {{$item->user_name}} - {{$item->program_study_name}}
+            <a href="{{route('user.document', $document->user_id)}}"
+              class="d-block text-decoration-none thesis-author mb-1">
+              {{$document->user_name}} - {{$document->program_study_name}}
             </a>
             <p class="thesis-abstract mb-1">
-              {{$item->thesis_abstract}}
+              {{$document->document_abstract}}
             </p>
           </div>
           @empty
           <p class="text-center">Document Not Found</p>
           @endforelse
-
         </div>
         <div class="pagination-box d-flex justify-content-end">
-          {{$thesis->links('pagination::bootstrap-4')}}
+          {{$documents->links('pagination::bootstrap-4')}}
         </div>
       </div>
     </div>

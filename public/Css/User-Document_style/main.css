@@ -90,4 +90,9 @@ body .content-wrapper .user-document-content .thesis-list-box .thesis-box .thesi
 body .content-wrapper .user-document-content .thesis-list-box .thesis-box .thesis-item .thesis-abstract {
   font-size: 12px;
   color: #2d4059;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }/*# sourceMappingURL=main.css.map */

@@ -49,6 +49,9 @@ body .content-wrapper .main-content .dataTables_paginate .pagination {
 body .content-wrapper .main-content .table-wrapper .dataTables_filter {
   display: none;
 }
+body .content-wrapper .main-content .table-wrapper .dataTables_wrapper .row:first-child {
+  display: none;
+}
 body .content-wrapper .main-content .table-wrapper .table thead tr th {
   background-color: #ea5455;
   letter-spacing: 0.5px;

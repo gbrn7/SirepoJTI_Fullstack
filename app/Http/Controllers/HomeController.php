@@ -8,7 +8,6 @@ use App\Models\ThesisCategory;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -30,7 +29,7 @@ class HomeController extends Controller
             'publication_until' => $request->publication_until ? Carbon::createFromDate($request->publication_until, 1)->endOfYear() : null,
         ];
         
-        $thesis = DB::table('thesis as t')
+        $documents = DB::table('thesis as t')
         ->where('t.title', 'like', '%'.$searchParams['title'].'%')
         ->when($searchParams['id_category'], function($query) use ($searchParams){
             return $query->whereIn('t.id_category', $searchParams['id_category']);
@@ -49,7 +48,7 @@ class HomeController extends Controller
         })
         ->join('users as u', 'u.id', 't.id_user')
         ->join('program_study as ps', 'ps.id', 'u.id_program_study')
-        ->selectRaw('t.id as thesis_id, u.id as user_id, u.name as user_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name')
+        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name')
         ->orderBy('t.id', 'desc')
         ->paginate(5);
 
@@ -57,7 +56,7 @@ class HomeController extends Controller
 
         $prodys = ProgramStudy::all();
             
-        return view('public_views.home', ['thesis' => $thesis, 'categories' => $categories, 'prodys' => $prodys]);
+        return view('public_views.home', ['documents' => $documents, 'categories' => $categories, 'prodys' => $prodys]);
     }
 
     public function getSuggestionTitle( Request $request)
@@ -77,4 +76,5 @@ class HomeController extends Controller
 
         return response()->json($titles);
     }
+
 }

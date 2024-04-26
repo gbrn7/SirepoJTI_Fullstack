@@ -13,9 +13,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = ThesisCategory::orderBy('id', 'desc')->get();
+        // $categories = ThesisCategory::orderBy('id', 'desc')->get();
 
-        return view('admin_views.category.index', ['categories' => $categories]);
+        return view('admin_views.category.index', ['categories' => []]);
     }
 
     /**
