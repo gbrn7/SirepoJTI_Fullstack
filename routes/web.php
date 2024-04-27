@@ -35,7 +35,14 @@ Route::group(['prefix' => 'home'], function() {
 
     Route::resource('categories', CategoryController::class);
 
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
+        Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
+    });
 });
+
+
+
 
 
 // Route::middleware(['auth'])->group(function () {

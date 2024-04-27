@@ -19,6 +19,10 @@ body {
             color: #2d4059;
         }
 
+        .breadcrumb-item a:hover {
+            text-decoration: underline !important;
+        }
+
         .breadcrumb-item.active {
             color: #648bbf;
         }

@@ -20,8 +20,9 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end px-2">
         <li class="rounded-2 dropdown-list my-profile">
-          <a class="dropdown-item text-white rounded-2" href="user-edit-profile.html"><i
-              class="ri-user-3-line me-2 text-white"></i>Edit Profile</a>
+          <a class="dropdown-item text-white rounded-2"
+            href="{{route('user.editProfile', Auth::user() ? Auth::user()->id : Auth::guard('admin')->user()->id)}}"
+            href=""><i class="ri-user-3-line me-2 text-white"></i>Edit Profile</a>
         </li>
         <li class="rounded-2 dropdown-list">
           <a href="{{route('signIn.user.logout')}}" class="dropdown-item rounded-2 text-white"><i

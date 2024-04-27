@@ -33,6 +33,9 @@ body .content-wrapper .breadcrumbs-box .breadcrumb-item {
   font-size: 14px;
   letter-spacing: -0.5px;
 }
+body .content-wrapper .breadcrumbs-box .breadcrumb-item a:hover {
+  text-decoration: underline !important;
+}
 body .content-wrapper .breadcrumbs-box .breadcrumb-item a {
   color: #2d4059;
 }

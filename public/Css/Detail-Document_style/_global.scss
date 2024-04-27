@@ -35,6 +35,11 @@ body {
         font-size: 14px;
         letter-spacing: -0.5px;
       }
+
+      .breadcrumb-item a:hover {
+        text-decoration: underline !important;
+      }
+
       .breadcrumb-item a {
         color: #2d4059;
       }
