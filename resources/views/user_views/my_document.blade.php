@@ -38,7 +38,7 @@
   <div class="list-thesis-wrapper mt-4">
     <div class="action-wrapper d-lg-flex justify-content-between align-items-baseline">
       <div class="wrapper">
-        <a href="user-create-document.html" class="btn btn-success">
+        <a href="{{route('my-document.create')}}" class="btn btn-success">
           <div class="wrapper d-flex gap-2 align-items-center">
             <i class="ri-add-line"></i>
             <span class="fw-medium">Add Document</span>
@@ -46,7 +46,7 @@
         </a>
       </div>
       <div class="wrappper mt-2 mt-lg-0">
-        <form action="{{route('user.document', $user->id)}}" method="get">
+        <form action="{{route('my-document.index', $user->id)}}" method="get">
           <div class="input-group">
             <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search"
               aria-label="Recipient's username" list="titleListOption" aria-describedby="basic-addon2" name="title" />
@@ -67,11 +67,10 @@
       <div class="thesis-box mt-2 d-flex flex-column gap-2">
         @forelse ($document as $item)
         <div class="thesis-item">
-          <a href="{{route('my_document.detailDocument', $item->id)}}"
-            class="thesis-title text-decoration-none mb-1 fw-semibold">
+          <a href="{{route('my-document.show', $item->id)}}" class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
-          <a href="{{route('user.document', $item->id_user)}}" class="d-block text-decoration-none thesis-author mb-1">
+          <a href="{{route('my-document.index')}}" class="d-block text-decoration-none thesis-author mb-1">
             {{$user->username}} - {{$user->programStudy->name}}
           </a>
           <p class="thesis-abstract mb-1">

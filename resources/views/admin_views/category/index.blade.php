@@ -132,11 +132,11 @@
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Hapus Admin</h5>
+        <h5 class="modal-title" id="myModalLabel">Delete Admin</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin mengapus category <span class="category-name"></span>?</h4>
+        <h4 class="text-center">Are you sure to delete <span class="category-name"></span> category?</h4>
       </div>
       <form action="" method="post" id="deleteForm">
         @method('delete')

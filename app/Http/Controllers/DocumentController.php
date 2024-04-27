@@ -6,7 +6,7 @@ use App\Models\Thesis;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -20,15 +20,6 @@ class DocumentController extends Controller
         return view('public_views.detail_document', ['document' => $document]);
     }
 
-    public function myDetailDocument($id)
-    {
-        $document = Thesis::with('user.programStudy.majority')->find($id);
-
-        if(!$document) return back()->with('toast_error', 'Document Not Found');
-
-        return view('user_views.my_detail_document', ['document' => $document]);
-    }
-
     public function downloadDocument($id)
     {
         $document = Thesis::with('user.programStudy.majority')->find($id);
@@ -38,10 +29,13 @@ class DocumentController extends Controller
         // Donwload PDF
         // return Storage::download('public/Document/'.$document->file_name);
         // Get document from storage
-        // return Storage::get('Document/'.$document->file_name);
+        $file = Storage::get('Document/'.$document->file_name);
+        $response = Response::make($file, 200);  
+        $response->header('Content-Type', 'application/pdf');  
+        return $response; 
         
         // Stream PDF
-        return response()->file('storage/Document/'.$document->file_name);
+        // return response()->file('storage/Document/'.$document->file_name);
     }
 
     public function userDocument(Request $request, string $id)
@@ -61,15 +55,6 @@ class DocumentController extends Controller
                 ->get();
 
         return response()->json($titles);
-    }
-
-    public function myDocument(Request $request)
-    {
-        $data = $this->getUserDocument(Auth::user()->id, $request);
-
-        if($data instanceof RedirectResponse ) return $data;
-
-        return view('user_views.my_document', $data);        
     }
 
 

@@ -103,11 +103,11 @@ class CategoryController extends Controller
         try {
             $thesis = ThesisCategory::find($id);
 
-            if(!$thesis) return redirect()->back()->with('toast_error', 'category Not Found');
+            if(!$thesis) return redirect()->route('categories.index')->with('toast_error', 'category Not Found');
 
             $thesis->delete();
 
-            return redirect()->back()->with('toast_success', 'Category deleted');
+            return redirect()->route('categories.index')->with('toast_success', 'Category deleted');
         } catch (\Throwable $th) {
             return back()
             ->with('toast_error', 'The category thesis is referenced by other data');

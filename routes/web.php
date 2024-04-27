@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\MyDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Route;
@@ -41,11 +42,7 @@ Route::group(['prefix' => 'home'], function() {
     });
 });
 
-Route::group(['prefix' => 'my-document'], function() {
-    Route::get('/', [DocumentController::class, 'myDocument'])->name('my-document.index');
-    Route::get('/detail-document/{id}', [DocumentController::class, 'myDetailDocument'])->name('my_document.detailDocument');
-
-});
+Route::resource('my-document', MyDocumentController::class);
 
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');

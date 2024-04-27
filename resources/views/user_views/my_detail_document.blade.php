@@ -33,7 +33,10 @@
       fw-normal">
       {{$document->user->name}} - {{$document->user->programStudy->name}}
     </a>
-    <a href="user-edit-document.html" class="btn btn-warning text-white mt-1">Edit Document</a>
+    <div class="btn-action-wrapper mt-1">
+      <a href="{{route('my-document.edit', $document->id)}}" class="btn btn-warning text-white ">Edit Document</a>
+      <div class="btn btn-danger delete-btn">Delete Document</div>
+    </div>
   </div>
   <div class="body-content mt-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -93,4 +96,36 @@
     </div>
   </div>
 </div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Hapus Document</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h4 class="text-center">Are you sure to delete {{$document->title}} document?</h4>
+      </div>
+      <form action="{{route('my-document.destroy', $document->id)}}" method="post" id="deleteForm">
+        @method('delete')
+        @csrf
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
 @endsection
+
+@push('js')
+<script>
+  $(document).on('click', '.delete-btn', function(event){
+        let deleteLink = $(this).data('delete-link');
+        $('#deleteModal').modal('show');
+      });
+</script>
+@endpush

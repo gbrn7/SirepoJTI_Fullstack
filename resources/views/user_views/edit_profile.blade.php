@@ -44,9 +44,9 @@
         name="new_password" />
     </div>
     <div class="mb-2">
-      <label class="form-label">Password Confirmation</label>
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter the password"
-        name="confirm_password" />
+      <label class="form-label">Repeat New Password</label>
+      <input type="password" class="form-control" id="exampleFormControlInput1"
+        placeholder="Enter your new password again" name="confirm_password" />
     </div>
     <div class="wrapper d-flex justify-content-end">
       <button type="submit" class="btn text-white px-5 btn-warning">Submit</button>
