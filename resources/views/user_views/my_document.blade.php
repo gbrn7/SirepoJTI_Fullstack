@@ -1,19 +1,19 @@
 @extends('layouts.base')
 
-@section('title', $user->name.'Document')
+@section('title', 'My Document')
 
 @section('custom_css_link', asset('Css/User-Document_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">{{$user->name}} Document</div>
+  <div class="page-title mb-1">My Document</div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item align-items-center">
         <a href="{{route('home')}}" class="text-decoration-none">Home</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        {{$user->name}} Document
+        My Document
       </li>
     </ol>
   </nav>
@@ -36,7 +36,15 @@
     </div>
   </div>
   <div class="list-thesis-wrapper mt-4">
-    <div class="action-wrapper d-lg-flex justify-content-end align-items-baseline">
+    <div class="action-wrapper d-lg-flex justify-content-between align-items-baseline">
+      <div class="wrapper">
+        <a href="user-create-document.html" class="btn btn-success">
+          <div class="wrapper d-flex gap-2 align-items-center">
+            <i class="ri-add-line"></i>
+            <span class="fw-medium">Add Document</span>
+          </div>
+        </a>
+      </div>
       <div class="wrappper mt-2 mt-lg-0">
         <form action="{{route('user.document', $user->id)}}" method="get">
           <div class="input-group">
@@ -59,7 +67,8 @@
       <div class="thesis-box mt-2 d-flex flex-column gap-2">
         @forelse ($document as $item)
         <div class="thesis-item">
-          <a href="{{route('detail.document', $item->id)}}" class="thesis-title text-decoration-none mb-1 fw-semibold">
+          <a href="{{route('my_document.detailDocument', $item->id)}}"
+            class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
           <a href="{{route('user.document', $item->id_user)}}" class="d-block text-decoration-none thesis-author mb-1">

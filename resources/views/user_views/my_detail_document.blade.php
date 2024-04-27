@@ -12,6 +12,9 @@
       <li class="breadcrumb-item">
         <a href="{{route('home')}}" class="text-decoration-none">Home Search</a>
       </li>
+      <li class="breadcrumb-item">
+        <a href="{{route('my-document.index')}}" class="text-decoration-none">My Document</a>
+      </li>
       <li class="breadcrumb-item active" aria-current="page">
         {{$document->title}}
       </li>
@@ -25,13 +28,12 @@
   <div class="header-content">
     <div class="thesis-title fw-semibold text-capitalize">
       {{$document->title}}
-
     </div>
-    <a href={{route('user.document', $document->user->id)}} class="d-block text-decoration-none thesis-author mb-1
-      thesis-identity" mt-1
+    <a href="{{route('my-document.index')}}" class="d-block text-decoration-none thesis-author mb-1 thesis-identity mt-1
       fw-normal">
       {{$document->user->name}} - {{$document->user->programStudy->name}}
     </a>
+    <a href="user-edit-document.html" class="btn btn-warning text-white mt-1">Edit Document</a>
   </div>
   <div class="body-content mt-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">

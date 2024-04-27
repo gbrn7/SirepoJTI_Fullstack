@@ -41,13 +41,12 @@ Route::group(['prefix' => 'home'], function() {
     });
 });
 
+Route::group(['prefix' => 'my-document'], function() {
+    Route::get('/', [DocumentController::class, 'myDocument'])->name('my-document.index');
+    Route::get('/detail-document/{id}', [DocumentController::class, 'myDetailDocument'])->name('my_document.detailDocument');
 
+});
 
-
-
-// Route::middleware(['auth'])->group(function () {
-    Route::resource('my-document', userController::class);
-// });
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');

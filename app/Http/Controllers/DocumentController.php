@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Thesis;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentController extends Controller
@@ -16,6 +18,15 @@ class DocumentController extends Controller
         if(!$document) return back()->with('toast_error', 'Document Not Found');
 
         return view('public_views.detail_document', ['document' => $document]);
+    }
+
+    public function myDetailDocument($id)
+    {
+        $document = Thesis::with('user.programStudy.majority')->find($id);
+
+        if(!$document) return back()->with('toast_error', 'Document Not Found');
+
+        return view('user_views.my_detail_document', ['document' => $document]);
     }
 
     public function downloadDocument($id)
@@ -35,6 +46,35 @@ class DocumentController extends Controller
 
     public function userDocument(Request $request, string $id)
     {
+        $data = $this->getUserDocument($id, $request);
+
+        if($data instanceof RedirectResponse ) return $data;
+
+        return view('public_views.user_document', $data);        
+    }
+
+    public function getSuggestionTitle( Request $request, string $userId)
+    {
+        $titles = Thesis::select('title', 'id_user')
+                ->where('title', 'like', '%'.$request->title.'%')
+                ->where('id_user', $userId)
+                ->get();
+
+        return response()->json($titles);
+    }
+
+    public function myDocument(Request $request)
+    {
+        $data = $this->getUserDocument(Auth::user()->id, $request);
+
+        if($data instanceof RedirectResponse ) return $data;
+
+        return view('user_views.my_document', $data);        
+    }
+
+
+    public function getUserDocument(string $id, Request $request)
+    {
         $user = User::with('programStudy.majority')->find($id);
 
         if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
@@ -47,16 +87,7 @@ class DocumentController extends Controller
                     ->orderBy('id', 'desc')
                     ->paginate(10);
 
-        return view('public_views.user_document', compact('user', 'document'));        
+        return compact('user', 'document');
     }
 
-    public function getSuggestionTitle( Request $request, string $userId)
-    {
-        $titles = Thesis::select('title', 'id_user')
-                ->where('title', 'like', '%'.$request->title.'%')
-                ->where('id_user', $userId)
-                ->get();
-
-        return response()->json($titles);
-    }
 }
