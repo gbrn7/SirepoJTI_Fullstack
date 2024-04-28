@@ -29,7 +29,7 @@ class DocumentController extends Controller
         // Donwload PDF
         // return Storage::download('public/Document/'.$document->file_name);
         // Get document from storage
-        $file = Storage::get('Document/'.$document->file_name);
+        $file = Storage::get('document/'.$document->file_name);
         $response = Response::make($file, 200);  
         $response->header('Content-Type', 'application/pdf');  
         return $response; 
