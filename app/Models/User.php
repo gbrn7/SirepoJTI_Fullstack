@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function programStudy()
     {
-        return $this->belongsTo(programStudy::class, 'id_program_study', 'id');
+        return $this->belongsTo(ProgramStudy::class, 'id_program_study', 'id');
     }
 
     public function document()
