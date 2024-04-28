@@ -78,7 +78,8 @@
         <div class="pdf-wrapper d-flex align-items-center gap-2 mt-2">
           @if(Auth::user() || Auth::guard('admin')->user())
           <p class="mb-0">{{$document->title}}</p>
-          <a target="blank" href="{{route('detail.document.download', $document->id)}}" class="text-decoration-none">
+          <a target="blank" href="{{route('detail.document.download', $document->file_name)}}"
+            class="text-decoration-none">
             <i class="ri-file-download-line fs-5 text-danger"></i>
           </a>
           @else

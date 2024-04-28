@@ -20,9 +20,9 @@ class DocumentController extends Controller
         return view('public_views.detail_document', ['document' => $document]);
     }
 
-    public function downloadDocument($id)
+    public function downloadDocument(string $fileName)
     {
-        $document = Thesis::with('user.programStudy.majority')->find($id);
+        $document = Thesis::with('user.programStudy.majority')->where('file_name', $fileName)->first();
 
         if(!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found');
 
