@@ -93,7 +93,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-submit btn-success">Save</button>
       </div>
       </form>
     </div>
@@ -120,7 +120,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-warning text-white">Update</button>
+        <button type="submit" class="btn btn-warning btn-submit text-white">Update</button>
       </div>
       </form>
     </div>
@@ -143,7 +143,7 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger">Delete</button>
+          <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Delete</button>
       </form>
     </div>
   </div>
@@ -194,4 +194,6 @@
       });        
       @endif
 </script>
+
+<script src="{{asset('Js/preloader.js')}}"></script>
 @endpush

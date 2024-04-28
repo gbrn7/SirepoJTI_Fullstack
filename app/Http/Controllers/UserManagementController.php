@@ -49,7 +49,7 @@ class UserManagementController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'program_study' => 'required',
-            'profile_picture' => 'required|mimes:png,jpg,jpeg|max:1024',
+            'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
         ]);
 
         if($validator->fails()) return redirect()
@@ -59,12 +59,16 @@ class UserManagementController extends Controller
 
         try {
             $data = $validator->safe()->all();
-            // Store profile picture
-            $file = $request->profile_picture;
-            $fileName = Str::random(10).$file->getClientOriginalName();
-            $file->storeAs('public/Profile/', $fileName);
 
-            $data['profile_picture'] = $fileName;
+            if($request->profile_picture){
+                // Store profile picture
+                $file = $request->profile_picture;
+                $fileName = Str::random(10).$file->getClientOriginalName();
+                $file->storeAs('public/Profile/', $fileName);
+
+                $data['profile_picture'] = $fileName;
+            }
+
             $data['id_program_study'] = $data['program_study'];
 
             $user = User::create($data);

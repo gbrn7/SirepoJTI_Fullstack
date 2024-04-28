@@ -19,11 +19,16 @@
   <link rel="stylesheet" href="{{asset('Css/Navbar_style/main.css')}}" />
   <link rel="stylesheet" href="{{asset('Css/Off-canvase_style/main.css')}}" />
   <link rel="stylesheet" href="{{asset('Css/Footer_style/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('Css/Preloader/main.css')}}" />
 
 </head>
 
 <body class="d-flex flex-column justify-content-between">
+  {{-- Sweet Alert --}}
   @include('sweetalert::alert')
+
+  {{-- Preloader --}}
+  @include('preloader.index')
 
   <div class="content-up">
 
@@ -77,6 +82,12 @@
          if (callNow) func.apply(context, args);
      };
 };
+</script>
+
+<script>
+  $(document).ready(function () {
+  $('.loading-wrapper').addClass('d-none');
+  });
 </script>
 
 @stack('js')

@@ -42,3 +42,7 @@
   </form>
 </div>
 @endsection
+
+@push('js')
+<script src="{{asset('Js/preloader.js')}}"></script>
+@endpush
