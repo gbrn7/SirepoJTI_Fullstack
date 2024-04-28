@@ -4,44 +4,46 @@ namespace App\Http\Controllers;
 
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
-use Illuminate\Http\RedirectResponse;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
-class MyDocumentController extends Controller
+class UserDocumentManagementController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index($id)
     {
-        $documenClass = new DocumentController;
+        $user = User::with('document')->find($id);
 
-        $data = $documenClass->getUserDocument(Auth::user()->id, $request);
+        if(!$user) return redirect()->back()->with('toast_error', 'User not found');
 
-        if($data instanceof RedirectResponse ) return $data;
-
-        return view('user_views.my_document', $data); 
+        return view('admin_views.users.documents.index',['user' => $user]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(string $userId)
     {
         $categories = ThesisCategory::all();
 
-        return view('user_views.user_document_form', compact('categories'));
+        $user = User::find($userId);
+
+        if(!$user) return redirect()->back()->with('toast_error', 'User not found');
+
+        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'user'));    
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, string $userId)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
@@ -66,12 +68,12 @@ class MyDocumentController extends Controller
 
             $data['file_name'] = $fileName;
             $data['id_category'] = $data['category'];
-            $data['id_user'] = Auth::user()->id;
+            $data['id_user'] = $userId;
 
             Thesis::create($data);
 
             Session::flash('toast_success', 'Document Added');
-            return redirect()->route('my-document.index');
+            return redirect()->route('user-management.document-management.index', $userId);
 
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
@@ -79,35 +81,25 @@ class MyDocumentController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $document = Thesis::with('user.programStudy.majority')->find($id);
-
-        if(!$document) return back()->with('toast_error', 'Document Not Found');
-
-        return view('user_views.my_detail_document', ['document' => $document]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $userId, string $documentId)
     {
         $categories = ThesisCategory::all();
 
-        $document = Thesis::find($id);
+        $document = Thesis::find($documentId);
 
-        if(!$document) return back()->with('toast_error', 'Document Not Found');
+        $user = User::find($userId);
 
-        return view('user_views.user_document_form', compact('categories', 'document'));
+        if(!$document) return redirect()->route('user-management.document-management.index', $userId);
+
+        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'document', 'user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $userId, string $documentId)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
@@ -123,7 +115,7 @@ class MyDocumentController extends Controller
         }
 
         try {
-            $oldData = Thesis::find($id);
+            $oldData = Thesis::find($documentId);
             
             if(!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
             
@@ -152,20 +144,21 @@ class MyDocumentController extends Controller
             $oldData->update($newData);
 
             Session::flash('toast_success', 'Document updated');
-            return redirect()->route('my-document.index');
+            return redirect()->route('user-management.document-management.index', $userId);
 
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return back()->with('toast_error', $th->getMessage())->withInput();
-        }
+        }    
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $userId, string $documentId)
     {
         try {
-            $thesis = Thesis::find($id);
+            $thesis = Thesis::find($documentId);
 
             if(!$thesis) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
 
@@ -173,10 +166,9 @@ class MyDocumentController extends Controller
 
             $thesis->delete();
 
-            return redirect()->route('my-document.index')->with('toast_success', 'Document deleted');
+            return redirect()->route('user-management.document-management.index', $userId)->with('toast_success', 'Document deleted');
         } catch (\Throwable $th) {
             return back()
             ->with('toast_error', $th->getMessage());
-        }
-    }
+        }    }
 }

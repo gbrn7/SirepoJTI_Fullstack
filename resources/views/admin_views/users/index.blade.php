@@ -2,7 +2,7 @@
 
 @section('title', 'User Management')
 
-@section('custom_css_link', asset('Css/Data-Managemenet_style/main.css'))
+@section('custom_css_link', asset('Css/Data-Management_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
@@ -65,7 +65,8 @@
               data-name="{{$user->name}}" data-delete-link="{{route('user-management.destroy', $user->id)}}">
               Delete</div>
             <a href="{{route('user-management.edit', $user->id)}}" class="btn btn-warning edit-btn text-white">Edit</a>
-            <a href="#" class="btn edit-btn btn-detail text-white">Detail</a>
+            <a href="{{route('user-management.document-management.index', $user->id)}}"
+              class="btn edit-btn btn-detail text-white">Detail</a>
           </td>
         </tr>
         @empty

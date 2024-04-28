@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MyDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\UserDocumentManagementController;
 use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,7 +36,12 @@ Route::group(['prefix' => 'home'], function() {
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::resource('categories', CategoryController::class);
+    Route::resource('categories', CategoryController::class)->only([
+        'index',
+        'store',
+        'update',
+        'destroy'
+    ]);
 
     Route::group(['prefix' => 'user'], function() {
         Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
@@ -44,7 +50,10 @@ Route::group(['prefix' => 'home'], function() {
 });
 
 Route::resource('my-document', MyDocumentController::class);
-Route::resource('user-management', UserManagementController::class);
+
+Route::resource('user-management', UserManagementController::class)->except('show');
+
+Route::resource('user-management.document-management', UserDocumentManagementController::class)->except('show');
 
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
@@ -52,4 +61,3 @@ Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.us
 Route::get('/signOut', [AuthController::class, 'logout'])->name('signIn.user.logout');
 
 Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
-Route::post('/signIn/admin', 'Auth\AdminLoginController@login')->name('admin.login.post');
