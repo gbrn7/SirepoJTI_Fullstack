@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\UserDocumentManagementController;
 use App\Http\Controllers\UserManagementController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,8 +68,6 @@ Route::group(['prefix' => 'home'], function() {
 });
 
 Route::any('/{any}', function () {
-    if(auth()->user()){
-      return redirect()->route('home');
-  }
+    if(Auth::guard('web')->check() || Auth::guard('admin')->check())return redirect()->route('home');
   return redirect()->route('signIn.user');
   })->where('any', '.*');

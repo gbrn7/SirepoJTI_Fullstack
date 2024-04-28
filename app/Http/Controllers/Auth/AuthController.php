@@ -13,11 +13,15 @@ class AuthController extends Controller
 
     public function userSignin()
     {
+        if(Auth::guard('web')->check() || Auth::guard('admin')->check())return redirect()->route('home');
+
         return view('auth.signin-user');
     }
     
     public function adminSignin()
     {
+        if(Auth::guard('web')->check() || Auth::guard('admin')->check())return redirect()->route('home');
+
         return view('auth.signin-admin');
     }
 
@@ -59,7 +63,11 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::logout();
+        if(Auth::guard('web')->check()){
+            Auth::guard('web')->logout();
+        }elseif (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
 
         $request->session()->invalidate();
 
