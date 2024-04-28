@@ -19,7 +19,6 @@ class HomeController extends Controller
 
     public function homeView(Request $request)
     {
-        // dd($request->all());
         $searchParams = [
             'title' => $request->title,
             'id_program_study' => $request->id_program_study,
@@ -63,7 +62,11 @@ class HomeController extends Controller
     {
         $searchInput = $request->title;
 
-        $titles = Thesis::select('title')->where('title', 'like', '%'.$searchInput.'%')->get();
+        $titles = Thesis::select('title')
+        ->where('title', 'like', '%'.$searchInput.'%')
+        ->orderBy('id', 'desc')
+        ->limit(7)
+        ->get();
 
         return response()->json($titles);
     }

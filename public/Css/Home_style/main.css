@@ -76,6 +76,25 @@ body .content-wrapper .jti-logo {
     max-width: 100px;
   }
 }
+body .content-wrapper .search-wrapper {
+  z-index: 1000;
+}
+body .content-wrapper .search-wrapper.active {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+body .content-wrapper .search-wrapper.active .suggestion-box {
+  display: block;
+}
+body .content-wrapper .search-wrapper.active .suggestion-box .suggestion-item:hover {
+  background-color: #ea5455;
+  color: white;
+  cursor: pointer;
+}
+body .content-wrapper .suggestion-box {
+  display: none;
+  background-color: white;
+}
 body .content-wrapper .input-group {
   width: 100%;
   box-shadow: -1px 24px 26px -8px rgba(0, 0, 0, 0.15);
@@ -112,6 +131,15 @@ body .content-wrapper .main-content {
 @media (max-width: 575.98px) {
   body .content-wrapper .main-content {
     margin-top: 40%;
+  }
+}
+body .content-wrapper .content {
+  position: absolute;
+  margin-top: 70px;
+}
+@media (max-width: 767.98px) {
+  body .content-wrapper .content {
+    position: static;
   }
 }
 body .content-wrapper .content .filter-box {

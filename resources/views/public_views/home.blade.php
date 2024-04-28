@@ -20,20 +20,21 @@
 @endsection
 
 @section('main-content')
-<form action="{{route('home')}}">
-  <div class="col-lg-11 col-12">
-    <div class="input-group">
-      <input type="text" class="form-control py-2 px-3 search-input border-0 " placeholder="Search"
-        aria-label="Recipient's username" aria-describedby="basic-addon2" value="{{ request()->get('title')}}"
-        name="title" list="titleListOption" />
-      <datalist id="titleListOption" class="titleListOption">
-      </datalist>
-      <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
-        id="basic-addon2">
-        <i class="ri-search-line"></i>
-      </button>
+<form action="{{route('home')}}" class="form-search">
+  <div class="col-lg-11 col-12 position-relative">
+    <div class="search-wrapper position-absolute pb-2 rounded rounded-3 w-100">
+      <div class="input-group">
+        <input type="text" value="{{request()->get('title')}}" class="form-control py-2 px-3 search-input border-0"
+          placeholder="Search" name="title" />
+        <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
+          id="basic-addon2">
+          <i class="ri-search-line"></i>
+        </button>
+      </div>
+      <div class="suggestion-box mt-3 w-100">
+      </div>
     </div>
-    <div class="content d-md-flex mt-4">
+    <div class="content d-md-flex w-100 ">
       <div class="col-lg-2 col-12 col-md-3">
         <div class="filter-wrapper filter-box p-3">
           <div class="header-filter d-flex align-items-center gap-1">
@@ -93,7 +94,7 @@
         </div>
       </div>
       <div class="col-lg-10 ps-lg-4 mt-3 mt-md-0 ps-md-3 thesis-list-box">
-        <div class="pagination-nav">
+        <div class="pagination-nav mt-4 mt-lg-0">
           <span class="fw-light">Showing page {{$documents->currentPage() }} of about {{$documents->lastPage()}}
             pages</span>
         </div>
@@ -113,7 +114,11 @@
             </p>
           </div>
           @empty
-          <p class="text-center">Document Not Found</p>
+          <div class="thesis-item w-100">
+            <div class="thesis-title text-decoration-none mb-1 fw-semibold">
+              Document Not Found
+            </div>
+          </div>
           @endforelse
         </div>
         <div class="pagination-box d-flex justify-content-end">
@@ -126,23 +131,37 @@
 @endsection
 @push('js')
 <script>
+  $("body").on("click", () => {
+      $(".search-wrapper").removeClass("active");
+    });
+    
   $('.search-input').on('input', debounce(function (e) {
     let searchInput = e.target.value;
 
-    $.get("{{route('getSuggestionTitle')}}", {
+    if(searchInput == ''){
+      $('.suggestion-box').empty();
+    }else{
+      $.get("{{route('getSuggestionTitle')}}", {
       title : searchInput
     },
       function (data, textStatus, jqXHR) {
         if (data.length !== 0) {
-          $('#titleListOption').empty();
+          $('.suggestion-box').empty();
+          $('.search-wrapper').addClass('active')
         }
         data.forEach(e => {
-          $('#titleListOption').append($('<option>', {
-            value: e.title
-          }));
+          $('.suggestion-box').append(`<div class="suggestion-item py-2 ps-3">${e.title}</div>`)
+          });
+
+          $(".suggestion-item").on("click", (e) => {
+          $(".search-input").val(e.target.innerHTML);
+
+          $(".form-search").submit();
         }); 
       },
     );
+    }
+
   }, 300));
 
   $('.author-input').on('input', debounce(function (e) {

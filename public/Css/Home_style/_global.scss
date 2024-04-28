@@ -70,6 +70,30 @@ body {
             }
         }
 
+        .search-wrapper {
+            z-index: 1000;
+        }
+
+        .search-wrapper.active {
+            background-color: white;
+
+            .suggestion-box {
+                display: block;
+
+                .suggestion-item:hover {
+                    background-color: #ea5455;
+                    color: white;
+                    cursor: pointer;
+                }
+            }
+            box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        }
+
+        .suggestion-box {
+            display: none;
+            background-color: white;
+        }
+
         .input-group {
             width: 100%;
 
@@ -110,6 +134,11 @@ body {
         }
 
         .content {
+            position: absolute;
+            @include media-breakpoint-down(md) {
+                position: static;
+            }
+            margin-top: 70px;
             .filter-box {
                 background-color: white;
                 border-radius: 16px;
