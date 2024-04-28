@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
-class user extends Seeder
+class User extends Seeder
 {
     /**
      * Run the database seeds.
