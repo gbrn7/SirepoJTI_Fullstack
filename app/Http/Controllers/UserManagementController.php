@@ -67,8 +67,10 @@ class UserManagementController extends Controller
             $data['profile_picture'] = $fileName;
             $data['id_program_study'] = $data['program_study'];
 
-            User::create($data);
+            $user = User::create($data);
 
+            $user->assignRole('user');
+            
             return redirect()->route('user-management.index')->with('toast_success', 'User Added');
         } catch (\Throwable $th) {
             return redirect()
