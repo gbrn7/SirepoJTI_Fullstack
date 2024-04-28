@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +23,11 @@ class userController extends Controller
 
     public function editProfile(string $id)
     {
-        $user = User::find($id);
+        if(Auth::guard('admin')->check()){
+            $user = Admin::find($id);
+        }else{
+            $user = User::find($id);
+        };
 
         if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
@@ -32,7 +38,7 @@ class userController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'username' => 'nullable|string',
+            'username' => 'nullable|string|unique:users,username,'.$id.',id',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
             'old_password' => 'nullable',
             'new_password' => 'nullable|min:6',
@@ -47,7 +53,12 @@ class userController extends Controller
 
         $data = $validator->safe()->all();
 
-        $user = User::find($id);
+        if(Auth::guard('admin')->check()){
+            $user = Admin::find($id);
+        }else{
+            $user = User::find($id);
+        };
+
 
         if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
@@ -63,11 +74,11 @@ class userController extends Controller
             $file = $request->profile_picture;
             $fileName = Str::random(10).$file->getClientOriginalName();
             // Store new profile
-            $file->storeAs('public/Profile/', $fileName);
+            $file->storeAs('public/profile/', $fileName);
             $data['profile_picture'] = $fileName;
 
             // Delete old profile
-            Storage::delete('public/Profile/'.$user->profile_picture);
+            Storage::delete('public/profile/'.$user->profile_picture);
 
         }
 

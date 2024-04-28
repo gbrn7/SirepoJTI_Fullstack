@@ -65,6 +65,9 @@ body {
       }
 
       .table-wrapper {
+        @include media-breakpoint-down(md) {
+          overflow: auto;
+        }
         .dataTables_filter {
           display: none;
         }

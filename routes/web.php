@@ -6,6 +6,7 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MyDocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\UserManagementController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,7 @@ Route::group(['prefix' => 'home'], function() {
 });
 
 Route::resource('my-document', MyDocumentController::class);
+Route::resource('user-management', UserManagementController::class);
 
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');

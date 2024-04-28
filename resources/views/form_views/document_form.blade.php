@@ -1,6 +1,6 @@
 <div class="mb-2">
   <label class="form-label">Title</label>
-  <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter your title"
+  <input type="text" class="form-control" placeholder="Enter your title"
     value="{{old('title', isset($document) ? $document->title : '')}}" name="title" required />
 </div>
 <div class="mb-2">

@@ -6,7 +6,7 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">Adi Rahayu Edit Profile</div>
+  <div class="page-title mb-1">{{$user->name}} Profile</div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item align-items-center">

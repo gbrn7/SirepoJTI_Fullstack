@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('thesis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_category')->constrained('thesis_category');
-            $table->foreignId('id_user')->constrained('users');
+            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->string('file_name');
             $table->text('abstract');

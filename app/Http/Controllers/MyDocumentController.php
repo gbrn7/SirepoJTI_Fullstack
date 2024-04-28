@@ -124,12 +124,22 @@ class MyDocumentController extends Controller
         }
 
         try {
-            $newData = $validator->safe()->all();
             $oldData = Thesis::find($id);
-
+            
             if(!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
+            
+            $newData = [];
+            if($validator->safe()->title){
+                $newData['title'] = $validator->safe()->title;
+            }
+            if($validator->safe()->abstract){
+                $newData['abstract'] = $validator->safe()->abstract;
+            }
+            if($validator->safe()->category){
+                $newData['id_category'] = $newData['category'];
+            }
 
-            if($request->file){
+            if($validator->safe()->file){
                 // store new file
                 $file = $request->file;
                 $fileName = Str::random(10).$file->getClientOriginalName();
@@ -139,8 +149,6 @@ class MyDocumentController extends Controller
                 // Delete old file
                 Storage::delete('document/'.$oldData->file_name);
             }
-
-            $newData['id_category'] = $newData['category'];
 
             $oldData->update($newData);
 

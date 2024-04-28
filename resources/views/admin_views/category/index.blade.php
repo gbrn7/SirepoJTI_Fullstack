@@ -41,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="table-wrapper mb-2 pb-5 overflow-auto">
+  <div class="table-wrapper mb-2 pb-5">
     <table id="category-table" class="table mt-3 table-hover" style="width: 100%">
       <thead>
         <tr>
@@ -53,7 +53,7 @@
       <tbody id="tableBody">
         @forelse ($categories as $category)
         <tr>
-          <td>{{$loop->iteration}}</td>
+          <td>{{$category->id}}</td>
           <td>{{$category->category}}</td>
           <td class="d-flex gap-1">
             <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
@@ -142,8 +142,8 @@
         @method('delete')
         @csrf
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger">Hapus</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" id="deletecriteria" class="btn btn-danger">Delete</button>
       </form>
     </div>
   </div>
@@ -189,7 +189,9 @@
           table.search($(this).val()).draw();
       });
 
-      $('#category-table').DataTable();        
+      $('#category-table').DataTable( {
+      order: [[0, 'desc']]
+      });        
       @endif
 </script>
 @endpush
