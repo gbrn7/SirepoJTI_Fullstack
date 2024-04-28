@@ -77,7 +77,7 @@ body .content-wrapper .jti-logo {
   }
 }
 body .content-wrapper .search-wrapper {
-  z-index: 1000;
+  z-index: 900;
 }
 body .content-wrapper .search-wrapper.active {
   background-color: white;
