@@ -19,6 +19,6 @@ class ProgramStudy extends Model
     ];
 
     public function majority(){
-        return $this->belongsTo(majority::class, 'id_majority', 'id');
+        return $this->belongsTo(Majority::class, 'id_majority', 'id');
     }
 }
