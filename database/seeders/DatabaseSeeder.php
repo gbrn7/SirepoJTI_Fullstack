@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             ThesisCategory::class,
             Majority::class,
             ProgramStudy::class,
+            RolePermissionSeeder::class,
             User::class,
             Admin::class,
             thesis::class,

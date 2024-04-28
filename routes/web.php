@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
 
+Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
+Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
+Route::get('/signOut', [AuthController::class, 'logout'])->name('signIn.user.logout');
+Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+
 Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionTitle'])->name('getSuggestionTitle');
 Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
 
@@ -36,28 +41,34 @@ Route::group(['prefix' => 'home'], function() {
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::resource('categories', CategoryController::class)->only([
-        'index',
-        'store',
-        'update',
-        'destroy'
-    ]);
+    Route::group(['middleware' => ['auth:web,admin']], function() {
+        Route::group(['prefix' => 'user'], function() {
+            Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
+            Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
+        });
+    
+    
+        Route::resource('my-document', MyDocumentController::class)->middleware('role:user');
+    
+        Route::group(['middleware' => ['role:admin']], function() {
+            Route::resource('categories', CategoryController::class)->only([
+                'index',
+                'store',
+                'update',
+                'destroy'
+            ]);
+            
+            Route::resource('user-management', UserManagementController::class)->except('show');
+            
+            Route::resource('user-management.document-management', UserDocumentManagementController::class)->except('show');
+        });
 
-    Route::group(['prefix' => 'user'], function() {
-        Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
-        Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
     });
 });
 
-Route::resource('my-document', MyDocumentController::class);
-
-Route::resource('user-management', UserManagementController::class)->except('show');
-
-Route::resource('user-management.document-management', UserDocumentManagementController::class)->except('show');
-
-
-Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
-Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
-Route::get('/signOut', [AuthController::class, 'logout'])->name('signIn.user.logout');
-
-Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::any('/{any}', function () {
+    if(auth()->user()){
+      return redirect()->route('home');
+  }
+  return redirect()->route('signIn.user');
+  })->where('any', '.*');

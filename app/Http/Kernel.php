@@ -68,5 +68,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // SweetAlert
         'Alert' => \RealRashid\SweetAlert\Facades\Alert::class,
+        'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+        // 'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+        // 'roleOrPermission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
     ];
 }

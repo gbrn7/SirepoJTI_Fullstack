@@ -9,7 +9,7 @@
     <div class="dropdown">
       <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle"
         href="user-edit-profile.html" role="button" aria-current="page" data-bs-toggle="dropdown" aria-expanded="false">
-        @auth
+        @auth('web')
         <img src="{{asset('storage/Profile/'.(auth()->user()->profile_picture ? auth()->user()->profile_picture :
       'default.png'))}}" class="img-fluid img-avatar" />
         @endauth

@@ -3,9 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User as ModelsUser;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
 
 class user extends Seeder
@@ -15,7 +14,9 @@ class user extends Seeder
      */
     public function run(): void
     {
-        ModelsUser::insert([
+        $faker = Faker::create('id_ID'); //the argument is used for country code
+
+        $user = ModelsUser::create(
             [
             'id_program_study' => 1,
             'name' => 'Farhan',
@@ -24,16 +25,24 @@ class user extends Seeder
             'password' => Hash::make('userpass'),
             'created_at' => now(),
             'updated_at' => now()
-            ],
-            [
-            'id_program_study' => 2,
-            'name' => 'Khoir',
-            'username' => 'khoir12',
-            'email' => 'khoir123@gmail.com',
-            'password' => Hash::make('userpass'),
-            'created_at' => now(),
-            'updated_at' => now()
-            ],
-        ]);
+            ]
+        );
+        $user->assignRole('user');
+
+
+        for ($i=0; $i < 100; $i++) { 
+            $user = ModelsUser::create([
+                'id_program_study' => $faker->numberBetween(1,2),
+                'name' => $faker->name(),
+                'username' => $faker->userName(),
+                'email' => $faker->email(),
+                'password' => Hash::make('userpass'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            $user->assignRole('user');
+        }
+
     }
 }
