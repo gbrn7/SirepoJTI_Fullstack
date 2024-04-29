@@ -16,10 +16,17 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="{{asset('Css/Login_style/main.css')}}" />
+
+  {{-- Preload --}}
+  <link rel="stylesheet" href="{{asset('Css/Preloader/main.css')}}" />
+
 </head>
 
 <body>
   @include('sweetalert::alert')
+
+  {{-- Preloader --}}
+  @include('preloader.index')
 
   <section class="login row justify-content-between">
     <div class="content-left col-lg-7 d-none d-lg-block h-100" style="
@@ -56,7 +63,7 @@
                     placeholder="Masukan password" />
                 </div>
               </div>
-              <button class="btn login-btn mt-1 mt-lg-2" type="submit">
+              <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit">
                 Sign In
               </button>
               <a href="@yield('custom_link')"
@@ -71,8 +78,19 @@
     </div>
   </section>
 </body>
+{{-- jquery --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+  integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  $(document).ready(function () {
+  $('.loading-wrapper').addClass('d-none');
+  });
+</script>
 
 <!-- Bootstrap js -->
 <script src="{{asset('vendor/bootstrap-5.2/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('Js/preloader.js')}}"></script>
 
 </html>

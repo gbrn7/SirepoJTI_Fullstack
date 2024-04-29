@@ -82,10 +82,8 @@
          if (callNow) func.apply(context, args);
      };
 };
-</script>
 
-<script>
-  $(document).ready(function () {
+$(document).ready(function () {
   $('.loading-wrapper').addClass('d-none');
   });
 </script>
