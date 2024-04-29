@@ -134,11 +134,7 @@ body {
         }
 
         .content {
-            position: absolute;
-            @include media-breakpoint-down(md) {
-                position: static;
-            }
-            margin-top: 70px;
+            z-index: 800;
             .filter-box {
                 background-color: white;
                 border-radius: 16px;

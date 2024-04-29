@@ -134,13 +134,7 @@ body .content-wrapper .main-content {
   }
 }
 body .content-wrapper .content {
-  position: absolute;
-  margin-top: 70px;
-}
-@media (max-width: 767.98px) {
-  body .content-wrapper .content {
-    position: static;
-  }
+  z-index: 800;
 }
 body .content-wrapper .content .filter-box {
   background-color: white;

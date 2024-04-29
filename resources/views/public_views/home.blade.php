@@ -22,8 +22,8 @@
 @section('main-content')
 <form action="{{route('home')}}" class="form-search">
   <div class="col-lg-11 col-12 position-relative">
-    <div class="search-wrapper position-absolute pb-2 rounded rounded-3 w-100">
-      <div class="input-group">
+    <div class="search-wrapper position-relative rounded rounded-3 w-100">
+      <div class="input-group input-group-search position-relative">
         <input type="text" value="{{request()->get('title')}}" class="form-control py-2 px-3 search-input border-0"
           placeholder="Search" name="title" />
         <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
@@ -31,10 +31,10 @@
           <i class="ri-search-line"></i>
         </button>
       </div>
-      <div class="suggestion-box mt-3 w-100">
+      <div class="suggestion-box bg-white pb-2 pt-3 rounded-bottom rounded-3 position-absolute w-100">
       </div>
     </div>
-    <div class="content d-md-flex w-100 ">
+    <div class="content position-relative d-md-flex w-100 mt-3">
       <div class="col-lg-2 col-12 col-md-3">
         <div class="filter-wrapper filter-box p-3">
           <div class="header-filter d-flex align-items-center gap-1">

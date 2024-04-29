@@ -48,7 +48,7 @@
   @include('layouts.offcanvas')
 
   <!-- Footer -->
-  <div class="container-lg content-down footer-wrapper pt-3 pb-2 mt-2">
+  <div class="container-lg content-down footer-wrapper pt-3 pb-2 mt-3">
     @include('layouts.footer')
   </div>
 
