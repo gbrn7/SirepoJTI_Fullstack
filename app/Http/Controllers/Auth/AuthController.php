@@ -58,7 +58,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->with('toast_error', 'Username or Password invalid!');
+        return back()->with('toast_error', 'Username or password invalid!');
     }
 
     public function logout(Request $request)
@@ -73,6 +73,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('signIn.user')->with('toast_success', 'Berhasil Keluar');
+        return redirect()->route('signIn.user')->with('toast_success', 'Sign out success');
     }
 }
