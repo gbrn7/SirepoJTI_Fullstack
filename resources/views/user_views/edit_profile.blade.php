@@ -26,7 +26,7 @@
     @csrf
     <div class="mb-2">
       <label class="form-label">Username</label>
-      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Enter the username"
+      <input type="text" class="form-control" placeholder="Enter the username"
         value="{{old('username', $user->username)}}" name="username" />
     </div>
     <div class="mb-2">
@@ -35,18 +35,15 @@
     </div>
     <div class="mb-2">
       <label class="form-label">Old Password</label>
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter the password"
-        name="old_password" />
+      <input type="password" class="form-control" placeholder="Enter the password" name="old_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">New Password</label>
-      <input type="password" class="form-control" id="exampleFormControlInput1" placeholder="Enter the password"
-        name="new_password" />
+      <input type="password" class="form-control" placeholder="Enter the password" name="new_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">Repeat New Password</label>
-      <input type="password" class="form-control" id="exampleFormControlInput1"
-        placeholder="Enter your new password again" name="confirm_password" />
+      <input type="password" class="form-control" placeholder="Enter your new password again" name="confirm_password" />
     </div>
     <div class="wrapper d-flex justify-content-end">
       <button type="submit" class="btn btn-submit text-white px-5 btn-warning">Submit</button>
