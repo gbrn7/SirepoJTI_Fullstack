@@ -27,7 +27,7 @@
         <li class="rounded-2 dropdown-list">
           <form action="{{route('signIn.user.signOut')}}" method="POST">
             @csrf
-            <button type="submit" class="dropdown-item rounded-2 text-white"><i
+            <button type="submit" class="dropdown-item btn-submit rounded-2 text-white"><i
                 class="ri-logout-circle-line me-2 text-white"></i>Sign
               Out</button>
           </form>

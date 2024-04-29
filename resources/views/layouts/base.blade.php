@@ -88,6 +88,9 @@ $(document).ready(function () {
   });
 </script>
 
+
 @stack('js')
+
+<script src="{{asset('Js/preloader.js')}}"></script>
 
 </html>

@@ -93,36 +93,38 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-10 ps-lg-4 mt-3 mt-md-0 ps-md-3 thesis-list-box">
-        <div class="pagination-nav mt-4 mt-lg-0">
-          <span class="fw-light">Showing page {{$documents->currentPage() }} of about {{$documents->lastPage()}}
-            pages</span>
-        </div>
-        <div class="thesis-box mt-2 d-flex flex-column gap-2">
-          @forelse ($documents as $document)
-          <div class="thesis-item">
-            <a href="{{route('detail.document', $document->document_id)}}"
-              class="thesis-title text-decoration-none mb-1 fw-semibold">
-              {{$document->document_title}}
-            </a>
-            <a href="{{route('user.document', $document->user_id)}}"
-              class="d-block text-decoration-none thesis-author mb-1">
-              {{$document->user_name}} - {{$document->program_study_name}}
-            </a>
-            <p class="thesis-abstract mb-1">
-              {{$document->document_abstract}}
-            </p>
+      <div class="col-lg-10 ps-lg-4 mt-3 mt-md-0 ps-md-3 thesis-list-box d-flex flex-column justify-content-between">
+        <div class="thesis-list-content-up">
+          <div class="pagination-nav mt-4 mt-lg-0">
+            <span class="fw-light">Showing page {{$documents->currentPage() }} of about {{$documents->lastPage()}}
+              pages</span>
           </div>
-          @empty
-          <div class="thesis-item w-100">
-            <div class="thesis-title text-decoration-none mb-1 fw-semibold">
-              Document Not Found
+          <div class="thesis-box mt-2 d-flex flex-column gap-2">
+            @forelse ($documents as $document)
+            <div class="thesis-item">
+              <a href="{{route('detail.document', $document->document_id)}}"
+                class="thesis-title text-decoration-none mb-1 fw-semibold">
+                {{$document->document_title}}
+              </a>
+              <a href="{{route('user.document', $document->user_id)}}"
+                class="d-block text-decoration-none thesis-author mb-1">
+                {{$document->user_name}} - {{$document->program_study_name}}
+              </a>
+              <p class="thesis-abstract mb-1">
+                {{$document->document_abstract}}
+              </p>
             </div>
+            @empty
+            <div class="thesis-item w-100">
+              <div class="thesis-title text-decoration-none mb-1 fw-semibold">
+                Document Not Found
+              </div>
+            </div>
+            @endforelse
           </div>
-          @endforelse
         </div>
         <div class="pagination-box d-flex justify-content-end">
-          {{$documents->links('pagination::bootstrap-4')}}
+          {{$documents->links('pagination::simple-bootstrap-5')}}
         </div>
       </div>
     </div>

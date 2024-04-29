@@ -195,5 +195,4 @@
       @endif
 </script>
 
-<script src="{{asset('Js/preloader.js')}}"></script>
 @endpush

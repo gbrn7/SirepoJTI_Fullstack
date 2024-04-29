@@ -42,5 +42,5 @@
     ? 'required' : '' }} />
 </div>
 <div class="wrapper d-flex justify-content-end">
-  <button class="btn btn-submit text-white px-5 btn-warning">Submit</button>
+  <button class="btn btn-submit text-white px-5 btn-warning" type="submit">Submit</button>
 </div>

@@ -91,7 +91,7 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger">Delete</button>
+          <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Delete</button>
       </form>
     </div>
   </div>

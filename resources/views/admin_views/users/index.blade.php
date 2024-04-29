@@ -42,7 +42,7 @@
       </form>
     </div>
   </div>
-  <div class="table-wrapper mb-2 pb-5 overflow-auto">
+  <div class="table-wrapper mb-2 overflow-auto">
     <table id="category-table" class="table mt-3 table-hover" style="width: 100%">
       <thead>
         <tr>
@@ -78,7 +78,7 @@
     </table>
   </div>
   <div class="pagination-box d-flex justify-content-end">
-    {{$users->links('pagination::bootstrap-4')}}
+    {{$users->links('pagination::simple-bootstrap-5')}}
   </div>
 </div>
 
@@ -99,7 +99,7 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger">Delete</button>
+          <button type="submit" id="deletecriteria" class="btn btn-danger btn-submit">Delete</button>
       </form>
     </div>
   </div>
