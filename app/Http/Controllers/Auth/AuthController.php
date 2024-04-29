@@ -61,7 +61,7 @@ class AuthController extends Controller
         return back()->with('toast_error', 'Username or password invalid!');
     }
 
-    public function logout(Request $request)
+    public function signOut(Request $request)
     {
         if(Auth::guard('web')->check()){
             Auth::guard('web')->logout();

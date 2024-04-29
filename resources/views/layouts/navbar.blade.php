@@ -25,9 +25,12 @@
             href=""><i class="ri-user-3-line me-2 text-white"></i>Edit Profile</a>
         </li>
         <li class="rounded-2 dropdown-list">
-          <a href="{{route('signIn.user.logout')}}" class="dropdown-item rounded-2 text-white"><i
-              class="ri-logout-circle-line me-2 text-white"></i>Sign
-            Out</a>
+          <form action="{{route('signIn.user.signOut')}}" method="POST">
+            @csrf
+            <button type="submit" class="dropdown-item rounded-2 text-white"><i
+                class="ri-logout-circle-line me-2 text-white"></i>Sign
+              Out</button>
+          </form>
         </li>
       </ul>
     </div>

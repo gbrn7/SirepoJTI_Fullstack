@@ -26,7 +26,7 @@ Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
 
 Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
-Route::get('/signOut', [AuthController::class, 'logout'])->name('signIn.user.logout');
+Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.signOut');
 Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
 
 Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionTitle'])->name('getSuggestionTitle');
