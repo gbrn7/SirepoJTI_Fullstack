@@ -9,10 +9,10 @@
   <link rel="icon" type="image/x-icon" href="{{asset('img/jti_logo.png')}}" />
 
   <!-- CSS Bootsrap-->
-  <link rel="stylesheet" href="{{asset('Vendor/bootstrap-5.2/css/bootstrap.min.css')}}" />
+  <link rel="stylesheet" href="{{asset('vendor/bootstrap-5.2/css/bootstrap.min.css')}}" />
 
   <!-- Link Remixicon -->
-  <link rel="stylesheet" href="{{asset('Vendor/RemixIcon-master/fonts/remixicon.css')}}" />
+  <link rel="stylesheet" href="{{asset('vendor/RemixIcon-master/fonts/remixicon.css')}}" />
 
   <!-- CSS -->
   <link rel="stylesheet" href="@yield('custom_css_link')" />
@@ -64,7 +64,7 @@
 <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 
 <!-- Bootstrap js -->
-<script src="{{asset('Vendor/bootstrap-5.2/js/bootstrap.bundle.min.js')}}"></script>
+<script src="{{asset('vendor/bootstrap-5.2/js/bootstrap.bundle.min.js')}}"></script>
 
 {{-- Global --}}
 <script>
