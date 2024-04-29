@@ -61,7 +61,7 @@ class MyDocumentController extends Controller
 
             // store file
             $file = $request->file;
-            $fileName = Str::random(10).$file->getClientOriginalName();
+            $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
             $file->storeAs('document/', $fileName);
 
             $data['file_name'] = $fileName;
@@ -141,7 +141,7 @@ class MyDocumentController extends Controller
             if($request->file){
                 // store new file
                 $file = $request->file;
-                $fileName = Str::random(10).$file->getClientOriginalName();
+                $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
                 $newData['file_name'] = $fileName;
                 $file->storeAs('document/', $fileName);
 

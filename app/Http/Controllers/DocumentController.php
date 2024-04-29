@@ -32,6 +32,7 @@ class DocumentController extends Controller
         $file = Storage::get('document/'.$document->file_name);
         $response = Response::make($file, 200);  
         $response->header('Content-Type', 'application/pdf');  
+        
         return $response; 
         
         // Stream PDF
