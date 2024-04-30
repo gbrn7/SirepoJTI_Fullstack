@@ -50,6 +50,7 @@
           <th class="text-white fw-medium">Name</th>
           <th class="text-white fw-medium">Username</th>
           <th class="text-white fw-medium">Email</th>
+          <th class="text-white fw-medium">Document Count</th>
           <th class="text-white fw-medium">Action</th>
         </tr>
       </thead>
@@ -60,6 +61,7 @@
           <td>{{$user->name}}</td>
           <td>{{$user->username}}</td>
           <td>{{$user->email}}</td>
+          <td>{{$user->document_count}}</td>
           <td class="d-flex gap-1">
             <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
               data-name="{{$user->name}}" data-delete-link="{{route('user-management.destroy', $user->id)}}">

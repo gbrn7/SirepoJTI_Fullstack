@@ -47,7 +47,8 @@ class HomeController extends Controller
         })
         ->join('users as u', 'u.id', 't.id_user')
         ->join('program_study as ps', 'ps.id', 'u.id_program_study')
-        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name')
+        ->join('thesis_category as c', 'c.id', 't.id_category')
+        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication')
         ->orderBy('t.id', 'desc')
         ->paginate(5);
 

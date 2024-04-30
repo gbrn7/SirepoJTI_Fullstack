@@ -46,7 +46,7 @@
       <thead>
         <tr>
           <th class="text-white fw-medium">No.</th>
-          <th class="text-white fw-medium">Tite</th>
+          <th class="text-white fw-medium">Title</th>
           <th class="text-white fw-medium">Action</th>
         </tr>
       </thead>

@@ -21,8 +21,9 @@ class UserManagementController extends Controller
                 ->when($request->author, function($query) use ($request){
                     return $query->where('name', $request->author);
                 })
+                ->withCount('document')
                 ->paginate(10);
-
+                
         return view('admin_views.users.index', compact('users'));
     }
 
