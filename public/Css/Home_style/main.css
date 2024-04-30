@@ -166,10 +166,10 @@ body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis
 body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-title:hover {
   text-decoration: underline !important;
 }
-body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-author:hover {
+body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item a.thesis-identity:hover {
   text-decoration: underline !important;
 }
-body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-author {
+body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-identity {
   font-size: 12px;
   color: #f07b3f;
 }

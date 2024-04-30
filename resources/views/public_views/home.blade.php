@@ -106,10 +106,10 @@
                 class="thesis-title text-decoration-none mb-1 fw-semibold">
                 {{$document->document_title}}
               </a>
-              <p class="my-0 thesis-author">{{$document->document_category}} - {{date('Y',
+              <p class="my-0 thesis-identity">{{$document->document_category}} - {{date('Y',
                 strtotime($document->publication))}}</p>
               <a href="{{route('user.document', $document->user_id)}}"
-                class="d-block text-decoration-none thesis-author mb-1">
+                class="d-block text-decoration-none thesis-identity mb-1">
                 {{$document->user_name}} - {{$document->program_study_name}}
               </a>
               <p class="thesis-abstract mb-1">
