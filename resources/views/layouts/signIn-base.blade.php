@@ -57,10 +57,11 @@
                 <small class="form-text mt-1 text-danger">{{ $message }}</small>
                 @enderror
               </div>
-              <div class="password-container">
+              <div class="password-container position-relative">
                 <div class="pass-wrapper">
-                  <input name="password" type="password" class="form-control text-" id="password"
+                  <input name="password" type="password" class="form-control" id="password"
                     placeholder="Masukan password" />
+                  <i class="ri-eye-close-fill pass-icon eye-pass position-absolute"></i>
                 </div>
               </div>
               <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit">
@@ -87,6 +88,13 @@
   $(document).ready(function () {
   $('.loading-wrapper').addClass('d-none');
   });
+
+  $('.pass-icon').click(function (e) { 
+    e.preventDefault();
+    $('.pass-icon').toggleClass('ri-eye-fill');
+    $('#password').prop("type") == 'password' ?  $('#password').attr('type', 'text') :  $('#password').attr('type', 'password'); 
+  });
+
 </script>
 
 <!-- Bootstrap js -->
