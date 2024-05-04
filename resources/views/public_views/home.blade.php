@@ -26,7 +26,7 @@
       <div class="input-group input-group-search position-relative">
         <input type="text" value="{{request()->get('title')}}" class="form-control py-2 px-3 search-input border-0"
           placeholder="Search" name="title" />
-        <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
+        <button type="submit" class="input-group-text btn btn-danger btn-submit d-flex align-items-center fs-5 px-3"
           id="basic-addon2">
           <i class="ri-search-line"></i>
         </button>
@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="footer-filter d-flex justify-content-center mt-3 pt-1">
-            <button type="submit" class="btn btn-apply px-4 py-2 fw-medium">
+            <button type="submit" class="btn btn-submit btn-apply px-4 py-2 fw-medium">
               Apply Filter
             </button>
           </div>

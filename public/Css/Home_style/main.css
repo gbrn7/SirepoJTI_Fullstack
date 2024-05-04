@@ -83,6 +83,9 @@ body .content-wrapper .jti-logo {
 body .content-wrapper .search-wrapper {
   z-index: 900;
 }
+body .content-wrapper .btn-danger {
+  background-color: #ea5455 !important;
+}
 body .content-wrapper .search-wrapper.active {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;

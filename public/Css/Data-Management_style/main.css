@@ -43,6 +43,9 @@ body .content-wrapper .breadcrumbs-box .breadcrumb-item a {
 body .content-wrapper .breadcrumbs-box .breadcrumb-item.active {
   color: #648bbf;
 }
+body .content-wrapper .btn-danger {
+  background-color: #ea5455 !important;
+}
 body .content-wrapper .input-group {
   width: 100%;
   box-shadow: -1px 24px 26px -8px rgba(0, 0, 0, 0.15);
