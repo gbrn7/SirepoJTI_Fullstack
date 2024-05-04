@@ -78,7 +78,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="6" class="text-center">User Not Found</td>
+          <td colspan="6" class="text-center">No matching records found</td>
         </tr>
         @endforelse
       </tbody>
