@@ -73,7 +73,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="3" class="text-center">Document Not Found</td>
+          <td colspan="6" class="text-center">No matching records found</td>
         </tr>
         @endforelse
       </tbody>
