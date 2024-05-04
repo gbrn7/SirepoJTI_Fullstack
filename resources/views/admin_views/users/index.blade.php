@@ -37,8 +37,12 @@
     <div class="wrapper mt-2 mt-lg-0">
       <form class="form" action="{{route('user-management.index')}}">
         <div class="input-group">
-          <input type="text" class="form-control py-2 px-3 author-input search-input border-0" placeholder="Search"
-            name="author" value="{{ request()->get('author')}}" />
+          <div class="wrapper">
+
+            <input type="text" placeholder="Author" list="userListOption" class="form-control author-input year-input"
+              name="author" value="{{ request()->get('author')}}" />
+            <datalist id="userListOption" class="userListOption">
+          </div>
           <button type="submit" class="input-group-text  btn btn-danger d-flex align-items-center fs-5 px-3"
             id="basic-addon2">
             <i class="ri-search-line"></i>
@@ -175,11 +179,11 @@
     },
       function (data, textStatus, jqXHR) {
         if (data.length !== 0) {
-          $('#authorListOption').empty();
+          $('#userListOption').empty();
         }
         data.forEach(e => {
-          $('#authorListOption').append($('<option>', {
-            value: e.title
+          $('#userListOption').append($('<option>', {
+            value: e.name
           }));
         }); 
       },
