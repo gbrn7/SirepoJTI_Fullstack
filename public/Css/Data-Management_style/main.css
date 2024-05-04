@@ -50,6 +50,22 @@ body .content-wrapper .input-group {
 body .content-wrapper .main-content .dataTables_paginate .pagination {
   justify-content: end;
 }
+body .content-wrapper .main-content .img-avatar {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+body .content-wrapper .main-content .field-wrapper {
+  width: 130px;
+  overflow: hidden;
+}
+@media (max-width: 767.98px) {
+  body .content-wrapper .main-content .identity-box {
+    overflow: hidden;
+    font-size: 12px;
+  }
+}
 @media (max-width: 767.98px) {
   body .content-wrapper .main-content .table-wrapper {
     overflow: auto;

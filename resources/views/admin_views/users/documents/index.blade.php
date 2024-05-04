@@ -23,6 +23,30 @@
 
 @section('main-content')
 <div class="main-content">
+  <div class="identity-wrapper d-flex mt-3 gap-4 align-items-center">
+    <div class="col-md-2 col-3">
+      <img src="{{asset('storage/Profile/'.($user->profile_picture ? $user->profile_picture : 'default.png'))}}"
+        class="img-avatar img-fluid" />
+    </div>
+    <div class="identity-box w-100 d-flex flex-column gap-2">
+      <p class="author d-block mb-0 d-md-flex"><span class="field-wrapper d-flex justify-content-between">Name
+          <span>:</span></span>
+        <span class="ms-md-2 mt-1 mt-md-0">{{$user->name}}</span>
+      </p>
+      <p class="username d-block mb-0 d-md-flex ls-s"><span
+          class="field-wrapper d-flex justify-content-between">username
+          <span>:</span></span> <span class="ms-md-2 mt-1 mt-md-0">{{$user->username}}</span>
+      </p>
+      <p class="prody d-block mb-0 d-md-flex ls-s"><span class="field-wrapper d-flex justify-content-between">Program
+          Study
+          <span>:</span></span>
+        <span class="ms-md-2 mt-1 mt-md-0">{{$user->programStudy->name}}</span>
+      </p>
+      <p class="departement d-block mb-0 d-md-flex ls-s"><span
+          class="field-wrapper d-flex justify-content-between">Majority
+          <span>:</span></span><span class="ms-md-2 mt-1 mt-md-0">{{$user->programStudy->majority->name}}</span></p>
+    </div>
+  </div>
   <div class="action-wrapper d-lg-flex mt-3 justify-content-between align-items-baseline">
     <div class="wrapper">
       <a href="{{route('user-management.document-management.create', $user->id)}}" class="btn btn-success">

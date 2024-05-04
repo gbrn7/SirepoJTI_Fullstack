@@ -65,6 +65,24 @@ body {
         }
       }
 
+      .img-avatar {
+        aspect-ratio: 1;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .field-wrapper {
+        width: 130px;
+        overflow: hidden;
+      }
+
+      .identity-box {
+        @include media-breakpoint-down(md) {
+          overflow: hidden;
+          font-size: 12px;
+        }
+      }
+
       .table-wrapper {
         @include media-breakpoint-down(md) {
           overflow: auto;
