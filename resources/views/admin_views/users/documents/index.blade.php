@@ -25,7 +25,7 @@
 <div class="main-content">
   <div class="identity-wrapper d-flex mt-3 gap-4 align-items-center">
     <div class="col-md-2 col-3">
-      <img src="{{asset('storage/Profile/'.($user->profile_picture ? $user->profile_picture : 'default.png'))}}"
+      <img src="{{asset('storage/profile/'.($user->profile_picture ? $user->profile_picture : 'default.png'))}}"
         class="img-avatar img-fluid" />
     </div>
     <div class="identity-box w-100 d-flex flex-column gap-2">
