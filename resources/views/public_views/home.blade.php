@@ -48,7 +48,7 @@
                 @php($idCategories = collect(request()->get('id_category')))
                 @foreach ($categories as $category)
                 <div class="checkbox-group d-flex gap-1">
-                  <input type="checkbox" class="checkbox" name="id_category[]" value="{{$category->id}}"
+                  <input type="checkbox" class="checkbox category-input" name="id_category[]" value="{{$category->id}}"
                     @checked($idCategories->search($category->id) !== false ? true :false)>
                   <label class="fw-light filter-label text-truncate">{{$category->category}}</label>
                 </div>
@@ -106,12 +106,23 @@
                 class="thesis-title text-decoration-none mb-1 fw-semibold">
                 {{$document->document_title}}
               </a>
-              <p class="my-0 thesis-identity">{{$document->document_category}} - {{date('Y',
-                strtotime($document->publication))}}</p>
-              <a href="{{route('user.document', $document->user_id)}}"
-                class="d-block text-decoration-none thesis-identity mb-1">
-                {{$document->user_name}} - {{$document->program_study_name}}
-              </a>
+              <div class="link-wrapper">
+                <div class="wrapper orange">
+                  <a href="{{route('home', ['id_category' => [$document->category_id]])}}"
+                    class="thesis-identity category-link text-decoration-none">{{$document->document_category}}</a> -
+                  <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
+                  strtotime($document->publication)), 'publication_until' => date('Y',
+                  strtotime($document->publication))] )}}" class="thesis-identity year-link">
+                    {{date('Y',
+                    strtotime($document->publication))}}</a>
+                </div>
+                <div class="wrapper orange">
+                  <a href="{{route('user.document', $document->user_id)}}"
+                    class="text-decoration-none thesis-identity">{{$document->user_name}}</a>
+                  - <a href="{{route('home', ['id_program_study' => [$document->program_study_id]])}}"
+                    class="thesis-identity text-decoration-none">{{$document->program_study_name}}</a>
+                </div>
+              </div>
               <p class="thesis-abstract mb-1">
                 {{$document->document_abstract}}
               </p>
@@ -138,6 +149,7 @@
   $("body").on("click", () => {
       $(".search-wrapper").removeClass("active");
     });
+    
     
   $('.search-input').on('input', debounce(function (e) {
     let searchInput = e.target.value;
@@ -180,7 +192,7 @@
         }
         data.forEach(e => {
           $('#authorListOption').append($('<option>', {
-            value: e.title
+            value: e.name
           }));
         }); 
       },

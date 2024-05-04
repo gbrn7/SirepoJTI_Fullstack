@@ -5,6 +5,7 @@ body {
   scroll-behavior: smooth;
   background-color: #f5f5f5;
   min-height: 100dvh;
+  overflow: scroll;
 
   p {
     color: #2d4059;
@@ -19,6 +20,9 @@ body {
   }
 
   .content-wrapper {
+    .orange {
+      color: #f07b3f;
+    }
     .breadcrumbs-box {
       border-bottom: 0.5px solid #8d8d8d;
       .page-title {
@@ -67,6 +71,10 @@ body {
           }
         }
 
+        .thesis-identity:hover {
+          text-decoration: underline !important;
+        }
+
         .thesis-identity {
           color: #f07b3f;
           letter-spacing: -0.5px;
@@ -76,7 +84,7 @@ body {
           }
         }
 
-        .thesis-author:hover {
+        a.thesis-author:hover {
           text-decoration: underline !important;
         }
       }

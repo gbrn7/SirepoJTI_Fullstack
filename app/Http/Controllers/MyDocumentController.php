@@ -83,7 +83,9 @@ class MyDocumentController extends Controller
      */
     public function show(string $id)
     {
-        $document = Thesis::with('user.programStudy.majority')->find($id);
+        $document = Thesis::with('user.programStudy.majority')
+                    ->with('category')
+                    ->find($id);
 
         if(!$document) return back()->with('toast_error', 'Document Not Found');
 

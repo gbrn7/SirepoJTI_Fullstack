@@ -5,9 +5,14 @@ body {
     scroll-behavior: smooth;
     background-color: #f5f5f5;
     min-height: 100dvh;
+    overflow: scroll;
 
     p {
         color: #2d4059;
+    }
+
+    .orange {
+        color: #f07b3f;
     }
 
     .content-wrapper {
@@ -173,13 +178,18 @@ body {
                             text-decoration: underline !important;
                         }
 
-                        a.thesis-identity:hover {
+                        .thesis-identity:hover {
                             text-decoration: underline !important;
+                        }
+
+                        .link-wrapper {
+                            font-size: 12px;
                         }
 
                         .thesis-identity {
                             font-size: 12px;
                             color: #f07b3f;
+                            cursor: pointer;
                         }
 
                         .thesis-abstract {

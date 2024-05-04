@@ -5,6 +5,7 @@ body {
   scroll-behavior: smooth;
   background-color: #f5f5f5;
   height: 100dvh;
+  overflow: scroll;
 
   p {
     color: #2d4059;
@@ -103,11 +104,11 @@ body {
               text-decoration: underline !important;
             }
 
-            .thesis-author:hover {
+            a.thesis-identity:hover {
               text-decoration: underline !important;
             }
 
-            .thesis-author {
+            .thesis-identity {
               font-size: 12px;
               color: #f07b3f;
             }

@@ -25,13 +25,24 @@
   <div class="header-content">
     <div class="thesis-title fw-semibold text-capitalize">
       {{$document->title}}
-
     </div>
-    <a href={{route('user.document', $document->user->id)}} class="d-block text-decoration-none thesis-author mb-1
-      thesis-identity" mt-1
-      fw-normal">
-      {{$document->user->name}} - {{$document->user->programStudy->name}}
-    </a>
+    <div class="link-wrapper">
+      <div class="wrapper orange">
+        <a href="{{route('home', ['id_category' => [$document->category->id]])}}"
+          class="thesis-identity category-link text-decoration-none">{{$document->category->category}}</a> -
+        <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
+        strtotime($document->created_at)), 'publication_until' => date('Y',
+        strtotime($document->updated_at))] )}}" class="thesis-identity year-link">
+          {{date('Y',
+          strtotime($document->updated_at))}}</a>
+      </div>
+      <div class="wrapper orange">
+        <a href="{{route('user.document', $document->id_user)}}"
+          class="text-decoration-none thesis-identity">{{$document->user->name}}</a>
+        - <a href="{{route('home', ['id_program_study' => [$document->user->programStudy->id]])}}"
+          class="thesis-identity text-decoration-none">{{$document->user->programStudy->name}}</a>
+      </div>
+    </div>
   </div>
   <div class="body-content mt-3">
     <ul class="nav nav-tabs" id="myTab" role="tablist">

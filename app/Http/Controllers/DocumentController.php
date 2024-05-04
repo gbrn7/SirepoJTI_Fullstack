@@ -13,7 +13,7 @@ class DocumentController extends Controller
 {
     public function detailDocument($id)
     {
-        $document = Thesis::with('user.programStudy.majority')->find($id);
+        $document = Thesis::with('user.programStudy.majority')->with('category')->find($id);
 
         if(!$document) return back()->with('toast_error', 'Document Not Found');
 
@@ -69,10 +69,12 @@ class DocumentController extends Controller
 
         $document = $user
                     ->document()
+                    ->join('thesis_category', 'thesis_category.id', 'thesis.id')
                     ->when($request->only('title'), function($query) use ($request){
                         return $query->where('title', 'like', '%'.$request->title.'%');
                     })
-                    ->orderBy('id', 'desc')
+                    ->orderBy('thesis.id', 'desc')
+                    ->selectRaw('thesis.id as thesis_id, thesis_category.id as category_id, thesis.title as title, thesis.abstract as abstract, thesis.created_at as publication, thesis_category.category as document_category')
                     ->paginate(10);
 
         return compact('user', 'document');

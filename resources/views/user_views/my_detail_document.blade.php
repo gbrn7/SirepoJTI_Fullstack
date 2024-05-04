@@ -29,7 +29,9 @@
     <div class="thesis-title fw-semibold text-capitalize">
       {{$document->title}}
     </div>
-    <a href="{{route('my-document.index')}}" class="d-block text-decoration-none thesis-author mb-1 thesis-identity mt-1
+    <p class="my-0 thesis-identity">{{$document->category->category}} - {{date('Y',
+      strtotime($document->created_at))}}</p>
+    <a href="{{route('my-document.index')}}" class="d-block text-decoration-none thesis-author mb-1 thesis-identity
       fw-normal">
       {{$document->user->name}} - {{$document->user->programStudy->name}}
     </a>

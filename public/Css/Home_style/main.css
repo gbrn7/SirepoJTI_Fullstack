@@ -6,9 +6,13 @@ body {
   scroll-behavior: smooth;
   background-color: #f5f5f5;
   min-height: 100dvh;
+  overflow: scroll;
 }
 body p {
   color: #2d4059;
+}
+body .orange {
+  color: #f07b3f;
 }
 body .content-wrapper {
   background-color: transparent !important;
@@ -166,12 +170,16 @@ body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis
 body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-title:hover {
   text-decoration: underline !important;
 }
-body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item a.thesis-identity:hover {
+body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-identity:hover {
   text-decoration: underline !important;
+}
+body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .link-wrapper {
+  font-size: 12px;
 }
 body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-identity {
   font-size: 12px;
   color: #f07b3f;
+  cursor: pointer;
 }
 body .content-wrapper .content .thesis-list-box .thesis-box .thesis-item .thesis-abstract {
   font-size: 12px;

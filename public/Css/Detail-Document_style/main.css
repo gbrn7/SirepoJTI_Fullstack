@@ -6,6 +6,7 @@ body {
   scroll-behavior: smooth;
   background-color: #f5f5f5;
   min-height: 100dvh;
+  overflow: scroll;
 }
 body p {
   color: #2d4059;
@@ -15,6 +16,9 @@ body .ls-b {
 }
 body .ls-s {
   letter-spacing: -0.5px;
+}
+body .content-wrapper .orange {
+  color: #f07b3f;
 }
 body .content-wrapper .breadcrumbs-box {
   border-bottom: 0.5px solid #8d8d8d;
@@ -59,6 +63,9 @@ body .content-wrapper .main-content .header-content .thesis-title {
     letter-spacing: 0px;
   }
 }
+body .content-wrapper .main-content .header-content .thesis-identity:hover {
+  text-decoration: underline !important;
+}
 body .content-wrapper .main-content .header-content .thesis-identity {
   color: #f07b3f;
   letter-spacing: -0.5px;
@@ -68,7 +75,7 @@ body .content-wrapper .main-content .header-content .thesis-identity {
     font-size: 14px;
   }
 }
-body .content-wrapper .main-content .header-content .thesis-author:hover {
+body .content-wrapper .main-content .header-content a.thesis-author:hover {
   text-decoration: underline !important;
 }
 body .content-wrapper .main-content .body-content .nav-tabs .nav-link.active {

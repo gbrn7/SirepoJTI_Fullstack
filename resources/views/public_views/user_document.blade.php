@@ -59,10 +59,11 @@
       <div class="thesis-box mt-2 d-flex flex-column gap-2">
         @forelse ($document as $item)
         <div class="thesis-item">
-          <a href="{{route('detail.document', $item->id)}}" class="thesis-title text-decoration-none mb-1 fw-semibold">
+          <a href="{{route('detail.document', $item->thesis_id)}}"
+            class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
-          <a href="{{route('user.document', $item->id_user)}}" class="d-block text-decoration-none thesis-author mb-1">
+          <a href="{{route('user.document', $user->id)}}" class="d-block text-decoration-none thesis-author mb-1">
             {{$user->username}} - {{$user->programStudy->name}}
           </a>
           <p class="thesis-abstract mb-1">

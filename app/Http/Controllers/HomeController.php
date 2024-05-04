@@ -27,6 +27,7 @@ class HomeController extends Controller
             'publication_from' => $request->publication_from ? Carbon::createFromDate($request->publication_from, 1)->startOfYear() : null,
             'publication_until' => $request->publication_until ? Carbon::createFromDate($request->publication_until, 1)->endOfYear() : null,
         ];
+
         
         $documents = DB::table('thesis as t')
         ->where('t.title', 'like', '%'.$searchParams['title'].'%')
@@ -48,7 +49,7 @@ class HomeController extends Controller
         ->join('users as u', 'u.id', 't.id_user')
         ->join('program_study as ps', 'ps.id', 'u.id_program_study')
         ->join('thesis_category as c', 'c.id', 't.id_category')
-        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication')
+        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication, c.id as category_id, ps.id as program_study_id')
         ->orderBy('t.id', 'desc')
         ->paginate(5);
 
