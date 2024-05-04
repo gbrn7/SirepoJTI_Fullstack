@@ -2,7 +2,7 @@
 
 @section('title', 'Category Management')
 
-@section('custom_css_link', asset('Css/Data-Management_style/main.css'))
+@section('custom_css_link', asset('css/Data-Management_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">

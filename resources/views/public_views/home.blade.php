@@ -2,7 +2,7 @@
 
 @section('title', 'Home')
 
-@section('custom_css_link', asset('Css/Home_style/main.css'))
+@section('custom_css_link', asset('css/Home_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">

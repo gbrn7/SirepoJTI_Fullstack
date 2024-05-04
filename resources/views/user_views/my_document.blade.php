@@ -2,7 +2,7 @@
 
 @section('title', 'My Document')
 
-@section('custom_css_link', asset('Css/User-Document_style/main.css'))
+@section('custom_css_link', asset('css/User-Document_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">

@@ -2,7 +2,7 @@
 
 @section('title', 'Edit Profile')
 
-@section('custom_css_link', asset('Css/Form_style/main.css'))
+@section('custom_css_link', asset('css/Form_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">

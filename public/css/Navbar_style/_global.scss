@@ -1,0 +1,23 @@
+.navbar {
+    p {
+        color: #2d4059;
+    }
+    span {
+        color: #2d4059;
+    }
+
+    .dropdown-menu {
+        background-color: #2d4059;
+    }
+
+    .dropdown-item:hover {
+        background-color: #b14e56;
+    }
+
+    .img-avatar {
+        height: 50px;
+        width: 50px;
+        border-radius: 100px;
+        object-fit: cover;
+    }
+}

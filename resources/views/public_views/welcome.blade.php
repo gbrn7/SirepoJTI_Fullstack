@@ -2,7 +2,7 @@
 
 @section('title', 'Welcome')
 
-@section('custom_css_link', asset('Css/Home_style/main.css'))
+@section('custom_css_link', asset('css/Home_style/main.css'))
 
 @section('main-content')
 <form action="{{route('home')}}" class="form-search">
