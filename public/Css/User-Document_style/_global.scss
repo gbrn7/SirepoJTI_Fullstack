@@ -11,6 +11,10 @@ body {
     color: #2d4059;
   }
 
+  .orange {
+    color: #f07b3f;
+  }
+
   .ls-b {
     letter-spacing: -1px;
   }
@@ -104,13 +108,17 @@ body {
               text-decoration: underline !important;
             }
 
-            a.thesis-identity:hover {
+            .thesis-identity:hover {
               text-decoration: underline !important;
             }
 
             .thesis-identity {
               font-size: 12px;
               color: #f07b3f;
+            }
+
+            .link-wrapper {
+              font-size: 12px;
             }
 
             .thesis-abstract {

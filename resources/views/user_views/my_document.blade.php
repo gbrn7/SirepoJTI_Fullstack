@@ -71,12 +71,22 @@
             class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
-          <p class="my-0 thesis-identity">{{$item->document_category}} - {{date('Y',
-            strtotime($item->publication))}}</p>
-          <a href="{{route('my-document.index')}}"
-            class="d-block thesis-identity text-decoration-none thesis-author mb-1">
-            {{$user->username}} - {{$user->programStudy->name}}
-          </a>
+          <div class="link-wrapper">
+            <div class="wrapper orange">
+              <a href="{{route('home', ['id_category' => [$item->category_id]])}}"
+                class="thesis-identity category-link text-decoration-none">{{$item->document_category}}</a> -
+              <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
+              strtotime($item->publication)), 'publication_until' => date('Y',
+              strtotime($item->publication))] )}}" class="thesis-identity year-link">
+                {{date('Y',
+                strtotime($item->publication))}}</a>
+            </div>
+            <div class="wrapper orange">
+              <a href="{{route('my-document.index')}}" class="text-decoration-none thesis-identity">{{$user->name}}</a>
+              - <a href="{{route('home', ['id_program_study' => [$user->programStudy->id]])}}"
+                class="thesis-identity text-decoration-none">{{$user->programStudy->name}}</a>
+            </div>
+          </div>
           <p class="thesis-abstract mb-1">
             {{$item->abstract}}
           </p>

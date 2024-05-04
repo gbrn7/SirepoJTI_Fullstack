@@ -41,7 +41,8 @@
         <form action="{{route('user.document', $user->id)}}" method="get">
           <div class="input-group">
             <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search"
-              aria-label="Recipient's username" list="titleListOption" aria-describedby="basic-addon2" name="title" />
+              aria-label="Recipient's username" value="{{request()->get('title')}}" list="titleListOption"
+              aria-describedby="basic-addon2" name="title" />
             <datalist id="titleListOption" class="titleListOption"> </datalist>
             <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
               id="basic-addon2">
@@ -63,9 +64,23 @@
             class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
-          <a href="{{route('user.document', $user->id)}}" class="d-block text-decoration-none thesis-author mb-1">
-            {{$user->username}} - {{$user->programStudy->name}}
-          </a>
+          <div class="link-wrapper">
+            <div class="wrapper orange">
+              <a href="{{route('home', ['id_category' => [$item->category_id]])}}"
+                class="thesis-identity category-link text-decoration-none">{{$item->document_category}}</a> -
+              <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
+              strtotime($item->publication)), 'publication_until' => date('Y',
+              strtotime($item->publication))] )}}" class="thesis-identity year-link">
+                {{date('Y',
+                strtotime($item->publication))}}</a>
+            </div>
+            <div class="wrapper orange">
+              <a href="{{route('user.document', $user->id)}}"
+                class="text-decoration-none thesis-identity">{{$user->name}}</a>
+              - <a href="{{route('home', ['id_program_study' => [$user->programStudy->id]])}}"
+                class="thesis-identity text-decoration-none">{{$user->programStudy->name}}</a>
+            </div>
+          </div>
           <p class="thesis-abstract mb-1">
             {{$item->abstract}}
           </p>
@@ -83,21 +98,6 @@
 @endsection
 @push('js')
 <script>
-  let debounce = function (func, wait, immediate) {
-     let timeout;
-     return function() {
-         let context = this, args = arguments;
-         let later = function() {
-                 timeout = null;
-                 if (!immediate) func.apply(context, args);
-         };
-         let callNow = immediate && !timeout;
-         clearTimeout(timeout);
-         timeout = setTimeout(later, wait);
-         if (callNow) func.apply(context, args);
-     };
-};
-
   $('.search-input').on('input', debounce(function (e) {
     let searchInput = e.target.value;
 

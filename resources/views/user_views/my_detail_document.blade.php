@@ -29,12 +29,23 @@
     <div class="thesis-title fw-semibold text-capitalize">
       {{$document->title}}
     </div>
-    <p class="my-0 thesis-identity">{{$document->category->category}} - {{date('Y',
-      strtotime($document->created_at))}}</p>
-    <a href="{{route('my-document.index')}}" class="d-block text-decoration-none thesis-author mb-1 thesis-identity
-      fw-normal">
-      {{$document->user->name}} - {{$document->user->programStudy->name}}
-    </a>
+    <div class="link-wrapper">
+      <div class="wrapper orange">
+        <a href="{{route('home', ['id_category' => [$document->category->id]])}}"
+          class="thesis-identity category-link text-decoration-none">{{$document->category->category}}</a> -
+        <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
+        strtotime($document->created_at)), 'publication_until' => date('Y',
+        strtotime($document->updated_at))] )}}" class="thesis-identity year-link">
+          {{date('Y',
+          strtotime($document->updated_at))}}</a>
+      </div>
+      <div class="wrapper orange">
+        <a href="{{route('my-document.index')}}"
+          class="text-decoration-none thesis-identity">{{$document->user->name}}</a>
+        - <a href="{{route('home', ['id_program_study' => [$document->user->programStudy->id]])}}"
+          class="thesis-identity text-decoration-none">{{$document->user->programStudy->name}}</a>
+      </div>
+    </div>
     <div class="btn-action-wrapper mt-1">
       <a href="{{route('my-document.edit', $document->id)}}" class="btn btn-warning text-white ">Edit Document</a>
       <div class="btn btn-danger delete-btn">Delete Document</div>
