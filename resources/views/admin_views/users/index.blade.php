@@ -20,17 +20,22 @@
 
 @section('main-content')
 <div class="main-content">
-  <div class="action-wrapper d-lg-flex mt-3 justify-content-between align-items-baseline">
-    <div class="wrapper">
+  <div class="action-wrapper d-lg-flex mt-3 justify-content-between align-items-end">
+    <div class="wrapper d-flex gap-1">
       <a href="{{route('user-management.create')}}" class="btn btn-success">
         <div class="wrapper d-flex gap-2 align-items-center">
           <i class="ri-add-line"></i>
           <span class="fw-medium">Add User</span>
         </div>
       </a>
+
+      <div class="btn btn-success d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#importModal">
+        <i class="ri-file-excel-2-line"></i><span>Import
+          Excel</span>
+      </div>
     </div>
     <div class="wrapper mt-2 mt-lg-0">
-      <form action="{{route('user-management.index')}}">
+      <form class="form" action="{{route('user-management.index')}}">
         <div class="input-group">
           <input type="text" class="form-control py-2 px-3 author-input search-input border-0" placeholder="Search"
             name="author" value="{{ request()->get('author')}}" />
@@ -96,7 +101,7 @@
       <div class="modal-body">
         <h4 class="text-center">Are you sure to delete <span class="user-name"></span> user ?</h4>
       </div>
-      <form action="" method="post" id="deleteForm">
+      <form class="form" action="" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">
@@ -106,6 +111,46 @@
     </div>
   </div>
 </div>
+</div>
+
+<!-- Import Criteria Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <form class="form" action="{{route('importExcel')}}" method="POST" enctype="multipart/form-data">
+      @csrf
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="myModalLabel">Import Excel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="template-wrapper mb-2">
+            <label class="form-label">Download Template</label>
+            <a href="{{route('getUserImportTemplate')}}" class="d-block">Template_User.XLSX</a>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Program Study</label>
+            <select class="form-select" aria-label="Default select example" name="program_study" required>
+              <option value="">Select program study</option>
+              @foreach ($prodys as $prody)
+              <option value="{{$prody->id}}">
+                {{$prody->name}}
+              </option>
+              @endforeach
+            </select>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Upload Data</label>
+            <input class="form-control" type="file" id="formFile" name="import_file" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" class="btn btn-success btn-submit">Submit</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
 
 @endsection

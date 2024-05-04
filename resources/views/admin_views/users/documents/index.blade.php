@@ -110,7 +110,7 @@
       <div class="modal-body">
         <h4 class="text-center">Are you sure to delete <span class="document-title"></span> document ?</h4>
       </div>
-      <form action="" method="post" id="deleteForm">
+      <form action="" method="post" class="form" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">

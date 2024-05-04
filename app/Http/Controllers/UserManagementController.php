@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UsersImport;
 use App\Models\Majority;
 use App\Models\ProgramStudy;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserManagementController extends Controller
 {
@@ -23,8 +26,10 @@ class UserManagementController extends Controller
                 })
                 ->withCount('document')
                 ->paginate(10);
+
+        $prodys = ProgramStudy::all();
                 
-        return view('admin_views.users.index', compact('users'));
+        return view('admin_views.users.index', compact('users', 'prodys'));
     }
 
     /**
@@ -84,14 +89,6 @@ class UserManagementController extends Controller
             ->with('toast_error', $th->getMessage());
     
         }
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
     }
 
     /**
@@ -196,5 +193,33 @@ class UserManagementController extends Controller
             return back()
             ->with('toast_error', $th->getMessage());
         }
+    }
+
+    public function importExcel(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'import_file' => 'required|mimes:xlsx',
+            'program_study' => 'required',
+        ]);
+
+        if($validator->fails()) return redirect()
+        ->back()
+        ->withInput()
+        ->with('toast_error', join(', ', $validator->messages()->all()));
+
+        DB::beginTransaction();
+        try {
+            Excel::import(new UsersImport($request->program_study), request()->file('import_file'));
+            
+            DB::commit();
+            return back()->with('toast_success', 'Import Success');
+        } catch (\Throwable $th) {
+            DB::rollBack();  
+            return back()->with('toast_error', $th->getMessage());
+        }
+    }
+
+    public function getUserImportTemplate(){
+        return response()->download(public_path('template/TemplateUserImport.xlsx'), 'TemplateUserImport.xlsx');
     }
 }

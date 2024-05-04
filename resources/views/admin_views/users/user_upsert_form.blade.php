@@ -27,7 +27,7 @@
 
 @section('main-content')
 <div class="main-content mt-3">
-  <form
+  <form class="form"
     action="{{Request::segment(3) === 'create' ? route('user-management.store') : route('user-management.update', Request::segment(3))}}"
     method="POST" enctype="multipart/form-data">
     @if (Request::segment(4) === 'edit')
