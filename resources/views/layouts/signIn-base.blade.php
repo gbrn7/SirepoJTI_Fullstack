@@ -15,10 +15,10 @@
   <link rel="stylesheet" href="{{asset('vendor/RemixIcon-master/fonts/remixicon.css')}}" />
 
   <!-- CSS -->
-  <link rel="stylesheet" href="{{asset('Css/Login_style/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Login_style/main.css')}}" />
 
   {{-- Preload --}}
-  <link rel="stylesheet" href="{{asset('Css/Preloader/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Preloader/main.css')}}" />
 
 </head>
 
@@ -99,6 +99,6 @@
 
 <!-- Bootstrap js -->
 <script src="{{asset('vendor/bootstrap-5.2/js/bootstrap.bundle.min.js')}}"></script>
-<script src="{{asset('Js/preloader.js')}}"></script>
+<script src="{{asset('js/preloader.js')}}"></script>
 
 </html>

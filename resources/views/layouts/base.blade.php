@@ -16,10 +16,10 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="@yield('custom_css_link')" />
-  <link rel="stylesheet" href="{{asset('Css/Navbar_style/main.css')}}" />
-  <link rel="stylesheet" href="{{asset('Css/Off-canvase_style/main.css')}}" />
-  <link rel="stylesheet" href="{{asset('Css/Footer_style/main.css')}}" />
-  <link rel="stylesheet" href="{{asset('Css/Preloader/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Navbar_style/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Off-canvase_style/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Footer_style/main.css')}}" />
+  <link rel="stylesheet" href="{{asset('css/Preloader/main.css')}}" />
 
 </head>
 
@@ -91,6 +91,6 @@ $(document).ready(function () {
 
 @stack('js')
 
-<script src="{{asset('Js/preloader.js')}}"></script>
+<script src="{{asset('js/preloader.js')}}"></script>
 
 </html>
