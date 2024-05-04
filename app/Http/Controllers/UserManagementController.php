@@ -20,9 +20,10 @@ class UserManagementController extends Controller
      */
     public function index(Request $request)
     {
+
         $users = User::OrderBy('id', 'desc')
                 ->when($request->author, function($query) use ($request){
-                    return $query->where('name', $request->author);
+                    return $query->where('name', 'like', '%'.$request->author.'%');
                 })
                 ->withCount('document')
                 ->paginate(10);

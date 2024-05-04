@@ -29,7 +29,7 @@
         </div>
       </a>
 
-      <div class="btn btn-success d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#importModal">
+      <div class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#importModal">
         <i class="ri-file-excel-2-line"></i><span>Import
           Excel</span>
       </div>
@@ -78,7 +78,7 @@
         </tr>
         @empty
         <tr>
-          <td colspan="3" class="text-center">Document Not Found</td>
+          <td colspan="6" class="text-center">User Not Found</td>
         </tr>
         @endforelse
       </tbody>
