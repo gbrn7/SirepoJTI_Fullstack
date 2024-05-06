@@ -43,6 +43,46 @@ body .content-wrapper .breadcrumbs-box .breadcrumb-item a {
 body .content-wrapper .breadcrumbs-box .breadcrumb-item.active {
   color: #648bbf;
 }
+body .content-wrapper .drop-area {
+  height: 160px;
+  padding: 12px;
+  background: white;
+  text-align: center;
+  border-radius: 20px;
+}
+body .content-wrapper .drop-area .default-view .upload-icon {
+  font-size: 36px;
+}
+body .content-wrapper .drop-area .default-view .file-desc {
+  letter-spacing: -0.5px;
+  color: #2d4059;
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .drop-area .default-view .file-desc {
+    font-size: 14px;
+  }
+}
+body .content-wrapper .drop-area.active .default-view .file-desc {
+  color: blue;
+}
+body .content-wrapper .drop-area.active .img-view {
+  border-color: blue;
+}
+body .content-wrapper .drop-area .img-view {
+  border-color: gray;
+  border: 2px dashed grey;
+}
+body .content-wrapper .drop-area.active .default-view .img-view {
+  border-color: blue;
+}
+body .content-wrapper .drop-area.active .default-view .upload-icon {
+  color: blue;
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .drop-area .default-view .upload-icon {
+    font-size: 30px;
+  }
+}
 body .content-wrapper .form-label {
   letter-spacing: -0.5px;
 }
