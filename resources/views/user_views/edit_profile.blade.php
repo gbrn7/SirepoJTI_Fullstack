@@ -30,16 +30,8 @@
         value="{{old('username', $user->username)}}" name="username" />
     </div>
     <div class="mb-2">
-      <label class="form-label">Profile Picture</label>
-      <label class="w-100 drop-area" id="drop-area">
-        <input type="file" name="profile_picture" hidden accept="image/*" id="input-file">
-        <div class="img-view w-100 h-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload image</p>
-          </div>
-        </div>
-      </label>
+      <label for="formFile" class="form-label">Profile Picture</label>
+      <input class="form-control" type="file" id="formFile" name="profile_picture" required />
     </div>
     <div class="mb-2">
       <label class="form-label">Old Password</label>
@@ -59,40 +51,3 @@
   </form>
 </div>
 @endsection
-
-@push('js')
-<script>
-  const dropArea = document.querySelector("#drop-area");
-  const inputFile = document.querySelector("#input-file");
-  const imageView = document.querySelector(".img-view");
-
-      inputFile.addEventListener('change', (e) => {
-        const [file] = e.target.files;
-        document.querySelector(".file-desc").innerHTML = `${file.name}`;
-        dropArea.classList.add('active');
-
-      });
-
-      dropArea.addEventListener('dragover', function (e) {
-        e.preventDefault();
-        dropArea.classList.add('active');
-        document.querySelector(".file-desc").textContent = "Release to upload file";
-      })
-
-      dropArea.addEventListener("dragleave", ()=>{
-        if(inputFile.files.length === 0){
-          document.querySelector(".file-desc").innerHTML = "Drag and drop or click here <br>to upload image";
-          dropArea.classList.remove('active');
-      }else{
-        document.querySelector(".file-desc").innerHTML = `${inputFile.files[0].name}`;
-      }
-    });
-
-      dropArea.addEventListener('drop', function (e) {
-        e.preventDefault();
-        inputFile.files = e.dataTransfer.files;
-        document.querySelector(".file-desc").innerHTML = `${inputFile.files[0].name}`;
-      })
-
-</script>
-@endpush

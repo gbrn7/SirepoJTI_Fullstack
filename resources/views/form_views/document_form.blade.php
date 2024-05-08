@@ -21,8 +21,16 @@
   </select>
 </div>
 <div class="mb-2">
-  <label for="formFile" class="form-label">Document PDF</label>
-  <input class="form-control" type="file" id="formFile" name="file" />
+  <label class="form-label">Document PDF</label>
+  <label class="w-100 drop-area" id="drop-area">
+    <input type="file" name="file" hidden id="input-file">
+    <div class="img-view w-100 h-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+      <div class="default-view">
+        <i class="ri-upload-cloud-2-fill upload-icon"></i>
+        <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </div>
+    </div>
+  </label>
 </div>
 <div class="wrapper d-flex justify-content-end">
   <button class="btn btn-submit text-white px-5 btn-warning" type="submit">Submit</button>

@@ -67,14 +67,12 @@ class DocumentController extends Controller
 
         if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
-        $document = $user
-                    ->document()
-                    ->join('thesis_category', 'thesis_category.id', 'thesis.id')
+        $document = Thesis::where('id_user', $user->id)
+                    ->with('category')
                     ->when($request->only('title'), function($query) use ($request){
                         return $query->where('title', 'like', '%'.$request->title.'%');
                     })
                     ->orderBy('thesis.id', 'desc')
-                    ->selectRaw('thesis.id as thesis_id, thesis_category.id as category_id, thesis.title as title, thesis.abstract as abstract, thesis.created_at as publication, thesis_category.category as document_category')
                     ->paginate(10);
 
         return compact('user', 'document');

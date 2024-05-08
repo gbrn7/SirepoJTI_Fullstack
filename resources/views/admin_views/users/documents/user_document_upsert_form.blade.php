@@ -42,3 +42,40 @@
   </form>
 </div>
 @endsection
+
+@push('js')
+<script>
+  const dropArea = document.querySelector("#drop-area");
+  const inputFile = document.querySelector("#input-file");
+  const imageView = document.querySelector(".img-view");
+
+      inputFile.addEventListener('change', (e) => {
+        const [file] = e.target.files;
+        document.querySelector(".file-desc").innerHTML = `${file.name}`;
+        dropArea.classList.add('active');
+
+      });
+
+      dropArea.addEventListener('dragover', function (e) {
+        e.preventDefault();
+        dropArea.classList.add('active');
+        document.querySelector(".file-desc").textContent = "Release to upload file";
+      })
+
+      dropArea.addEventListener("dragleave", ()=>{
+        if(inputFile.files.length === 0){
+          document.querySelector(".file-desc").innerHTML = "Drag and drop or click here <br>to upload image";
+          dropArea.classList.remove('active');
+      }else{
+        document.querySelector(".file-desc").innerHTML = `${inputFile.files[0].name}`;
+      }
+    });
+
+      dropArea.addEventListener('drop', function (e) {
+        e.preventDefault();
+        inputFile.files = e.dataTransfer.files;
+        document.querySelector(".file-desc").innerHTML = `${inputFile.files[0].name}`;
+      })
+
+</script>
+@endpush

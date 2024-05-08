@@ -67,19 +67,18 @@
       <div class="thesis-box mt-2 d-flex flex-column gap-2">
         @forelse ($document as $item)
         <div class="thesis-item">
-          <a href="{{route('my-document.show', $item->thesis_id)}}"
-            class="thesis-title text-decoration-none mb-1 fw-semibold">
+          <a href="{{route('my-document.show', $item->id)}}" class="thesis-title text-decoration-none mb-1 fw-semibold">
             {{$item->title}}
           </a>
           <div class="link-wrapper">
             <div class="wrapper orange">
-              <a href="{{route('home', ['id_category' => [$item->category_id]])}}"
-                class="thesis-identity category-link text-decoration-none">{{$item->document_category}}</a> -
+              <a href="{{route('home', ['id_category' => [$item->category->id]])}}"
+                class="thesis-identity category-link text-decoration-none">{{$item->category->category}}</a> -
               <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
-              strtotime($item->publication)), 'publication_until' => date('Y',
-              strtotime($item->publication))] )}}" class="thesis-identity year-link">
+              strtotime($item->created_at)), 'publication_until' => date('Y',
+              strtotime($item->created_at))] )}}" class="thesis-identity year-link">
                 {{date('Y',
-                strtotime($item->publication))}}</a>
+                strtotime($item->created_at))}}</a>
             </div>
             <div class="wrapper orange">
               <a href="{{route('my-document.index')}}" class="text-decoration-none thesis-identity">{{$user->name}}</a>
