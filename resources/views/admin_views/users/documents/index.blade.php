@@ -86,6 +86,8 @@
               Delete</div>
             <a href="{{route('user-management.document-management.edit', [$user->id, $item->id])}}"
               class="btn text-decoration-none btn-warning edit-btn text-white">Edit</a>
+            <a href="{{route('user-management.document-management.show', [$user->id, $item->id])}}"
+              class="btn edit-btn btn-detail text-white">Detail</a>
           </td>
         </tr>
         @empty

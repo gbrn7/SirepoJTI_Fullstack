@@ -21,9 +21,9 @@ class UserDocumentManagementController extends Controller
     {
         $user = User::with('document')->find($id);
 
-        if(!$user) return redirect()->back()->with('toast_error', 'User not found');
+        if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
-        return view('admin_views.users.documents.index',['user' => $user]);
+        return view('admin_views.users.documents.index', ['user' => $user]);
     }
 
     /**
@@ -35,9 +35,9 @@ class UserDocumentManagementController extends Controller
 
         $user = User::find($userId);
 
-        if(!$user) return redirect()->back()->with('toast_error', 'User not found');
+        if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
-        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'user'));    
+        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'user'));
     }
 
     /**
@@ -52,10 +52,10 @@ class UserDocumentManagementController extends Controller
             'file' => 'required|mimes:pdf|max:15360'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->withInput()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
         try {
@@ -63,7 +63,7 @@ class UserDocumentManagementController extends Controller
 
             // store file
             $file = $request->file;
-                $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
+            $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->storeAs('document/', $fileName);
 
             $data['file_name'] = $fileName;
@@ -74,7 +74,6 @@ class UserDocumentManagementController extends Controller
 
             Session::flash('toast_success', 'Document Added');
             return redirect()->route('user-management.document-management.index', $userId);
-
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -91,7 +90,7 @@ class UserDocumentManagementController extends Controller
 
         $user = User::find($userId);
 
-        if(!$document) return redirect()->route('user-management.document-management.index', $userId);
+        if (!$document) return redirect()->route('user-management.document-management.index', $userId);
 
         return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'document', 'user'));
     }
@@ -108,48 +107,47 @@ class UserDocumentManagementController extends Controller
             'file' => 'nullable|mimes:pdf|max:15360'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->withInput()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
         try {
             $oldData = Thesis::find($documentId);
-            
-            if(!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
-            
+
+            if (!$oldData) return back()->with('toast_error', 'Document Not Found');
+
             $newData = [];
-            if($validator->safe()->title){
+            if ($validator->safe()->title) {
                 $newData['title'] = $validator->safe()->title;
             }
-            if($validator->safe()->abstract){
+            if ($validator->safe()->abstract) {
                 $newData['abstract'] = $validator->safe()->abstract;
             }
-            if($validator->safe()->category){
+            if ($validator->safe()->category) {
                 $newData['id_category'] = $validator->safe()->category;
             }
 
-            if($request->file){
+            if ($request->file) {
                 // store new file
                 $file = $request->file;
-                $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
+                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
                 $newData['file_name'] = $fileName;
                 $file->storeAs('document/', $fileName);
 
                 // Delete old file
-                Storage::delete('document/'.$oldData->file_name);
+                Storage::delete('document/' . $oldData->file_name);
             }
 
             $oldData->update($newData);
 
             Session::flash('toast_success', 'Document updated');
             return redirect()->route('user-management.document-management.index', $userId);
-
         } catch (\Throwable $th) {
             dd($th->getMessage());
             return back()->with('toast_error', $th->getMessage())->withInput();
-        }    
+        }
     }
 
     /**
@@ -160,15 +158,27 @@ class UserDocumentManagementController extends Controller
         try {
             $thesis = Thesis::find($documentId);
 
-            if(!$thesis) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
+            if (!$thesis) return back()->with('toast_error', 'Document Not Found');
 
-            Storage::delete('document/'.$thesis->file_name);
+            Storage::delete('document/' . $thesis->file_name);
 
             $thesis->delete();
 
             return redirect()->route('user-management.document-management.index', $userId)->with('toast_success', 'Document deleted');
         } catch (\Throwable $th) {
             return back()
-            ->with('toast_error', $th->getMessage());
-        }    }
+                ->with('toast_error', $th->getMessage());
+        }
+    }
+
+    public function show(string $userId, string $documentId)
+    {
+        $document = Thesis::with('user.programStudy.majority')
+            ->with('category')
+            ->find($documentId);
+
+        if (!$document) return back()->with('toast_error', 'Document Not Found');
+
+        return view('admin_views.users.documents.detail_document', ['document' => $document]);
+    }
 }

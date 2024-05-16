@@ -184,7 +184,7 @@
     let authorinput = e.target.value;
 
     $.get("{{route('getSuggestionAuthor')}}", {
-      title : authorinput
+      name : authorinput
     },
       function (data, textStatus, jqXHR) {
         if (data.length !== 0) {
@@ -198,5 +198,6 @@
       },
     );
   }, 300));
+
 </script>
 @endpush

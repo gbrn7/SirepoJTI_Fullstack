@@ -28,58 +28,66 @@ class HomeController extends Controller
             'publication_until' => $request->publication_until ? Carbon::createFromDate($request->publication_until, 1)->endOfYear() : null,
         ];
 
-        
+
         $documents = DB::table('thesis as t')
-        ->where('t.title', 'like', '%'.$searchParams['title'].'%')
-        ->when($searchParams['id_category'], function($query) use ($searchParams){
-            return $query->whereIn('t.id_category', $searchParams['id_category']);
-        })
-        ->when($searchParams['id_program_study'], function($query) use ($searchParams){
-            return $query->whereIn('u.id_program_study', $searchParams['id_program_study']);
-        })
-        ->when($searchParams['name'], function($query) use ($searchParams){
-            return $query->where('u.name', $searchParams['name']);
-        })
-        ->when($searchParams['publication_from'], function($query) use ($searchParams){
-            return $query->where('t.created_at', '>=',$searchParams['publication_from']);
-        })
-        ->when($searchParams['publication_until'], function($query) use ($searchParams){
-            return $query->where('t.created_at', '<=',$searchParams['publication_until']);
-        })
-        ->join('users as u', 'u.id', 't.id_user')
-        ->join('program_study as ps', 'ps.id', 'u.id_program_study')
-        ->join('thesis_category as c', 'c.id', 't.id_category')
-        ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication, c.id as category_id, ps.id as program_study_id')
-        ->orderBy('t.id', 'desc')
-        ->paginate(5);
+            ->where('t.title', 'like', '%' . $searchParams['title'] . '%')
+            ->when($searchParams['id_category'], function ($query) use ($searchParams) {
+                return $query->whereIn('t.id_category', $searchParams['id_category']);
+            })
+            ->when($searchParams['id_program_study'], function ($query) use ($searchParams) {
+                return $query->whereIn('u.id_program_study', $searchParams['id_program_study']);
+            })
+            ->when($searchParams['name'], function ($query) use ($searchParams) {
+                return $query->where('u.name', $searchParams['name']);
+            })
+            ->when($searchParams['publication_from'], function ($query) use ($searchParams) {
+                return $query->where('t.created_at', '>=', $searchParams['publication_from']);
+            })
+            ->when($searchParams['publication_until'], function ($query) use ($searchParams) {
+                return $query->where('t.created_at', '<=', $searchParams['publication_until']);
+            })
+            ->join('users as u', 'u.id', 't.id_user')
+            ->join('program_study as ps', 'ps.id', 'u.id_program_study')
+            ->join('thesis_category as c', 'c.id', 't.id_category')
+            ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication, c.id as category_id, ps.id as program_study_id')
+            ->orderBy('t.id', 'desc')
+            ->paginate(5);
 
         $categories = ThesisCategory::all();
 
         $prodys = ProgramStudy::all();
-            
+
         return view('public_views.home', ['documents' => $documents, 'categories' => $categories, 'prodys' => $prodys]);
     }
 
-    public function getSuggestionTitle( Request $request)
+    public function getSuggestionTitle(Request $request)
     {
         $searchInput = $request->title;
 
         $titles = Thesis::select('title')
-        ->where('title', 'like', '%'.$searchInput.'%')
-        ->orderBy('id', 'desc')
-        ->limit(7)
-        ->get();
+            ->where('title', 'like', '%' . $searchInput . '%')
+            ->orderBy('id', 'desc')
+            ->limit(7)
+            ->get();
 
         return response()->json($titles);
     }
 
-    public function getSuggestionAuthor( Request $request)
+    public function getSuggestionAuthor(Request $request)
     {
-        $searchInput = $request->title;
+        $searchInput = $request->name;
 
-        $titles = User::select('name')->where('name', 'like', '%'.$searchInput.'%')->get();
+        $titles = User::select('name')->where('name', 'like', '%' . $searchInput . '%')->get();
 
         return response()->json($titles);
     }
 
+    public function getSuggestionAuthorByUsername(Request $request)
+    {
+        $searchInput = $request->username;
+
+        $titles = User::select('username')->where('username', 'like', '%' . $searchInput . '%')->get();
+
+        return response()->json($titles);
+    }
 }
