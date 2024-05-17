@@ -83,7 +83,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('categories.store')}} id="addForm" method="POST">
+        <form action={{route('categories.store')}} class="form" id="addForm" method="POST">
           @csrf
           <div class="form-group mb-3">
             <label for="name" class="mb-1">Name</label>
@@ -109,7 +109,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="editForm" method="POST">
+        <form class="form" id="editForm" method="POST">
           @csrf
           @method('PUT')
           <div class="form-group mb-3">
@@ -138,7 +138,7 @@
       <div class="modal-body">
         <h4 class="text-center">Are you sure to delete <span class="category-name"></span> category?</h4>
       </div>
-      <form action="" method="post" id="deleteForm">
+      <form action="" class="form" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">

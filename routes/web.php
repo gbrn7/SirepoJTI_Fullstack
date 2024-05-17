@@ -60,6 +60,8 @@ Route::group(['prefix' => 'home'], function () {
             ]);
 
             Route::resource('user-management', UserManagementController::class)->except('show');
+            Route::get('/getUserImportTemplate', [UserManagementController::class, 'getUserImportTemplate'])->name('getUserImportTemplate');
+            Route::post('/importExcel', [UserManagementController::class, 'importExcel'])->name('importExcel');
 
             Route::resource('user-management.document-management', UserDocumentManagementController::class);
 
