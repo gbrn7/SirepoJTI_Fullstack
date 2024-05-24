@@ -52,7 +52,7 @@
             <div class="login-form d-flex flex-column gap-1 gap-lg-3 mt-3">
               <div class="username-input-wrapper">
                 <input name="username" value="{{old('email')}}" class="form-control text-black" id="username"
-                  placeholder="Masukan username" />
+                  placeholder="Enter your username" />
                 @error('username')
                 <small class="form-text mt-1 text-danger">{{ $message }}</small>
                 @enderror
@@ -60,7 +60,7 @@
               <div class="password-container position-relative">
                 <div class="pass-wrapper">
                   <input name="password" type="password" class="form-control" id="password"
-                    placeholder="Masukan password" />
+                    placeholder="Enter your password" />
                   <i class="ri-eye-close-fill pass-icon eye-pass position-absolute"></i>
                 </div>
               </div>
