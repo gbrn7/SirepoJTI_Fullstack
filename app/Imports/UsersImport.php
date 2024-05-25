@@ -19,15 +19,16 @@ class UsersImport implements ToCollection, WithHeadingRow
     public function collection(Collection $rows)
     {
 
-        foreach ($rows as $row) 
-        {
-            User::create([
-                'name' => $row['name'],  
+        foreach ($rows as $row) {
+            $user =  User::create([
+                'name' => $row['name'],
                 'username' => $row['username'],
                 'email' => $row['email'],
                 'password' => $row['password'],
                 'id_program_study' => $this->program_study_id
             ]);
+
+            $user->assignRole('user');
         }
     }
 }
