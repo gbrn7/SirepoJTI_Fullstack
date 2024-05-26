@@ -31,7 +31,7 @@
     </div>
     <div class="mb-2">
       <label for="formFile" class="form-label">Profile Picture</label>
-      <input class="form-control" type="file" id="formFile" name="profile_picture" required />
+      <input class="form-control" type="file" id="formFile" name="profile_picture" />
     </div>
     <div class="mb-2">
       <label class="form-label">Old Password</label>
