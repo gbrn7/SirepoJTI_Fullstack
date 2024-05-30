@@ -152,7 +152,7 @@ class UserManagementController extends Controller
                 // Store profile picture
                 $file = $request->profile_picture;
                 $fileName = Str::random(10) . $file->getClientOriginalName();
-                $file->storeAs('public/Profile/', $fileName);
+                $file->storeAs('public/profile/', $fileName);
 
                 $newData['profile_picture'] = $fileName;
 
