@@ -81,7 +81,7 @@
           <td>{{$item->title}}</td>
           <td class="d-flex gap-1">
             <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-              data-category="{{$item->title}}"
+              data-title="{{$item->title}}"
               data-delete-link="{{route('user-management.document-management.destroy', [$user->id, $item->id])}}">
               Delete</div>
             <a href="{{route('user-management.document-management.edit', [$user->id, $item->id])}}"
