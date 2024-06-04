@@ -14,7 +14,7 @@ class User extends Seeder
      */
     public function run(): void
     {
-        // $faker = Faker::create('id_ID'); //the argument is used for country code
+        $faker = Faker::create('id_ID'); //the argument is used for country code
 
         $user = ModelsUser::create(
             [
@@ -30,19 +30,18 @@ class User extends Seeder
         $user->assignRole('user');
 
 
-        // for ($i=0; $i < 100; $i++) { 
-        //     $user = ModelsUser::create([
-        //         'id_program_study' => $faker->numberBetween(1,2),
-        //         'name' => $faker->name(),
-        //         'username' => $faker->userName(),
-        //         'email' => $faker->email(),
-        //         'password' => Hash::make('userpass'),
-        //         'created_at' => now(),
-        //         'updated_at' => now()
-        //     ]);
+        for ($i = 0; $i < 100; $i++) {
+            $user = ModelsUser::create([
+                'id_program_study' => $faker->numberBetween(1, 2),
+                'name' => $faker->name(),
+                'username' => $faker->userName(),
+                'email' => $faker->email(),
+                'password' => Hash::make('userpass'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
 
-        //     $user->assignRole('user');
-        // }
-
+            $user->assignRole('user');
+        }
     }
 }

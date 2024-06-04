@@ -17,9 +17,9 @@ class DatabaseSeeder extends Seeder
             Majority::class,
             ProgramStudy::class,
             RolePermissionSeeder::class,
-            User::class,
+            // User::class,
             Admin::class,
-            Thesis::class,
+            // Thesis::class,
         ]);
     }
 }
