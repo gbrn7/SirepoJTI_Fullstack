@@ -16,18 +16,18 @@ class User extends Seeder
     {
         // $faker = Faker::create('id_ID'); //the argument is used for country code
 
-        // $user = ModelsUser::create(
-        //     [
-        //         'id_program_study' => 1,
-        //         'name' => 'Farhan',
-        //         'username' => 'farhan12',
-        //         'email' => 'farhan123@gmail.com',
-        //         'password' => Hash::make('userpass'),
-        //         'created_at' => now(),
-        //         'updated_at' => now()
-        //     ]
-        // );
-        // $user->assignRole('user');
+        $user = ModelsUser::create(
+            [
+                'id_program_study' => 1,
+                'name' => 'Farhan',
+                'username' => 'farhan12',
+                'email' => 'farhan123@gmail.com',
+                'password' => Hash::make('userpass'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ]
+        );
+        $user->assignRole('user');
 
 
         // for ($i=0; $i < 100; $i++) { 
