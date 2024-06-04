@@ -37,7 +37,7 @@
     <div class="wrapper mt-2 mt-lg-0">
       <form class="form" action="{{route('user-management.index')}}">
         <div class="input-group">
-          <div class="wrapper">
+          <div class="wrapper form-control p-0 border-0">
             <input type="text" class="form-control py-2 px-3 author-input search-input border-0" placeholder="Search"
               list="userListOption" name="author" value="{{ request()->get('author')}}" />
             <datalist id="userListOption" class="userListOption">
