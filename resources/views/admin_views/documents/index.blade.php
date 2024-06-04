@@ -67,15 +67,17 @@
           <td>{{$document->user->name}}</td>
           <td>{{$document->user->username}}</td>
           <td>{{$document->user->programStudy->name}}</td>
-          <td class="d-flex gap-1">
-            <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-              data-title="{{$document->title}}"
-              data-delete-link="{{route('documents-management.destroy', $document->id)}}">
-              Delete</div>
-            <a href="{{route('documents-management.edit', $document->id)}}"
-              class="btn text-decoration-none btn-warning edit-btn text-white">Edit</a>
-            <a href="{{route('documents-management.show', $document->id)}}"
-              class="btn edit-btn btn-detail text-white">Detail</a>
+          <td>
+            <div class="wrapper d-flex gap-1">
+              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                data-title="{{$document->title}}"
+                data-delete-link="{{route('documents-management.destroy', $document->id)}}">
+                Delete</div>
+              <a href="{{route('documents-management.edit', $document->id)}}"
+                class="btn text-decoration-none btn-warning edit-btn text-white">Edit</a>
+              <a href="{{route('documents-management.show', $document->id)}}"
+                class="btn edit-btn btn-detail text-white">Detail</a>
+            </div>
           </td>
         </tr>
         @empty

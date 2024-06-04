@@ -55,13 +55,16 @@
         <tr>
           <td>{{$category->id}}</td>
           <td>{{$category->category}}</td>
-          <td class="d-flex gap-1">
-            <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-              data-category="{{$category->category}}" data-delete-link="{{route('categories.destroy', $category->id)}}">
-              Delete</div>
-            <div data-bs-toggle="modal" data-bs-target="#editModal"
-              data-edit-link="{{route('categories.update', $category->id)}}" data-category="{{$category->category}}"
-              class="btn btn-warning edit-btn text-white">Edit</div>
+          <td>
+            <div class="d-flex gap-1">
+              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                data-category="{{$category->category}}"
+                data-delete-link="{{route('categories.destroy', $category->id)}}">
+                Delete</div>
+              <div data-bs-toggle="modal" data-bs-target="#editModal"
+                data-edit-link="{{route('categories.update', $category->id)}}" data-category="{{$category->category}}"
+                class="btn btn-warning edit-btn text-white">Edit</div>
+            </div>
           </td>
         </tr>
         @empty

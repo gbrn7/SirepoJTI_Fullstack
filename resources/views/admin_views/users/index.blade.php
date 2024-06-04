@@ -70,13 +70,16 @@
           <td>{{$user->username}}</td>
           <td>{{$user->email}}</td>
           <td>{{$user->document_count}}</td>
-          <td class="d-flex gap-1">
-            <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-              data-name="{{$user->name}}" data-delete-link="{{route('user-management.destroy', $user->id)}}">
-              Delete</div>
-            <a href="{{route('user-management.edit', $user->id)}}" class="btn btn-warning edit-btn text-white">Edit</a>
-            <a href="{{route('user-management.document-management.index', $user->id)}}"
-              class="btn edit-btn btn-detail text-white">Detail</a>
+          <td>
+            <div class="d-flex gap-1">
+              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                data-name="{{$user->name}}" data-delete-link="{{route('user-management.destroy', $user->id)}}">
+                Delete</div>
+              <a href="{{route('user-management.edit', $user->id)}}"
+                class="btn btn-warning edit-btn text-white">Edit</a>
+              <a href="{{route('user-management.document-management.index', $user->id)}}"
+                class="btn edit-btn btn-detail text-white">Detail</a>
+            </div>
           </td>
         </tr>
         @empty
