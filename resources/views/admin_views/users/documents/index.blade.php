@@ -77,7 +77,7 @@
       <tbody id="tableBody">
         @forelse ($user->document as $item)
         <tr>
-          <td>{{$item->id}}</td>
+          <td>{{$loop->iteration}}</td>
           <td>{{$item->title}}</td>
           <td>
             <div class="d-flex gap-1">
