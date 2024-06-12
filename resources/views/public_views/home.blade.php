@@ -156,6 +156,7 @@
 
     if(searchInput == ''){
       $('.suggestion-box').empty();
+      $('.search-wrapper').removeClass('active');
     }else{
       $.get("{{route('getSuggestionTitle')}}", {
       title : searchInput
