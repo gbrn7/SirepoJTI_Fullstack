@@ -11,16 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_program_study')->constrained('program_study');
-            $table->string('name');
+            $table->foreignId('program_study_id')->constrained('program_study');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->enum('gender', ["Male", "Female"]);
+            $table->tinyInteger('class_year');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('profile_picture')->nullable();
-            $table->rememberToken();
+            $table->boolean('thesis_status');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('student');
     }
 };

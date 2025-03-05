@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class Student extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, SoftDeletes;
 
     public $timestamps = true;
 
@@ -21,15 +23,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id_program_study',
-        'name',
+        'program_study_id',
+        'first_name',
+        'last_name',
+        'gender',
+        'class_year',
         'username',
         'email',
         'password',
-        'role',
         'profile_picture',
+        'thesis_status',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     /**
@@ -50,14 +56,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function programStudy()
+    public function programStudy(): BelongsTo
     {
-        return $this->belongsTo(ProgramStudy::class, 'id_program_study', 'id');
+        return $this->belongsTo(ProgramStudy::class, 'program_study_id', 'id');
     }
 
-    public function document()
+    public function thesis(): HasOne
     {
-        return $this->hasMany(Thesis::class, 'id_user', 'id');
+        return $this->hasOne(Thesis::class, 'student_id', 'id');
     }
-
 }

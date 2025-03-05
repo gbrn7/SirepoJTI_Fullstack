@@ -16,19 +16,19 @@ class ThesisCategory extends Seeder
     {
         ModelsThesisCategory::insert([
             [
-            'category' => 'Big Data',
-            'created_at' => now(),
-            'updated_at' => now()
+                'category' => 'Big Data',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
-            'category' => 'Internet Of Thing',
-            'created_at' => now(),
-            'updated_at' => now()
+                'category' => 'Internet Of Thing',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
-            'category' => 'Business Inteligence',
-            'created_at' => now(),
-            'updated_at' => now()
+                'category' => 'Business Inteligence',
+                'created_at' => now(),
+                'updated_at' => now()
             ],
         ]);
     }

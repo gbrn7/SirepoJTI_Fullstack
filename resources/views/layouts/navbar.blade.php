@@ -28,15 +28,14 @@
           <form action="{{route('signIn.user.signOut')}}" method="POST">
             @csrf
             <button type="submit" class="dropdown-item btn-submit rounded-2 text-white"><i
-                class="ri-logout-circle-line me-2 text-white"></i>Sign
-              Out</button>
+                class="ri-logout-circle-line me-2 text-white"></i>Log Out</button>
           </form>
         </li>
       </ul>
     </div>
     @else
     <a href="{{route('signIn.user')}}" class="login-link text-decoration-none d-flex align-items-center gap-1 "><i
-        class="ri-login-circle-line"></i>Sign in</a>
+        class="ri-login-circle-line"></i>Log In</a>
     @endif
   </div>
 </nav>

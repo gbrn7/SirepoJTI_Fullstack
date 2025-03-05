@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Thesis;
-use App\Models\ThesisCategory;
+use App\Models\ThesisType;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Mpdf\Mpdf;
 
 class MyDocumentController extends Controller
 {
@@ -23,9 +24,9 @@ class MyDocumentController extends Controller
 
         $data = $documenClass->getUserDocument(Auth::user()->id, $request);
 
-        if($data instanceof RedirectResponse ) return $data;
+        if ($data instanceof RedirectResponse) return $data;
 
-        return view('user_views.my_document', $data); 
+        return view('user_views.my_document', $data);
     }
 
     /**
@@ -33,7 +34,7 @@ class MyDocumentController extends Controller
      */
     public function create()
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         return view('user_views.user_document_form', compact('categories'));
     }
@@ -50,10 +51,10 @@ class MyDocumentController extends Controller
             'file' => 'required|mimes:pdf|max:15360'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->withInput()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
         try {
@@ -61,8 +62,31 @@ class MyDocumentController extends Controller
 
             // store file
             $file = $request->file;
-            $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
-            $file->storeAs('document/', $fileName);
+            $filePathName = $file->getPathName();
+            $logo = public_path("img/POLINEMA.png");
+            $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/document/', $fileName);
+
+            $pdf = new Mpdf();
+            // $path = public_path("storage/document/" . $fileName);
+
+            $pagecount = $pdf->setSourceFile($filePathName);
+            for ($i = 1; $i <= ($pagecount); $i++) {
+                $pdf->AddPage();
+                $import_page = $pdf->ImportPage($i);
+                $pdf->UseTemplate($import_page);
+                $pdf->SetWatermarkImage(
+                    $logo,
+                    0.1,
+                    '',
+                    'F'
+                );
+                $pdf->showWatermarkImage = true;
+            }
+
+
+            $pdf->SetProtection(array());
+            $pdf->OutputFile(storage_path('app/document/' . $fileName));
 
             $data['file_name'] = $fileName;
             $data['id_category'] = $data['category'];
@@ -72,7 +96,6 @@ class MyDocumentController extends Controller
 
             Session::flash('toast_success', 'Document Added');
             return redirect()->route('my-document.index');
-
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -84,10 +107,10 @@ class MyDocumentController extends Controller
     public function show(string $id)
     {
         $document = Thesis::with('user.programStudy.majority')
-                    ->with('category')
-                    ->find($id);
+            ->with('category')
+            ->find($id);
 
-        if(!$document) return back()->with('toast_error', 'Document Not Found');
+        if (!$document) return back()->with('toast_error', 'Document Not Found');
 
         return view('user_views.my_detail_document', ['document' => $document]);
     }
@@ -97,11 +120,11 @@ class MyDocumentController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         $document = Thesis::find($id);
 
-        if(!$document) return back()->with('toast_error', 'Document Not Found');
+        if (!$document) return back()->with('toast_error', 'Document Not Found');
 
         return view('user_views.user_document_form', compact('categories', 'document'));
     }
@@ -118,44 +141,43 @@ class MyDocumentController extends Controller
             'file' => 'nullable|mimes:pdf|max:15360'
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->withInput()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
         try {
             $oldData = Thesis::find($id);
-            
-            if(!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
-            
+
+            if (!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
+
             $newData = [];
-            if($validator->safe()->title){
+            if ($validator->safe()->title) {
                 $newData['title'] = $validator->safe()->title;
             }
-            if($validator->safe()->abstract){
+            if ($validator->safe()->abstract) {
                 $newData['abstract'] = $validator->safe()->abstract;
             }
-            if($validator->safe()->category){
+            if ($validator->safe()->category) {
                 $newData['id_category'] = $validator->safe()->category;
             }
 
-            if($request->file){
+            if ($request->file) {
                 // store new file
                 $file = $request->file;
-                $fileName = Str::random(10).'.'.$file->getClientOriginalExtension();
+                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
                 $newData['file_name'] = $fileName;
                 $file->storeAs('document/', $fileName);
 
                 // Delete old file
-                Storage::delete('document/'.$oldData->file_name);
+                Storage::delete('document/' . $oldData->file_name);
             }
 
             $oldData->update($newData);
 
             Session::flash('toast_success', 'Document updated');
             return redirect()->route('my-document.index');
-
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -169,16 +191,16 @@ class MyDocumentController extends Controller
         try {
             $thesis = Thesis::find($id);
 
-            if(!$thesis) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
+            if (!$thesis) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
 
-            Storage::delete('document/'.$thesis->file_name);
+            Storage::delete('document/' . $thesis->file_name);
 
             $thesis->delete();
 
             return redirect()->route('my-document.index')->with('toast_success', 'Document deleted');
         } catch (\Throwable $th) {
             return back()
-            ->with('toast_error', $th->getMessage());
+                ->with('toast_error', $th->getMessage());
         }
     }
 }

@@ -58,6 +58,7 @@ Route::group(['prefix' => 'home'], function () {
                 'update',
                 'destroy'
             ]);
+            Route::resource('lecturer', MyDocumentController::class)->middleware('role:user');
 
             Route::resource('user-management', UserManagementController::class)->except('show');
             Route::get('/getUserImportTemplate', [UserManagementController::class, 'getUserImportTemplate'])->name('getUserImportTemplate');

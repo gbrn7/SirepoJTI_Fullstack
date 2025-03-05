@@ -3,17 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\ThesisCategory;
+use App\Models\ThesisType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class CategoryController extends Controller
+class ThesisTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = ThesisCategory::orderBy('id', 'desc')->get();
+        $categories = ThesisType::orderBy('id', 'desc')->get();
 
         return view('admin_views.category.index', ['categories' => $categories]);
     }
@@ -35,18 +36,18 @@ class CategoryController extends Controller
             'category' => 'required|string|unique:thesis_category,category',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
-        
+
         try {
-            ThesisCategory::create($validator->safe()->only('category'));
+            ThesisType::create($validator->safe()->only('category'));
 
             return redirect()->back()->with('toast_success', 'Category Created');
         } catch (\Throwable $th) {
             return back()
-            ->with('toast_error', $th->getMessage()[0]);
+                ->with('toast_error', $th->getMessage()[0]);
         }
     }
 
@@ -73,25 +74,25 @@ class CategoryController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'category' => 'required|string|unique:thesis_category,category,'.$id.',id',
+            'category' => 'required|string|unique:thesis_category,category,' . $id . ',id',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', join(', ', $validator->messages()->all()));
+                ->with('toast_error', join(', ', $validator->messages()->all()));
         }
-        
-        try {
-            $thesis = ThesisCategory::find($id);
 
-            if(!$thesis) return redirect()->back()->with('toast_error', 'category Not Found');
+        try {
+            $thesis = ThesisType::find($id);
+
+            if (!$thesis) return redirect()->back()->with('toast_error', 'category Not Found');
 
             $thesis->update($validator->safe()->only('category'));
 
             return redirect()->back()->with('toast_success', 'Category Updated');
         } catch (\Throwable $th) {
             return back()
-            ->with('toast_error', $th->getMessage());
+                ->with('toast_error', $th->getMessage());
         }
     }
 
@@ -103,14 +104,14 @@ class CategoryController extends Controller
         try {
             $thesis = ThesisCategory::find($id);
 
-            if(!$thesis) return redirect()->route('categories.index')->with('toast_error', 'category Not Found');
+            if (!$thesis) return redirect()->route('categories.index')->with('toast_error', 'category Not Found');
 
             $thesis->delete();
 
             return redirect()->route('categories.index')->with('toast_success', 'Category deleted');
         } catch (\Throwable $th) {
             return back()
-            ->with('toast_error', 'The category thesis is referenced by other data');
+                ->with('toast_error', 'The category thesis is referenced by other data');
         }
     }
 }

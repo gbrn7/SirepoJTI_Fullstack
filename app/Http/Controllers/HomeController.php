@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProgramStudy;
+use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
-use App\Models\User;
+use App\Models\ThesisType;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -53,7 +54,7 @@ class HomeController extends Controller
             ->orderBy('t.id', 'desc')
             ->paginate(5);
 
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         $prodys = ProgramStudy::all();
 
@@ -77,16 +78,19 @@ class HomeController extends Controller
     {
         $searchInput = $request->name;
 
-        $titles = User::select('name')->where('name', 'like', '%' . $searchInput . '%')->get();
+        $names = Student::select('name')->where(function ($query) use ($searchInput) {
+            $query->where('first_name', 'like', '%' . $searchInput . '%')
+                ->orWhere('last_name', 'like', '%' . $searchInput . '%');
+        })->get();
 
-        return response()->json($titles);
+        return response()->json($names);
     }
 
     public function getSuggestionAuthorByUsername(Request $request)
     {
         $searchInput = $request->username;
 
-        $titles = User::select('username')->where('username', 'like', '%' . $searchInput . '%')->get();
+        $titles = Student::select('username')->where('username', 'like', '%' . $searchInput . '%')->get();
 
         return response()->json($titles);
     }

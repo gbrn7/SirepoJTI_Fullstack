@@ -65,7 +65,7 @@
                 </div>
               </div>
               <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit">
-                Sign In
+                Log In
               </button>
               <a href="@yield('custom_link')"
                 class="text-decoration-none fw-light text-center link-text">@yield('custom_link_label')</a>

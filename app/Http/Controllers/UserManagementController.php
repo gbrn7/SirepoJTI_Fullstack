@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\UsersImport;
 use App\Models\Majority;
 use App\Models\ProgramStudy;
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -21,7 +21,7 @@ class UserManagementController extends Controller
     public function index(Request $request)
     {
 
-        $users = User::OrderBy('id', 'desc')
+        $users = Student::OrderBy('id', 'desc')
             ->when($request->author, function ($query) use ($request) {
                 return $query->where('name', 'like', '%' . $request->author . '%');
             })
@@ -78,7 +78,7 @@ class UserManagementController extends Controller
 
             $data['id_program_study'] = $data['program_study'];
 
-            $user = User::create($data);
+            $user = Student::create($data);
 
             $user->assignRole('user');
 
@@ -100,7 +100,7 @@ class UserManagementController extends Controller
 
         $prodys = ProgramStudy::all();
 
-        $user = User::find($id);
+        $user = Student::find($id);
 
         if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
@@ -128,7 +128,7 @@ class UserManagementController extends Controller
 
         try {
             // Find user
-            $oldData = User::find($id);
+            $oldData = Student::find($id);
 
             if (!$oldData) return redirect()->route('user-management.index')->with('toast_error', 'User not found');
 
@@ -178,7 +178,7 @@ class UserManagementController extends Controller
     public function destroy(string $id)
     {
         try {
-            $user = User::find($id);
+            $user = Student::find($id);
 
             if (!$user) return redirect()->route('user-management.index')->with('toast_error', 'User Not Found');
 

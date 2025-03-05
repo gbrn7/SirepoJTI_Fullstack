@@ -25,11 +25,6 @@
   <form action="{{route('user.editProfile', $user->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-2">
-      <label class="form-label">Username</label>
-      <input type="text" class="form-control" placeholder="Enter the username"
-        value="{{old('username', $user->username)}}" name="username" />
-    </div>
-    <div class="mb-2">
       <label for="formFile" class="form-label">Profile Picture</label>
       <input class="form-control" type="file" id="formFile" name="profile_picture" />
     </div>

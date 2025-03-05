@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_majority')->constrained('majority');
             $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

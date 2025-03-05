@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
-use App\Models\User;
+use App\Models\ThesisType;
+use DevRaeph\PDFPasswordProtect\Facade\PDFPasswordProtect;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -19,7 +20,7 @@ class UserDocumentManagementController extends Controller
      */
     public function index($id)
     {
-        $user = User::with('document')->find($id);
+        $user = Student::with('document')->find($id);
 
         if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
@@ -31,9 +32,9 @@ class UserDocumentManagementController extends Controller
      */
     public function create(string $userId)
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
-        $user = User::find($userId);
+        $user = Student::find($userId);
 
         if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
@@ -66,6 +67,11 @@ class UserDocumentManagementController extends Controller
             $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->storeAs('document/', $fileName);
 
+            PDFPasswordProtect::setInputFile('document/' . $fileName)
+                ->setOutputFile('document/encrypted-123.pdf')
+                ->secure();
+
+
             $data['file_name'] = $fileName;
             $data['id_category'] = $data['category'];
             $data['id_user'] = $userId;
@@ -84,11 +90,11 @@ class UserDocumentManagementController extends Controller
      */
     public function edit(string $userId, string $documentId)
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         $document = Thesis::find($documentId);
 
-        $user = User::find($userId);
+        $user = Student::find($userId);
 
         if (!$document) return redirect()->route('user-management.document-management.index', $userId);
 

@@ -13,11 +13,15 @@ return new class extends Migration
     {
         Schema::create('thesis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_category')->constrained('thesis_category');
-            $table->foreignId('id_user')->constrained('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('topic_id')->constrained('thesis_topics')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('type_id')->constrained('thesis_types')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('lecturer_id')->constrained('lecturers')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('student_id')->constrained('students')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
-            $table->string('file_name');
             $table->text('abstract');
+            $table->bigInteger("download_count");
+            $table->boolean("submission_status");
+            $table->text('note');
             $table->timestamps();
         });
     }

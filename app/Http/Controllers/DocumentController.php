@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
+use App\Models\ThesisType;
+use App\Models\ThesisTypes;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +21,7 @@ class DocumentController extends Controller
     public function index(Request $request)
     {
         $documents = Thesis::with('category')
-            ->with('user.programStudy.majority')
+            ->with('student.programStudy.majority')
             ->when($request->title, function ($query) use ($request) {
                 return $query->where('title', 'like', '%' . $request->title . '%');
             })
@@ -31,14 +33,14 @@ class DocumentController extends Controller
 
     public function create()
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         return view('admin_views.documents.document_upsert_form', compact('categories'));
     }
 
     public function edit(string $id)
     {
-        $categories = ThesisCategory::all();
+        $categories = ThesisType::all();
 
         $document = Thesis::find($id);
 
@@ -66,7 +68,7 @@ class DocumentController extends Controller
         try {
             $data = $validator->safe()->all();
 
-            $user = User::where('username', $request->username)->first();
+            $user = Student::where('username', $request->username)->first();
 
             if (!$user) return back()->withInput()->with('toast_error', 'Username Not Found');
 
@@ -120,7 +122,7 @@ class DocumentController extends Controller
                 $newData['id_category'] = $validator->safe()->category;
             }
             if ($validator->safe()->username) {
-                $user = User::where('username', $request->username)->first();
+                $user = Student::where('username', $request->username)->first();
 
                 if (!$user) return back()->withInput()->with('toast_error', 'Username Not Found');
 
@@ -228,7 +230,7 @@ class DocumentController extends Controller
 
     public function getUserDocument(string $id, Request $request)
     {
-        $user = User::with('programStudy.majority')->find($id);
+        $user = Student::with('programStudy.majority')->find($id);
 
         if (!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 

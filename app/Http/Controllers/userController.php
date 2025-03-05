@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -23,13 +23,13 @@ class userController extends Controller
 
     public function editProfile(string $id)
     {
-        if(Auth::guard('admin')->check()){
+        if (Auth::guard('admin')->check()) {
             $user = Admin::find($id);
-        }else{
-            $user = User::find($id);
+        } else {
+            $user = Student::find($id);
         };
 
-        if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
+        if (!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
         return view('user_views.edit_profile', compact('user'));
     }
@@ -38,49 +38,47 @@ class userController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'username' => 'nullable|string|unique:users,username,'.$id.',id',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
             'old_password' => 'nullable',
             'new_password' => 'nullable|min:6',
             'confirm_password' => 'required_with:new_password|same:new_password',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()
-            ->with('toast_error', join(', ', $validator->messages()->all()))
-            ->withInput();
+                ->with('toast_error', join(', ', $validator->messages()->all()))
+                ->withInput();
         }
 
         $data = $validator->safe()->all();
 
-        if(Auth::guard('admin')->check()){
+        if (Auth::guard('admin')->check()) {
             $user = Admin::find($id);
-        }else{
-            $user = User::find($id);
+        } else {
+            $user = Student::find($id);
         };
 
 
-        if(!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
+        if (!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
         try {
-        if($request->confirm_password){
-            if (!(Hash::check($request->old_password, $user->password))) {
-                return redirect()->back()->with('toast_error', 'The old password invalid');   
+            if ($request->confirm_password) {
+                if (!(Hash::check($request->old_password, $user->password))) {
+                    return redirect()->back()->with('toast_error', 'The old password invalid');
+                }
+                $data['password'] = $data['new_password'];
             }
-            $data['password'] = $data['new_password'];
-        }
 
-        if($request->profile_picture){
-            $file = $request->profile_picture;
-            $fileName = Str::random(10).$file->getClientOriginalName();
-            // Store new profile
-            $file->storeAs('public/profile/', $fileName);
-            $data['profile_picture'] = $fileName;
+            if ($request->profile_picture) {
+                $file = $request->profile_picture;
+                $fileName = Str::random(10) . $file->getClientOriginalName();
+                // Store new profile
+                $file->storeAs('public/profile/', $fileName);
+                $data['profile_picture'] = $fileName;
 
-            // Delete old profile
-            Storage::delete('public/profile/'.$user->profile_picture);
-
-        }
+                // Delete old profile
+                Storage::delete('public/profile/' . $user->profile_picture);
+            }
 
             $user->update($data);
 
@@ -89,6 +87,5 @@ class userController extends Controller
 
             return back()->with('toast_error', $th->getMessage());
         }
-
     }
 }

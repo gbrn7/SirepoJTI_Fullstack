@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('majority', function (Blueprint $table) {
+        Schema::create('thesis_topics', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string("topic");
             $table->timestamps();
             $table->softDeletes();
         });
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('majority');
+        Schema::dropIfExists('thesis_topics');
     }
 };

@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('thesis_category', function (Blueprint $table) {
+        Schema::create('thesis_files', function (Blueprint $table) {
             $table->id();
-            $table->string('category');
+            $table->foreignId("thesis_id")->constrained("thesis")->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string("file_name");
+            $table->tinyInteger("sequence_num");
             $table->timestamps();
         });
     }
@@ -23,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('thesis_category');
+        Schema::dropIfExists('thesis_files');
     }
 };
