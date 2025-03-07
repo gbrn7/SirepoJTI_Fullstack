@@ -2,31 +2,34 @@
 
 namespace Database\Seeders;
 
-use App\Models\ThesisCategory as ModelsThesisCategory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ThesisType;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class ThesisCategory extends Seeder
+class ThesisTypeSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        ModelsThesisCategory::insert([
+        ThesisType::insert([
             [
-                'category' => 'Big Data',
+                'type' => 'Tugas Akhir',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'category' => 'Internet Of Thing',
+                'type' => 'Skripsi',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
-                'category' => 'Business Inteligence',
+                'type' => 'Tesis',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'type' => 'Desertasi',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

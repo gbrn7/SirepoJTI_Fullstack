@@ -20,7 +20,8 @@ class Thesis extends Model
         'student_id',
         'title',
         'abstract',
-        'donwload_count',
+        'download_count',
+        'submission_status',
         'note',
         'created_at',
         'updated_at'

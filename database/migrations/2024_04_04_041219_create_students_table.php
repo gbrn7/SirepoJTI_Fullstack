@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->enum('gender', ["Male", "Female"]);
-            $table->tinyInteger('class_year');
+            $table->smallInteger('class_year');
             $table->string('username')->unique();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('profile_picture')->nullable();
-            $table->boolean('thesis_status');
+            $table->boolean('thesis_status')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('student');
+        Schema::dropIfExists('students');
     }
 };

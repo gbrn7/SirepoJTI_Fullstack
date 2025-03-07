@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("username");
             $table->string("email");
             $table->string("password");
-            $table->string("profile_picture");
+            $table->string("profile_picture")->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

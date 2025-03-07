@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('abstract');
             $table->bigInteger("download_count");
-            $table->boolean("submission_status");
+            $table->boolean("submission_status")->default(false);
             $table->text('note');
             $table->timestamps();
         });
