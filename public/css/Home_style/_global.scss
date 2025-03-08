@@ -122,6 +122,30 @@ body {
             border-radius: 8px !important;
         }
 
+        .filter-wrapper {
+            .filter-box {
+                cursor: pointer;
+                .filter-text {
+                    font-size: 14px;
+
+                    @include media-breakpoint-down(lg) {
+                        font-size: 12px;
+                    }
+                }
+
+                .folder-logo {
+                    width: 90px;
+                }
+
+                transition: all 0.2s ease-in-out;
+            }
+
+            .filter-box:hover {
+                background-color: white;
+                box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+            }
+        }
+
         .btn-apply {
             background-color: #ea5455;
             color: white;

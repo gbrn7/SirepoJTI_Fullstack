@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\MyDocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ThesisTypeController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\UserDocumentManagementController;
 use App\Http\Controllers\UserManagementController;
@@ -24,10 +24,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
 
-Route::get('/signIn', [AuthController::class, 'userSignin'])->name('signIn.user');
+Route::get('/signIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
 Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.signOut');
 Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::get('/signIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
 
 Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionTitle'])->name('getSuggestionTitle');
 Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
@@ -52,7 +53,7 @@ Route::group(['prefix' => 'home'], function () {
         Route::resource('my-document', MyDocumentController::class)->middleware('role:user');
 
         Route::group(['middleware' => ['role:admin']], function () {
-            Route::resource('categories', CategoryController::class)->only([
+            Route::resource('categories', ThesisTypeController::class)->only([
                 'index',
                 'store',
                 'update',
@@ -81,5 +82,5 @@ Route::group(['prefix' => 'home'], function () {
 
 Route::any('/{any}', function () {
     if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
-    return redirect()->route('signIn.user');
+    return redirect()->route('signIn.student');
 })->where('any', '.*');

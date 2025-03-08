@@ -44,7 +44,7 @@
                 <img src="{{asset('img/jti_logo.png')}}" class="header-logo" />
                 <img src="{{asset('img/polinema_logo.png')}}" class="header-logo" />
               </div>
-              <h1 class="my-0 mt-4 fs-3">@yield('title')</h1>
+              <h1 class="my-0 mt-4 fs-4 fw-normal">@yield('title')</h1>
             </div>
           </div>
           <form action="@yield('form_action')" method="post">
@@ -67,8 +67,12 @@
               <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit">
                 Log In
               </button>
-              <a href="@yield('custom_link')"
-                class="text-decoration-none fw-light text-center link-text">@yield('custom_link_label')</a>
+              <div class="link-wrapper text-center">
+                <a href="@yield('custom_link_first')"
+                  class="text-decoration-none fw-light text-center link-text">@yield('custom_link_label_first')</a> |
+                <a href="@yield('custom_link_second')"
+                  class="text-decoration-none fw-light text-center link-text">@yield('custom_link_label_second')</a>
+              </div>
             </div>
           </form>
           <div class="auth-footer text-center text-secondary mt-1">

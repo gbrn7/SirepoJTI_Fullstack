@@ -34,7 +34,7 @@
       </ul>
     </div>
     @else
-    <a href="{{route('signIn.user')}}" class="login-link text-decoration-none d-flex align-items-center gap-1 "><i
+    <a href="{{route('signIn.student')}}" class="login-link text-decoration-none d-flex align-items-center gap-1 "><i
         class="ri-login-circle-line"></i>Log In</a>
     @endif
   </div>

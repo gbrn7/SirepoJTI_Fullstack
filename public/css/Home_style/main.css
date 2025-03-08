@@ -117,6 +117,25 @@ body .content-wrapper .input-group .search-input {
 body .content-wrapper .year-input {
   border-radius: 8px !important;
 }
+body .content-wrapper .filter-wrapper .filter-box {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+body .content-wrapper .filter-wrapper .filter-box .filter-text {
+  font-size: 14px;
+}
+@media (max-width: 991.98px) {
+  body .content-wrapper .filter-wrapper .filter-box .filter-text {
+    font-size: 12px;
+  }
+}
+body .content-wrapper .filter-wrapper .filter-box .folder-logo {
+  width: 90px;
+}
+body .content-wrapper .filter-wrapper .filter-box:hover {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
 body .content-wrapper .btn-apply {
   background-color: #ea5455;
   color: white;

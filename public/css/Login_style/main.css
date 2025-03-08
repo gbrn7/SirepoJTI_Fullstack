@@ -88,6 +88,10 @@ border: 1px solid rgba(255, 255, 255, 0.23);
   position: relative;
 }
 
+.link-wrapper a{
+  font-size: 14px;
+}
+
 .pass-icon {
   width: 22px;
   height: 22px;

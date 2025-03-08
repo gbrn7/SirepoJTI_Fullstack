@@ -11,18 +11,25 @@ use Illuminate\Support\Facades\Validator;
 class AuthController extends Controller
 {
 
-    public function userSignin()
+    public function studentSignin()
     {
-        if(Auth::guard('web')->check() || Auth::guard('admin')->check())return redirect()->route('home');
+        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
 
-        return view('auth.signin-user');
+        return view('auth.signin-student');
     }
-    
+
     public function adminSignin()
     {
-        if(Auth::guard('web')->check() || Auth::guard('admin')->check())return redirect()->route('home');
+        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
 
         return view('auth.signin-admin');
+    }
+
+    public function lecturerSignin()
+    {
+        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
+
+        return view('auth.signin-lecturer');
     }
 
     public function authenticate(Request $request)
@@ -31,29 +38,29 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'required',
             'isAdmin' => 'nullable|boolean'
-        ] );
+        ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return back()->with('toast_error', join(', ', $validator->messages()->all()))
-            ->withInput()
-            ->withErrors($validator->messages());
+                ->withInput()
+                ->withErrors($validator->messages());
         }
 
         $credentials = $validator->safe()->only('username', 'password');
 
 
-        if($validator->safe()->only('isAdmin')){
+        if ($validator->safe()->only('isAdmin')) {
             // Auth::setDefaultDriver('admin');
 
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
-                
+
                 return redirect()->route('home');
             }
-        }else{
+        } else {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-     
+
                 return redirect()->route('home');
             }
         }
@@ -63,9 +70,9 @@ class AuthController extends Controller
 
     public function signOut(Request $request)
     {
-        if(Auth::guard('web')->check()){
+        if (Auth::guard('web')->check()) {
             Auth::guard('web')->logout();
-        }elseif (Auth::guard('admin')->check()) {
+        } elseif (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         }
 
