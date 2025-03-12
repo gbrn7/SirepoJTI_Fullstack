@@ -12,8 +12,28 @@ class ThesisService implements ThesisServiceInterface
     protected ThesisRepositoryInterface $ThesisRepository
   ) {}
 
-  public function getYearFilter(): Collection
+  public function getYearFilters(): Collection
   {
-    return $this->ThesisRepository->getYearFilter();
+    return $this->ThesisRepository->getYearFilters();
+  }
+
+  public function getProgramStudyFilters(): Collection
+  {
+    return $this->ThesisRepository->getProgramStudyFilters();
+  }
+
+  public function getTopicFilters(): Collection
+  {
+    return $this->ThesisRepository->getTopicFilters();
+  }
+
+  public function getAuthorFilters(?string $alphabet = "A"): Collection
+  {
+    return $this->ThesisRepository->getAuthorFilters($alphabet ? $alphabet : "A");
+  }
+
+  public function getThesisTypeFilters(): Collection
+  {
+    return $this->ThesisRepository->getThesisTypeFilters();
   }
 }

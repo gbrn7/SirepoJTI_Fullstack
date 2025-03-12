@@ -34,25 +34,29 @@
             <p class="filter-text mb-1 mt-1">Tahun Publikasi</p>
           </div>
         </a>
-        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        <a href="{{route('filter.program-study.view')}}"
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Program Studi</p>
           </div>
         </a>
-        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        <a href="{{route('filter.topic.view')}}"
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Topik</p>
           </div>
         </a>
-        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        <a href="{{route('filter.author.view')}}"
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Penulis</p>
           </div>
         </a>
-        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        <a href="{{route('filter.thesis-type.view')}}"
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Jenis Tugas Akhir</p>

@@ -15,13 +15,25 @@ class ProgramStudySeeder extends Seeder
         ProgramStudy::insert([
             [
                 'id_majority' => 1,
-                'name' => 'Teknik Informatika',
+                'name' => 'D2 Pengembangan Piranti Lunak Situs',
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id_majority' => 1,
-                'name' => 'Sistem Informasi Bisnis',
+                'name' => 'D4 Teknik Informatika',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id_majority' => 1,
+                'name' => 'D4 Sistem Informasi Bisnis',
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id_majority' => 1,
+                'name' => 'S2 Rekayasa Teknologi Informasi',
                 'created_at' => now(),
                 'updated_at' => now()
             ],

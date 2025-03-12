@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
 
 Route::get('/filter/year', [HomeController::class, 'yearFilterView'])->name('filter.year.view');
+Route::get('/filter/program-study', [HomeController::class, 'studyProgramFilterView'])->name('filter.program-study.view');
+Route::get('/filter/topic', [HomeController::class, 'topicFilterView'])->name('filter.topic.view');
+Route::get('/filter/author', [HomeController::class, 'authorFilterView'])->name('filter.author.view');
+Route::get('/filter/thesis-type', [HomeController::class, 'thesisTypeFilterView'])->name('filter.thesis-type.view');
 
 Route::get('/signIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');

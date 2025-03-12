@@ -8,6 +8,9 @@ use App\Models\Thesis;
 use App\Models\ThesisType;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Carbon\Carbon;
+use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Casts\Json;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,12 +20,12 @@ class HomeController extends Controller
         protected ThesisServiceInterface $thesisService
     ) {}
 
-    public function welcomeView()
+    public function welcomeView(): View
     {
         return view('public_views.welcome');
     }
 
-    public function homeView(Request $request)
+    public function homeView(Request $request): View
     {
         $searchParams = [
             'title' => $request->title,
@@ -99,10 +102,38 @@ class HomeController extends Controller
         return response()->json($titles);
     }
 
-    public function yearFilterView()
+    public function yearFilterView(): View
     {
-        $year = $this->thesisService->getYearFilter();
+        $year = $this->thesisService->getYearFilters();
 
         return view('public_views.publication_year_filter', ["years" => $year]);
+    }
+
+    public function studyProgramFilterView(): View
+    {
+        $programs = $this->thesisService->getProgramStudyFilters();
+
+        return view('public_views.program_study_filter', ["programs" => $programs]);
+    }
+
+    public function topicFilterView(): View
+    {
+        $topics = $this->thesisService->getTopicFilters();
+
+        return view('public_views.topic_filter', ["topics" => $topics]);
+    }
+
+    public function authorFilterView(Request $request): View
+    {
+        $authors = $this->thesisService->getAuthorFilters($request->alphabet);
+
+        return view('public_views.author_filter', ['authors' => $authors]);
+    }
+
+    public function thesisTypeFilterView(): View
+    {
+        $types = $this->thesisService->getThesisTypeFilters();
+
+        return view('public_views.thesis_type_filter', ['types' => $types]);
     }
 }
