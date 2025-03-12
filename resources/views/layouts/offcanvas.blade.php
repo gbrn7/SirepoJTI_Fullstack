@@ -1,7 +1,7 @@
 <div class="offcanvas offcanvas-start cursor-pointer" tabindex="5" id="offcanvasNavbar"
   aria-labelledby="offcanvasNavbarLabel" data-bs-scroll="true">
   <a href="{{route('welcome')}}" class="offcanvas-header text-decoration-none d-flex justify-content-between">
-    <img src="{{asset('img/Sidebar-logo.png')}}" class="sidebar-logo" />
+    <img src="{{asset('img/logo-sirepo-white.png')}}" class="sidebar-logo" />
     <i class="ri-close-line text-white-50 fs-2 close-icon" data-bs-dismiss="offcanvas" aria-label="Close"></i>
   </a>
   <div class="offcanvas-body mt-1 p-0">

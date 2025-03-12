@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\ProgramStudy;
 use App\Models\Student;
 use App\Models\Thesis;
-use App\Models\ThesisCategory;
 use App\Models\ThesisType;
+use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    public function __construct(
+        protected ThesisServiceInterface $thesisService
+    ) {}
+
     public function welcomeView()
     {
         return view('public_views.welcome');
@@ -32,14 +36,14 @@ class HomeController extends Controller
 
         $documents = DB::table('thesis as t')
             ->where('t.title', 'like', '%' . $searchParams['title'] . '%')
-            ->when($searchParams['id_category'], function ($query) use ($searchParams) {
-                return $query->whereIn('t.id_category', $searchParams['id_category']);
+            ->when($searchParams['topic_id'], function ($query) use ($searchParams) {
+                return $query->whereIn('tt.topic_id', $searchParams['topic_id']);
             })
             ->when($searchParams['id_program_study'], function ($query) use ($searchParams) {
-                return $query->whereIn('u.id_program_study', $searchParams['id_program_study']);
+                return $query->whereIn('s.id_program_study', $searchParams['id_program_study']);
             })
             ->when($searchParams['name'], function ($query) use ($searchParams) {
-                return $query->where('u.name', $searchParams['name']);
+                return $query->where('s.name', $searchParams['name']);
             })
             ->when($searchParams['publication_from'], function ($query) use ($searchParams) {
                 return $query->where('t.created_at', '>=', $searchParams['publication_from']);
@@ -47,10 +51,10 @@ class HomeController extends Controller
             ->when($searchParams['publication_until'], function ($query) use ($searchParams) {
                 return $query->where('t.created_at', '<=', $searchParams['publication_until']);
             })
-            ->join('users as u', 'u.id', 't.id_user')
-            ->join('program_study as ps', 'ps.id', 'u.id_program_study')
-            ->join('thesis_category as c', 'c.id', 't.id_category')
-            ->selectRaw('t.id as document_id, u.id as user_id, u.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, c.category as document_category, t.created_at as publication, c.id as category_id, ps.id as program_study_id')
+            ->join('students as s', 's.id', 't.id_user')
+            ->join('program_study as ps', 'ps.id', 's.id_program_study')
+            ->join('thesis_topic as tt', 'c.id', 't.topic_id')
+            ->selectRaw('t.id as document_id, a.id as user_id, s.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, tt.category as document_category, t.created_at as publication, tt.id as category_id, ps.id as program_study_id')
             ->orderBy('t.id', 'desc')
             ->paginate(5);
 
@@ -93,5 +97,12 @@ class HomeController extends Controller
         $titles = Student::select('username')->where('username', 'like', '%' . $searchInput . '%')->get();
 
         return response()->json($titles);
+    }
+
+    public function yearFilterView()
+    {
+        $year = $this->thesisService->getYearFilter();
+
+        return view('public_views.publication_year_filter', ["years" => $year]);
     }
 }

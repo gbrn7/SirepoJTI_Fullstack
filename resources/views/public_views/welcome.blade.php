@@ -12,7 +12,7 @@
         <img src="{{asset('img/jti_logo.png')}}" class="jti-logo" />
         <div class="text-wrapper gap-1">
           <p class="m-0 head-title">Sistem Informasi</p>
-          <h1 class="fw-bold m-0 main-title">REPOSITORI SKRIPSI JTI</h1>
+          <h1 class="fw-bold m-0 main-title">REPOSITORI TUGAS AKHIR JTI</h1>
         </div>
       </div>
       <div class="search-wrapper pb-2 mt-4 rounded rounded-3 w-100">
@@ -27,36 +27,37 @@
         </div>
       </div>
       <div class="filter-wrapper mt-4 w-100 d-flex justify-content-lg-between flex-wrap">
-        <div class="filter-box cursor-pointer col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        <a href="{{route('filter.year.view')}}"
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
-            <p class="filter-text mb-0 mt-1">Tahun Publikasi</p>
+            <p class="filter-text mb-1 mt-1">Tahun Publikasi</p>
           </div>
-        </div>
-        <div class="filter-box cursor-pointer col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        </a>
+        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
-            <p class="filter-text mb-0 mt-1">Program Studi</p>
+            <p class="filter-text mb-1 mt-1">Program Studi</p>
           </div>
-        </div>
-        <div class="filter-box cursor-pointer col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        </a>
+        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
-            <p class="filter-text mb-0 mt-1">Topik</p>
+            <p class="filter-text mb-1 mt-1">Topik</p>
           </div>
-        </div>
-        <div class="filter-box cursor-pointer col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        </a>
+        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
-            <p class="filter-text mb-0 mt-1">Penulis</p>
+            <p class="filter-text mb-1 mt-1">Penulis</p>
           </div>
-        </div>
-        <div class="filter-box cursor-pointer col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+        </a>
+        <a class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
-            <p class="filter-text mb-0 mt-1">Jenis Tugas Akhir</p>
+            <p class="filter-text mb-1 mt-1">Jenis Tugas Akhir</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </div>

@@ -24,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'welcomeView'])->name('welcome');
 
+Route::get('/filter/year', [HomeController::class, 'yearFilterView'])->name('filter.year.view');
+
 Route::get('/signIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
 Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
 Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.signOut');

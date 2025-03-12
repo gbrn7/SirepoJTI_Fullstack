@@ -20,4 +20,12 @@
         border-radius: 100px;
         object-fit: cover;
     }
+
+    .logo-img-wrapper {
+        width: 220px;
+
+        img {
+            width: 100%;
+        }
+    }
 }

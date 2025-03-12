@@ -5,6 +5,12 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <div class="d-none d-md-block logo-img-wrapper {{Request::is('/') ? 'opacity-0': ''}}">
+      <a href={{route('welcome')}}>
+        <img src="{{asset('img/logo-sirepo.png')}}">
+      </a>
+    </div>
+
     @if (auth()->user() || Auth::guard('admin')->user())
     <div class="dropdown">
       <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6bed2867f2dd5220b9fa0d3419ab95a",
+    "content-hash": "df4cad83369367ba2a2bd33e0071cc01",
     "packages": [
         {
             "name": "brick/math",
@@ -131,73 +131,6 @@
             "time": "2023-12-11T17:09:12+00:00"
         },
         {
-            "name": "codedge/laravel-fpdf",
-            "version": "1.12.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/codedge/laravel-fpdf.git",
-                "reference": "d1e6bff5b4e5589a7d778445aefe062bc1f3f53d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/codedge/laravel-fpdf/zipball/d1e6bff5b4e5589a7d778445aefe062bc1f3f53d",
-                "reference": "d1e6bff5b4e5589a7d778445aefe062bc1f3f53d",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/support": "^10.0 || ^11.0",
-                "php": "~8.3 || ~8.4"
-            },
-            "require-dev": {
-                "ergebnis/composer-normalize": "^2.39",
-                "orchestra/testbench": "^8.0 || ^9.0",
-                "phpunit/phpunit": "^10.5"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "Fpdf": "Codedge\\Fpdf\\Facades\\Fpdf"
-                    },
-                    "providers": [
-                        "Codedge\\Fpdf\\FpdfServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Codedge\\Fpdf\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Holger Lösken",
-                    "email": "holger.loesken@codedge.de"
-                }
-            ],
-            "description": "Laravel package to include Fpdf. It ships with Fpdf 1.86.",
-            "keywords": [
-                "fpdf",
-                "laravel",
-                "pdf"
-            ],
-            "support": {
-                "issues": "https://github.com/codedge/laravel-fpdf/issues",
-                "source": "https://github.com/codedge/laravel-fpdf"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/codedge",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-01-11T12:50:46+00:00"
-        },
-        {
             "name": "composer/semver",
             "version": "3.4.0",
             "source": {
@@ -277,80 +210,6 @@
                 }
             ],
             "time": "2023-08-31T09:50:34+00:00"
-        },
-        {
-            "name": "devraeph/laravel-pdf-protect",
-            "version": "3.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/DevRaeph/laravel-pdf-protect.git",
-                "reference": "4d25dd06e6ab568b9d7088ae1a1f3eef8f1f88b4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/DevRaeph/laravel-pdf-protect/zipball/4d25dd06e6ab568b9d7088ae1a1f3eef8f1f88b4",
-                "reference": "4d25dd06e6ab568b9d7088ae1a1f3eef8f1f88b4",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^10.0|^11.0",
-                "illuminate/support": "^10.0|^11.0",
-                "mpdf/mpdf": "^8.1.3",
-                "php": "^8.1|^8.2|^8.3",
-                "spatie/laravel-package-tools": "^1.15.0"
-            },
-            "require-dev": {
-                "laravel/pint": "^1.13",
-                "nunomaduro/collision": "^7.8",
-                "nunomaduro/larastan": "^2.0.1",
-                "orchestra/testbench": "^6.0|^7.0|^8.0|^8.8",
-                "pestphp/pest": "^2.0",
-                "pestphp/pest-plugin-arch": "^2.0",
-                "pestphp/pest-plugin-laravel": "^2.0",
-                "phpstan/extension-installer": "^1.1",
-                "phpstan/phpstan-deprecation-rules": "^1.0",
-                "phpstan/phpstan-phpunit": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "aliases": {
-                        "PDFPasswordProtect": "DevRaeph\\PDFPasswordProtect\\Facades\\PDFPasswordProtect"
-                    },
-                    "providers": [
-                        "DevRaeph\\PDFPasswordProtect\\PDFPasswordProtectServiceProvider"
-                    ]
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "DevRaeph\\PDFPasswordProtect\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Raphael Planer aka DevRaeph",
-                    "email": "me@devraeph.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Password protect PDF in Laravel",
-            "homepage": "https://github.com/devraeph/laravel-pdf-protect",
-            "keywords": [
-                "DevRaeph",
-                "password",
-                "pdf",
-                "protect"
-            ],
-            "support": {
-                "issues": "https://github.com/DevRaeph/laravel-pdf-protect/issues",
-                "source": "https://github.com/DevRaeph/laravel-pdf-protect/tree/3.1.0"
-            },
-            "time": "2024-05-21T08:42:57+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -3093,61 +2952,6 @@
             "time": "2024-03-05T20:51:40+00:00"
         },
         {
-            "name": "niklasravnsborg/laravel-pdf",
-            "version": "v4.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/niklasravnsborg/laravel-pdf.git",
-                "reference": "a5f5c22dd5e10d8f536102cec01c21282e18ebae"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/niklasravnsborg/laravel-pdf/zipball/a5f5c22dd5e10d8f536102cec01c21282e18ebae",
-                "reference": "a5f5c22dd5e10d8f536102cec01c21282e18ebae",
-                "shasum": ""
-            },
-            "require": {
-                "mpdf/mpdf": "^8.0",
-                "php": ">=7.0"
-            },
-            "require-dev": {
-                "orchestra/testbench": "^3.7",
-                "phpunit/phpunit": "^7.4"
-            },
-            "type": "library",
-            "extra": {
-                "laravel": {
-                    "providers": [
-                        "niklasravnsborg\\LaravelPdf\\PdfServiceProvider"
-                    ],
-                    "aliases": {
-                        "PDF": "niklasravnsborg\\LaravelPdf\\Facades\\Pdf"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "niklasravnsborg\\LaravelPdf\\": "src/LaravelPdf"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Generate PDFs in Laravel with this mPDF wrapper.",
-            "keywords": [
-                "laravel",
-                "mpdf",
-                "pdf"
-            ],
-            "support": {
-                "issues": "https://github.com/niklasravnsborg/laravel-pdf/issues",
-                "source": "https://github.com/niklasravnsborg/laravel-pdf/tree/v4.1.0"
-            },
-            "abandoned": true,
-            "time": "2021-06-08T11:07:13+00:00"
-        },
-        {
             "name": "nunomaduro/termwind",
             "version": "v1.15.1",
             "source": {
@@ -4270,48 +4074,6 @@
             "time": "2024-03-02T08:59:25+00:00"
         },
         {
-            "name": "setasign/fpdf",
-            "version": "1.8",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Setasign/FPDF.git",
-                "reference": "a8a76e8cfc1db7b1a18c096a021a0cdff70db6b5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDF/zipball/a8a76e8cfc1db7b1a18c096a021a0cdff70db6b5",
-                "reference": "a8a76e8cfc1db7b1a18c096a021a0cdff70db6b5",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "fpdf.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "no usage restriction"
-            ],
-            "authors": [
-                {
-                    "name": "Olivier Plathey",
-                    "email": "oliver@fpdf.org",
-                    "homepage": "http://fpdf.org/"
-                }
-            ],
-            "description": "FPDF is a PHP class which allows to generate PDF files with pure PHP. F from FPDF stands for Free: you may use it for any kind of usage and modify it to suit your needs.",
-            "homepage": "http://www.fpdf.org",
-            "keywords": [
-                "fpdf",
-                "pdf"
-            ],
-            "support": {
-                "source": "https://github.com/Setasign/FPDF/tree/1.8"
-            },
-            "time": "2015-11-30T09:05:35+00:00"
-        },
-        {
             "name": "setasign/fpdi",
             "version": "v2.6.2",
             "source": {
@@ -4382,66 +4144,6 @@
                 }
             ],
             "time": "2024-12-10T13:12:19+00:00"
-        },
-        {
-            "name": "spatie/laravel-package-tools",
-            "version": "1.18.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/spatie/laravel-package-tools.git",
-                "reference": "8332205b90d17164913244f4a8e13ab7e6761d29"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/8332205b90d17164913244f4a8e13ab7e6761d29",
-                "reference": "8332205b90d17164913244f4a8e13ab7e6761d29",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/contracts": "^9.28|^10.0|^11.0",
-                "php": "^8.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^1.5",
-                "orchestra/testbench": "^7.7|^8.0|^9.0",
-                "pestphp/pest": "^1.22|^2",
-                "phpunit/phpunit": "^9.5.24|^10.5",
-                "spatie/pest-plugin-test-time": "^1.1|^2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Spatie\\LaravelPackageTools\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Freek Van der Herten",
-                    "email": "freek@spatie.be",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Tools for creating Laravel packages",
-            "homepage": "https://github.com/spatie/laravel-package-tools",
-            "keywords": [
-                "laravel-package-tools",
-                "spatie"
-            ],
-            "support": {
-                "issues": "https://github.com/spatie/laravel-package-tools/issues",
-                "source": "https://github.com/spatie/laravel-package-tools/tree/1.18.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/spatie",
-                    "type": "github"
-                }
-            ],
-            "time": "2024-12-30T13:13:39+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -7028,6 +6730,94 @@
     ],
     "packages-dev": [
         {
+            "name": "barryvdh/laravel-debugbar",
+            "version": "v3.15.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barryvdh/laravel-debugbar.git",
+                "reference": "0bc1e1361e7fffc2be156f46ad1fba6927c01729"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/0bc1e1361e7fffc2be156f46ad1fba6927c01729",
+                "reference": "0bc1e1361e7fffc2be156f46ad1fba6927c01729",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^9|^10|^11|^12",
+                "illuminate/session": "^9|^10|^11|^12",
+                "illuminate/support": "^9|^10|^11|^12",
+                "php": "^8.1",
+                "php-debugbar/php-debugbar": "~2.1.1",
+                "symfony/finder": "^6|^7"
+            },
+            "conflict": {
+                "maximebf/debugbar": "*"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3.3",
+                "orchestra/testbench-dusk": "^7|^8|^9|^10",
+                "phpunit/phpunit": "^9.5.10|^10|^11",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Debugbar": "Barryvdh\\Debugbar\\Facades\\Debugbar"
+                    },
+                    "providers": [
+                        "Barryvdh\\Debugbar\\ServiceProvider"
+                    ]
+                },
+                "branch-alias": {
+                    "dev-master": "3.15-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Barryvdh\\Debugbar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "PHP Debugbar integration for Laravel",
+            "keywords": [
+                "debug",
+                "debugbar",
+                "dev",
+                "laravel",
+                "profiler",
+                "webprofiler"
+            ],
+            "support": {
+                "issues": "https://github.com/barryvdh/laravel-debugbar/issues",
+                "source": "https://github.com/barryvdh/laravel-debugbar/tree/v3.15.2"
+            },
+            "funding": [
+                {
+                    "url": "https://fruitcake.nl",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/barryvdh",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-02-25T15:25:22+00:00"
+        },
+        {
             "name": "fakerphp/faker",
             "version": "v1.23.1",
             "source": {
@@ -7637,6 +7427,76 @@
                 "source": "https://github.com/phar-io/version/tree/3.2.1"
             },
             "time": "2022-02-21T01:04:05+00:00"
+        },
+        {
+            "name": "php-debugbar/php-debugbar",
+            "version": "v2.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-debugbar/php-debugbar.git",
+                "reference": "16fa68da5617220594aa5e33fa9de415f94784a0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-debugbar/php-debugbar/zipball/16fa68da5617220594aa5e33fa9de415f94784a0",
+                "reference": "16fa68da5617220594aa5e33fa9de415f94784a0",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8",
+                "psr/log": "^1|^2|^3",
+                "symfony/var-dumper": "^4|^5|^6|^7"
+            },
+            "require-dev": {
+                "dbrekelmans/bdi": "^1",
+                "phpunit/phpunit": "^8|^9",
+                "symfony/panther": "^1|^2.1",
+                "twig/twig": "^1.38|^2.7|^3.0"
+            },
+            "suggest": {
+                "kriswallsmith/assetic": "The best way to manage assets",
+                "monolog/monolog": "Log using Monolog",
+                "predis/predis": "Redis storage"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DebugBar\\": "src/DebugBar/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                },
+                {
+                    "name": "Barry vd. Heuvel",
+                    "email": "barryvdh@gmail.com"
+                }
+            ],
+            "description": "Debug bar in the browser for php application",
+            "homepage": "https://github.com/php-debugbar/php-debugbar",
+            "keywords": [
+                "debug",
+                "debug bar",
+                "debugbar",
+                "dev"
+            ],
+            "support": {
+                "issues": "https://github.com/php-debugbar/php-debugbar/issues",
+                "source": "https://github.com/php-debugbar/php-debugbar/tree/v2.1.6"
+            },
+            "time": "2025-02-21T17:47:03+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
