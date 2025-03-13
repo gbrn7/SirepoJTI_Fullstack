@@ -17,7 +17,7 @@
       </div>
       <div class="search-wrapper pb-2 mt-4 rounded rounded-3 w-100">
         <div class="input-group">
-          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search" name="title" />
+          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="title" />
           <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
             id="basic-addon2">
             <i class="ri-search-line"></i>

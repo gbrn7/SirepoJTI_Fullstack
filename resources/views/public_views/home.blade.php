@@ -9,10 +9,10 @@
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item">
-        <a href="{{route('home')}}" class="text-decoration-none">Home Search</a>
+        <a href="{{route('home')}}" class="text-decoration-none">Beranda</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
-        Search Result
+        Hasil Penelusuran
       </li>
     </ol>
   </nav>
@@ -25,7 +25,7 @@
     <div class="search-wrapper position-relative rounded rounded-3 w-100">
       <div class="input-group input-group-search position-relative">
         <input type="text" value="{{request()->get('title')}}" class="form-control py-2 px-3 search-input border-0"
-          placeholder="Search" name="title" />
+          placeholder="Telusuri" name="title" />
         <button type="submit" class="input-group-text btn btn-danger btn-submit d-flex align-items-center fs-5 px-3"
           id="basic-addon2">
           <i class="ri-search-line"></i>
@@ -42,28 +42,41 @@
             <span class="fw-medium mt-2">Filter</span>
           </div>
           <div class="body-filter overflow-hidden mt-1 w-100">
-            <div class="category-filter">
-              <p class="mb-1 filter-title">Category</p>
-              <div class="category-box d-flex flex-column gap-1">
-                @php($idCategories = collect(request()->get('id_category')))
-                @foreach ($categories as $category)
+            <div class="topic-filter">
+              <p class="mb-1 filter-title">Topic</p>
+              <div class="topic-box d-flex flex-column gap-1">
+                @php($topicId = collect(request()->get('topic_id')))
+                @foreach ($topics as $topic)
                 <div class="checkbox-group d-flex gap-1">
-                  <input type="checkbox" class="checkbox category-input" name="id_category[]" value="{{$category->id}}"
-                    @checked($idCategories->search($category->id) !== false ? true :false)>
-                  <label class="fw-light filter-label text-truncate">{{$category->category}}</label>
+                  <input type="checkbox" class="checkbox topic-input" name="id_topic[]" value="{{$topic->id}}"
+                    @checked($topicId->search($topic->id) !== false ? true :false)>
+                  <label class="fw-light filter-label text-truncate">{{$topic->topic}}</label>
                 </div>
                 @endforeach
               </div>
             </div>
             <div class="program-study-filter mt-2">
               <p class="mb-1 filter-title">Program Study</p>
-              <div class="category-box d-flex flex-column gap-1">
-                @php($idProdys = collect(request()->get('id_program_study')))
+              <div class="prody-box d-flex flex-column gap-1">
+                @php($idProdys = collect(request()->get('program_study_id')))
                 @foreach ($prodys as $prody)
                 <div class="checkbox-group d-flex gap-1">
-                  <input type="checkbox" class="checkbox" name="id_program_study[]" value="{{$prody->id}}"
+                  <input type="checkbox" class="checkbox" name="program_study_id[]" value="{{$prody->id}}"
                     @checked($idProdys->search($prody->id) !== false ? true :false)/>
                   <label class="fw-light filter-label text-truncate">{{$prody->name}}</label>
+                </div>
+                @endforeach
+              </div>
+            </div>
+            <div class="type-filter mt-2">
+              <p class="mb-1 filter-title">Jenis Tugas Akhir</p>
+              <div class="topic-box d-flex flex-column gap-1">
+                @php($typeId = collect(request()->get('type_id')))
+                @foreach ($types as $type)
+                <div class="checkbox-group d-flex gap-1">
+                  <input type="checkbox" class="checkbox topic-input" name="type_id[]" value="{{$type->id}}"
+                    @checked($typeId->search($type->id) !== false ? true :false)>
+                  <label class="fw-light filter-label text-truncate">{{$type->type}}</label>
                 </div>
                 @endforeach
               </div>
@@ -96,41 +109,30 @@
       <div class="col-lg-10 ps-lg-4 mt-3 mt-md-0 ps-md-3 thesis-list-box d-flex flex-column justify-content-between">
         <div class="thesis-list-content-up">
           <div class="pagination-nav mt-4 mt-lg-0">
-            <span class="fw-light">Showing page {{$documents->currentPage() }} of about {{$documents->lastPage()}}
-              pages</span>
+            <span class="fw-light">Menampilkan halaman {{$documents->currentPage() }} dari {{$documents->lastPage()}}
+              halaman</span>
           </div>
-          <div class="thesis-box mt-2 d-flex flex-column gap-2">
+
+          <div class="thesis-box mt-2 d-flex flex-column gap-4">
             @forelse ($documents as $document)
             <div class="thesis-item">
-              <a href="{{route('detail.document', $document->document_id)}}"
-                class="thesis-title text-decoration-none mb-1 fw-semibold">
-                {{$document->document_title}}
-              </a>
-              <div class="link-wrapper">
-                <div class="wrapper orange">
-                  <a href="{{route('home', ['id_category' => [$document->category_id]])}}"
-                    class="thesis-identity category-link text-decoration-none">{{$document->document_category}}</a> -
-                  <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
-                  strtotime($document->publication)), 'publication_until' => date('Y',
-                  strtotime($document->publication))] )}}" class="thesis-identity year-link">
-                    {{date('Y',
-                    strtotime($document->publication))}}</a>
-                </div>
-                <div class="wrapper orange">
-                  <a href="{{route('user.document', $document->user_id)}}"
-                    class="text-decoration-none thesis-identity">{{$document->user_name}}</a>
-                  - <a href="{{route('home', ['id_program_study' => [$document->program_study_id]])}}"
-                    class="thesis-identity text-decoration-none">{{$document->program_study_name}}</a>
-                </div>
+              <div class="thesis-title-wrapper text-decoration-none mb-1">
+                <span class="author document-label">{{$document->last_name.",
+                  ".$document->first_name}} {{"(".date('Y',
+                  strtotime($document->publication)).")"}}</span>
+                <a href="{{route('detail.document', $document->thesis_id)}}" class="thesis-title">
+                  {{$document->thesis_title}}.</a>
+                <span class="document-label"> {{$document->thesis_type.", ".$document->program_study_name.", Politeknik
+                  Negeri Malang"}}</span>
               </div>
-              <p class="thesis-abstract mb-1">
-                {{$document->document_abstract}}
+              <p class="thesis-abstract mb-1 fw-light">
+                {{$document->thesis_abstract}}
               </p>
             </div>
             @empty
             <div class="thesis-item w-100">
               <div class="thesis-title text-decoration-none mb-1 fw-semibold">
-                Document Not Found
+                Dokument Tidak ditemukan
               </div>
             </div>
             @endforelse
@@ -183,7 +185,7 @@
 
   $('.author-input').on('input', debounce(function (e) {
     let authorinput = e.target.value;
-
+    
     $.get("{{route('getSuggestionAuthor')}}", {
       name : authorinput
     },
@@ -193,12 +195,14 @@
         }
         data.forEach(e => {
           $('#authorListOption').append($('<option>', {
-            value: e.name
+            value: `${e.last_name}, ${e.first_name}`
           }));
         }); 
       },
     );
+
   }, 300));
+
 
 </script>
 @endpush

@@ -66,7 +66,7 @@
   <ul class="mt-2">
     @foreach ($authors as $author)
     <li class="list-wrapper-list"><a href="" class="text-decoration-none">{{$author->last_name}},
-        {{$author->first_name}}<span>({{$author->total}})</span></a></li>
+        {{$author->first_name}} <span>({{$author->total}})</span></a></li>
     @endforeach
   </ul>
 </div>

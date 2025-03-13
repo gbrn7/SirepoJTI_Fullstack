@@ -19,7 +19,7 @@ class StudentSeeder extends Seeder
         $users =
             [
                 [
-                    'program_study_id' => 2,
+                    'program_study_id' => 3,
                     'first_name' => 'Ade',
                     'last_name' => 'Susilo',
                     'gender' => 'Male',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ProgramStudy;
 use App\Models\Student;
 use App\Models\Thesis;
+use App\Models\ThesisTopic;
 use App\Models\ThesisType;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Carbon\Carbon;
@@ -29,8 +30,9 @@ class HomeController extends Controller
     {
         $searchParams = [
             'title' => $request->title,
-            'id_program_study' => $request->id_program_study,
-            'id_category' => $request->id_category,
+            'program_study_id' => $request->program_study_id,
+            'topic_id' => $request->topic_id,
+            'type_id' => $request->type_id,
             'name' => $request->author,
             'publication_from' => $request->publication_from ? Carbon::createFromDate($request->publication_from, 1)->startOfYear() : null,
             'publication_until' => $request->publication_until ? Carbon::createFromDate($request->publication_until, 1)->endOfYear() : null,
@@ -42,11 +44,16 @@ class HomeController extends Controller
             ->when($searchParams['topic_id'], function ($query) use ($searchParams) {
                 return $query->whereIn('tt.topic_id', $searchParams['topic_id']);
             })
-            ->when($searchParams['id_program_study'], function ($query) use ($searchParams) {
-                return $query->whereIn('s.id_program_study', $searchParams['id_program_study']);
+            ->when($searchParams['type_id'], function ($query) use ($searchParams) {
+                return $query->whereIn('tte.id', $searchParams['type_id']);
+            })
+            ->when($searchParams['program_study_id'], function ($query) use ($searchParams) {
+                return $query->whereIn('s.program_study_id', $searchParams['program_study_id']);
             })
             ->when($searchParams['name'], function ($query) use ($searchParams) {
-                return $query->where('s.name', $searchParams['name']);
+                return $query
+                    ->where('s.first_name', $searchParams['name'])
+                    ->orWhere('s.last_name', $searchParams['name']);
             })
             ->when($searchParams['publication_from'], function ($query) use ($searchParams) {
                 return $query->where('t.created_at', '>=', $searchParams['publication_from']);
@@ -54,18 +61,21 @@ class HomeController extends Controller
             ->when($searchParams['publication_until'], function ($query) use ($searchParams) {
                 return $query->where('t.created_at', '<=', $searchParams['publication_until']);
             })
-            ->join('students as s', 's.id', 't.id_user')
-            ->join('program_study as ps', 'ps.id', 's.id_program_study')
-            ->join('thesis_topic as tt', 'c.id', 't.topic_id')
-            ->selectRaw('t.id as document_id, a.id as user_id, s.name as user_name, t.title as document_title, t.abstract as document_abstract, ps.name as program_study_name, tt.category as document_category, t.created_at as publication, tt.id as category_id, ps.id as program_study_id')
+            ->join('students as s', 's.id', 't.student_id')
+            ->join('program_study as ps', 'ps.id', 's.program_study_id')
+            ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
+            ->join('thesis_types as tte', 'tte.id', 't.type_id')
+            ->selectRaw('t.id as thesis_id, t.student_id, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, tte.id as thesis_type_id, tte.type as thesis_type')
             ->orderBy('t.id', 'desc')
             ->paginate(5);
 
-        $categories = ThesisType::all();
+        $topics = ThesisTopic::all();
 
         $prodys = ProgramStudy::all();
 
-        return view('public_views.home', ['documents' => $documents, 'categories' => $categories, 'prodys' => $prodys]);
+        $types = ThesisType::all();
+
+        return view('public_views.home', ['documents' => $documents, 'topics' => $topics, 'prodys' => $prodys, 'types' => $types]);
     }
 
     public function getSuggestionTitle(Request $request)
@@ -76,7 +86,8 @@ class HomeController extends Controller
             ->where('title', 'like', '%' . $searchInput . '%')
             ->orderBy('id', 'desc')
             ->limit(7)
-            ->get();
+            ->get()
+            ->unique('title');
 
         return response()->json($titles);
     }
@@ -85,9 +96,12 @@ class HomeController extends Controller
     {
         $searchInput = $request->name;
 
-        $names = Student::select('name')->where(function ($query) use ($searchInput) {
-            $query->where('first_name', 'like', '%' . $searchInput . '%')
-                ->orWhere('last_name', 'like', '%' . $searchInput . '%');
+        if ($searchInput == "") return response()->json();
+
+
+        $names = Student::select('first_name', 'last_name')->where(function ($query) use ($searchInput) {
+            $query->where('first_name', 'like', $searchInput . '%')
+                ->orWhere('last_name', 'like', $searchInput . '%');
         })->get();
 
         return response()->json($names);
