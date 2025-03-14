@@ -42,13 +42,13 @@
             <span class="fw-medium mt-2">Filter</span>
           </div>
           <div class="body-filter overflow-hidden mt-1 w-100">
-            <div class="topic-filter">
-              <p class="mb-1 filter-title">Topic</p>
-              <div class="topic-box d-flex flex-column gap-1">
+            <div class="topic-filter mt-2">
+              <p class="mb-1 filter-title">Topik</p>
+              <div class="topic-box checkbox-list-box d-flex flex-column gap-1">
                 @php($topicId = collect(request()->get('topic_id')))
                 @foreach ($topics as $topic)
                 <div class="checkbox-group d-flex gap-1">
-                  <input type="checkbox" class="checkbox topic-input" name="id_topic[]" value="{{$topic->id}}"
+                  <input type="checkbox" class="checkbox topic-input" name="topic_id[]" value="{{$topic->id}}"
                     @checked($topicId->search($topic->id) !== false ? true :false)>
                   <label class="fw-light filter-label text-truncate">{{$topic->topic}}</label>
                 </div>
@@ -57,7 +57,7 @@
             </div>
             <div class="program-study-filter mt-2">
               <p class="mb-1 filter-title">Program Study</p>
-              <div class="prody-box d-flex flex-column gap-1">
+              <div class="prody-box checkbox-list-box d-flex flex-column gap-1">
                 @php($idProdys = collect(request()->get('program_study_id')))
                 @foreach ($prodys as $prody)
                 <div class="checkbox-group d-flex gap-1">
@@ -70,7 +70,7 @@
             </div>
             <div class="type-filter mt-2">
               <p class="mb-1 filter-title">Jenis Tugas Akhir</p>
-              <div class="topic-box d-flex flex-column gap-1">
+              <div class="topic-box checkbox-list-box d-flex flex-column gap-1">
                 @php($typeId = collect(request()->get('type_id')))
                 @foreach ($types as $type)
                 <div class="checkbox-group d-flex gap-1">
@@ -82,7 +82,7 @@
               </div>
             </div>
             <div class="publication-filter mt-2">
-              <p class="mb-1 filter-title">Publication Year</p>
+              <p class="mb-1 filter-title">Tahun Publikasi</p>
               <div class="input-group p-1 shadow-none">
                 <input type="number" min="0" placeholder="From" class="form-control year-input" name="publication_from"
                   value="{{request()->get('publication_from')}}" />
@@ -91,9 +91,9 @@
               </div>
             </div>
             <div class="author-filter mt-2">
-              <p class="mb-1 filter-title">Author</p>
+              <p class="mb-1 filter-title">Penulis</p>
               <div class="input-group p-1 shadow-none">
-                <input type="text" placeholder="Author" list="authorListOption"
+                <input type="text" placeholder="Telusuri Penulis" list="authorListOption"
                   class="form-control author-input year-input" name="author" value="{{ request()->get('author')}}" />
                 <datalist id="authorListOption" class="authorListOption">
               </div>
@@ -101,7 +101,7 @@
           </div>
           <div class="footer-filter d-flex justify-content-center mt-3 pt-1">
             <button type="submit" class="btn btn-submit btn-apply px-4 py-2 fw-medium">
-              Apply Filter
+              Terapkan
             </button>
           </div>
         </div>
@@ -132,7 +132,7 @@
             @empty
             <div class="thesis-item w-100">
               <div class="thesis-title text-decoration-none mb-1 fw-semibold">
-                Dokument Tidak ditemukan
+                Dokumen Tidak ditemukan
               </div>
             </div>
             @endforelse

@@ -11,8 +11,9 @@
 <div class="list-wrapper mt-3">
   <ul>
     @foreach ($programs as $program)
-    <li class="list-wrapper-list"><a href="" class="text-decoration-none">{{$program->program}} <u
-          class="text-decoration-none">({{$program->total}})</u></a></li>
+    <li class="list-wrapper-list"><a href="{{route('home', ['program_study_id'=> $program->id])}}"
+        class="text-decoration-none">{{$program->program}} <u class="text-decoration-none">({{$program->total}})</u></a>
+    </li>
     @endforeach
   </ul>
 </div>

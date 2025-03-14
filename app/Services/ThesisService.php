@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\model\GetThesisReqModel;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class ThesisService implements ThesisServiceInterface
@@ -11,6 +13,11 @@ class ThesisService implements ThesisServiceInterface
   public function __construct(
     protected ThesisRepositoryInterface $ThesisRepository
   ) {}
+
+  public function getThesis(GetThesisReqModel $reqModel): Paginator
+  {
+    return $this->ThesisRepository->getThesis($reqModel);
+  }
 
   public function getYearFilters(): Collection
   {

@@ -8,12 +8,10 @@ use App\Models\Thesis;
 use App\Models\ThesisTopic;
 use App\Models\ThesisType;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\model\GetThesisReqModel;
 use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Casts\Json;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -28,46 +26,9 @@ class HomeController extends Controller
 
     public function homeView(Request $request): View
     {
-        $searchParams = [
-            'title' => $request->title,
-            'program_study_id' => $request->program_study_id,
-            'topic_id' => $request->topic_id,
-            'type_id' => $request->type_id,
-            'name' => $request->author,
-            'publication_from' => $request->publication_from ? Carbon::createFromDate($request->publication_from, 1)->startOfYear() : null,
-            'publication_until' => $request->publication_until ? Carbon::createFromDate($request->publication_until, 1)->endOfYear() : null,
-        ];
+        $reqModel = new GetThesisReqModel($request);
 
-
-        $documents = DB::table('thesis as t')
-            ->where('t.title', 'like', '%' . $searchParams['title'] . '%')
-            ->when($searchParams['topic_id'], function ($query) use ($searchParams) {
-                return $query->whereIn('tt.topic_id', $searchParams['topic_id']);
-            })
-            ->when($searchParams['type_id'], function ($query) use ($searchParams) {
-                return $query->whereIn('tte.id', $searchParams['type_id']);
-            })
-            ->when($searchParams['program_study_id'], function ($query) use ($searchParams) {
-                return $query->whereIn('s.program_study_id', $searchParams['program_study_id']);
-            })
-            ->when($searchParams['name'], function ($query) use ($searchParams) {
-                return $query
-                    ->where('s.first_name', $searchParams['name'])
-                    ->orWhere('s.last_name', $searchParams['name']);
-            })
-            ->when($searchParams['publication_from'], function ($query) use ($searchParams) {
-                return $query->where('t.created_at', '>=', $searchParams['publication_from']);
-            })
-            ->when($searchParams['publication_until'], function ($query) use ($searchParams) {
-                return $query->where('t.created_at', '<=', $searchParams['publication_until']);
-            })
-            ->join('students as s', 's.id', 't.student_id')
-            ->join('program_study as ps', 'ps.id', 's.program_study_id')
-            ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
-            ->join('thesis_types as tte', 'tte.id', 't.type_id')
-            ->selectRaw('t.id as thesis_id, t.student_id, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, tte.id as thesis_type_id, tte.type as thesis_type')
-            ->orderBy('t.id', 'desc')
-            ->paginate(5);
+        $documents = $this->thesisService->getThesis($reqModel);
 
         $topics = ThesisTopic::all();
 

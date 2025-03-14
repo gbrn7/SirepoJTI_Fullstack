@@ -11,8 +11,8 @@
 <div class="list-wrapper mt-3">
   <ul>
     @foreach ($topics as $topic)
-    <li class="list-wrapper-list"><a href="" class="text-decoration-none">{{$topic->topic}} <u
-          class="text-decoration-none">({{$topic->total}})</u></a></li>
+    <li class="list-wrapper-list"><a href="{{route('home', ['topic_id' => $topic->id])}}"
+        class="text-decoration-none">{{$topic->topic}} <u class="text-decoration-none">({{$topic->total}})</u></a></li>
     @endforeach
   </ul>
 </div>

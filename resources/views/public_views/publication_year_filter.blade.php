@@ -11,8 +11,9 @@
 <div class="list-wrapper mt-3">
   <ul>
     @foreach ($years as $year)
-    <li class="list-wrapper-list"><a href="" class="text-decoration-none">{{$year->year}} <u
-          class="text-decoration-none">({{$year->total}})</u></a></li>
+    <li class="list-wrapper-list"><a
+        href="{{route('home', ['publication_from' => $year->year, 'publication_until' => $year->year])}}"
+        class="text-decoration-none">{{$year->year}} <u class="text-decoration-none">({{$year->total}})</u></a></li>
     @endforeach
   </ul>
 </div>

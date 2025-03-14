@@ -170,6 +170,10 @@ body .content-wrapper .filter-wrapper .filter-box:hover {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+body .content-wrapper .checkbox-list-box {
+  height: 110px;
+  overflow: auto;
+}
 body .content-wrapper .btn-apply {
   background-color: #ea5455;
   color: white;
