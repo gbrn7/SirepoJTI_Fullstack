@@ -28,8 +28,8 @@
     </div>
     <div class="link-wrapper">
       <div class="wrapper orange">
-        <a href="{{route('home', ['id_category' => [$document->category->id]])}}"
-          class="thesis-identity category-link text-decoration-none">{{$document->category->category}}</a> -
+        <a href="{{route('home', ['id_category' => [$document->topic->id]])}}"
+          class="thesis-identity category-link text-decoration-none">{{$document->topic->topic}}</a> -
         <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
         strtotime($document->created_at)), 'publication_until' => date('Y',
         strtotime($document->updated_at))] )}}" class="thesis-identity year-link">
@@ -37,10 +37,11 @@
           strtotime($document->updated_at))}}</a>
       </div>
       <div class="wrapper orange">
-        <a href="{{route('user.document', $document->id_user)}}"
-          class="text-decoration-none thesis-identity">{{$document->user->name}}</a>
-        - <a href="{{route('home', ['id_program_study' => [$document->user->programStudy->id]])}}"
-          class="thesis-identity text-decoration-none">{{$document->user->programStudy->name}}</a>
+        <a href="{{route('user.document', $document->student_id)}}"
+          class="text-decoration-none thesis-identity">{{$document->student->last_name}},
+          {{$document->student->first_name}}</a>
+        - <a href="{{route('home', ['program_study_id' => [$document->student->programStudy->id]])}}"
+          class="thesis-identity text-decoration-none">{{$document->student->programStudy->name}}</a>
       </div>
     </div>
   </div>
@@ -74,31 +75,48 @@
         </div>
         <div class="info-wrapper author-wrapper">
           <div class="title fw-medium">Author :</div>
-          <div class="body fw-light">{{$document->user->name}}</div>
+          <div class="body fw-light">{{$document->student->name}}</div>
         </div>
         <div class="info-wrapper prody-wrapper">
           <div class="title fw-medium">Program Study :</div>
-          <div class="body fw-light">{{$document->user->programStudy->name}}</div>
+          <div class="body fw-light">{{$document->student->programStudy->name}}</div>
         </div>
         <div class="info-wrapper majority-wrapper">
           <div class="title fw-medium">Majority :</div>
-          <div class="body fw-light">{{$document->user->programStudy->majority->name}}</div>
+          <div class="body fw-light">{{$document->student->programStudy->majority->name}}</div>
         </div>
       </div>
       <div class="tab-pane fade" id="pdf-tab-pane" role="tabpanel" aria-labelledby="pdf-tab-pane" tabindex="0">
-        <div class="pdf-wrapper d-flex align-items-center gap-2 mt-2">
-          @if(Auth::user() || Auth::guard('admin')->user())
-          <p class="mb-0">{{$document->title}}</p>
-          <a target="blank" href="{{route('detail.document.download', $document->file_name)}}"
-            class="text-decoration-none">
-            <i class="ri-file-download-line fs-5 text-danger"></i>
-          </a>
-          @else
-          <a href="{{route('signIn.user')}}" class="mb-0 text-decoration-none d-flex align-items-center gap-1"><i
+        @if(Auth::user() || Auth::guard('admin')->user())
+        <table class="table table-light table-bordered">
+          <thead>
+            <tr class="table-light">
+              <th class="table-light">No.</th>
+              <th class="table-light">Dokumen</th>
+              <th class="table-light">Keterangan</th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($document->files as $file)
+            <tr class="table-light">
+              <td class="table-light">{{$loop->iteration}}</td>
+              <td class="table-light"> <a target="blank" href="{{route('detail.document.download', $file->file_name)}}"
+                  class="text-decoration-none">{{$file->file_name}}</a>
+              </td>
+              <td class="table-light">
+                <p class="mb-0">{{$file->label}}</p>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+        </table>
+        @else
+        <div class="sign-in-download-wrapper d-flex align-items-center gap-2 mt-2">
+          <a href="{{route('signIn.student')}}" class="mb-0 text-decoration-none d-flex align-items-center gap-1"><i
               class="ri-login-circle-line"></i>Sign
             In To Download</a>
-          @endif
         </div>
+        @endif
       </div>
     </div>
   </div>

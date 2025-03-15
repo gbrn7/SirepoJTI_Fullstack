@@ -6,4 +6,11 @@ use App\Models\ProgramStudy;
 use App\Support\Interfaces\Repositories\ProgramStudyRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
-class ProgramStudyRepository implements ProgramStudyRepositoryInterface {}
+class ProgramStudyRepository implements ProgramStudyRepositoryInterface
+{
+
+  public function getProgramStudys(): Collection
+  {
+    return ProgramStudy::all();
+  }
+}

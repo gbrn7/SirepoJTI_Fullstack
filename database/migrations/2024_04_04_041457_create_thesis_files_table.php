@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('thesis_files', function (Blueprint $table) {
             $table->id();
+            $table->string("label");
             $table->foreignId("thesis_id")->constrained("thesis")->cascadeOnUpdate()->cascadeOnDelete();
             $table->string("file_name");
             $table->tinyInteger("sequence_num");

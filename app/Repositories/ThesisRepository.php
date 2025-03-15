@@ -15,6 +15,7 @@ class ThesisRepository implements ThesisRepositoryInterface
   {
     return DB::table('thesis as t')
       ->where('t.title', 'like', '%' . $reqModel->title . '%')
+      ->where('t.submission_status', true)
       ->when($reqModel->topicID, function ($query) use ($reqModel) {
         return is_array($reqModel->topicID) ? $query->whereIn('t.topic_id', $reqModel->topicID) : $query->where('t.topic_id', $reqModel->topicID);
       })
@@ -26,8 +27,8 @@ class ThesisRepository implements ThesisRepositoryInterface
       })
       ->when($reqModel->name, function ($query) use ($reqModel) {
         return $query
-          ->where('s.first_name', $reqModel->name)
-          ->orWhere('s.last_name', $reqModel->name);
+          ->where('s.first_name', 'like', '%' . $reqModel->name . '%')
+          ->orWhere('s.last_name', 'like', '%' . $reqModel->name . '%');
       })
       ->when($reqModel->studentID, function ($query) use ($reqModel) {
         return $query->where('t.student_id', $reqModel->studentID);
@@ -45,6 +46,25 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->selectRaw('t.id as thesis_id, t.student_id, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, tte.id as thesis_type_id, tte.type as thesis_type')
       ->orderBy('t.id', 'desc')
       ->paginate(5);
+  }
+
+  public function getSuggestionThesisTitle(string $searchInput): Collection
+  {
+    return Thesis::select('title')
+      ->where('title', 'like', '%' . $searchInput . '%')
+      ->orderBy('id', 'desc')
+      ->limit(7)
+      ->get()
+      ->unique('title');
+  }
+
+  public function getDetailDocumentForStudent(string $ID): Thesis | null
+  {
+    return Thesis::with('student.programStudy.majority')
+      ->with('topic')
+      ->where('submission_status', true)
+      ->where('id', $ID)
+      ->first();
   }
 
   public function getYearFilters(): Collection

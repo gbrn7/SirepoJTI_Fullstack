@@ -2,6 +2,7 @@
 
 namespace App\Support\Interfaces\Repositories;
 
+use App\Models\Thesis;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
@@ -14,4 +15,6 @@ interface ThesisRepositoryInterface
   public function getTopicFilters(): Collection;
   public function getAuthorFilters(string $alphabet = "A"): Collection;
   public function getThesisTypeFilters(): Collection;
+  public function getSuggestionThesisTitle(string $searcInput): Collection;
+  public function getDetailDocumentForStudent(string $ID): Thesis | null;
 }

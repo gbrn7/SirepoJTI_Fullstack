@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
+use App\Models\ThesisFile;
 use App\Models\ThesisType;
 use App\Models\ThesisTypes;
 use App\Models\User;
+use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -18,6 +20,11 @@ use Illuminate\Support\Str;
 
 class DocumentController extends Controller
 {
+
+    public function __construct(
+        protected ThesisServiceInterface $thesisService,
+    ) {}
+
     public function index(Request $request)
     {
         $documents = Thesis::with('category')
@@ -178,9 +185,9 @@ class DocumentController extends Controller
         return view('admin_views.documents.detail_document', ['document' => $document]);
     }
 
-    public function detailDocument($id)
+    public function detailDocument($ID)
     {
-        $document = Thesis::with('user.programStudy.majority')->with('category')->find($id);
+        $document = $this->thesisService->getDetailDocument($ID);
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
@@ -189,23 +196,18 @@ class DocumentController extends Controller
 
     public function downloadDocument(string $fileName)
     {
-        $document = Thesis::with('user.programStudy.majority')->where('file_name', $fileName)->first();
-
-        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found');
-
-        // Donwload PDF
-        // return Storage::download('public/Document/'.$document->file_name);
-
         // Get document from storage
-        $file = Storage::get('document/' . $document->file_name);
+        $file = $this->thesisService->downloadDocument($fileName);
+        if (!$file) return back()->with('toast_error', 'Document Not Found');
+
         $response = Response::make($file, 200);
         $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-disposition', 'inline; filename="' . $document->title . '.pdf"');
+        $response->header('Content-disposition', 'inline; filename="' . $fileName . '.pdf"');
 
         return $response;
 
         // Stream PDF
-        // return response()->file('storage/Document/'.$document->file_name);
+        // return response()->file('storage/Document/'.$fileName);
     }
 
     public function userDocument(Request $request, string $id)

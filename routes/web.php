@@ -36,7 +36,7 @@ Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.s
 Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
 Route::get('/signIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
 
-Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionTitle'])->name('getSuggestionTitle');
+Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionThesisTitle'])->name('getSuggestionTitle');
 Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
 Route::get('/getSuggestionAuthorByUsername', [HomeController::class, 'getSuggestionAuthorByUsername'])->name('getSuggestionAuthorByUsername');
 
@@ -44,8 +44,8 @@ Route::group(['prefix' => 'home'], function () {
     Route::get('/', [HomeController::class, 'homeView'])->name('home');
 
     Route::group(['prefix' => 'document'], function () {
-        Route::get('/{id}', [DocumentController::class, 'detailDocument'])->name('detail.document');
-        Route::get('/download/{fileName}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download');
+        Route::get('/{ID}', [DocumentController::class, 'detailDocument'])->name('detail.document');
+        Route::get('/download/{fileName}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download')->middleware('auth:web,admin');
         Route::get('/user/{id}', [DocumentController::class, 'userDocument'])->name('user.document');
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });

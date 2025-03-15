@@ -4,7 +4,7 @@ namespace App\Support\Interfaces\Services;
 
 use Illuminate\Database\Eloquent\Collection;
 
-interface ProgramStudyServiceInterface
+interface ThesisTopicServiceInterface
 {
-  public function getProgramStudys(): Collection;
+  public function getThesisTopics(): Collection;
 }

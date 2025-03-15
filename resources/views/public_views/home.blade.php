@@ -95,7 +95,6 @@
               <div class="input-group p-1 shadow-none">
                 <input type="text" placeholder="Telusuri Penulis" list="authorListOption"
                   class="form-control author-input year-input" name="author" value="{{ request()->get('author')}}" />
-                <datalist id="authorListOption" class="authorListOption">
               </div>
             </div>
           </div>
@@ -168,7 +167,7 @@
           $('.suggestion-box').empty();
           $('.search-wrapper').addClass('active')
         }
-        data.forEach(e => {
+        data.data.forEach(e => {
           $('.suggestion-box').append(`<div class="suggestion-item py-2 ps-3">${e.title}</div>`)
           });
 
@@ -183,25 +182,6 @@
 
   }, 300));
 
-  $('.author-input').on('input', debounce(function (e) {
-    let authorinput = e.target.value;
-    
-    $.get("{{route('getSuggestionAuthor')}}", {
-      name : authorinput
-    },
-      function (data, textStatus, jqXHR) {
-        if (data.length !== 0) {
-          $('#authorListOption').empty();
-        }
-        data.forEach(e => {
-          $('#authorListOption').append($('<option>', {
-            value: `${e.last_name}, ${e.first_name}`
-          }));
-        }); 
-      },
-    );
-
-  }, 300));
 
 
 </script>

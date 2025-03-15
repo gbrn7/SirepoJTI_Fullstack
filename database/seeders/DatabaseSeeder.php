@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             LecturerSeeder::class,
             ThesisSeeder::class,
+            ThesisFileSeeder::class,
         ]);
     }
 }

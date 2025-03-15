@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ProgramStudy;
+use App\Http\Resources\ThesisAuthorResource;
+use App\Http\Resources\ThesisTitleResource;
 use App\Models\Student;
 use App\Models\Thesis;
-use App\Models\ThesisTopic;
-use App\Models\ThesisType;
+use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
+use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\Interfaces\Services\ThesisTopicServiceInterface;
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use App\Support\model\GetThesisReqModel;
-use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function __construct(
-        protected ThesisServiceInterface $thesisService
+        protected ThesisServiceInterface $thesisService,
+        protected  ThesisTopicServiceInterface $thesisTopicService,
+        protected  ProgramStudyServiceInterface $programStudyService,
+        protected  ThesisTypeServiceInterface $thesisTypeService,
+        protected  StudentServiceInterface $studentService,
     ) {}
 
     public function welcomeView(): View
@@ -30,27 +36,22 @@ class HomeController extends Controller
 
         $documents = $this->thesisService->getThesis($reqModel);
 
-        $topics = ThesisTopic::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        $prodys = ProgramStudy::all();
+        $prodys = $this->programStudyService->getProgramStudys();
 
-        $types = ThesisType::all();
+        $types = $this->thesisTypeService->getThesisTypes();
 
         return view('public_views.home', ['documents' => $documents, 'topics' => $topics, 'prodys' => $prodys, 'types' => $types]);
     }
 
-    public function getSuggestionTitle(Request $request)
+    public function getSuggestionThesisTitle(Request $request)
     {
         $searchInput = $request->title;
 
-        $titles = Thesis::select('title')
-            ->where('title', 'like', '%' . $searchInput . '%')
-            ->orderBy('id', 'desc')
-            ->limit(7)
-            ->get()
-            ->unique('title');
+        $titles = $this->thesisService->getSuggestionThesisTitle($searchInput);
 
-        return response()->json($titles);
+        return ThesisTitleResource::collection($titles);
     }
 
     public function getSuggestionAuthor(Request $request)
@@ -59,13 +60,9 @@ class HomeController extends Controller
 
         if ($searchInput == "") return response()->json();
 
+        $names = $this->studentService->getSuggestionAuthor($searchInput);
 
-        $names = Student::select('first_name', 'last_name')->where(function ($query) use ($searchInput) {
-            $query->where('first_name', 'like', $searchInput . '%')
-                ->orWhere('last_name', 'like', $searchInput . '%');
-        })->get();
-
-        return response()->json($names);
+        return ThesisAuthorResource::collection($names);
     }
 
     public function getSuggestionAuthorByUsername(Request $request)
