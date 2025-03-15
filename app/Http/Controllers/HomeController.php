@@ -14,6 +14,7 @@ use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -32,6 +33,10 @@ class HomeController extends Controller
 
     public function homeView(Request $request): View
     {
+        $submissionStatus = Auth::guard('admin')->check() ? null : true;
+
+        $request->merge(['submissionStatus' => $submissionStatus]);
+
         $reqModel = new GetThesisReqModel($request);
 
         $documents = $this->thesisService->getThesis($reqModel);

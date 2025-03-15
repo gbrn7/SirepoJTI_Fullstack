@@ -27,21 +27,16 @@
       {{$document->title}}
     </div>
     <div class="link-wrapper">
-      <div class="wrapper orange">
-        <a href="{{route('home', ['id_category' => [$document->topic->id]])}}"
-          class="thesis-identity category-link text-decoration-none">{{$document->topic->topic}}</a> -
-        <a class="text-decoration-none thesis-identity" href="{{route('home', ['publication_from' => date('Y',
-        strtotime($document->created_at)), 'publication_until' => date('Y',
-        strtotime($document->updated_at))] )}}" class="thesis-identity year-link">
-          {{date('Y',
-          strtotime($document->updated_at))}}</a>
+      <div class="wrapper orange mt-2">
+        <span class="text-decoration-none">{{$document->student->last_name}},
+          {{$document->student->first_name}}</span>
+        - <span class="text-decoration-none">{{$document->student->programStudy->name}}</span>
       </div>
-      <div class="wrapper orange">
-        <a href="{{route('user.document', $document->student_id)}}"
-          class="text-decoration-none thesis-identity">{{$document->student->last_name}},
-          {{$document->student->first_name}}</a>
-        - <a href="{{route('home', ['program_study_id' => [$document->student->programStudy->id]])}}"
-          class="thesis-identity text-decoration-none">{{$document->student->programStudy->name}}</a>
+      <div class="wrapper orange mt-2">
+        <span class="text-decoration-none">{{$document->topic->topic}}</span> |
+        <span class="text-decoration-none" class=" year-link">
+          {{date('Y',
+          strtotime($document->updated_at))}}</span>
       </div>
     </div>
   </div>

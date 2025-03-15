@@ -45,12 +45,12 @@ Route::group(['prefix' => 'home'], function () {
 
     Route::group(['prefix' => 'document'], function () {
         Route::get('/{ID}', [DocumentController::class, 'detailDocument'])->name('detail.document');
-        Route::get('/download/{fileName}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download')->middleware('auth:web,admin');
+        Route::get('/download/{fileName}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download')->middleware('auth:student,admin');
         Route::get('/user/{id}', [DocumentController::class, 'userDocument'])->name('user.document');
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::group(['middleware' => ['auth:web,admin']], function () {
+    Route::group(['middleware' => ['auth:student,admin']], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
@@ -87,6 +87,6 @@ Route::group(['prefix' => 'home'], function () {
 });
 
 Route::any('/{any}', function () {
-    if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
+    if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
     return redirect()->route('signIn.student');
 })->where('any', '.*');

@@ -17,6 +17,6 @@ interface ThesisServiceInterface
   public function getAuthorFilters(?string $alphabet = "A"): Collection;
   public function getThesisTypeFilters(): Collection;
   public function getSuggestionThesisTitle(string $searcInput): Collection;
-  public function getDetailDocument(string $ID): Thesis | null;
+  public function getDetailDocument(string $ID, bool|null $submissionStatus = null): Thesis | null;
   public function downloadDocument(string $fileName): string|null;
 }

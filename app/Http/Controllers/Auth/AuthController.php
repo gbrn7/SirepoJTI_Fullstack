@@ -13,21 +13,21 @@ class AuthController extends Controller
 
     public function studentSignin()
     {
-        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
+        if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
 
         return view('auth.signin-student');
     }
 
     public function adminSignin()
     {
-        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
+        if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
 
         return view('auth.signin-admin');
     }
 
     public function lecturerSignin()
     {
-        if (Auth::guard('web')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
+        if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
 
         return view('auth.signin-lecturer');
     }
@@ -70,8 +70,8 @@ class AuthController extends Controller
 
     public function signOut(Request $request)
     {
-        if (Auth::guard('web')->check()) {
-            Auth::guard('web')->logout();
+        if (Auth::guard('student')->check()) {
+            Auth::guard('student')->logout();
         } elseif (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
         }
@@ -80,6 +80,6 @@ class AuthController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('signIn.user')->with('toast_success', 'Sign out success');
+        return redirect()->route('signIn.student')->with('toast_success', 'Sign out success');
     }
 }

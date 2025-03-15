@@ -15,7 +15,9 @@ class ThesisRepository implements ThesisRepositoryInterface
   {
     return DB::table('thesis as t')
       ->where('t.title', 'like', '%' . $reqModel->title . '%')
-      ->where('t.submission_status', true)
+      ->when($reqModel->submissionStatus, function ($query) use ($reqModel) {
+        return $query->where('t.submission_status', $reqModel->submissionStatus);
+      })
       ->when($reqModel->topicID, function ($query) use ($reqModel) {
         return is_array($reqModel->topicID) ? $query->whereIn('t.topic_id', $reqModel->topicID) : $query->where('t.topic_id', $reqModel->topicID);
       })
@@ -58,11 +60,13 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->unique('title');
   }
 
-  public function getDetailDocumentForStudent(string $ID): Thesis | null
+  public function getDetailDocument(string $ID, bool|null $submissionStatus = null): Thesis | null
   {
     return Thesis::with('student.programStudy.majority')
       ->with('topic')
-      ->where('submission_status', true)
+      ->when($submissionStatus, function ($query) use ($submissionStatus) {
+        return $query->where('submission_status', $submissionStatus);
+      })
       ->where('id', $ID)
       ->first();
   }

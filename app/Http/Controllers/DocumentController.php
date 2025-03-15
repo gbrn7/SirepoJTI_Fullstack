@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -187,9 +188,11 @@ class DocumentController extends Controller
 
     public function detailDocument($ID)
     {
-        $document = $this->thesisService->getDetailDocument($ID);
+        $submissionStatus = Auth::guard('admin')->check() ? null : true;
 
-        if (!$document) return back()->with('toast_error', 'Document Not Found');
+        $document = $this->thesisService->getDetailDocument($ID, $submissionStatus);
+
+        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found Or Not Verified Yet');
 
         return view('public_views.detail_document', ['document' => $document]);
     }
