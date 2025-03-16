@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Thesis;
 use App\Models\ThesisType;
+use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,20 +14,20 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Mpdf\Mpdf;
 
-class MyDocumentController extends Controller
+class ThesisSubmissionController extends Controller
 {
+    public function __construct(
+        protected ThesisServiceInterface $thesisService,
+    ) {}
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $documenClass = new DocumentController;
+        $studentID = Auth::user()->id;
+        $document = $this->thesisService->getDetailDocumentByStudentID($studentID);
 
-        $data = $documenClass->getUserDocument(Auth::user()->id, $request);
-
-        if ($data instanceof RedirectResponse) return $data;
-
-        return view('user_views.my_document', $data);
+        return view('user_views.thesis_submission', ['document' => $document]);
     }
 
     /**

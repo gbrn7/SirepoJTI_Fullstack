@@ -55,13 +55,13 @@ class AuthController extends Controller
             if (Auth::guard('admin')->attempt($credentials)) {
                 $request->session()->regenerate();
 
-                return redirect()->route('home');
+                return redirect()->route('welcome');
             }
         } else {
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
 
-                return redirect()->route('home');
+                return redirect()->route('welcome');
             }
         }
 

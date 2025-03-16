@@ -105,4 +105,7 @@ body .content-wrapper .user-document-content .thesis-list-box .thesis-box .thesi
   -webkit-line-clamp: 3; /* number of lines to show */
   line-clamp: 3;
   -webkit-box-orient: vertical;
+}
+body .content-wrapper .detail-wrapper .detail-thesis-wrapper .detail-field .label-wrapper {
+  font-weight: 500;
 }/*# sourceMappingURL=main.css.map */

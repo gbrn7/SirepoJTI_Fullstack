@@ -28,7 +28,7 @@ class DocumentController extends Controller
 
     public function index(Request $request)
     {
-        $documents = Thesis::with('category')
+        $documents = Thesis::with('topic')
             ->with('student.programStudy.majority')
             ->when($request->title, function ($query) use ($request) {
                 return $query->where('title', 'like', '%' . $request->title . '%');
@@ -188,11 +188,13 @@ class DocumentController extends Controller
 
     public function detailDocument($ID)
     {
-        $submissionStatus = Auth::guard('admin')->check() ? null : true;
+        $document = $this->thesisService->getDetailDocument($ID);
 
-        $document = $this->thesisService->getDetailDocument($ID, $submissionStatus);
+        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found');
 
-        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found Or Not Verified Yet');
+        if (Auth::guard('student')->check() && Auth::user()->id != $document->student_id) {
+            if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not yet verified');
+        }
 
         return view('public_views.detail_document', ['document' => $document]);
     }
@@ -235,18 +237,18 @@ class DocumentController extends Controller
 
     public function getUserDocument(string $id, Request $request)
     {
-        $user = Student::with('programStudy.majority')->find($id);
+        $student = Student::with('programStudy.majority')->find($id);
 
-        if (!$user) return redirect()->route('home')->with('toast_error', 'User Not Found');
+        if (!$student) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
-        $document = Thesis::where('id_user', $user->id)
-            ->with('category')
+        $document = Thesis::where('student_id', $student->id)
+            ->with('topic')
             ->when($request->title, function ($query) use ($request) {
                 return $query->where('title', 'like', '%' . $request->title . '%');
             })
             ->orderBy('thesis.id', 'desc')
             ->paginate(10);
 
-        return compact('user', 'document');
+        return compact('student', 'document');
     }
 }

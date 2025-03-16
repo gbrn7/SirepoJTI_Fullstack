@@ -83,22 +83,22 @@
       </div>
       <div class="tab-pane fade" id="pdf-tab-pane" role="tabpanel" aria-labelledby="pdf-tab-pane" tabindex="0">
         @if(Auth::user() || Auth::guard('admin')->user())
-        <table class="table table-light table-bordered">
+        <table class="table bg-white mt-3 table-bordered">
           <thead>
-            <tr class="table-light">
-              <th class="table-light">No.</th>
-              <th class="table-light">Dokumen</th>
-              <th class="table-light">Keterangan</th>
+            <tr>
+              <th>No.</th>
+              <th>Dokumen</th>
+              <th>Keterangan</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($document->files as $file)
-            <tr class="table-light">
-              <td class="table-light">{{$loop->iteration}}</td>
-              <td class="table-light"> <a target="blank" href="{{route('detail.document.download', $file->file_name)}}"
+            <tr>
+              <td>{{$loop->iteration}}</td>
+              <td> <a target="blank" href="{{route('detail.document.download', $file->file_name)}}"
                   class="text-decoration-none">{{$file->file_name}}</a>
               </td>
-              <td class="table-light">
+              <td>
                 <p class="mb-0">{{$file->label}}</p>
               </td>
             </tr>

@@ -71,6 +71,17 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->first();
   }
 
+  public function getDetailDocumentByStudentID(string $studentID): ?Thesis
+  {
+    return Thesis::where('student_id', $studentID)
+      ->with('topic')
+      ->with('type')
+      ->with('lecturer')
+      ->with('files')
+      ->orderBy('thesis.id', 'desc')
+      ->first();
+  }
+
   public function getYearFilters(): Collection
   {
     return Thesis::selectRaw('YEAR(created_at) as year, COUNT(*) as total')

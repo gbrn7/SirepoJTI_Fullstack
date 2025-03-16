@@ -19,12 +19,10 @@ class ThesisService implements ThesisServiceInterface
 
   public function getThesis(GetThesisReqModel $reqModel): Paginator
   {
-    $submissionStatus = Auth::guard('admin')->check() ? null : true;
-
     return $this->repository->getThesis($reqModel);
   }
 
-  public function getDetailDocument(string $ID, bool|null $submissionStatus = null): Thesis | null
+  public function getDetailDocument(string $ID, bool|null $submissionStatus = null): ?Thesis
   {
     return $this->repository->getDetailDocument($ID, $submissionStatus);
   }
@@ -34,6 +32,11 @@ class ThesisService implements ThesisServiceInterface
     // Download PDF
     // return Storage::download('public/Document/'.$fileName);
     return Storage::get('document/' . $fileName);
+  }
+
+  public function getDetailDocumentByStudentID(string $studentID): ?Thesis
+  {
+    return $this->repository->getDetailDocumentByStudentID($studentID);
   }
 
   public function getYearFilters(): Collection

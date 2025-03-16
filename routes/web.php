@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DocumentController;
-use App\Http\Controllers\MyDocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ThesisSubmissionController;
 use App\Http\Controllers\ThesisTypeController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\UserDocumentManagementController;
@@ -56,7 +56,7 @@ Route::group(['prefix' => 'home'], function () {
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
         });
 
-        Route::resource('my-document', MyDocumentController::class)->middleware('role:user');
+        Route::resource('thesis-submission', ThesisSubmissionController::class)->middleware('role:student');
 
         Route::group(['middleware' => ['role:admin']], function () {
             Route::resource('categories', ThesisTypeController::class)->only([
@@ -65,7 +65,7 @@ Route::group(['prefix' => 'home'], function () {
                 'update',
                 'destroy'
             ]);
-            Route::resource('lecturer', MyDocumentController::class)->middleware('role:user');
+            Route::resource('lecturer', ThesisSubmissionController::class)->middleware('role:student');
 
             Route::resource('user-management', UserManagementController::class)->except('show');
             Route::get('/getUserImportTemplate', [UserManagementController::class, 'getUserImportTemplate'])->name('getUserImportTemplate');

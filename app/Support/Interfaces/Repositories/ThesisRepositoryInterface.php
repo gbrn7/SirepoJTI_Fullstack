@@ -18,4 +18,5 @@ interface ThesisRepositoryInterface
   public function getThesisTypeFilters(): Collection;
   public function getSuggestionThesisTitle(string $searcInput): Collection;
   public function getDetailDocument(string $ID, bool|null $submissionStatus = null): Thesis | null;
+  public function getDetailDocumentByStudentID(string $studentID): Thesis | null;
 }
