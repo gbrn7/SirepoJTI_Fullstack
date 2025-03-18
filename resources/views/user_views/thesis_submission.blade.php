@@ -23,8 +23,12 @@
 @section('main-content')
 <div class="detail-wrapper mt-3">
   <div class="btn-wrapper">
-    <div class="btn btn-success"><i class="ri-pencil-line me-1"></i> Isi Data
-    </div>
+    <div @class(["btn", "btn-warning"=> isset($document), "btn-success"=> !isset($document)]) ><a
+        href="{{isset($document) ? route('thesis-submission.edit', $document->id) : route('thesis-submission.create')}}"
+        @class(['text-decoration-none', 'text-black'=>
+        isset($document)])><i class="ri-pencil-line me-1"></i>
+        <span>{{isset($document)? "Edit Data" : "Isi
+          Data"}}</span></a></div>
   </div>
   <div class="detail-thesis-wrapper mt-3">
     <div class="detail-field title-field d-lg-flex">
@@ -33,7 +37,8 @@
         <span class="d-block">:</span>
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
-        <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">{{$document->title
+        <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
+          {{$document?->title
           ? $document->title : "-"}}</div>
       </div>
     </div>
@@ -45,7 +50,7 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
-          {{$document->abstract
+          {{$document?->abstract
           ? $document->abstract : "-"}}</div>
       </div>
     </div>
@@ -57,7 +62,7 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
-          {{$document->topic?->topic
+          {{$document?->topic?->topic
           ? $document->topic->topic : "-"}}</div>
       </div>
     </div>
@@ -69,7 +74,7 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
-          {{$document->type?->type
+          {{$document?->type?->type
           ? $document->type->type : "-"}}</div>
       </div>
     </div>
@@ -81,7 +86,7 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
-          {{$document->lecturer?->name
+          {{$document?->lecturer?->name
           ? $document->lecturer->name : "-"}}</div>
       </div>
     </div>
@@ -93,12 +98,14 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center"><span
-            @class([ 'badge' ,'text-bg-secondary'=>
-            !isset($document->submission_status),'text-bg-danger'=> isset($document->submission_status) &&
-            !$document->submission_status, 'text-bg-success'=>
-            $document->submission_status,
-            ])>{{isset($document->submission_status) ? $document->submission_status ? "Diterima": "Ditolak" :
-            "Pending"}}</span></div>
+            @class([ 'badge' , 'text-black'=> !isset($document) ,'text-bg-secondary'=>
+            isset($document) && !isset($document?->submission_status),'text-white text-bg-danger'=>
+            isset($document?->submission_status) &&
+            !$document?->submission_status, 'text-white text-bg-success'=>
+            $document?->submission_status,
+            ])>{{isset($document) ? isset($document?->submission_status) ? $document?->submission_status ? "Diterima":
+            "Ditolak" :
+            "Pending" : "-"}}</span></div>
       </div>
     </div>
     <hr>
@@ -109,8 +116,8 @@
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
-          {{$document->note
-          ? $document->note : "-"}}</div>
+          {{$document?->note
+          ? $document?->note : "-"}}</div>
       </div>
     </div>
     <hr>
@@ -122,25 +129,30 @@
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
         <table class="table bg-white table-bordered">
           <thead>
-            <tr class="">
-              <th class="">No.</th>
-              <th class="">Dokumen</th>
-              <th class="">Keterangan</th>
+            <tr>
+              <th>No.</th>
+              <th>Dokumen</th>
+              <th>Keterangan</th>
             </tr>
           </thead>
           <tbody>
-            @foreach ($document->files as $file)
-            <tr class="">
-              <td class="">{{$loop->iteration}}</td>
-              <td class=""> <a target="blank" target="blank"
-                  href="{{route('detail.document.download', $file->file_name)}}"
-                  class="text-decoration-none">{{$file->file_name}}</a>
-              </td>
-              <td class="">
-                <p class="mb-0">{{$file->label}}</p>
-              </td>
+            @if (isset($document?->files))
+            @foreach ($document?->files as $file)
+            <td>{{$loop->iteration}}</td>
+            <td> <a target="blank" target="blank" href="{{route('detail.document.download', $file?->file_name)}}"
+                class="text-decoration-none">{{$file?->file_name}}</a>
+            </td>
+            <td>
+              <p class="mb-0">{{$file?->label}}</p>
+            </td>
             </tr>
             @endforeach
+            @else
+            <td>-</td>
+            <td>-</td>
+            <td>-</td>
+            </tr>
+            @endif
           </tbody>
         </table>
       </div>

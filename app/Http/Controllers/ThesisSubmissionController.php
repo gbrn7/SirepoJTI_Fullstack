@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\lecturer;
 use App\Models\Thesis;
+use App\Models\ThesisTopic;
 use App\Models\ThesisType;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Illuminate\Http\RedirectResponse;
@@ -26,7 +28,6 @@ class ThesisSubmissionController extends Controller
     {
         $studentID = Auth::user()->id;
         $document = $this->thesisService->getDetailDocumentByStudentID($studentID);
-
         return view('user_views.thesis_submission', ['document' => $document]);
     }
 
@@ -35,9 +36,9 @@ class ThesisSubmissionController extends Controller
      */
     public function create()
     {
-        $categories = ThesisType::all();
+        $topics = ThesisTopic::all();
 
-        return view('user_views.user_document_form', compact('categories'));
+        return view('user_views.thesis_document_form', compact('topics'));
     }
 
     /**
@@ -121,13 +122,17 @@ class ThesisSubmissionController extends Controller
      */
     public function edit(string $id)
     {
-        $categories = ThesisType::all();
+        $topics = ThesisTopic::all();
+
+        $types = ThesisType::all();
+
+        $lecturers = Lecturer::all();
 
         $document = Thesis::find($id);
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
-        return view('user_views.user_document_form', compact('categories', 'document'));
+        return view('user_views.thesis_document_form', compact('topics', 'document', 'types', 'lecturers'));
     }
 
     /**

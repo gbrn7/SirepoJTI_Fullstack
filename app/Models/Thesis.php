@@ -34,7 +34,7 @@ class Thesis extends Model
 
     public function lecturer(): BelongsTo
     {
-        return $this->belongsTo(lecturer::class, 'lecturer_id', 'id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id');
     }
 
     public function type(): BelongsTo
