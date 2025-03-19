@@ -7,10 +7,8 @@ use App\Models\Thesis;
 use App\Models\ThesisTopic;
 use App\Models\ThesisType;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -24,7 +22,7 @@ class ThesisSubmissionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $studentID = Auth::user()->id;
         $document = $this->thesisService->getDetailDocumentByStudentID($studentID);
@@ -38,7 +36,11 @@ class ThesisSubmissionController extends Controller
     {
         $topics = ThesisTopic::all();
 
-        return view('user_views.thesis_document_form', compact('topics'));
+        $types = ThesisType::all();
+
+        $lecturers = Lecturer::all();
+
+        return view('user_views.thesis_document_form', compact('topics', 'types', 'lecturers'));
     }
 
     /**
@@ -49,10 +51,22 @@ class ThesisSubmissionController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'abstract' => 'required',
-            'category' => 'required',
-            'file' => 'required|mimes:pdf|max:15360'
+            'topic_id' => 'required',
+            'type_id' => 'required',
+            'lecturer_id' => 'required',
+            'required_file' => 'required|mimes:pdf|max:15360',
+            'abstract_file' => 'nullable|mimes:pdf|max:15360',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
+            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
+            'attachment_file' => 'nullable|mimes:pdf|max:15360',
         ]);
-
         if ($validator->fails()) {
             return back()
                 ->withInput()
@@ -62,42 +76,12 @@ class ThesisSubmissionController extends Controller
         try {
             $data = $validator->safe()->all();
 
-            // store file
-            $file = $request->file;
-            $filePathName = $file->getPathName();
-            $logo = public_path("img/POLINEMA.png");
-            $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/document/', $fileName);
+            $files = $request->file();
 
-            $pdf = new Mpdf();
-            // $path = public_path("storage/document/" . $fileName);
+            $this->thesisService->storeThesis($data, $files);
 
-            $pagecount = $pdf->setSourceFile($filePathName);
-            for ($i = 1; $i <= ($pagecount); $i++) {
-                $pdf->AddPage();
-                $import_page = $pdf->ImportPage($i);
-                $pdf->UseTemplate($import_page);
-                $pdf->SetWatermarkImage(
-                    $logo,
-                    0.1,
-                    '',
-                    'F'
-                );
-                $pdf->showWatermarkImage = true;
-            }
-
-
-            $pdf->SetProtection(array());
-            $pdf->OutputFile(storage_path('app/document/' . $fileName));
-
-            $data['file_name'] = $fileName;
-            $data['id_category'] = $data['category'];
-            $data['id_user'] = Auth::user()->id;
-
-            Thesis::create($data);
-
-            Session::flash('toast_success', 'Document Added');
-            return redirect()->route('my-document.index');
+            Session::flash('toast_success', 'Thesis Ditambahkan');
+            return redirect()->route('thesis-submission.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -138,14 +122,28 @@ class ThesisSubmissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $ID)
     {
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
             'abstract' => 'nullable',
-            'category' => 'nullable',
-            'file' => 'nullable|mimes:pdf|max:15360'
+            'topic_id' => 'nullable',
+            'type_id' => 'nullable',
+            'lecturer_id' => 'nullable',
+            'required_file' => 'nullable|mimes:pdf|max:15360',
+            'abstract_file' => 'nullable|mimes:pdf|max:15360',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
+            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
+            'attachment_file' => 'nullable|mimes:pdf|max:15360',
         ]);
+
 
         if ($validator->fails()) {
             return back()
@@ -153,37 +151,13 @@ class ThesisSubmissionController extends Controller
                 ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
+
+
         try {
-            $oldData = Thesis::find($id);
+            $this->thesisService->updateThesis($validator->safe()->toArray(), $ID, $request->file());
 
-            if (!$oldData) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
-
-            $newData = [];
-            if ($validator->safe()->title) {
-                $newData['title'] = $validator->safe()->title;
-            }
-            if ($validator->safe()->abstract) {
-                $newData['abstract'] = $validator->safe()->abstract;
-            }
-            if ($validator->safe()->category) {
-                $newData['id_category'] = $validator->safe()->category;
-            }
-
-            if ($request->file) {
-                // store new file
-                $file = $request->file;
-                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $newData['file_name'] = $fileName;
-                $file->storeAs('document/', $fileName);
-
-                // Delete old file
-                Storage::delete('document/' . $oldData->file_name);
-            }
-
-            $oldData->update($newData);
-
-            Session::flash('toast_success', 'Document updated');
-            return redirect()->route('my-document.index');
+            Session::flash('toast_success', 'Tugas akhir diedit');
+            return redirect()->route('thesis-submission.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -197,13 +171,13 @@ class ThesisSubmissionController extends Controller
         try {
             $thesis = Thesis::find($id);
 
-            if (!$thesis) return redirect()->route('my-document.index')->with('toast_error', 'Document Not Found');
+            if (!$thesis) return redirect()->route('thesis-submission.index')->with('toast_error', 'Document Not Found');
 
             Storage::delete('document/' . $thesis->file_name);
 
             $thesis->delete();
 
-            return redirect()->route('my-document.index')->with('toast_success', 'Document deleted');
+            return redirect()->route('thesis-submission.index')->with('toast_success', 'Document deleted');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());

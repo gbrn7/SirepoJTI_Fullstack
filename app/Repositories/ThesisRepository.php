@@ -50,6 +50,27 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->paginate(5);
   }
 
+  public function storeThesis(array $data, array $newFiles = []): ?Thesis
+  {
+    $newThesis = Thesis::create($data);
+
+    if (count($newFiles) > 0) {
+      $newThesis->files()->createMany($newFiles);
+    }
+
+    return $newThesis;
+  }
+
+  public function updateOrCreateThesisFile(Thesis $thesis, array $searchParams, array $newDataFiles)
+  {
+    return $thesis->files()->updateOrCreate($searchParams, $newDataFiles);
+  }
+
+  public function updateThesis(Thesis $thesis, array $newData): Bool
+  {
+    return $thesis->update($newData);
+  }
+
   public function getSuggestionThesisTitle(string $searchInput): Collection
   {
     return Thesis::select('title')
@@ -64,6 +85,7 @@ class ThesisRepository implements ThesisRepositoryInterface
   {
     return Thesis::with('student.programStudy.majority')
       ->with('topic')
+      ->with('files')
       ->when($submissionStatus, function ($query) use ($submissionStatus) {
         return $query->where('submission_status', $submissionStatus);
       })

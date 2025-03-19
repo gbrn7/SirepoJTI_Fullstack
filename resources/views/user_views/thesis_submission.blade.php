@@ -26,7 +26,8 @@
     <div @class(["btn", "btn-warning"=> isset($document), "btn-success"=> !isset($document)]) ><a
         href="{{isset($document) ? route('thesis-submission.edit', $document->id) : route('thesis-submission.create')}}"
         @class(['text-decoration-none', 'text-black'=>
-        isset($document)])><i class="ri-pencil-line me-1"></i>
+        isset($document), 'text-white'=>
+        !isset($document)])><i class="ri-pencil-line me-1"></i>
         <span>{{isset($document)? "Edit Data" : "Isi
           Data"}}</span></a></div>
   </div>

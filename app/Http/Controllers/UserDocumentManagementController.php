@@ -6,7 +6,6 @@ use App\Models\Student;
 use App\Models\Thesis;
 use App\Models\ThesisCategory;
 use App\Models\ThesisType;
-use DevRaeph\PDFPasswordProtect\Facade\PDFPasswordProtect;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -67,7 +66,7 @@ class UserDocumentManagementController extends Controller
             $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
             $file->storeAs('document/', $fileName);
 
-            PDFPasswordProtect::setInputFile('document/' . $fileName)
+            App\Http\Controllers\PDFPasswordProtect::setInputFile('document/' . $fileName)
                 ->setOutputFile('document/encrypted-123.pdf')
                 ->secure();
 
@@ -109,8 +108,21 @@ class UserDocumentManagementController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
             'abstract' => 'nullable',
-            'category' => 'nullable',
-            'file' => 'nullable|mimes:pdf|max:15360'
+            'topic' => 'nullable',
+            'type' => 'nullable',
+            'lecturer' => 'nullable',
+            'required_file' => 'nullable|mimes:pdf|max:15360',
+            'abstract_file' => 'nullable|mimes:pdf|max:15360',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
+            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
+            'attachment_file' => 'nullable|mimes:pdf|max:15360',
         ]);
 
         if ($validator->fails()) {
@@ -131,9 +143,17 @@ class UserDocumentManagementController extends Controller
             if ($validator->safe()->abstract) {
                 $newData['abstract'] = $validator->safe()->abstract;
             }
-            if ($validator->safe()->category) {
-                $newData['id_category'] = $validator->safe()->category;
+            if ($validator->safe()->topic) {
+                $newData['topic_id'] = $validator->safe()->topic;
             }
+            if ($validator->safe()->type) {
+                $newData['type_id'] = $validator->safe()->type;
+            }
+            if ($validator->safe()->lecturer) {
+                $newData['lecturer_id'] = $validator->safe()->lecturer;
+            }
+
+            dd($request->file);
 
             if ($request->file) {
                 // store new file

@@ -22,9 +22,20 @@
         @auth('admin')
         <img src="{{asset('storage/profile/'.(Auth::guard('admin')->user()->profile_picture ? Auth::guard('admin')->user()->profile_picture :
       'default.png'))}}" class="img-fluid img-avatar" />
+        <p class="mb-0">{{Auth::guard('admin')->user()->username}}</p>
         @endauth
       </a>
       <ul class="dropdown-menu dropdown-menu-end px-2">
+        <li class="rounded-2 dropdown-list">
+          <p class="mb-0 text-white text-center">
+            @auth('student')
+            {{auth()->user()->username}}
+            @endauth
+            @auth('admin')
+            {{Auth::guard('admin')->user()->username}}
+            @endauth
+          </p>
+        </li>
         <li class="rounded-2 dropdown-list my-profile">
           <a class="dropdown-item text-white rounded-2"
             href="{{route('user.editProfile', Auth::user() ? Auth::user()->id : Auth::guard('admin')->user()->id)}}"

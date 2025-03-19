@@ -49,6 +49,6 @@ class Thesis extends Model
 
     public function files(): HasMany
     {
-        return $this->hasMany(ThesisFile::class, "thesis_id", "id");
+        return $this->hasMany(ThesisFile::class, "thesis_id", "id")->orderBy('sequence_num', 'asc');
     }
 }

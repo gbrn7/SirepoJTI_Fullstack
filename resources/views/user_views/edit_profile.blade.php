@@ -41,7 +41,7 @@
       <input type="password" class="form-control" placeholder="Enter your new password again" name="confirm_password" />
     </div>
     <div class="wrapper d-flex justify-content-end">
-      <button type="submit" class="btn btn-submit text-white px-5 btn-warning">Submit</button>
+      <button type="submit" class="btn btn-submit text-black px-5 btn-warning">Submit</button>
     </div>
   </form>
 </div>

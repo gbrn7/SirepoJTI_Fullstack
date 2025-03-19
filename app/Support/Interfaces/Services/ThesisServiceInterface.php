@@ -6,7 +6,8 @@ use App\Models\Thesis;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 interface ThesisServiceInterface
 {
@@ -20,4 +21,7 @@ interface ThesisServiceInterface
   public function getDetailDocument(string $ID, bool|null $submissionStatus = null): ?Thesis;
   public function getDetailDocumentByStudentID(string $studentID): ?Thesis;
   public function downloadDocument(string $fileName): string|null;
+  public function storeThesis(array $data, UploadedFile|array|null $files);
+  public function processThesisFile(string $fileName, string $filePathName);
+  public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files);
 }

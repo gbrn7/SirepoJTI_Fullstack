@@ -19,9 +19,9 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('students')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('title');
             $table->text('abstract');
-            $table->bigInteger("download_count");
+            $table->bigInteger("download_count")->default(0);
             $table->boolean("submission_status")->nullable();
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

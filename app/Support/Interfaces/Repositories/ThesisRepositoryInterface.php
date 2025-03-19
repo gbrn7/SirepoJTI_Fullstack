@@ -6,7 +6,6 @@ use App\Models\Thesis;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 
 interface ThesisRepositoryInterface
 {
@@ -19,4 +18,7 @@ interface ThesisRepositoryInterface
   public function getSuggestionThesisTitle(string $searcInput): Collection;
   public function getDetailDocument(string $ID, bool|null $submissionStatus = null): Thesis | null;
   public function getDetailDocumentByStudentID(string $studentID): Thesis | null;
+  public function storeThesis(array $data, array $newFiles = []): ?Thesis;
+  public function updateThesis(Thesis $thesis, array $newData): ?Bool;
+  public function updateOrCreateThesisFile(Thesis $thesis, array $searchParams, array $newDataFiles);
 }

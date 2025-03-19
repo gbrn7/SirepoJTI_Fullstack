@@ -28,9 +28,9 @@
 @section('main-content')
 <div class="main-content mt-3">
   <form
-    action="{{Request::segment(3) === 'create' ? route('thesis-submission.store') : route('thesis-submission.update', Request::segment(3))}}"
+    action="{{Route::is('thesis-submission.create') ? route('thesis-submission.store') : route('thesis-submission.update', Request::segment(3))}}"
     method="POST" enctype="multipart/form-data">
-    @if (Request::segment(4) === 'edit')
+    @if (Route::is('thesis-submission.edit', Request::segment(3)))
     @method('PUT')
     @endif
     @csrf
@@ -48,7 +48,7 @@
   $('.input-file').change(function (e) { 
     e.preventDefault();
     const [file] = e.target.files;
-    $(this).closest('.drop-area').find('.file-desc').innerHTML = `${file.name}`;
+    $(this).closest('.drop-area').find('.file-desc')[0].innerHTML = `${file.name}`;
     $(this).closest(".drop-area").addClass('active');
   });
 

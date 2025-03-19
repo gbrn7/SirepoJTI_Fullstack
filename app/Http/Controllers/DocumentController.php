@@ -4,11 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Thesis;
-use App\Models\ThesisCategory;
-use App\Models\ThesisFile;
 use App\Models\ThesisType;
-use App\Models\ThesisTypes;
-use App\Models\User;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -103,9 +99,21 @@ class DocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'nullable',
             'abstract' => 'nullable',
-            'category' => 'nullable',
-            'file' => 'nullable|mimes:pdf|max:15360',
-            'username' => 'nullable',
+            'topic' => 'nullable',
+            'type' => 'nullable',
+            'lecturer' => 'nullable',
+            'required_file' => 'nullable|mimes:pdf|max:15360',
+            'abstract_file' => 'nullable|mimes:pdf|max:15360',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
+            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
+            'attachment_file' => 'nullable|mimes:pdf|max:15360',
         ]);
 
         if ($validator->fails()) {
@@ -126,7 +134,7 @@ class DocumentController extends Controller
             if ($validator->safe()->abstract) {
                 $newData['abstract'] = $validator->safe()->abstract;
             }
-            if ($validator->safe()->category) {
+            if ($validator->safe()->topic) {
                 $newData['id_category'] = $validator->safe()->category;
             }
             if ($validator->safe()->username) {
