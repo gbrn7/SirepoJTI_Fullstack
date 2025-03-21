@@ -8,7 +8,6 @@ use App\Support\Interfaces\Services\ThesisServiceInterface;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -164,11 +163,6 @@ class ThesisService implements ThesisServiceInterface
   public function getTopicFilters(): Collection
   {
     return $this->repository->getTopicFilters();
-  }
-
-  public function getAuthorFilters(?string $alphabet = "A"): Collection
-  {
-    return $this->repository->getAuthorFilters($alphabet ? $alphabet : "A");
   }
 
   public function getThesisTypeFilters(): Collection

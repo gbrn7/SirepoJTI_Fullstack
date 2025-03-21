@@ -102,7 +102,7 @@ class HomeController extends Controller
 
     public function authorFilterView(Request $request): View
     {
-        $authors = $this->thesisService->getAuthorFilters($request->alphabet);
+        $authors = $this->studentService->getAuthorFilters($request->alphabet);
 
         return view('public_views.author_filter', ['authors' => $authors]);
     }

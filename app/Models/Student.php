@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,8 +62,8 @@ class Student extends Authenticatable
         return $this->belongsTo(ProgramStudy::class, 'program_study_id', 'id');
     }
 
-    public function thesis(): HasOne
+    public function thesis(): HasMany
     {
-        return $this->hasOne(Thesis::class, 'student_id', 'id');
+        return $this->hasMany(Thesis::class, 'student_id', 'id');
     }
 }

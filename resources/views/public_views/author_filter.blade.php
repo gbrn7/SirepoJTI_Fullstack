@@ -67,7 +67,7 @@
     @foreach ($authors as $author)
     <li class="list-wrapper-list"><a href="{{route('home', ['student_id' => $author->id])}}"
         class="text-decoration-none">{{$author->last_name}},
-        {{$author->first_name}} <span>({{$author->total}})</span></a></li>
+        {{$author->first_name}} <span>({{$author->thesis_count}})</span></a></li>
     @endforeach
   </ul>
 </div>

@@ -107,6 +107,7 @@ class ThesisRepository implements ThesisRepositoryInterface
   public function getYearFilters(): Collection
   {
     return Thesis::selectRaw('YEAR(created_at) as year, COUNT(*) as total')
+      ->where('thesis.submission_status', true)
       ->groupBy('year')
       ->orderBy('year', 'desc')
       ->get();
@@ -115,6 +116,7 @@ class ThesisRepository implements ThesisRepositoryInterface
   public function getProgramStudyFilters(): Collection
   {
     return Thesis::selectRaw('ps.id, ps.name as program, COUNT(*) as total')
+      ->where('thesis.submission_status', true)
       ->join('students as s', 's.id', 'thesis.student_id')
       ->join('program_study as ps', 'ps.id', 's.program_study_id')
       ->groupBy('ps.id', 'ps.name')
@@ -125,25 +127,17 @@ class ThesisRepository implements ThesisRepositoryInterface
   public function getTopicFilters(): Collection
   {
     return Thesis::selectRaw('tt.id, tt.topic, COUNT(*) as total')
+      ->where('thesis.submission_status', true)
       ->join('thesis_topics as tt', 'tt.id', 'thesis.topic_id')
       ->groupBy('tt.id', 'tt.topic')
       ->orderBy('tt.topic', 'asc')
       ->get();
   }
 
-  public function getAuthorFilters(string $alphabet = "A"): Collection
-  {
-    return Thesis::selectRaw('s.id, s.last_name, s.first_name, COUNT(*) as total')
-      ->where('s.last_name', 'like', $alphabet . '%')
-      ->join('students as s', 's.id', 'thesis.student_id')
-      ->groupBy('thesis.student_id')
-      ->orderBy('s.last_name', 'asc')
-      ->get();
-  }
-
   public function getThesisTypeFilters(): Collection
   {
     return Thesis::selectRaw('tt.id, tt.type, COUNT(*) as total')
+      ->where('thesis.submission_status', true)
       ->join('thesis_types as tt', 'tt.id', 'thesis.type_id')
       ->groupBy('thesis.type_id')
       ->orderBy('tt.type', 'asc')

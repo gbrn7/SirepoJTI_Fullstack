@@ -15,7 +15,6 @@ interface ThesisServiceInterface
   public function getYearFilters(): Collection;
   public function getProgramStudyFilters(): Collection;
   public function getTopicFilters(): Collection;
-  public function getAuthorFilters(?string $alphabet = "A"): Collection;
   public function getThesisTypeFilters(): Collection;
   public function getSuggestionThesisTitle(string $searcInput): Collection;
   public function getDetailDocument(string $ID, bool|null $submissionStatus = null): ?Thesis;

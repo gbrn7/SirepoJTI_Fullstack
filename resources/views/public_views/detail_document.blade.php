@@ -10,7 +10,7 @@
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item">
-        <a href="{{route('home')}}" class="text-decoration-none">Home Search</a>
+        <a href="{{route('home')}}" class="text-decoration-none">Beranda</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         {{$document->title}}

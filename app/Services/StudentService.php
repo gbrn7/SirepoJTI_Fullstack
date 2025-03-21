@@ -15,4 +15,11 @@ class StudentService implements StudentServiceInterface
   {
     return $this->repository->getSuggestionAuthor($searchInput);
   }
+
+  public function getAuthorFilters(?string $alphabet = "A"): Collection
+  {
+    $students = $this->repository->getAuthorFilters($alphabet ? $alphabet : "A");
+
+    return $students;
+  }
 }
