@@ -84,9 +84,9 @@
             <div class="publication-filter mt-2">
               <p class="mb-1 filter-title">Tahun Publikasi</p>
               <div class="input-group p-1 shadow-none">
-                <input type="number" min="0" placeholder="From" class="form-control year-input" name="publication_from"
+                <input type="number" min="0" placeholder="Dari" class="form-control year-input" name="publication_from"
                   value="{{request()->get('publication_from')}}" />
-                <input type="number" min="0" placeholder="Until" class="form-control ms-2 year-input"
+                <input type="number" min="0" placeholder="Sampai" class="form-control ms-2 year-input"
                   name="publication_until" value="{{request()->get('publication_until')}}" />
               </div>
             </div>

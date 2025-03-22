@@ -8,7 +8,7 @@
     <ul class="navbar-nav justify-content-end flex-grow-1">
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('home')}}"><i class="ri-home-2-fill nav-icon fs-5"></i><span class="Nav-text">Home</span></a>
+          href="{{route('home')}}"><i class="ri-home-2-fill nav-icon fs-5"></i><span class="Nav-text">Beranda</span></a>
       </li>
       @if (Auth::guard('admin')->check())
       <li class="nav-item py-1 fw-light ps-3">

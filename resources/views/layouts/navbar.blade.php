@@ -39,7 +39,7 @@
         <li class="rounded-2 dropdown-list my-profile">
           <a class="dropdown-item text-white rounded-2"
             href="{{route('user.editProfile', Auth::user() ? Auth::user()->id : Auth::guard('admin')->user()->id)}}"
-            href=""><i class="ri-user-3-line me-2 text-white"></i>Edit Profile</a>
+            href=""><i class="ri-user-3-line me-2 text-white"></i>Edit Profil</a>
         </li>
         <li class="rounded-2 dropdown-list">
           <form action="{{route('signIn.user.signOut')}}" method="POST">

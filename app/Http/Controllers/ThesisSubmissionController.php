@@ -66,6 +66,13 @@ class ThesisSubmissionController extends Controller
             'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
             'bibliography_file' => 'nullable|mimes:pdf|max:15360',
             'attachment_file' => 'nullable|mimes:pdf|max:15360',
+        ], [
+            'title.required' => 'Judul Wajib Diisi',
+            'abstract.required' => 'Abstrak Wajib Diisi',
+            'topic_id.required' => 'Pilihlah Tipe Tugas Akhir',
+            'type_id.required' => 'Pilihlah Tipe Tugas Akhir',
+            'lecturer_id.required' => 'Pilihlah Dosen Pembimbing',
+            'required_file.required' => 'Dokumen Lengkap Tugas Akhir Wajib Diisi',
         ]);
         if ($validator->fails()) {
             return back()
@@ -78,9 +85,11 @@ class ThesisSubmissionController extends Controller
 
             $files = $request->file();
 
-            $this->thesisService->storeThesis($data, $files);
+            $userID = auth()->user()->id;
 
-            Session::flash('toast_success', 'Thesis Ditambahkan');
+            $this->thesisService->storeThesis($userID, $data, $files);
+
+            Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
             return redirect()->route('thesis-submission.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
@@ -156,7 +165,7 @@ class ThesisSubmissionController extends Controller
         try {
             $this->thesisService->updateThesis($validator->safe()->toArray(), $ID, $request->file());
 
-            Session::flash('toast_success', 'Tugas akhir diedit');
+            Session::flash('toast_success', 'Tugas Akhir Diedit');
             return redirect()->route('thesis-submission.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();

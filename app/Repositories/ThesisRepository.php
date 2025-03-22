@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\Student;
 use App\Models\Thesis;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\model\GetThesisReqModel;
+use Brick\Math\BigInteger;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
@@ -49,6 +51,17 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->orderBy('t.id', 'desc')
       ->paginate(5);
   }
+
+  public function getThesisByStudentID(String $studentID): Collection
+  {
+    return Thesis::where('student_id', $studentID)->get();
+  }
+
+  public function destroyThesisByIDs(array $IDs): bool
+  {
+    return Thesis::whereIn('id', $IDs)->delete();
+  }
+
 
   public function storeThesis(array $data, array $newFiles = []): ?Thesis
   {

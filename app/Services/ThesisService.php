@@ -36,9 +36,17 @@ class ThesisService implements ThesisServiceInterface
     return Storage::get('document/' . $fileName);
   }
 
-  public function storeThesis(array $data, UploadedFile|array|null $files)
+  public function storeThesis(string $studentID, array $data, UploadedFile|array|null $files)
   {
     try {
+      $thesis = $this->repository->getThesisByStudentID($studentID);
+
+      if (count($thesis) > 0) {
+        $thesisIds = $thesis->pluck('id')->toArray();
+
+        $this->repository->destroyThesisByIDs($thesisIds);
+      }
+
       $newFiles = Collection::make();
       if (count($files) > 0) {
         $docIdentity = config('documentIdentity');
@@ -103,6 +111,7 @@ class ThesisService implements ThesisServiceInterface
           // search params 
           $searchParams = ['sequence_num' => $docIdentity[$key]['sequence_num']];
 
+          dd($docIdentity[$key]);
           $newDataFiles = [
             'label' => $docIdentity[$key]['label'],
             'sequence_num' => $docIdentity[$key]['sequence_num'],
@@ -140,7 +149,7 @@ class ThesisService implements ThesisServiceInterface
       );
       $pdf->showWatermarkImage = true;
     }
-    $pdf->SetProtection(array('copy', 'print'));
+    $pdf->SetProtection(array('copy', 'print-highres'));
     $pdf->OutputFile(storage_path('app/document/' . $fileName));
   }
 

@@ -58,213 +58,216 @@
 </div>
 <div class="optional-document-wrapper">
   <label class="form-label">Dokumen Tambahan (Opsional)</label>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="Abstrak" name="abstract_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="abstract_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+  <div class="optional-document-file-wrap d-flex flex-wrap gap-x-1 gap-y-2">
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="Abstrak" name="abstract_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="abstract_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" value="Daftar Isi" name="list_of_content_label" required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="list_of_content_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" value="Daftar Isi" name="list_of_content_label" required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="list_of_content_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="Bab I" name="chapter_1_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_1_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" name=" chapter_1_label" required
+            disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_1_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB II" name="chapter_2_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_2_label" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB II" name="chapter_2_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_2_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB III" name="chapter_3_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_3_label" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB III" name="chapter_3_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_3_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB IV" name="chapter_4_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_4_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB IV" name="chapter_4_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_4_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB V" name="chapter_5_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_5_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB V" name="chapter_5_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_5_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VI" name="chapter_6_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_6_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VI" name="chapter_6_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_6_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VII" name="chapter_7_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="chapter_2_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VII" name="chapter_7_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="chapter_7_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="Daftar Pustaka"
-          name="bibliography_label" required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="bibliography_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 col-lg-6 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="Daftar Pustaka"
+            name="bibliography_label" required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="bibliography_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
-  </div>
-  <div class="mb-2">
-    <label class="w-100 drop-area" id="drop-area">
-      <div class="wrapper text-start mb-3">
-        <label class="form-label">Nama Dokumen</label>
-        <input type="text" class="form-control" placeholder="Masukan judul" value="Lampiran" name="attachment_label"
-          required disabled />
-      </div>
-      <div class="file-wrapper">
-        <label class="form-label d-block text-start">Dokumen</label>
-        <input type="file" name="attachment_file" hidden id="input-file" class="input-file">
-        <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
-          <div class="default-view">
-            <i class="ri-upload-cloud-2-fill upload-icon"></i>
-            <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+      </label>
+    </div>
+    <div class="mb-2 col-12 p-2 overflow-hidden text-wrap">
+      <label class="w-100 drop-area" id="drop-area">
+        <div class="wrapper text-start mb-3">
+          <label class="form-label">Nama Dokumen</label>
+          <input type="text" class="form-control" placeholder="Masukan judul" value="Lampiran" name="attachment_label"
+            required disabled />
+        </div>
+        <div class="file-wrapper">
+          <label class="form-label d-block text-start">Dokumen</label>
+          <input type="file" name="attachment_file" hidden id="input-file" class="input-file">
+          <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
+            <div class="default-view">
+              <i class="ri-upload-cloud-2-fill upload-icon"></i>
+              <p class="file-desc mb-0">Drag and drop or click here <br>to upload document</p>
+            </div>
           </div>
         </div>
-      </div>
-    </label>
+      </label>
+    </div>
+
   </div>
 </div>
 <div class="wrapper d-flex justify-content-end">

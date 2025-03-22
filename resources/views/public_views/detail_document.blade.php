@@ -45,13 +45,13 @@
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#overview-tab-pane"
           type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true">
-          Overview
+          Ringkasan
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#pdf-tab-pane" type="button"
           role="tab" aria-controls="pdf-tab-pane" aria-selected="false">
-          File PDF
+          PDF
         </button>
       </li>
     </ul>
