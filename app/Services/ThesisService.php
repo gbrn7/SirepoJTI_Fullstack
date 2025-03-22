@@ -41,12 +41,6 @@ class ThesisService implements ThesisServiceInterface
     try {
       $thesis = $this->repository->getThesisByStudentID($studentID);
 
-      if (count($thesis) > 0) {
-        $thesisIds = $thesis->pluck('id')->toArray();
-
-        $this->repository->destroyThesisByIDs($thesisIds);
-      }
-
       $newFiles = Collection::make();
       if (count($files) > 0) {
         $docIdentity = config('documentIdentity');
@@ -70,6 +64,21 @@ class ThesisService implements ThesisServiceInterface
 
       DB::beginTransaction();
       $this->repository->storeThesis($data, $newFiles->toArray());
+
+      if (count($thesis) > 0) {
+        $thesisIds = $thesis->pluck('id')->toArray();
+
+        foreach ($thesis as $key => $value) {
+          $files = $value->files;
+
+          foreach ($files as $file) {
+            // Delete old file
+            Storage::delete('document/' . $file->file_name);
+          }
+        }
+
+        $this->repository->destroyThesisByIDs($thesisIds);
+      }
 
       DB::commit();
     } catch (\Throwable $th) {
@@ -111,7 +120,6 @@ class ThesisService implements ThesisServiceInterface
           // search params 
           $searchParams = ['sequence_num' => $docIdentity[$key]['sequence_num']];
 
-          dd($docIdentity[$key]);
           $newDataFiles = [
             'label' => $docIdentity[$key]['label'],
             'sequence_num' => $docIdentity[$key]['sequence_num'],

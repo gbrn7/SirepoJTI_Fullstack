@@ -54,7 +54,7 @@ class ThesisRepository implements ThesisRepositoryInterface
 
   public function getThesisByStudentID(String $studentID): Collection
   {
-    return Thesis::where('student_id', $studentID)->get();
+    return Thesis::where('student_id', $studentID)->with('files')->get();
   }
 
   public function destroyThesisByIDs(array $IDs): bool
