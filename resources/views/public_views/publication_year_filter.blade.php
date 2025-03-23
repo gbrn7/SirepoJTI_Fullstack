@@ -13,7 +13,9 @@
     @foreach ($years as $year)
     <li class="list-wrapper-list"><a
         href="{{route('home', ['publication_from' => $year->year, 'publication_until' => $year->year])}}"
-        class="text-decoration-none">{{$year->year}} <u class="text-decoration-none">({{$year->total}})</u></a></li>
+        class="text-decoration-none filter-link" data-cy="link-filter">{{$year->year}}
+        <span>({{$year->total}})</span></a>
+    </li>
     @endforeach
   </ul>
 </div>

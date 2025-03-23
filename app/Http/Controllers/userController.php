@@ -42,6 +42,8 @@ class userController extends Controller
             'old_password' => 'nullable',
             'new_password' => 'nullable|min:6',
             'confirm_password' => 'required_with:new_password|same:new_password',
+        ], [
+            'confirm_password.same' => 'Pengulangan Password Tidak Sama',
         ]);
 
         if ($validator->fails()) {
@@ -64,7 +66,7 @@ class userController extends Controller
         try {
             if ($request->confirm_password) {
                 if (!(Hash::check($request->old_password, $user->password))) {
-                    return redirect()->back()->with('toast_error', 'The old password invalid');
+                    return redirect()->back()->with('toast_error', 'Password Lama Tidak Valid');
                 }
                 $data['password'] = $data['new_password'];
             }
@@ -82,7 +84,7 @@ class userController extends Controller
 
             $user->update($data);
 
-            return redirect()->route('home')->with('toast_success', 'Your profile updated');
+            return redirect()->route('home')->with('toast_success', 'Profil Diperbarui');
         } catch (\Throwable $th) {
 
             return back()->with('toast_error', $th->getMessage());

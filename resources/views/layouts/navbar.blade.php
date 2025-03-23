@@ -1,7 +1,7 @@
 <nav class="navbar bg-body-tertiary position-relative">
   <div class="container-lg">
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-      aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+    <button class="navbar-toggler" data-cy="btn-navbar-toggler" type="button" data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -12,7 +12,7 @@
     </div>
 
     @if (auth()->user() || Auth::guard('admin')->user())
-    <div class="dropdown">
+    <div class="dropdown" data-cy="btn-dropdown-account">
       <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle"
         href="user-edit-profile.html" role="button" aria-current="page" data-bs-toggle="dropdown" aria-expanded="false">
         @auth('student')
@@ -39,12 +39,12 @@
         <li class="rounded-2 dropdown-list my-profile">
           <a class="dropdown-item text-white rounded-2"
             href="{{route('user.editProfile', Auth::user() ? Auth::user()->id : Auth::guard('admin')->user()->id)}}"
-            href=""><i class="ri-user-3-line me-2 text-white"></i>Edit Profil</a>
+            data-cy="btn-edit-account"><i class="ri-user-3-line me-2 text-white"></i>Edit Profil</a>
         </li>
         <li class="rounded-2 dropdown-list">
           <form action="{{route('signIn.user.signOut')}}" method="POST">
             @csrf
-            <button type="submit" class="dropdown-item btn-submit rounded-2 text-white"><i
+            <button data-cy="btn-logout" type="submit" class="dropdown-item btn-submit rounded-2 text-white"><i
                 class="ri-logout-circle-line me-2 text-white"></i>Log Out</button>
           </form>
         </li>

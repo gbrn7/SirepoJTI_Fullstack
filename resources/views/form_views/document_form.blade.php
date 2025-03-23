@@ -1,16 +1,16 @@
 <div class="mb-2">
   <label class="form-label">Judul</label>
-  <input type="text" class="form-control" placeholder="Masukan judul"
+  <input data-cy="input-title" type="text" class="form-control" placeholder="Masukan judul"
     value="{{old('title', isset($document) ? $document->title : '')}}" name="title" required />
 </div>
 <div class="mb-2">
   <label class="form-label">Abstrak</label>
-  <textarea class="form-control" rows="3" placeholder="Enter abstrak" required
+  <textarea data-cy="input-abstract" class="form-control" rows="3" placeholder="Enter abstrak" required
     name="abstract">{{old('abstract', isset($document) ? $document->abstract : '')}}</textarea>
 </div>
 <div class="mb-2">
   <label class="form-label">Topik</label>
-  <select class="form-select" aria-label="Default select example" name="topic_id" required>
+  <select data-cy="input-topic" class="form-select" aria-label="Default select example" name="topic_id" required>
     <option value="">Pilih Topik Dokumen</option>
     @foreach ($topics as $topic)
     <option value="{{$topic->id}}" @selected(old('topic_id', isset($document) ? $document->topic_id :
@@ -22,7 +22,7 @@
 </div>
 <div class="mb-2">
   <label class="form-label">Jenis Tugas Akhir</label>
-  <select class="form-select" aria-label="Default select example" name="type_id" required>
+  <select data-cy="input-thesis-type" class="form-select" aria-label="Default select example" name="type_id" required>
     <option value="">Pilih Jenis Tugas Akhir</option>
     @foreach ($types as $type)
     <option value="{{$type->id}}" @selected(old('type_id', isset($document) ? $document->type_id :
@@ -34,7 +34,7 @@
 </div>
 <div class="mb-2">
   <label class="form-label">Dosen Pembimbing</label>
-  <select class="form-select" aria-label="Default select example" name="lecturer_id" required>
+  <select data-cy="input-lecturer" class="form-select" aria-label="Default select example" name="lecturer_id" required>
     <option value="">Pilih Dosen Pembimbing</option>
     @foreach ($lecturers as $lecturer)
     <option value="{{$lecturer->id}}" @selected(old('lecturer_id', isset($document) ? $document->lecturer_id :
@@ -47,7 +47,7 @@
 <div class="mb-2">
   <label class="form-label">Dokumen Lengkap (Wajib)</label>
   <label class="w-100 drop-area" id="drop-area">
-    <input type="file" name="required_file" hidden id="input-file" class="input-file">
+    <input type="file" name="required_file" data-cy="input-complete-document" hidden id="input-file" class="input-file">
     <div class="img-view py-3 w-100 h-100 rounded rounded-2 d-flex justify-content-center align-items-center">
       <div class="default-view">
         <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -68,7 +68,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="abstract_file" hidden id="input-file" class="input-file">
+          <input type="file" data-cy="input-abstract-document" name="abstract_file" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -86,7 +87,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="list_of_content_file" hidden id="input-file" class="input-file">
+          <input type="file" name="list_of_content_file" data-cy="input-list-of-content-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -105,7 +107,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_1_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_1_file" data-cy="input-chapter-1-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -124,7 +127,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_2_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_2_file" data-cy="input-chapter-2-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -143,7 +147,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_3_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_3_file" data-cy="input-chapter-3-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -162,7 +167,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_4_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_4_file" data-cy="input-chapter-4-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -181,7 +187,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_5_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_5_file" data-cy="input-chapter-5-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -200,7 +207,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_6_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_6_file" data-cy="input-chapter-6-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -219,7 +227,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_7_file" hidden id="input-file" class="input-file">
+          <input type="file" name="chapter_7_file" data-cy="input-chapter-7-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -238,7 +247,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="bibliography_file" hidden id="input-file" class="input-file">
+          <input type="file" name="bibliography_file" data-cy="input-bibliography-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -257,7 +267,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="attachment_file" hidden id="input-file" class="input-file">
+          <input type="file" name="attachment_file" data-cy="input-attachment-document" hidden id="input-file"
+            class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
@@ -271,5 +282,5 @@
   </div>
 </div>
 <div class="wrapper d-flex justify-content-end">
-  <button class="btn btn-submit text-black px-5 btn-warning" type="submit">Submit</button>
+  <button class="btn btn-submit text-black px-5 btn-warning" data-cy="btn-submit" type="submit">Submit</button>
 </div>

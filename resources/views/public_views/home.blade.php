@@ -44,7 +44,7 @@
           <div class="body-filter overflow-hidden mt-1 w-100">
             <div class="topic-filter mt-2">
               <p class="mb-1 filter-title">Topik</p>
-              <div class="topic-box checkbox-list-box d-flex flex-column gap-1">
+              <div class="topic-box checkbox-list-box d-flex flex-column gap-1" data-cy="topic-checkbox-wrapper">
                 @php($topicId = collect(request()->get('topic_id')))
                 @foreach ($topics as $topic)
                 <div class="checkbox-group d-flex gap-1">
@@ -57,7 +57,7 @@
             </div>
             <div class="program-study-filter mt-2">
               <p class="mb-1 filter-title">Program Studi</p>
-              <div class="prody-box checkbox-list-box d-flex flex-column gap-1">
+              <div class="prody-box checkbox-list-box d-flex flex-column gap-1" data-cy="prody-checkbox-wrapper">
                 @php($idProdys = collect(request()->get('program_study_id')))
                 @foreach ($prodys as $prody)
                 <div class="checkbox-group d-flex gap-1">
@@ -70,7 +70,7 @@
             </div>
             <div class="type-filter mt-2">
               <p class="mb-1 filter-title">Jenis Tugas Akhir</p>
-              <div class="topic-box checkbox-list-box d-flex flex-column gap-1">
+              <div class="topic-box checkbox-list-box d-flex flex-column gap-1" data-cy="thesis-type-checkbox-wrapper">
                 @php($typeId = collect(request()->get('type_id')))
                 @foreach ($types as $type)
                 <div class="checkbox-group d-flex gap-1">
@@ -84,22 +84,25 @@
             <div class="publication-filter mt-2">
               <p class="mb-1 filter-title">Tahun Publikasi</p>
               <div class="input-group p-1 shadow-none">
-                <input type="number" min="0" placeholder="Dari" class="form-control year-input" name="publication_from"
+                <input type="number" min="0" placeholder="Dari" data-cy="input-publication-from"
+                  class="form-control year-input" name="publication_from"
                   value="{{request()->get('publication_from')}}" />
-                <input type="number" min="0" placeholder="Sampai" class="form-control ms-2 year-input"
-                  name="publication_until" value="{{request()->get('publication_until')}}" />
+                <input type="number" min="0" placeholder="Sampai" data-cy="input-publication-until"
+                  class="form-control ms-2 year-input" name="publication_until"
+                  value="{{request()->get('publication_until')}}" />
               </div>
             </div>
             <div class="author-filter mt-2">
               <p class="mb-1 filter-title">Penulis</p>
               <div class="input-group p-1 shadow-none">
                 <input type="text" placeholder="Telusuri Penulis" list="authorListOption"
-                  class="form-control author-input year-input" name="author" value="{{ request()->get('author')}}" />
+                  class="form-control author-input year-input" data-cy="input-author" name="author"
+                  value="{{ request()->get('author')}}" />
               </div>
             </div>
           </div>
           <div class="footer-filter d-flex justify-content-center mt-3 pt-1">
-            <button type="submit" class="btn btn-submit btn-apply px-4 py-2 fw-medium">
+            <button type="submit" class="btn btn-submit btn-apply px-4 py-2 fw-medium" data-cy="btn-filter-submit">
               Terapkan
             </button>
           </div>
@@ -130,8 +133,8 @@
             </div>
             @empty
             <div class="thesis-item w-100">
-              <div class="thesis-title text-decoration-none mb-1 fw-semibold">
-                Dokumen Tidak ditemukan
+              <div class="empty-message text-decoration-none mb-1 fw-semibold" data-cy="empty-message">
+                Dokumen Tidak Ditemukan
               </div>
             </div>
             @endforelse

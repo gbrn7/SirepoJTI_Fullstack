@@ -26,22 +26,26 @@
     @csrf
     <div class="mb-2">
       <label for="formFile" class="form-label">Gambar Profil</label>
-      <input class="form-control" type="file" id="formFile" name="profile_picture" />
+      <input data-cy="input-profile-picture" class="form-control" type="file" id="formFile" name="profile_picture" />
     </div>
     <div class="mb-2">
       <label class="form-label">Password Lama</label>
-      <input type="password" class="form-control" placeholder="Enter the password" name="old_password" />
+      <input type="password" class="form-control" data-cy="input-old-password" placeholder="Enter the password"
+        name="old_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">Password Baru</label>
-      <input type="password" class="form-control" placeholder="Enter the password" name="new_password" />
+      <input type="password" class="form-control" data-cy="input-new-password" placeholder="Enter the password"
+        name="new_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">Ulangi Password Baru</label>
-      <input type="password" class="form-control" placeholder="Enter your new password again" name="confirm_password" />
+      <input type="password" class="form-control" data-cy="input-confirm-new-password"
+        placeholder="Enter your new password again" name="confirm_password" />
     </div>
     <div class="wrapper d-flex justify-content-end">
-      <button type="submit" class="btn btn-submit text-black px-5 btn-warning">Submit</button>
+      <button type="submit" class="btn btn-submit text-black px-5 btn-warning"
+        data-cy="btn-edit-profile-submit">Submit</button>
     </div>
   </form>
 </div>

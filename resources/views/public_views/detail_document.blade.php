@@ -44,13 +44,13 @@
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#overview-tab-pane"
-          type="button" role="tab" aria-controls="overview-tab-pane" aria-selected="true">
+          type="button" role="tab" data-cy="tab-overview" aria-controls="overview-tab-pane" aria-selected="true">
           Ringkasan
         </button>
       </li>
       <li class="nav-item" role="presentation">
-        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#pdf-tab-pane" type="button"
-          role="tab" aria-controls="pdf-tab-pane" aria-selected="false">
+        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-cy="tab-pdf" data-bs-target=" #pdf-tab-pane"
+          type="button" role="tab" aria-controls="pdf-tab-pane" aria-selected="false">
           PDF
         </button>
       </li>
@@ -81,9 +81,10 @@
           <div class="body fw-light">{{$document->student->programStudy->majority->name}}</div>
         </div>
       </div>
-      <div class="tab-pane fade" id="pdf-tab-pane" role="tabpanel" aria-labelledby="pdf-tab-pane" tabindex="0">
+      <div class="tab-pane fade document-link-wrapper" data-cy="wrapper-document-link" id="pdf-tab-pane" role="tabpanel"
+        aria-labelledby="pdf-tab-pane" tabindex="0">
         @if(Auth::user() || Auth::guard('admin')->user())
-        <table class="table bg-white mt-3 table-bordered">
+        <table class="table bg-white mt-3 table-bordered" data-cy="table-document-link">
           <thead>
             <tr>
               <th>No.</th>
@@ -96,7 +97,7 @@
             <tr>
               <td>{{$loop->iteration}}</td>
               <td> <a target="blank" href="{{route('detail.document.download', $file->file_name)}}"
-                  class="text-decoration-none">{{$file->file_name}}</a>
+                  class="text-decoration-none" data-cy="link-document">{{$file->file_name}}</a>
               </td>
               <td>
                 <p class="mb-0">{{$file->label}}</p>

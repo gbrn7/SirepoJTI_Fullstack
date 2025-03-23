@@ -66,8 +66,8 @@
   <ul class="mt-2">
     @foreach ($authors as $author)
     <li class="list-wrapper-list"><a href="{{route('home', ['student_id' => $author->id])}}"
-        class="text-decoration-none">{{$author->last_name}},
-        {{$author->first_name}} <span>({{$author->thesis_count}})</span></a></li>
+        class="text-decoration-none" data-cy="link-filter">{{$author->last_name}},
+        {{$author->first_name}}<span>({{$author->thesis_count}})</span></a></li>
     @endforeach
   </ul>
 </div>

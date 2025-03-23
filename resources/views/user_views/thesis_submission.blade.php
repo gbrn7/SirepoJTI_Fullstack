@@ -25,13 +25,13 @@
   <div class="btn-wrapper">
     @if(isset($document))
     @if(isset($document->submission_status) && $document?->submission_status == false)
-    <div class="btn btn-success"><a href="{{route('thesis-submission.create')}}"
+    <div class="btn btn-success"><a data-cy="btn-link-add-thesis" href="{{route('thesis-submission.create')}}"
         class="text-decoration-none text-white"><i class="ri-pencil-line me-1"></i>
         <span>Unggah Ulang</span></a>
     </div>
     @endif
     @else
-    <div class="btn btn-success"><a href="{{route('thesis-submission.create')}}"
+    <div class="btn btn-success"><a data-cy="btn-link-add-thesis" href="{{route('thesis-submission.create')}}"
         class="text-decoration-none text-white"><i class="ri-pencil-line me-1"></i>
         <span>Isi Data</span></a>
     </div>

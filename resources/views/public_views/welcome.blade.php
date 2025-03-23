@@ -17,9 +17,10 @@
       </div>
       <div class="search-wrapper pb-2 mt-4 rounded rounded-3 w-100">
         <div class="input-group">
-          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="title" />
+          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="title"
+            data-cy="input-search" />
           <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
-            id="basic-addon2">
+            id="basic-addon2" data-cy="btn-search-submit">
             <i class="ri-search-line"></i>
           </button>
         </div>
@@ -28,34 +29,36 @@
       </div>
       <div class="filter-wrapper mt-4 w-100 d-flex justify-content-lg-between flex-wrap">
         <a href="{{route('filter.year.view')}}"
-          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center"
+          data-cy="filter-box-publication-year">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Tahun Publikasi</p>
           </div>
         </a>
         <a href="{{route('filter.program-study.view')}}"
-          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
+          class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center"
+          data-cy="filter-box-program-study">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Program Studi</p>
           </div>
         </a>
-        <a href="{{route('filter.topic.view')}}"
+        <a href="{{route('filter.topic.view')}}" data-cy="filter-box-topic"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Topik</p>
           </div>
         </a>
-        <a href="{{route('filter.author.view')}}"
+        <a href="{{route('filter.author.view')}}" data-cy="filter-box-author"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Penulis</p>
           </div>
         </a>
-        <a href="{{route('filter.thesis-type.view')}}"
+        <a href="{{route('filter.thesis-type.view')}}" data-cy="filter-box-thesis-type"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
           <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
           <div class="folder-box-label">
@@ -70,7 +73,11 @@
 
 @push('js')
 <script>
-  $('.search-input').on('input', debounce(function (e) {
+  $("body").on("click", () => {
+      $(".search-wrapper").removeClass("active");
+    });
+
+    $('.search-input').on('input', debounce(function (e) {
     let searchInput = e.target.value;
 
     if(searchInput == ''){
@@ -85,7 +92,7 @@
           $('.suggestion-box').empty();
           $('.search-wrapper').addClass('active')
         }
-        data.forEach(e => {
+        data.data.forEach(e => {
           $('.suggestion-box').append(`<div class="suggestion-item py-2 ps-3">${e.title}</div>`)
           });
 
@@ -99,9 +106,5 @@
     }
 
   }, 300));
-
-  $("body").on("click", () => {
-      $(".search-wrapper").removeClass("active");
-    });
 </script>
 @endpush

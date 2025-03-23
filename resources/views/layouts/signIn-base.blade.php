@@ -44,27 +44,27 @@
                 <img src="{{asset('img/jti_logo.png')}}" class="header-logo" />
                 <img src="{{asset('img/polinema_logo.png')}}" class="header-logo" />
               </div>
-              <h1 class="my-0 mt-4 fs-4 fw-normal">@yield('title')</h1>
+              <h1 class="my-0 mt-4 fs-4 fw-normal" data-cy="title">@yield('title')</h1>
             </div>
           </div>
           <form action="@yield('form_action')" method="post">
             @csrf
             <div class="login-form d-flex flex-column gap-1 gap-lg-3 mt-3">
               <div class="username-input-wrapper">
-                <input name="username" value="{{old('email')}}" class="form-control text-black" id="username"
-                  placeholder="Enter your username" />
+                <input name="username" data-cy="input-username" value="{{old('email')}}" class="form-control text-black"
+                  id="username" placeholder="Enter your username" />
                 @error('username')
                 <small class="form-text mt-1 text-danger">{{ $message }}</small>
                 @enderror
               </div>
               <div class="password-container position-relative">
                 <div class="pass-wrapper">
-                  <input name="password" type="password" class="form-control" id="password"
+                  <input name="password" data-cy="input-password" type="password" class="form-control" id="password"
                     placeholder="Enter your password" />
                   <i class="ri-eye-close-fill pass-icon eye-pass position-absolute"></i>
                 </div>
               </div>
-              <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit">
+              <button class="btn login-btn mt-1 mt-lg-2 btn-submit" type="submit" data-cy="btn-login">
                 Log In
               </button>
               <div class="link-wrapper text-center">

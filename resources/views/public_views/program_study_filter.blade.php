@@ -12,7 +12,7 @@
   <ul>
     @foreach ($programs as $program)
     <li class="list-wrapper-list"><a href="{{route('home', ['program_study_id'=> $program->id])}}"
-        class="text-decoration-none">{{$program->program}} <u class="text-decoration-none">({{$program->total}})</u></a>
+        class="text-decoration-none" data-cy="link-filter">{{$program->program}} <span>({{$program->total}})</span></a>
     </li>
     @endforeach
   </ul>
