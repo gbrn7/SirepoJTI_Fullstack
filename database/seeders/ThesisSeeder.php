@@ -44,7 +44,7 @@ class ThesisSeeder extends Seeder
             // ],
             [
                 'topic_id' => 2,
-                'type_id' => 1,
+                'type_id' => 2,
                 'lecturer_id' => 1,
                 'student_id' => 3,
                 'title' => 'Sistem Informasi-1',
@@ -58,7 +58,7 @@ class ThesisSeeder extends Seeder
             ],
             [
                 'topic_id' => 3,
-                'type_id' => 1,
+                'type_id' => 3,
                 'lecturer_id' => 1,
                 'student_id' => 4,
                 'title' => 'Big Data Indonesia',
