@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\lecturer;
+use App\Models\Lecturer;
 use App\Models\Thesis;
 use App\Models\ThesisTopic;
 use App\Models\ThesisType;
