@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ThesisAuthorResource;
 use App\Http\Resources\ThesisTitleResource;
 use App\Models\Student;
-use App\Models\Thesis;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
