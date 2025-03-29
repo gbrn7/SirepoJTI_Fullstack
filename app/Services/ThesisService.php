@@ -143,7 +143,7 @@ class ThesisService implements ThesisServiceInterface
   {
     $logo = public_path("img/POLINEMA.png");
 
-    $pdf = new Mpdf();
+    $pdf = new \Mpdf\Mpdf(['tempDir' => sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'mpdf']);
     $pagecount = $pdf->setSourceFile($filePathName);
     for ($i = 1; $i <= ($pagecount); $i++) {
       $pdf->AddPage();
