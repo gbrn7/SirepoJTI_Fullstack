@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\lecturer;
+use App\Models\Lecturer;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
