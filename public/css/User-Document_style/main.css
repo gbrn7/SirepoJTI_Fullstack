@@ -20,6 +20,9 @@ body .ls-b {
 body .ls-s {
   letter-spacing: -0.5px;
 }
+body .btn-danger {
+  background-color: #ea5455 !important;
+}
 body .content-wrapper .breadcrumbs-box {
   border-bottom: 0.5px solid #8d8d8d;
 }

@@ -87,6 +87,7 @@ body .content-wrapper .main-content .table-wrapper .table thead tr th {
 }
 body .content-wrapper .main-content .table-wrapper .table tbody .btn-detail {
   background-color: #2d4059;
+  border-color: #2d4059;
 }
 body .content-wrapper .main-content .table-wrapper .table tbody tr td {
   font-weight: 300;

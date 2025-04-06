@@ -6,7 +6,10 @@ use App\Models\Lecturer;
 use App\Models\Thesis;
 use App\Models\ThesisTopic;
 use App\Models\ThesisType;
+use App\Support\Interfaces\Services\LecturerServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\Interfaces\Services\ThesisTopicServiceInterface;
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -18,6 +21,9 @@ class ThesisSubmissionController extends Controller
 {
     public function __construct(
         protected ThesisServiceInterface $thesisService,
+        protected  ThesisTopicServiceInterface $thesisTopicService,
+        protected  ThesisTypeServiceInterface $thesisTypeService,
+        protected  LecturerServiceInterface $lecturerService,
     ) {}
     /**
      * Display a listing of the resource.
@@ -34,11 +40,11 @@ class ThesisSubmissionController extends Controller
      */
     public function create()
     {
-        $topics = ThesisTopic::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        $types = ThesisType::all();
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = Lecturer::all();
+        $lecturers = $this->lecturerService->getLecturers();
 
         return view('user_views.thesis_document_form', compact('topics', 'types', 'lecturers'));
     }
@@ -85,9 +91,9 @@ class ThesisSubmissionController extends Controller
 
             $files = $request->file();
 
-            $userID = auth()->user()->id;
+            $studentID = auth()->user()->id;
 
-            $this->thesisService->storeThesis($userID, $data, $files);
+            $this->thesisService->storeThesis($studentID, $data, $files);
 
             Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
             return redirect()->route('thesis-submission.index');

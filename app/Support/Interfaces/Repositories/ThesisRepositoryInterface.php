@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 interface ThesisRepositoryInterface
 {
   public function getThesis(GetThesisReqModel $reqModel): Paginator;
+  public function getThesisbyID(string $ID): ?Thesis;
   public function getThesisByStudentID(string $studentID): Collection;
   public function destroyThesisByIDs(array $IDs): bool;
   public function getYearFilters(): Collection;
@@ -23,4 +24,6 @@ interface ThesisRepositoryInterface
   public function storeThesis(array $data, array $newFiles = []): ?Thesis;
   public function updateThesis(Thesis $thesis, array $newData): ?Bool;
   public function updateOrCreateThesisFile(Thesis $thesis, array $searchParams, array $newDataFiles);
+  public function deleteThesis(Thesis $thesis): bool;
+  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status): bool;
 }

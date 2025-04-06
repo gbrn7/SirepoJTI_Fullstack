@@ -3,9 +3,12 @@
 namespace App\Services;
 
 use App\Models\Thesis;
+use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
 use App\Support\model\GetThesisReqModel;
+use Error;
+use Exception;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
@@ -90,8 +93,10 @@ class ThesisService implements ThesisServiceInterface
   public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files)
   {
     try {
-      $oldData = Thesis::with('files')->find($ID);
-      if (!$oldData) return redirect()->route('thesis-submission.index')->with('toast_error', 'Document Not Found');
+
+      $oldData = $this->repository->getThesisByID($ID);
+
+      if (!isset($oldData)) throw new Exception('Tugas Akhir Tidak Ditemukan');
 
       $arrayOldData = $oldData->toArray();
       $newData = collection::make();
@@ -161,7 +166,6 @@ class ThesisService implements ThesisServiceInterface
     $pdf->OutputFile(storage_path('app/document/' . $fileName));
   }
 
-
   public function getDetailDocumentByStudentID(string $studentID): ?Thesis
   {
     return $this->repository->getDetailDocumentByStudentID($studentID);
@@ -190,5 +194,55 @@ class ThesisService implements ThesisServiceInterface
   public function getSuggestionThesisTitle(string $searcInput): Collection
   {
     return $this->repository->getSuggestionThesisTitle($searcInput);
+  }
+
+  public function destroyThesisByID(string $ID): bool
+  {
+    $thesis = $this->repository->getThesisbyID($ID);
+
+    if (!isset($thesis)) {
+      throw new Error('Tugas akhir tidak ditemukan');
+    }
+
+    $files = $thesis->files;
+
+    foreach ($files as $file) {
+      // Delete old file
+      Storage::delete('document/' . $file->file_name);
+    }
+
+    return $this->repository->deleteThesis($thesis);
+  }
+
+  public function getThesisByID(string $ID): ?Thesis
+  {
+    return $this->repository->getThesisByID($ID);
+  }
+
+  public function bulkUpdateSubmissionStatus(array $IDs, string $status): bool
+  {
+    switch ($status) {
+      case SubmissionStatusEnum::ACCEPTED->value:
+        $status = true;
+        break;
+      case SubmissionStatusEnum::DECLINED->value:
+        $status = false;
+        break;
+      default:
+        $status = null;
+        break;
+    }
+    try {
+      DB::beginTransaction();
+
+      $result = $this->repository->bulkUpdateSubmissionStatus($IDs, $status);
+
+      DB::commit();
+      return $result;
+    } catch (\Throwable $th) {
+      //throw $th;
+      DB::rollBack();
+      throw $th;
+    }
   }
 }

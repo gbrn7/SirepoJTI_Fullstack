@@ -13,6 +13,11 @@
       @if (Auth::guard('admin')->check())
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
+          href="{{route('documents-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
+            class="Nav-text" data-cy="btn-navbar-thesis">Tugas Akhir</span></a>
+      </li>
+      <li class="nav-item py-1 fw-light ps-3">
+        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
           href="{{route('user-management.index')}}"><i class="ri-team-line nav-icon fs-5"></i><span
             class="Nav-text">User
             Management</span></a>
@@ -21,11 +26,6 @@
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
           href="{{route('categories.index')}}"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
             class="Nav-text">Categories Management</span></a>
-      </li>
-      <li class="nav-item py-1 fw-light ps-3">
-        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('documents-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
-            class="Nav-text" data-cy="btn-navbar-thesis">Tugas Akhir</span></a>
       </li>
       @elseif (Auth::guard('student')->check())
       <li class="nav-item py-1 fw-light ps-3">

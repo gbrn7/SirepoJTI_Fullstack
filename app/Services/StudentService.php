@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Student;
 use App\Support\Interfaces\Repositories\StudentRepositoryInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -21,5 +22,10 @@ class StudentService implements StudentServiceInterface
     $students = $this->repository->getAuthorFilters($alphabet ? $alphabet : "A");
 
     return $students;
+  }
+
+  public function getStudentByUsername(string $username): ?Student
+  {
+    return $this->repository->getStudentByUsername($username);
   }
 }

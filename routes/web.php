@@ -30,11 +30,11 @@ Route::get('/filter/topic', [HomeController::class, 'topicFilterView'])->name('f
 Route::get('/filter/author', [HomeController::class, 'authorFilterView'])->name('filter.author.view');
 Route::get('/filter/thesis-type', [HomeController::class, 'thesisTypeFilterView'])->name('filter.thesis-type.view');
 
-Route::get('/signIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
-Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
+Route::get('/logIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
+Route::post('/logIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
 Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.signOut');
-Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
-Route::get('/signIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
+Route::get('/logIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::get('/logIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
 
 Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionThesisTitle'])->name('getSuggestionTitle');
 Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
@@ -72,6 +72,8 @@ Route::group(['prefix' => 'home'], function () {
             Route::post('/importExcel', [UserManagementController::class, 'importExcel'])->name('importExcel');
 
             Route::resource('user-management.document-management', UserDocumentManagementController::class);
+
+            Route::put('documents-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('documents-management.update-submission-status');
 
             Route::resource('documents-management', DocumentController::class)->only([
                 'index',

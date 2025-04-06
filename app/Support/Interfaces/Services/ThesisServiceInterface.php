@@ -11,6 +11,7 @@ use Illuminate\Http\UploadedFile;
 interface ThesisServiceInterface
 {
   public function getThesis(GetThesisReqModel $reqModel): Paginator;
+  public function getThesisByID(string $ID): ?Thesis;
   public function getYearFilters(): Collection;
   public function getProgramStudyFilters(): Collection;
   public function getTopicFilters(): Collection;
@@ -22,4 +23,6 @@ interface ThesisServiceInterface
   public function storeThesis(string $studentID, array $data, UploadedFile|array|null $files);
   public function processThesisFile(string $fileName, string $filePathName);
   public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files);
+  public function destroyThesisByID(string $ID): bool;
+  public function bulkUpdateSubmissionStatus(array $IDs, string $status): bool;
 }

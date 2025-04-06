@@ -23,4 +23,9 @@ class StudentRepository implements StudentRepositoryInterface
       $query->where('submission_status', true);
     }])->where('last_name', 'like', $alphabet . '%')->get();
   }
+
+  public function getStudentByUsername(string $username): ?Student
+  {
+    return Student::where('username', $username)->first();
+  }
 }
