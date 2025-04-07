@@ -219,11 +219,12 @@ class ThesisService implements ThesisServiceInterface
     return $this->repository->getThesisByID($ID);
   }
 
-  public function bulkUpdateSubmissionStatus(array $IDs, string $status): bool
+  public function bulkUpdateSubmissionStatus(array $IDs, string $status, ?string $note): bool
   {
     switch ($status) {
       case SubmissionStatusEnum::ACCEPTED->value:
         $status = true;
+        $note = "";
         break;
       case SubmissionStatusEnum::DECLINED->value:
         $status = false;
@@ -235,12 +236,11 @@ class ThesisService implements ThesisServiceInterface
     try {
       DB::beginTransaction();
 
-      $result = $this->repository->bulkUpdateSubmissionStatus($IDs, $status);
+      $result = $this->repository->bulkUpdateSubmissionStatus($IDs, $status, $note);
 
       DB::commit();
       return $result;
     } catch (\Throwable $th) {
-      //throw $th;
       DB::rollBack();
       throw $th;
     }

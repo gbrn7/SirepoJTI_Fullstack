@@ -183,11 +183,11 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->get();
   }
 
-  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status): bool
+  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status, ?string $note): bool
   {
 
     return DB::table('thesis')
       ->whereIn('id', $IDs)
-      ->update(['submission_status' => $status]);
+      ->update(['submission_status' => $status, 'note' => $note]);
   }
 }

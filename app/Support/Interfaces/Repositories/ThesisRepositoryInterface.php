@@ -25,5 +25,5 @@ interface ThesisRepositoryInterface
   public function updateThesis(Thesis $thesis, array $newData): ?Bool;
   public function updateOrCreateThesisFile(Thesis $thesis, array $searchParams, array $newDataFiles);
   public function deleteThesis(Thesis $thesis): bool;
-  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status): bool;
+  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status, ?string $note): bool;
 }

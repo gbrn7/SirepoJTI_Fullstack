@@ -49,7 +49,7 @@ class UserDocumentManagementController extends Controller
             'title' => 'required',
             'abstract' => 'required',
             'category' => 'required',
-            'file' => 'required|mimes:pdf|max:15360'
+            'file' => 'required|mimes:pdf|max:16384'
         ]);
 
         if ($validator->fails()) {
@@ -111,18 +111,18 @@ class UserDocumentManagementController extends Controller
             'topic' => 'nullable',
             'type' => 'nullable',
             'lecturer' => 'nullable',
-            'required_file' => 'nullable|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'nullable|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ]);
 
         if ($validator->fails()) {

@@ -20,6 +20,16 @@
 
 @section('main-content')
 <div class="main-content">
+  @php
+  $params = collect(request()->all())->filter();
+  $labels = collect([
+  'title' => 'Judul',
+  'student_username' => 'Username',
+  'student_class_year' => 'Tahun Angkatan',
+  'program_study_id' => 'Program Studi',
+  'submission_status' => 'Status Penyerahan',
+  ]);
+  @endphp
   <div class="wrapper mt-3">
     <a href="{{route('documents-management.create')}}" class="btn btn-success">
       <div class="wrapper d-flex gap-2 align-items-center">
@@ -61,8 +71,7 @@
       </div>
     </div>
     <div class="btn-action-wrapper d-flex flex-column flex-lg-row justify-content-end gap-2 mt-2">
-      <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black"
-        @disabled(collect(request()->all())->filter()->count() == 0)
+      <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black" @disabled($params->count() == 0)
         ><a href="{{route('documents-management.index')}}"
           class="text-decoration-none text-black">Bersihkan</a></button>
       <button type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
@@ -74,6 +83,33 @@
     <form id="bulk-action-form" method="POST">
       @csrf
       @method('PUT')
+      @if ($params->count() > 0 )
+      <div class="badge-wrapper mb-1 text-center text-md-start">
+        @foreach ($params->toArray() as $key => $value)
+        @if ($key == 'program_study_id')
+        <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span
+            class=" d-flex align-items-center gap-2">{{$labels->get($key)." : ".$prodys->where('id',
+            $value)->first()->name}}
+            <a href="{{route('documents-management.index', $params->filter(function(string $item, string $key) use($value) {
+              return $item != $value;
+            }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
+        @elseif ($key == 'submission_status')
+        <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span class=" d-flex align-items-center gap-2">
+            {{$labels->get($key)." : ".($value == 'accepted' ? 'Diterima' : ($value == 'declined' ? 'Ditolak' :
+            'Pending'))}}
+            <a href="{{route('documents-management.index', $params->filter(function(string $item, string $key) use($value) {
+            return $item != $value;
+          }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
+        @else
+        <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span class=" d-flex align-items-center gap-2">
+            {{$labels->get($key)." : ".$value}}
+            <a href="{{route('documents-management.index', $params->filter(function(string $item, string $key) use($value) {
+            return $item != $value;
+          }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
+        @endif
+        @endforeach
+      </div>
+      @endif
       <table id="dataTable" class="table table-jquery table-hover" style="width: 100%">
         <thead>
           <tr>
@@ -121,14 +157,16 @@
           @endforelse
         </tbody>
       </table>
+      <textarea class="form-control d-none" name="note" id="bulkDeclineNote" rows="3"></textarea>
     </form>
   </div>
   <div class="bulk-action-button-wrapper gap-2 d-flex flex-column mt-2 flex-md-row justify-content-md-end">
-    <button id="btn-accepted" disabled class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-danger"
+    <button id="btn-declined" data-bs-toggle="modal" data-bs-target="#declineModal" disabled
+      class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-danger"
       data-update-link="{{route('documents-management.update-submission-status', ['submission_status' => 'declined'])}}">
       Tolak Tugas
     </button>
-    <button id="btn-declined" disabled class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-success"
+    <button id="btn-accepted" disabled class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-success"
       data-update-link="{{route('documents-management.update-submission-status', ['submission_status' => 'accepted'])}}">
       Terima Tugas
     </button>
@@ -138,6 +176,28 @@
   </div>
 </div>
 
+<!-- Decline Modal -->
+<div class="modal fade" id="declineModal" data-bs-backdrop="static" tabindex="-2" aria-labelledby="staticBackdropLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Tolak Tugas Akhir</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Catatan</label>
+          <textarea class="form-control" id="declineThesisNote" name="note" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" id="thesisDeclineBtn" class="btn btn-submit btn-warning">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Delete Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -148,7 +208,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yaking menghapus tugas akhir <span class="document-title"></span> ?</h4>
+        <h4 class="text-center">Apakah anda yakin menghapus tugas akhir <span class="document-title"></span> ?</h4>
       </div>
       <form action="" method="post" id="deleteForm">
         @method('delete')
@@ -159,7 +219,6 @@
       </form>
     </div>
   </div>
-</div>
 </div>
 @endsection
 
@@ -177,7 +236,19 @@
         $('#deleteForm').attr('action', deleteLink);
       });
 
-    $(".btn-bulk-action").click(function(){
+      $('#thesisDeclineBtn').click(function(){
+        document.querySelector("html").style.cursor = "wait";
+        document.querySelector(".loading-wrapper").classList.remove('d-none');
+        let note = $('#declineThesisNote').val()
+        $('#bulkDeclineNote').val(note)
+
+        let updateLink = $("#btn-declined").data('update-link');
+
+        $('#bulk-action-form').attr('action', updateLink).submit();
+      });
+
+
+    $("#btn-accepted").click(function(){
       document.querySelector("html").style.cursor = "wait";
       document.querySelector(".loading-wrapper").classList.remove('d-none');
       

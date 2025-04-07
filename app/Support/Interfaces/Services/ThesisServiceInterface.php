@@ -24,5 +24,5 @@ interface ThesisServiceInterface
   public function processThesisFile(string $fileName, string $filePathName);
   public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files);
   public function destroyThesisByID(string $ID): bool;
-  public function bulkUpdateSubmissionStatus(array $IDs, string $status): bool;
+  public function bulkUpdateSubmissionStatus(array $IDs, string $status, ?string $note): bool;
 }

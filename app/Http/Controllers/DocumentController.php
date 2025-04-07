@@ -81,18 +81,18 @@ class DocumentController extends Controller
             'topic_id' => 'required',
             'type_id' => 'required',
             'lecturer_id' => 'required',
-            'required_file' => 'required|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'required|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ], [
             'username.required' => 'Username Wajib Diisi',
             'title.required' => 'Judul Wajib Diisi',
@@ -140,22 +140,23 @@ class DocumentController extends Controller
             'username' => 'nullable',
             'submission_status' => 'nullable',
             'title' => 'nullable',
+            'note' => 'nullable',
             'abstract' => 'nullable',
             'topic_id' => 'nullable',
             'type_id' => 'nullable',
             'lecturer_id' => 'nullable',
-            'required_file' => 'nullable|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'nullable|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ]);
         if ($validator->fails()) {
             return back()
@@ -182,6 +183,7 @@ class DocumentController extends Controller
                 switch ($data['submission_status']) {
                     case SubmissionStatusEnum::ACCEPTED->value:
                         $data['submission_status'] = true;
+                        $data['note'] = "";
                         break;
                     case SubmissionStatusEnum::DECLINED->value:
                         $data['submission_status'] = false;
@@ -191,7 +193,6 @@ class DocumentController extends Controller
                         break;
                 }
             }
-
             $this->thesisService->updateThesis($data, $ID, $files);
 
             Session::flash('toast_success', 'Tugas Akhir Diperbarui');
@@ -294,6 +295,7 @@ class DocumentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'thesisIDs' => 'required|array',
+            'note' => 'nullable|string',
             'submission_status' => 'required|in:' . SubmissionStatusEnum::ACCEPTED->value . ',' .
                 SubmissionStatusEnum::PENDING->value . ',' . SubmissionStatusEnum::DECLINED->value . '',
         ], [
@@ -309,10 +311,12 @@ class DocumentController extends Controller
                 ->with('toast_error', join(', ', $validator->messages()->all()));
         }
 
+
         try {
             $data = $validator->safe()->all();
+            $note = isset($data['note']) ? $data['note'] : '';
 
-            $this->thesisService->bulkUpdateSubmissionStatus($data['thesisIDs'], $data['submission_status']);
+            $this->thesisService->bulkUpdateSubmissionStatus($data['thesisIDs'], $data['submission_status'], $note);
 
             Session::flash('toast_success', 'Tugas Akhir Diperbarui');
             return redirect()->route('documents-management.index');
