@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 interface ThesisRepositoryInterface
 {
-  public function getThesis(GetThesisReqModel $reqModel): Paginator;
+  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator;
   public function getThesisbyID(string $ID): ?Thesis;
   public function getThesisByStudentID(string $studentID): Collection;
   public function destroyThesisByIDs(array $IDs): bool;

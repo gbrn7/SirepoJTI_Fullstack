@@ -21,7 +21,7 @@
 @section('main-content')
 <div class="main-content">
   @php
-  $params = collect(request()->all())->filter();
+  $params = collect(request()->all())->forget('page')->filter();
   $labels = collect([
   'title' => 'Judul',
   'student_username' => 'Username',
@@ -95,7 +95,8 @@
             }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
         @elseif ($key == 'submission_status')
         <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span class=" d-flex align-items-center gap-2">
-            {{$labels->get($key)." : ".($value == 'accepted' ? 'Diterima' : ($value == 'declined' ? 'Ditolak' :
+            {{$labels->get($key)." : ".($value == App\Support\Enums\SubmissionStatusEnum::ACCEPTED->value ? 'Diterima' :
+            ($value == App\Support\Enums\SubmissionStatusEnum::DECLINED->value ? 'Ditolak' :
             'Pending'))}}
             <a href="{{route('documents-management.index', $params->filter(function(string $item, string $key) use($value) {
             return $item != $value;

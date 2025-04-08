@@ -7,4 +7,5 @@ enum SubmissionStatusEnum: string
   case ACCEPTED = 'accepted';
   case DECLINED = 'declined';
   case PENDING = 'pending';
+  case UNSUBMITED = 'unsubmited';
 }

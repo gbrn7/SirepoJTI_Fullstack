@@ -18,9 +18,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class DocumentController extends Controller
@@ -39,7 +37,7 @@ class DocumentController extends Controller
     {
         $reqModel = new GetThesisReqModel($request);
 
-        $documents = $this->thesisService->getThesis($reqModel);
+        $documents = $this->thesisService->getThesis($reqModel, 10);
 
         $prodys = $this->programStudyService->getProgramStudys();
 
@@ -113,6 +111,7 @@ class DocumentController extends Controller
 
             $files = $request->file();
 
+
             $student = $this->studentService->getStudentByUsername($data['username']);
 
             if (!isset($student)) {
@@ -126,6 +125,7 @@ class DocumentController extends Controller
             }
 
             $this->thesisService->storeThesis($student->id, $data, $files);
+
 
             Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
             return redirect()->route('documents-management.index');
@@ -178,6 +178,7 @@ class DocumentController extends Controller
 
                 $data['student_id'] = $student->id;
             }
+
 
             if (isset($data['submission_status'])) {
                 switch ($data['submission_status']) {

@@ -12,7 +12,6 @@ use Exception;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -24,9 +23,9 @@ class ThesisService implements ThesisServiceInterface
     protected ThesisRepositoryInterface $repository
   ) {}
 
-  public function getThesis(GetThesisReqModel $reqModel): Paginator
+  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator
   {
-    return $this->repository->getThesis($reqModel);
+    return $this->repository->getThesis($reqModel, $paginatePage);
   }
 
   public function getDetailDocument(string $ID, bool|null $submissionStatus = null): ?Thesis
@@ -63,7 +62,7 @@ class ThesisService implements ThesisServiceInterface
         }
       }
 
-      $data['student_id'] = Auth::user()->id;
+      $data['student_id'] = $studentID;
 
       DB::beginTransaction();
       $this->repository->storeThesis($data, $newFiles->toArray());

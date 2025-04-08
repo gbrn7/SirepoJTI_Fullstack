@@ -18,9 +18,8 @@
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('user-management.index')}}"><i class="ri-team-line nav-icon fs-5"></i><span
-            class="Nav-text">User
-            Management</span></a>
+          href="{{route('student-management.index')}}"><i class="ri-team-line nav-icon fs-5"></i><span
+            class="Nav-text">Mahasiswa</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"

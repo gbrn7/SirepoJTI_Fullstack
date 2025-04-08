@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class ThesisRepository implements ThesisRepositoryInterface
 {
-  public function getThesis(GetThesisReqModel $reqModel): Paginator
+  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator
   {
     return DB::table('thesis as t')
       ->when($reqModel->title, function ($query) use ($reqModel) {
@@ -65,8 +65,8 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
       ->join('thesis_types as tte', 'tte.id', 't.type_id')
       ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, ps.name as program_study_name, tte.id as thesis_type_id, tte.type as thesis_type')
-      ->orderBy('t.id', 'desc')
-      ->paginate(5);
+      ->orderBy('t.id', 'DESC')
+      ->paginate($paginatePage);
   }
 
   public function getThesisByID(string $ID): ?Thesis
