@@ -2,29 +2,46 @@
 
 namespace App\Repositories;
 
-use App\Models\Student;
 use App\Models\Thesis;
+use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\model\GetThesisReqModel;
-use Brick\Math\BigInteger;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class ThesisRepository implements ThesisRepositoryInterface
 {
-  public function getThesis(GetThesisReqModel $reqModel): Paginator
+  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator
   {
     return DB::table('thesis as t')
-      ->where('t.title', 'like', '%' . $reqModel->title . '%')
+      ->when($reqModel->title, function ($query) use ($reqModel) {
+        return $query->where('t.title', 'like', '%' . $reqModel->title . '%');
+      })
       ->when($reqModel->submissionStatus, function ($query) use ($reqModel) {
-        return $query->where('t.submission_status', $reqModel->submissionStatus);
+        switch ($reqModel->submissionStatus) {
+          case SubmissionStatusEnum::ACCEPTED->value:
+            return $query->where('t.submission_status', true);
+            break;
+          case SubmissionStatusEnum::DECLINED->value:
+            return $query->where('t.submission_status', false);
+            break;
+          default:
+            return $query->where('t.submission_status', null);
+            break;
+        }
       })
       ->when($reqModel->topicID, function ($query) use ($reqModel) {
         return is_array($reqModel->topicID) ? $query->whereIn('t.topic_id', $reqModel->topicID) : $query->where('t.topic_id', $reqModel->topicID);
       })
       ->when($reqModel->typeID, function ($query) use ($reqModel) {
         return is_array($reqModel->typeID) ? $query->whereIn('tte.id', $reqModel->typeID) : $query->where('tte.id', $reqModel->typeID);
+      })
+      ->when($reqModel->studentUsername, function ($query) use ($reqModel) {
+        return $query->where('s.username', 'like', '%' . $reqModel->studentUsername . '%');
+      })
+      ->when($reqModel->studentClassYear, function ($query) use ($reqModel) {
+        return $query->where('s.class_year', $reqModel->studentClassYear);
       })
       ->when($reqModel->programStudyID, function ($query) use ($reqModel) {
         return is_array($reqModel->programStudyID) ? $query->whereIn('s.program_study_id', $reqModel->programStudyID) : $query->where('s.program_study_id', $reqModel->programStudyID);
@@ -47,9 +64,14 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->join('program_study as ps', 'ps.id', 's.program_study_id')
       ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
       ->join('thesis_types as tte', 'tte.id', 't.type_id')
-      ->selectRaw('t.id as thesis_id, t.student_id, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, tte.id as thesis_type_id, tte.type as thesis_type')
-      ->orderBy('t.id', 'desc')
-      ->paginate(5);
+      ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, ps.name as program_study_name, tte.id as thesis_type_id, tte.type as thesis_type')
+      ->orderBy('t.id', 'DESC')
+      ->paginate($paginatePage);
+  }
+
+  public function getThesisByID(string $ID): ?Thesis
+  {
+    return Thesis::with(['student', 'files'])->find($ID);
   }
 
   public function getThesisByStudentID(String $studentID): Collection
@@ -62,6 +84,10 @@ class ThesisRepository implements ThesisRepositoryInterface
     return Thesis::whereIn('id', $IDs)->delete();
   }
 
+  public function deleteThesis(Thesis $thesis): bool
+  {
+    return $thesis->delete();
+  }
 
   public function storeThesis(array $data, array $newFiles = []): ?Thesis
   {
@@ -155,5 +181,13 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->groupBy('thesis.type_id')
       ->orderBy('tt.type', 'asc')
       ->get();
+  }
+
+  public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status, ?string $note): bool
+  {
+
+    return DB::table('thesis')
+      ->whereIn('id', $IDs)
+      ->update(['submission_status' => $status, 'note' => $note]);
   }
 }

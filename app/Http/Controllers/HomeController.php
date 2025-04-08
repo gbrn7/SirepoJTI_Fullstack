@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ThesisAuthorResource;
 use App\Http\Resources\ThesisTitleResource;
 use App\Models\Student;
+use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
@@ -32,10 +33,9 @@ class HomeController extends Controller
 
     public function homeView(Request $request): View
     {
-        $submissionStatus = Auth::guard('admin')->check() ? null : true;
-
-        $request->merge(['submissionStatus' => $submissionStatus]);
-
+        $request->merge([
+            'submission_status' => SubmissionStatusEnum::ACCEPTED->value,
+        ]);
         $reqModel = new GetThesisReqModel($request);
 
         $documents = $this->thesisService->getThesis($reqModel);

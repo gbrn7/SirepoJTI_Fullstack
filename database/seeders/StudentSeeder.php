@@ -27,7 +27,6 @@ class StudentSeeder extends Seeder
                     'username' => 'adesusilo',
                     'email' => $faker->email(),
                     'password' => Hash::make('userpass'),
-                    'thesis_status' => false,
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
@@ -40,7 +39,6 @@ class StudentSeeder extends Seeder
                     'username' => 'farhan12',
                     'email' => 'farhan123@gmail.com',
                     'password' => Hash::make('userpass'),
-                    'thesis_status' => false,
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
@@ -53,7 +51,6 @@ class StudentSeeder extends Seeder
                     'username' => 'bagustejo',
                     'email' => $faker->email(),
                     'password' => Hash::make('userpass'),
-                    'thesis_status' => false,
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
@@ -66,7 +63,6 @@ class StudentSeeder extends Seeder
                     'username' => 'susipujiastuti',
                     'email' => $faker->email(),
                     'password' => Hash::make('userpass'),
-                    'thesis_status' => false,
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
@@ -91,7 +87,6 @@ class StudentSeeder extends Seeder
                 'username' => $faker->userName(),
                 'email' => $faker->email(),
                 'password' => Hash::make('userpass'),
-                'thesis_status' => false,
                 'created_at' => now(),
                 'updated_at' => now()
             ]);
