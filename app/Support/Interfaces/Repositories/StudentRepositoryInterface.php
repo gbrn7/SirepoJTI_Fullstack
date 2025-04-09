@@ -15,7 +15,7 @@ interface StudentRepositoryInterface
   public function getAuthorFilters(string $alphabet = "A"): Collection;
   public function getStudentByUsername(string $username): ?Student;
   public function storeStudent(array $data): Student;
-  public function updateStudent(string $ID, array $data);
+  public function updateStudent(Student $student, array $reqData);
   public function deleteStudent(string $ID): ?Student;
   public function insertStudents(array $data);
 }

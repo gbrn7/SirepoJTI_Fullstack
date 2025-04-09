@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId("topic_id")->constrained("thesis_topics");
             $table->string("name");
-            $table->string("username");
-            $table->string("email");
+            $table->string("username")->unique();
+            $table->string("email")->unique();
             $table->string("password");
             $table->string("profile_picture")->nullable();
             $table->timestamps();

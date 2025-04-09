@@ -62,9 +62,9 @@ class StudentService implements StudentServiceInterface
         $data['profile_picture'] = $fileName;
       }
 
-      $user = $this->repository->storeStudent($data);
+      $student = $this->repository->storeStudent($data);
 
-      $user->assignRole('student');
+      $student->assignRole('student');
       DB::commit();
     } catch (\Throwable $th) {
       DB::rollBack();
@@ -105,7 +105,7 @@ class StudentService implements StudentServiceInterface
         $newData['password'] = $reqData['password'];
       }
 
-      $oldData->update($newData->toArray());
+      $this->repository->updateStudent($oldData, $newData->toArray());
     } catch (\Throwable $th) {
       throw $th;
     }
