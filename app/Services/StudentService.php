@@ -127,8 +127,32 @@ class StudentService implements StudentServiceInterface
   public function importExcel(string $programStudyID, UploadedFile|array|null $file)
   {
     try {
+      $raws = Excel::toArray(new StudentImport(), $file);
+
+      $newData = Collection::make();
+
+      foreach ($raws as $raw) {
+        foreach ($raw as $row) {
+          $parts = explode(' ', $row['nama']);
+
+          $last_name = array_pop($parts);
+          $first_name = count($parts) > 0 ? implode(' ', $parts) : "";
+
+          $newData->push([
+            'first_name' => $first_name,
+            'last_name' => $last_name,
+            'username' => $row['username'],
+            'gender' => $row['jenis_kelamin_malefemale'],
+            'class_year' => $row['tahun_angkatan'],
+            'email' => $row['email'],
+            'password' => $row['password'],
+            'program_study_id' => $programStudyID
+          ]);
+        }
+      }
       DB::beginTransaction();
-      Excel::import(new StudentImport($programStudyID), $file);
+
+      $this->repository->insertStudents($newData->toArray());
 
       DB::commit();
     } catch (\Throwable $th) {

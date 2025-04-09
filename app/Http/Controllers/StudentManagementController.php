@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Imports\StudentImport;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\model\GetStudentReqModel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Facades\Excel;
 
 class StudentManagementController extends Controller
 {

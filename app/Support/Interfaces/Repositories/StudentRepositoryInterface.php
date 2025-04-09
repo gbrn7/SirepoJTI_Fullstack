@@ -17,4 +17,5 @@ interface StudentRepositoryInterface
   public function storeStudent(array $data): Student;
   public function updateStudent(string $ID, array $data);
   public function deleteStudent(string $ID): ?Student;
+  public function insertStudents(array $data);
 }

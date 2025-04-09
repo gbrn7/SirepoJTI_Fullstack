@@ -87,4 +87,13 @@ class StudentRepository implements StudentRepositoryInterface
 
     return $student;
   }
+
+  public function insertStudents(array $data)
+  {
+    foreach ($data as $value) {
+      $student = Student::create($value);
+
+      $student->assignRole('student');
+    }
+  }
 }
