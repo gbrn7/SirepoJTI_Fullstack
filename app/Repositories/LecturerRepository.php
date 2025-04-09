@@ -17,7 +17,8 @@ class LecturerRepository implements LecturerRepositoryInterface
       ->with('topic')
       ->when($params->name, fn($q) => $q->where('name', 'like', '%' . $params->name . '%'))
       ->when($params->username, fn($q) => $q->where('username', 'like', '%' . $params->username . '%'))
-      ->when($params->username, fn($q) => $q->where('email', 'like', '%' . $params->email . '%'));
+      ->when($params->username, fn($q) => $q->where('email', 'like', '%' . $params->email . '%'))
+      ->orderBy('id', 'DESC');
 
     return $wantPaginate ?  $query->paginate(10) :  $query->get();
   }
