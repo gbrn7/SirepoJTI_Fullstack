@@ -2,26 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ThesisCategory;
-use App\Models\ThesisType;
-use App\Support\Interfaces\Services\ThesisTopicServiceInterface;
+
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
-class ThesisTopicController extends Controller
+class ThesisTypeController extends Controller
 {
     public function __construct(
-        protected ThesisTopicServiceInterface $thesisTopicService,
+        protected ThesisTypeServiceInterface $thesisTypeService,
     ) {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $topics = $this->thesisTopicService->getThesisTopics();
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        return view('admin_views.thesis-topic.index', ['topics' => $topics]);
+        return view('admin_views.thesis-type.index', ['types' => $types]);
     }
 
     /**
@@ -30,10 +29,10 @@ class ThesisTopicController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string|unique:thesis_topics,topic',
+            'type' => 'required|string|unique:thesis_types,type',
         ], [
-            'topic.required' => "Topik Wajib Diisi",
-            'topic.unique' => "Topik :input Telah Ditambahkan",
+            'type.required' => "Jenis Tugas Akhir Wajib Diisi",
+            'type.unique' => "Jenis Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {
@@ -44,9 +43,9 @@ class ThesisTopicController extends Controller
         try {
             $data = $validator->safe()->all();
 
-            $this->thesisTopicService->storeThesisTopic($data);
+            $this->thesisTypeService->storeThesisType($data);
 
-            return redirect()->back()->with('toast_success', 'Data Topik Ditambahkan');
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Ditambahkan');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
@@ -58,11 +57,10 @@ class ThesisTopicController extends Controller
      */
     public function update(Request $request, string $ID)
     {
-
         $validator = Validator::make($request->all(), [
-            'topic' => ['nullable', 'string', Rule::unique('thesis_topics')->ignore($ID)],
+            'type' => ['nullable', 'string', Rule::unique('thesis_types')->ignore($ID)],
         ], [
-            'topic.unique' => "Topik :input telah ditambahkan",
+            'type.unique' => "Jenis Tugas Akhir :input telah ditambahkan",
         ]);
 
         if ($validator->fails()) {
@@ -73,14 +71,14 @@ class ThesisTopicController extends Controller
         try {
             $data = $validator->safe()->all();
 
-            $isSuccess = $this->thesisTopicService->updateThesisTopic($ID, $data);
+            $isSuccess = $this->thesisTypeService->updateThesisType($ID, $data);
 
             if (!$isSuccess) return redirect()->back();
 
-            return redirect()->back()->with('toast_success', 'Data Topik Diperbarui');
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Diperbarui');
         } catch (\Throwable $th) {
             return back()
-                ->with('toast_error', 'Gagal Memperbarui Data Topik');
+                ->with('toast_error', 'Gagal Memperbarui Data Jenis Tugas Akhir');
         }
     }
 
@@ -90,14 +88,14 @@ class ThesisTopicController extends Controller
     public function destroy(string $ID)
     {
         try {
-            $isSuccess = $this->thesisTopicService->deleteThesisTopic($ID);
+            $isSuccess = $this->thesisTypeService->deleteThesisType($ID);
 
             if (!$isSuccess) return redirect()->back();
 
-            return redirect()->back()->with('toast_success', 'Data Topik Dihapus');
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Dihapus');
         } catch (\Throwable $th) {
             return back()
-                ->with('toast_error', 'Gagal Menghapus Data Topik');
+                ->with('toast_error', 'Gagal Menghapus Data Jenis Tugas Akhir');
         }
     }
 }
