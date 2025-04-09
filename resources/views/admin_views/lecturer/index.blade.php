@@ -42,7 +42,7 @@
     <div class="wrapper mt-2 mt-lg-0">
       <form action="{{route('lecturer-management.index')}}" method="get">
         <div class="input-group">
-          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Nama" name="name" />
+          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="name" />
           <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
             id="basic-addon2">
             <i class="ri-search-line"></i>

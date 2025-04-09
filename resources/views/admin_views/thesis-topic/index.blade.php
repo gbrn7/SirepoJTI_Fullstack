@@ -1,18 +1,18 @@
 @extends('layouts.base')
 
-@section('title', 'Category Management')
+@section('title', 'Topik Tugas Akhir')
 
 @section('custom_css_link', asset('css/Data-Management_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">Category Management</div>
+  <div class="page-title mb-1">Topik Tugas Akhir</div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item">
-        <a href="{{route('home')}}" class="text-decoration-none">Home</a>
+        <a href="{{route('home')}}" class="text-decoration-none">Beranda</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">Category Management</li>
+      <li class="breadcrumb-item active" aria-current="page">Topik Tugas Akhir</li>
     </ol>
   </nav>
 </div>
@@ -26,14 +26,13 @@
         <div class="wrapper d-flex gap-2 align-items-center" id="add" data-bs-toggle="modal"
           data-bs-target="#addNewModal">
           <i class="ri-add-line"></i>
-          <span class="fw-medium">Add Category</span>
+          <span class="fw-medium">Tambah Data</span>
         </div>
       </a>
     </div>
     <div class="wrapper mt-2 mt-lg-0">
       <div class="input-group">
-        <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search"
-          aria-label="Recipient's username" aria-describedby="basic-addon2" aria-controls="category-table" />
+        <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="topic" />
         <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
           id="basic-addon2">
           <i class="ri-search-line"></i>
@@ -42,28 +41,27 @@
     </div>
   </div>
   <div class="table-wrapper mb-2 pb-5">
-    <table id="category-table" class="table mt-3 table-hover" style="width: 100%">
+    <table id="topic-table" class="table mt-3 table-hover" style="width: 100%">
       <thead>
         <tr>
           <th class="text-white fw-medium">No.</th>
-          <th class="text-white fw-medium">Name</th>
-          <th class="text-white fw-medium">Action</th>
+          <th class="text-white fw-medium">Nama Topik</th>
+          <th class="text-white fw-medium">Aksi</th>
         </tr>
       </thead>
       <tbody id="tableBody">
-        @forelse ($categories as $category)
+        @forelse ($topics as $topic)
         <tr>
-          <td>{{$category->id}}</td>
-          <td>{{$category->category}}</td>
+          <td>{{$topic->id}}</td>
+          <td>{{$topic->topic}}</td>
           <td>
             <div class="d-flex gap-1">
               <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                data-category="{{$category->category}}"
-                data-delete-link="{{route('categories.destroy', $category->id)}}">
+                data-topic="{{$topic->topic}}" data-delete-link="{{route('thesis-topic.destroy', $topic->id)}}">
                 Delete</div>
               <div data-bs-toggle="modal" data-bs-target="#editModal"
-                data-edit-link="{{route('categories.update', $category->id)}}" data-category="{{$category->category}}"
-                class="btn btn-warning edit-btn text-white">Edit</div>
+                data-edit-link="{{route('thesis-topic.update', $topic->id)}}" data-topic="{{$topic->topic}}"
+                class="btn btn-warning edit-btn text-black">Edit</div>
             </div>
           </td>
         </tr>
@@ -82,21 +80,21 @@
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Add Category</h5>
+        <h5 class="modal-title" id="myModalLabel">Tambah Topik</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('categories.store')}} class="form" id="addForm" method="POST">
+        <form action={{route('thesis-topic.store')}} class="form" id="addForm" method="POST">
           @csrf
           <div class="form-group mb-3">
-            <label for="name" class="mb-1">Name</label>
-            <input value="" required class="form-control" type="text" name="category" id="category"
-              placeholder="Enter the category name" />
+            <label for="name" class="mb-1">Nama</label>
+            <input value="" required class="form-control" type="text" name="topic" id="topik"
+              placeholder="Masukkan nama topik" />
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-submit btn-success">Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-submit btn-success">Submit</button>
       </div>
       </form>
     </div>
@@ -108,7 +106,7 @@
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Edit Category</h5>
+        <h5 class="modal-title" id="myModalLabel">Edit Topik</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -116,14 +114,14 @@
           @csrf
           @method('PUT')
           <div class="form-group mb-3">
-            <label for="name" class="mb-1">Name</label>
-            <input required class="form-control" type="text" name="category" id="category-edit"
-              placeholder="Enter the category name" />
+            <label for="name" class="mb-1">Nama</label>
+            <input required class="form-control" type="text" name="topic" id="topic-edit"
+              placeholder="Masukkan nama topik" />
           </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="submit" class="btn btn-warning btn-submit text-white">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" class="btn btn-warning btn-submit text-black">Submit</button>
       </div>
       </form>
     </div>
@@ -135,18 +133,18 @@
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalLabel">Delete Admin</h5>
+        <h5 class="modal-title" id="myModalLabel">Hapus Topik</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Are you sure to delete <span class="category-name"></span> category?</h4>
+        <h4 class="text-center">Apakah anda yakin menghapus topik<span class="topic-name"></span> ?</h4>
       </div>
       <form action="" class="form" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Delete</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+          <button type="submit" id="deleteTopic" class="btn btn-submit btn-danger">Hapus</button>
       </form>
     </div>
   </div>
@@ -158,10 +156,10 @@
 @push('js')
 <script>
   $(document).on('click', '.edit-btn', function (event){
-          let category = $(this).data('category');
+          let topic = $(this).data('topic');
           let editLink = $(this).data('edit-link');
           $('#editmodal').modal('show');
-          $('#category-edit').val(category);
+          $('#topic-edit').val(topic);
 
           // get form action with vanilla js
           // document.getElementById('#addForm').action
@@ -177,22 +175,22 @@
       });
        
       $(document).on('click', '.delete-btn', function(event){
-        let category = $(this).data('category');
+        let topic = $(this).data('topic');
         let deleteLink = $(this).data('delete-link');
 
         $('#deleteModal').modal('show');
-        $('.category-name').html(category);
+        $('.topic-name').html(topic);
 
         $('#deleteForm').attr('action', deleteLink);
       });
 
-      @if(count($categories)>0)
+      @if(count($topics)>0)
       $('.search-input').keyup(function() {
-          let table = $('#category-table').DataTable();
+          let table = $('#topic-table').DataTable();
           table.search($(this).val()).draw();
       });
 
-      $('#category-table').DataTable( {
+      $('#topic-table').DataTable( {
       order: [[0, 'desc']]
       });        
       @endif

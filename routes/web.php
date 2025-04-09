@@ -5,10 +5,9 @@ use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LecturerManagementController;
 use App\Http\Controllers\ThesisSubmissionController;
-use App\Http\Controllers\ThesisTypeController;
 use App\Http\Controllers\userController;
-use App\Http\Controllers\UserDocumentManagementController;
 use App\Http\Controllers\StudentManagementController;
+use App\Http\Controllers\ThesisTopicController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -60,12 +59,13 @@ Route::group(['prefix' => 'home'], function () {
         Route::resource('thesis-submission', ThesisSubmissionController::class)->middleware('role:student');
 
         Route::group(['middleware' => ['role:admin']], function () {
-            Route::resource('categories', ThesisTypeController::class)->only([
+            Route::resource('thesis-topic', ThesisTopicController::class)->only([
                 'index',
                 'store',
                 'update',
                 'destroy'
             ]);
+
             Route::resource('lecturer', ThesisSubmissionController::class)->middleware('role:student');
 
             Route::resource('student-management', StudentManagementController::class);

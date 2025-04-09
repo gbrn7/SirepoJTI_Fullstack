@@ -13,4 +13,24 @@ class ThesisTopicRepository implements ThesisTopicRepositoryInterface
   {
     return ThesisTopic::all();
   }
+
+  public function storeThesisTopic(array $data): ThesisTopic
+  {
+    return ThesisTopic::create($data);
+  }
+
+  public function getThesisTopicByID(string $ID): ThesisTopic
+  {
+    return ThesisTopic::find($ID);
+  }
+
+  public function updateThesisTopic(ThesisTopic $thesisTopic, array $data): bool
+  {
+    return $thesisTopic->update($data);
+  }
+
+  public function deleteThesisTopic(ThesisTopic $thesisTopic): bool
+  {
+    return $thesisTopic->delete();
+  }
 }

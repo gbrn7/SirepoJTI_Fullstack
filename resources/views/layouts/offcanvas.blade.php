@@ -28,8 +28,15 @@
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('categories.index')}}"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
-            class="Nav-text">Categories Management</span></a>
+          href="{{route('thesis-topic.index')}}"><i class="ri-article-line nav-icon fs-5"></i><span
+            class="Nav-text">Topik
+            Tugas Akhir</span></a>
+      </li>
+      <li class="nav-item py-1 fw-light ps-3">
+        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
+          href="{{route('thesis-topic.index')}}"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
+            class="Nav-text">Jenis
+            Tugas Akhir</span></a>
       </li>
       @elseif (Auth::guard('student')->check())
       <li class="nav-item py-1 fw-light ps-3">
