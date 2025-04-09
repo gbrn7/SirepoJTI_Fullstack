@@ -74,9 +74,9 @@ class StudentRepository implements StudentRepositoryInterface
     return Student::create($data);
   }
 
-  public function updateStudent(string $ID, array $reqData)
+  public function updateStudent(Student $student, array $reqData)
   {
-    return Student::find($ID)->update($reqData);
+    return $student->update($reqData);
   }
 
   public function deleteStudent(string $ID): ?Student

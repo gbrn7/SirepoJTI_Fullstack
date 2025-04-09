@@ -203,10 +203,10 @@
 </div>
 </div>
 
-<!-- Import Criteria Modal -->
+<!-- Import Student Modal -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
-    <form class="form" action="{{route('importExcel')}}" method="POST" enctype="multipart/form-data">
+    <form class="form" action="{{route('importStudentExcelData')}}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="modal-content">
         <div class="modal-header">
@@ -216,7 +216,7 @@
         <div class="modal-body">
           <div class="template-wrapper mb-2">
             <label class="form-label">Unduh Template</label>
-            <a href="{{route('getUserImportTemplate')}}" class="d-block">Template_Mahasiswa.XLSX</a>
+            <a href="{{route('getStudentImportTemplate')}}" class="d-block">Template_Mahasiswa.XLSX</a>
           </div>
           <div class="mb-2">
             <label class="form-label">Program Studi</label>

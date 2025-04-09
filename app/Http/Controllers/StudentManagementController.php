@@ -158,11 +158,14 @@ class StudentManagementController extends Controller
         return view('admin_views.student.student_detail', compact('student'));
     }
 
-    public function importExcel(Request $request)
+    public function importStudentExcelData(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'import_file' => 'required|mimes:xlsx',
             'program_study_id' => 'required',
+        ], [
+            'import_file.required' => 'File Template Wajib Diisi',
+            'program_study_id.required' => 'Program Studi Wajib Dipilih',
         ]);
 
         if ($validator->fails()) return redirect()
@@ -181,11 +184,11 @@ class StudentManagementController extends Controller
 
             return back()->with('toast_success', 'Impor Berhasil');
         } catch (\Throwable $th) {
-            return back()->with('toast_error', $th->getMessage());
+            return back()->with('toast_error', 'Gagal Menambahkan Data');
         }
     }
 
-    public function getUserImportTemplate()
+    public function getStudentImportTemplate()
     {
         return response()->download(public_path('template/Template_Mahasiswa.xlsx'), 'Template_Mahasiswa.xlsx');
     }

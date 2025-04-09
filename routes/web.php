@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LecturerManagementController;
 use App\Http\Controllers\ThesisSubmissionController;
 use App\Http\Controllers\ThesisTypeController;
 use App\Http\Controllers\userController;
@@ -68,10 +69,8 @@ Route::group(['prefix' => 'home'], function () {
             Route::resource('lecturer', ThesisSubmissionController::class)->middleware('role:student');
 
             Route::resource('student-management', StudentManagementController::class);
-            Route::get('/getUserImportTemplate', [StudentManagementController::class, 'getUserImportTemplate'])->name('getUserImportTemplate');
-            Route::post('/importExcel', [StudentManagementController::class, 'importExcel'])->name('importExcel');
-
-            Route::resource('student-management.document-management', UserDocumentManagementController::class);
+            Route::get('/getUserImportTemplate', [StudentManagementController::class, 'getStudentImportTemplate'])->name('getStudentImportTemplate');
+            Route::post('student-management/importStudentExcelData', [StudentManagementController::class, 'importStudentExcelData'])->name('importStudentExcelData');
 
             Route::put('documents-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('documents-management.update-submission-status');
 
@@ -84,6 +83,10 @@ Route::group(['prefix' => 'home'], function () {
                 'show',
                 'destroy'
             ]);
+
+            Route::resource('lecturer-management', LecturerManagementController::class);
+            Route::get('/getLecturerImportTemplate', [LecturerManagementController::class, 'getLecturerImportTemplate'])->name('getLecturerImportTemplate');
+            Route::post('lecturer-management/importLecturerExcelData', [LecturerManagementController::class, 'importLecturerExcelData'])->name('importLecturerExcelData');
         });
     });
 });
