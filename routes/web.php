@@ -1,13 +1,15 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LecturerManagementController;
 use App\Http\Controllers\ThesisSubmissionController;
-use App\Http\Controllers\ThesisTypeController;
 use App\Http\Controllers\userController;
-use App\Http\Controllers\UserDocumentManagementController;
-use App\Http\Controllers\UserManagementController;
+use App\Http\Controllers\StudentManagementController;
+use App\Http\Controllers\ThesisTopicController;
+use App\Http\Controllers\ThesisTypeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,11 +32,11 @@ Route::get('/filter/topic', [HomeController::class, 'topicFilterView'])->name('f
 Route::get('/filter/author', [HomeController::class, 'authorFilterView'])->name('filter.author.view');
 Route::get('/filter/thesis-type', [HomeController::class, 'thesisTypeFilterView'])->name('filter.thesis-type.view');
 
-Route::get('/signIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
-Route::post('/signIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
+Route::get('/logIn', [AuthController::class, 'studentSignin'])->name('signIn.student');
+Route::post('/logIn', [AuthController::class, 'authenticate'])->name('signIn.user.authenticate');
 Route::post('/signOut', [AuthController::class, 'signOut'])->name('signIn.user.signOut');
-Route::get('/signIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
-Route::get('/signIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
+Route::get('/logIn/admin', [AuthController::class, 'adminSignin'])->name('signIn.admin');
+Route::get('/logIn/lecturer', [AuthController::class, 'lecturerSignin'])->name('signIn.lecturer');
 
 Route::get('/getSuggestionTitle', [HomeController::class, 'getSuggestionThesisTitle'])->name('getSuggestionTitle');
 Route::get('/getSuggestionAuthor', [HomeController::class, 'getSuggestionAuthor'])->name('getSuggestionAuthor');
@@ -50,7 +52,7 @@ Route::group(['prefix' => 'home'], function () {
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::group(['middleware' => ['auth:student,admin']], function () {
+    Route::group(['middleware' => ['auth:student,admin,lecturer']], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
@@ -58,22 +60,34 @@ Route::group(['prefix' => 'home'], function () {
 
         Route::resource('thesis-submission', ThesisSubmissionController::class)->middleware('role:student');
 
+        Route::group(['middleware' => ['auth:admin,lecturer']], function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        });
+
         Route::group(['middleware' => ['role:admin']], function () {
-            Route::resource('categories', ThesisTypeController::class)->only([
+            Route::resource('thesis-topic', ThesisTopicController::class)->only([
                 'index',
                 'store',
                 'update',
                 'destroy'
             ]);
+
+            Route::resource('thesis-type', ThesisTypeController::class)->only([
+                'index',
+                'store',
+                'update',
+                'destroy'
+            ]);
+
             Route::resource('lecturer', ThesisSubmissionController::class)->middleware('role:student');
 
-            Route::resource('user-management', UserManagementController::class)->except('show');
-            Route::get('/getUserImportTemplate', [UserManagementController::class, 'getUserImportTemplate'])->name('getUserImportTemplate');
-            Route::post('/importExcel', [UserManagementController::class, 'importExcel'])->name('importExcel');
+            Route::resource('student-management', StudentManagementController::class);
+            Route::get('/getUserImportTemplate', [StudentManagementController::class, 'getStudentImportTemplate'])->name('getStudentImportTemplate');
+            Route::post('student-management/importStudentExcelData', [StudentManagementController::class, 'importStudentExcelData'])->name('importStudentExcelData');
 
-            Route::resource('user-management.document-management', UserDocumentManagementController::class);
+            Route::put('document-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('document-management.update-submission-status');
 
-            Route::resource('documents-management', DocumentController::class)->only([
+            Route::resource('document-management', DocumentController::class)->only([
                 'index',
                 'create',
                 'store',
@@ -82,11 +96,14 @@ Route::group(['prefix' => 'home'], function () {
                 'show',
                 'destroy'
             ]);
+
+            Route::resource('lecturer-management', LecturerManagementController::class);
+            Route::get('/getLecturerImportTemplate', [LecturerManagementController::class, 'getLecturerImportTemplate'])->name('getLecturerImportTemplate');
+            Route::post('lecturer-management/importLecturerExcelData', [LecturerManagementController::class, 'importLecturerExcelData'])->name('importLecturerExcelData');
         });
     });
 });
 
 Route::any('/{any}', function () {
-    if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
-    return redirect()->route('signIn.student');
+    abort(404);
 })->where('any', '.*');

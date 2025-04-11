@@ -13,4 +13,24 @@ class ThesisTypeRepository implements ThesisTypeRepositoryInterface
   {
     return ThesisType::all();
   }
+
+  public function storeThesisType(array $data): ThesisType
+  {
+    return ThesisType::create($data);
+  }
+
+  public function getThesisTypeByID(string $ID): ThesisType
+  {
+    return ThesisType::find($ID);
+  }
+
+  public function updateThesisType(ThesisType $thesisType, array $data): bool
+  {
+    return $thesisType->update($data);
+  }
+
+  public function deleteThesisType(ThesisType $thesisType): bool
+  {
+    return $thesisType->delete();
+  }
 }

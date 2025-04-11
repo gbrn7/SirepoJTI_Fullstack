@@ -6,7 +6,10 @@ use App\Models\Lecturer;
 use App\Models\Thesis;
 use App\Models\ThesisTopic;
 use App\Models\ThesisType;
+use App\Support\Interfaces\Services\LecturerServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\Interfaces\Services\ThesisTopicServiceInterface;
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -18,6 +21,9 @@ class ThesisSubmissionController extends Controller
 {
     public function __construct(
         protected ThesisServiceInterface $thesisService,
+        protected  ThesisTopicServiceInterface $thesisTopicService,
+        protected  ThesisTypeServiceInterface $thesisTypeService,
+        protected  LecturerServiceInterface $lecturerService,
     ) {}
     /**
      * Display a listing of the resource.
@@ -34,11 +40,11 @@ class ThesisSubmissionController extends Controller
      */
     public function create()
     {
-        $topics = ThesisTopic::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        $types = ThesisType::all();
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = Lecturer::all();
+        $lecturers = $this->lecturerService->getLecturers();
 
         return view('user_views.thesis_document_form', compact('topics', 'types', 'lecturers'));
     }
@@ -54,18 +60,18 @@ class ThesisSubmissionController extends Controller
             'topic_id' => 'required',
             'type_id' => 'required',
             'lecturer_id' => 'required',
-            'required_file' => 'required|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'required|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ], [
             'title.required' => 'Judul Wajib Diisi',
             'abstract.required' => 'Abstrak Wajib Diisi',
@@ -85,9 +91,9 @@ class ThesisSubmissionController extends Controller
 
             $files = $request->file();
 
-            $userID = auth()->user()->id;
+            $studentID = auth()->user()->id;
 
-            $this->thesisService->storeThesis($userID, $data, $files);
+            $this->thesisService->storeThesis($studentID, $data, $files);
 
             Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
             return redirect()->route('thesis-submission.index');
@@ -139,18 +145,18 @@ class ThesisSubmissionController extends Controller
             'topic_id' => 'nullable',
             'type_id' => 'nullable',
             'lecturer_id' => 'nullable',
-            'required_file' => 'nullable|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'nullable|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ]);
 
 

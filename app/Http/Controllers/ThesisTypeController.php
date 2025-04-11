@@ -2,29 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ThesisCategory;
-use App\Models\ThesisType;
+
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ThesisTypeController extends Controller
 {
+    public function __construct(
+        protected ThesisTypeServiceInterface $thesisTypeService,
+    ) {}
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $categories = ThesisType::orderBy('id', 'desc')->get();
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        return view('admin_views.category.index', ['categories' => $categories]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return view('admin_views.thesis-type.index', ['types' => $types]);
     }
 
     /**
@@ -33,7 +29,10 @@ class ThesisTypeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'category' => 'required|string|unique:thesis_category,category',
+            'type' => 'required|string|unique:thesis_types,type',
+        ], [
+            'type.required' => "Jenis Tugas Akhir Wajib Diisi",
+            'type.unique' => "Jenis Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {
@@ -42,54 +41,11 @@ class ThesisTypeController extends Controller
         }
 
         try {
-            ThesisType::create($validator->safe()->only('category'));
+            $data = $validator->safe()->all();
 
-            return redirect()->back()->with('toast_success', 'Category Created');
-        } catch (\Throwable $th) {
-            return back()
-                ->with('toast_error', $th->getMessage()[0]);
-        }
-    }
+            $this->thesisTypeService->storeThesisType($data);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-
-        $validator = Validator::make($request->all(), [
-            'category' => 'required|string|unique:thesis_category,category,' . $id . ',id',
-        ]);
-
-        if ($validator->fails()) {
-            return back()
-                ->with('toast_error', join(', ', $validator->messages()->all()));
-        }
-
-        try {
-            $thesis = ThesisType::find($id);
-
-            if (!$thesis) return redirect()->back()->with('toast_error', 'category Not Found');
-
-            $thesis->update($validator->safe()->only('category'));
-
-            return redirect()->back()->with('toast_success', 'Category Updated');
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Ditambahkan');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
@@ -97,21 +53,49 @@ class ThesisTypeController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Update the specified resource in storage.
      */
-    public function destroy(string $id)
+    public function update(Request $request, string $ID)
     {
+        $validator = Validator::make($request->all(), [
+            'type' => ['nullable', 'string', Rule::unique('thesis_types')->ignore($ID)],
+        ], [
+            'type.unique' => "Jenis Tugas Akhir :input telah ditambahkan",
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
+        }
+
         try {
-            $thesis = ThesisCategory::find($id);
+            $data = $validator->safe()->all();
 
-            if (!$thesis) return redirect()->route('categories.index')->with('toast_error', 'category Not Found');
+            $isSuccess = $this->thesisTypeService->updateThesisType($ID, $data);
 
-            $thesis->delete();
+            if (!$isSuccess) return redirect()->back();
 
-            return redirect()->route('categories.index')->with('toast_success', 'Category deleted');
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Diperbarui');
         } catch (\Throwable $th) {
             return back()
-                ->with('toast_error', 'The category thesis is referenced by other data');
+                ->with('toast_error', 'Gagal Memperbarui Data Jenis Tugas Akhir');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $ID)
+    {
+        try {
+            $isSuccess = $this->thesisTypeService->deleteThesisType($ID);
+
+            if (!$isSuccess) return redirect()->back();
+
+            return redirect()->back()->with('toast_success', 'Data Jenis Tugas Akhir Dihapus');
+        } catch (\Throwable $th) {
+            return back()
+                ->with('toast_error', 'Gagal Menghapus Data Jenis Tugas Akhir');
         }
     }
 }

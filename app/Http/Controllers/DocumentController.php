@@ -4,53 +4,70 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use App\Models\Thesis;
-use App\Models\ThesisType;
+use App\Support\Enums\SubmissionStatusEnum;
+use App\Support\Interfaces\Services\LecturerServiceInterface;
+use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
+use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\Interfaces\Services\ThesisServiceInterface;
+use App\Support\Interfaces\Services\ThesisTopicServiceInterface;
+use App\Support\Interfaces\Services\ThesisTypeServiceInterface;
+use App\Support\model\GetThesisReqModel;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class DocumentController extends Controller
 {
 
     public function __construct(
         protected ThesisServiceInterface $thesisService,
+        protected  ProgramStudyServiceInterface $programStudyService,
+        protected  ThesisTopicServiceInterface $thesisTopicService,
+        protected  ThesisTypeServiceInterface $thesisTypeService,
+        protected  LecturerServiceInterface $lecturerService,
+        protected  StudentServiceInterface $studentService,
     ) {}
 
-    public function index(Request $request)
+    public function index(Request $request): View
     {
-        $documents = Thesis::with('topic')
-            ->with('student.programStudy.majority')
-            ->when($request->title, function ($query) use ($request) {
-                return $query->where('title', 'like', '%' . $request->title . '%');
-            })
-            ->orderBy('thesis.id', 'desc')
-            ->paginate(10);
+        $reqModel = new GetThesisReqModel($request);
 
-        return view('admin_views.documents.index', ['documents' => $documents]);
+        $documents = $this->thesisService->getThesis($reqModel, 10);
+
+        $prodys = $this->programStudyService->getProgramStudys();
+
+        return view('admin_views.document.index', ['documents' => $documents, 'prodys' => $prodys]);
     }
 
     public function create()
     {
-        $categories = ThesisType::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        return view('admin_views.documents.document_upsert_form', compact('categories'));
+        $types = $this->thesisTypeService->getThesisTypes();
+
+        $lecturers = $this->lecturerService->getLecturers();
+
+        return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers'));
     }
 
     public function edit(string $id)
     {
-        $categories = ThesisType::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        $document = Thesis::find($id);
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        if (!$document) return back()->with('toast_error', 'Document Not Found');
+        $lecturers = $this->lecturerService->getLecturers();
 
-        return view('admin_views.documents.document_upsert_form', compact('categories', 'document'));
+        $thesis = $this->thesisService->getThesisByID($id);
+
+        if (!$thesis) return back()->with('toast_error', 'Tugas akhir tidak ditemukan');
+
+        return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers', 'thesis'));
     }
 
     public function store(Request $request)
@@ -59,10 +76,30 @@ class DocumentController extends Controller
             'username' => 'required',
             'title' => 'required',
             'abstract' => 'required',
-            'category' => 'required',
-            'file' => 'required|mimes:pdf|max:15360'
+            'topic_id' => 'required',
+            'type_id' => 'required',
+            'lecturer_id' => 'required',
+            'required_file' => 'required|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
+        ], [
+            'username.required' => 'Username Wajib Diisi',
+            'title.required' => 'Judul Wajib Diisi',
+            'abstract.required' => 'Abstrak Wajib Diisi',
+            'topic_id.required' => 'Pilihlah Tipe Tugas Akhir',
+            'type_id.required' => 'Pilihlah Tipe Tugas Akhir',
+            'lecturer_id.required' => 'Pilihlah Dosen Pembimbing',
+            'required_file.required' => 'Dokumen Lengkap Tugas Akhir Wajib Diisi',
         ]);
-
         if ($validator->fails()) {
             return back()
                 ->withInput()
@@ -72,50 +109,55 @@ class DocumentController extends Controller
         try {
             $data = $validator->safe()->all();
 
-            $user = Student::where('username', $request->username)->first();
+            $files = $request->file();
 
-            if (!$user) return back()->withInput()->with('toast_error', 'Username Not Found');
 
-            // store file
-            $file = $request->file;
-            $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('document/', $fileName);
+            $student = $this->studentService->getStudentByUsername($data['username']);
 
-            $data['file_name'] = $fileName;
-            $data['id_category'] = $data['category'];
-            $data['id_user'] = $user->id;
+            if (!isset($student)) {
+                return back()->with('toast_error', 'Username tidak ditemukan');
+            }
 
-            Thesis::create($data);
+            $thesis = $this->thesisService->getDetailDocumentByStudentID($student->id);
 
-            Session::flash('toast_success', 'Document Added');
-            return redirect()->route('documents-management.index');
+            if ($thesis) {
+                return back()->with('toast_error', 'Gagal Menyimpan Data, Tugas Akhir Telah Ditambahkan Sebelumnya!!');
+            }
+
+            $this->thesisService->storeThesis($student->id, $data, $files);
+
+
+            Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
+            return redirect()->route('document-management.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $ID)
     {
         $validator = Validator::make($request->all(), [
+            'username' => 'nullable',
+            'submission_status' => 'nullable',
             'title' => 'nullable',
+            'note' => 'nullable',
             'abstract' => 'nullable',
-            'topic' => 'nullable',
-            'type' => 'nullable',
-            'lecturer' => 'nullable',
-            'required_file' => 'nullable|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'topic_id' => 'nullable',
+            'type_id' => 'nullable',
+            'lecturer_id' => 'nullable',
+            'required_file' => 'nullable|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ]);
-
         if ($validator->fails()) {
             return back()
                 ->withInput()
@@ -123,82 +165,72 @@ class DocumentController extends Controller
         }
 
         try {
-            $oldData = Thesis::find($id);
+            $data = $validator->safe()->all();
 
-            if (!$oldData) return  back()->withInput()->with('toast_error', 'Document Not Found');
+            $files = $request->file();
 
-            $newData = [];
-            if ($validator->safe()->title) {
-                $newData['title'] = $validator->safe()->title;
-            }
-            if ($validator->safe()->abstract) {
-                $newData['abstract'] = $validator->safe()->abstract;
-            }
-            if ($validator->safe()->topic) {
-                $newData['id_category'] = $validator->safe()->category;
-            }
-            if ($validator->safe()->username) {
-                $user = Student::where('username', $request->username)->first();
+            if (isset($data['username'])) {
+                $student = $this->studentService->getStudentByUsername($data['username']);
 
-                if (!$user) return back()->withInput()->with('toast_error', 'Username Not Found');
+                if (!isset($student)) {
+                    return back()->with('toast_error', 'Username tidak ditemukan');
+                }
 
-                $newData['id_user'] = $user->id;
+                $data['student_id'] = $student->id;
             }
 
-            if ($request->file) {
-                // store new file
-                $file = $request->file;
-                $fileName = Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $newData['file_name'] = $fileName;
-                $file->storeAs('document/', $fileName);
 
-                // Delete old file
-                Storage::delete('document/' . $oldData->file_name);
+            if (isset($data['submission_status'])) {
+                switch ($data['submission_status']) {
+                    case SubmissionStatusEnum::ACCEPTED->value:
+                        $data['submission_status'] = true;
+                        $data['note'] = "";
+                        break;
+                    case SubmissionStatusEnum::DECLINED->value:
+                        $data['submission_status'] = false;
+                        break;
+                    default:
+                        $data['submission_status'] = null;
+                        break;
+                }
             }
+            $this->thesisService->updateThesis($data, $ID, $files);
 
-            $oldData->update($newData);
-
-            Session::flash('toast_success', 'Document updated');
-            return redirect()->route('documents-management.index');
+            Session::flash('toast_success', 'Tugas Akhir Diperbarui');
+            return redirect()->route('document-management.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
     }
 
-    public function destroy(string $id)
+    public function destroy(string $ID)
     {
         try {
-            $thesis = Thesis::find($id);
+            $isSuccess = $this->thesisService->destroyThesisByID($ID);
 
-            if (!$thesis) return redirect()->route('documents-management.index')->with('toast_error', 'Document Not Found');
+            if (!$isSuccess) throw new Exception("Internal server error");
 
-            Storage::delete('document/' . $thesis->file_name);
-
-            $thesis->delete();
-
-            return redirect()->route('documents-management.index')->with('toast_success', 'Document deleted');
+            return redirect()->route('document-management.index')->with('toast_success', 'Tugas akhir berhasil dihapus');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
         }
     }
 
-    public function show(string $id)
+    public function show(string $ID)
     {
-        $document = Thesis::with('user.programStudy.majority')
-            ->with('category')
-            ->find($id);
+        $document = $this->thesisService->getDetailDocument($ID);
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
-        return view('admin_views.documents.detail_document', ['document' => $document]);
+        return view('admin_views.document.detail_document', ['document' => $document]);
     }
 
     public function detailDocument($ID)
     {
         $document = $this->thesisService->getDetailDocument($ID);
 
-        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not Found');
+        if (!$document) return redirect()->route('home')->with('toast_error', 'Document Tidak Ditemukan');
 
         if (Auth::guard('student')->check() && Auth::user()->id != $document->student_id) {
             if (!$document) return redirect()->route('home')->with('toast_error', 'Document Not yet verified');
@@ -223,9 +255,9 @@ class DocumentController extends Controller
         // return response()->file('storage/Document/'.$fileName);
     }
 
-    public function userDocument(Request $request, string $id)
+    public function userDocument(Request $request, string $ID)
     {
-        $data = $this->getUserDocument($id, $request);
+        $data = $this->getUserDocument($ID, $request);
 
         if ($data instanceof RedirectResponse) return $data;
 
@@ -243,9 +275,9 @@ class DocumentController extends Controller
     }
 
 
-    public function getUserDocument(string $id, Request $request)
+    public function getUserDocument(string $ID, Request $request)
     {
-        $student = Student::with('programStudy.majority')->find($id);
+        $student = Student::with('programStudy.majority')->find($ID);
 
         if (!$student) return redirect()->route('home')->with('toast_error', 'User Not Found');
 
@@ -258,5 +290,39 @@ class DocumentController extends Controller
             ->paginate(10);
 
         return compact('student', 'document');
+    }
+
+    public function bulkUpdateSubmissionStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'thesisIDs' => 'required|array',
+            'note' => 'nullable|string',
+            'submission_status' => 'required|in:' . SubmissionStatusEnum::ACCEPTED->value . ',' .
+                SubmissionStatusEnum::PENDING->value . ',' . SubmissionStatusEnum::DECLINED->value . '',
+        ], [
+            'thesisIDs.required' => 'ID Tugas Akhir Wajib Dikirimkan',
+            'thesisIDs.array' => 'ID Tugas Akhir Harus bertipe array',
+            'submission_status.required' => 'Status Tugas Akhir Wajib Dikirimkan',
+            'submission_status.in' => 'Status Yang dikirim tidak valid',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
+        }
+
+
+        try {
+            $data = $validator->safe()->all();
+            $note = isset($data['note']) ? $data['note'] : '';
+
+            $this->thesisService->bulkUpdateSubmissionStatus($data['thesisIDs'], $data['submission_status'], $note);
+
+            Session::flash('toast_success', 'Tugas Akhir Diperbarui');
+            return redirect()->route('document-management.index');
+        } catch (\Throwable $th) {
+            return back()->with('toast_error', $th->getMessage())->withInput();
+        }
     }
 }

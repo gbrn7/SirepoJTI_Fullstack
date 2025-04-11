@@ -20,7 +20,7 @@
         :'img/default-profile.png')}}" class="img-fluid img-avatar" />
         @endauth
         @auth('admin')
-        <img src="{{asset(Auth::guard('admin')->profile_picture ? 'storage/profile/'.Auth::guard('admin')->profile_picture
+        <img src="{{asset(Auth::guard('admin')->user()->profile_picture ? 'storage/profile/'.Auth::guard('admin')->profile_picture
         :'img/default-profile.png')}}" class="img-fluid img-avatar" />
         @endauth
       </a>

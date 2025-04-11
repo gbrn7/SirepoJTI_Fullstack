@@ -1,19 +1,19 @@
 <div class="mb-2">
   <label class="form-label">Judul</label>
   <input data-cy="input-title" type="text" class="form-control" placeholder="Masukan judul"
-    value="{{old('title', isset($document) ? $document->title : '')}}" name="title" required />
+    value="{{old('title', isset($thesis) ? $thesis->title : '')}}" name="title" required />
 </div>
 <div class="mb-2">
   <label class="form-label">Abstrak</label>
-  <textarea data-cy="input-abstract" class="form-control" rows="3" placeholder="Enter abstrak" required
-    name="abstract">{{old('abstract', isset($document) ? $document->abstract : '')}}</textarea>
+  <textarea data-cy="input-abstract" class="form-control" rows="3" placeholder="Masukkan abstrak" required
+    name="abstract">{{old('abstract', isset($thesis) ? $thesis->abstract : '')}}</textarea>
 </div>
 <div class="mb-2">
   <label class="form-label">Topik</label>
   <select data-cy="input-topic" class="form-select" aria-label="Default select example" name="topic_id" required>
     <option value="">Pilih Topik Dokumen</option>
     @foreach ($topics as $topic)
-    <option value="{{$topic->id}}" @selected(old('topic_id', isset($document) ? $document->topic_id :
+    <option value="{{$topic->id}}" @selected(old('topic_id', isset($thesis) ? $thesis->topic_id :
       '') ==$topic->id)>
       {{$topic->topic}}
     </option>
@@ -25,7 +25,7 @@
   <select data-cy="input-thesis-type" class="form-select" aria-label="Default select example" name="type_id" required>
     <option value="">Pilih Jenis Tugas Akhir</option>
     @foreach ($types as $type)
-    <option value="{{$type->id}}" @selected(old('type_id', isset($document) ? $document->type_id :
+    <option value="{{$type->id}}" @selected(old('type_id', isset($thesis) ? $thesis->type_id :
       '') ==$type->id)>
       {{$type->type}}
     </option>
@@ -37,7 +37,7 @@
   <select data-cy="input-lecturer" class="form-select" aria-label="Default select example" name="lecturer_id" required>
     <option value="">Pilih Dosen Pembimbing</option>
     @foreach ($lecturers as $lecturer)
-    <option value="{{$lecturer->id}}" @selected(old('lecturer_id', isset($document) ? $document->lecturer_id :
+    <option value="{{$lecturer->id}}" @selected(old('lecturer_id', isset($thesis) ? $thesis->lecturer_id :
       '') ==$lecturer->id)>
       {{$lecturer->name}}
     </option>
@@ -282,5 +282,6 @@
   </div>
 </div>
 <div class="wrapper d-flex justify-content-end">
-  <button class="btn btn-submit text-black px-5 btn-warning" data-cy="btn-submit" type="submit">Submit</button>
+  <button class="btn btn-submit text-black px-5 btn-warning fw-semibold" data-cy="btn-submit"
+    type="submit">Submit</button>
 </div>

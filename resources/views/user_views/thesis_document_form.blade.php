@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', Request::segment(3) === 'create' ? 'Add Document' : 'Edit Document')
+@section('title', "Tambah Dokumen")
 
 @section('custom_css_link', asset('css/Form_style/main.css'))
 

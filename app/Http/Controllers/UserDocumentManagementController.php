@@ -23,7 +23,7 @@ class UserDocumentManagementController extends Controller
 
         if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
-        return view('admin_views.users.documents.index', ['user' => $user]);
+        return view('admin_views.student.documents.index', ['user' => $user]);
     }
 
     /**
@@ -37,7 +37,7 @@ class UserDocumentManagementController extends Controller
 
         if (!$user) return redirect()->back()->with('toast_error', 'User not found');
 
-        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'user'));
+        return view('admin_views.student.documents.user_document_upsert_form', compact('categories', 'user'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserDocumentManagementController extends Controller
             'title' => 'required',
             'abstract' => 'required',
             'category' => 'required',
-            'file' => 'required|mimes:pdf|max:15360'
+            'file' => 'required|mimes:pdf|max:16384'
         ]);
 
         if ($validator->fails()) {
@@ -78,7 +78,7 @@ class UserDocumentManagementController extends Controller
             Thesis::create($data);
 
             Session::flash('toast_success', 'Document Added');
-            return redirect()->route('user-management.document-management.index', $userId);
+            return redirect()->route('student-management.document-management.index', $userId);
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -95,9 +95,9 @@ class UserDocumentManagementController extends Controller
 
         $user = Student::find($userId);
 
-        if (!$document) return redirect()->route('user-management.document-management.index', $userId);
+        if (!$document) return redirect()->route('student-management.document-management.index', $userId);
 
-        return view('admin_views.users.documents.user_document_upsert_form', compact('categories', 'document', 'user'));
+        return view('admin_views.student.documents.user_document_upsert_form', compact('categories', 'document', 'user'));
     }
 
     /**
@@ -111,18 +111,18 @@ class UserDocumentManagementController extends Controller
             'topic' => 'nullable',
             'type' => 'nullable',
             'lecturer' => 'nullable',
-            'required_file' => 'nullable|mimes:pdf|max:15360',
-            'abstract_file' => 'nullable|mimes:pdf|max:15360',
-            'list_of_content_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_1_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_2_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_3_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_4_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_5_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_6_file' => 'nullable|mimes:pdf|max:15360',
-            'chapter_7_file' => 'nullable|mimes:pdf|max:15360',
-            'bibliography_file' => 'nullable|mimes:pdf|max:15360',
-            'attachment_file' => 'nullable|mimes:pdf|max:15360',
+            'required_file' => 'nullable|mimes:pdf|max:16384',
+            'abstract_file' => 'nullable|mimes:pdf|max:16384',
+            'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_1_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_2_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_3_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_4_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_5_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_6_file' => 'nullable|mimes:pdf|max:16384',
+            'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
+            'bibliography_file' => 'nullable|mimes:pdf|max:16384',
+            'attachment_file' => 'nullable|mimes:pdf|max:16384',
         ]);
 
         if ($validator->fails()) {
@@ -169,7 +169,7 @@ class UserDocumentManagementController extends Controller
             $oldData->update($newData);
 
             Session::flash('toast_success', 'Document updated');
-            return redirect()->route('user-management.document-management.index', $userId);
+            return redirect()->route('student-management.document-management.index', $userId);
         } catch (\Throwable $th) {
             dd($th->getMessage());
             return back()->with('toast_error', $th->getMessage())->withInput();
@@ -190,7 +190,7 @@ class UserDocumentManagementController extends Controller
 
             $thesis->delete();
 
-            return redirect()->route('user-management.document-management.index', $userId)->with('toast_success', 'Document deleted');
+            return redirect()->route('student-management.document-management.index', $userId)->with('toast_success', 'Document deleted');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
@@ -205,6 +205,6 @@ class UserDocumentManagementController extends Controller
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
-        return view('admin_views.users.documents.detail_document', ['document' => $document]);
+        return view('admin_views.student.documents.detail_document', ['document' => $document]);
     }
 }

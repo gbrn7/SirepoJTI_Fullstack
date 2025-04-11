@@ -33,7 +33,6 @@ class Student extends Authenticatable
         'email',
         'password',
         'profile_picture',
-        'thesis_status',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -62,8 +61,8 @@ class Student extends Authenticatable
         return $this->belongsTo(ProgramStudy::class, 'program_study_id', 'id');
     }
 
-    public function thesis(): HasMany
+    public function thesis(): HasOne
     {
-        return $this->hasMany(Thesis::class, 'student_id', 'id');
+        return $this->hasOne(Thesis::class, 'student_id', 'id');
     }
 }

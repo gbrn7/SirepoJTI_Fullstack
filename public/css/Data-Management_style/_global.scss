@@ -70,6 +70,17 @@ body {
         }
       }
 
+      .dashboard-wrapper {
+        .subtitle-chart {
+          font-size: 12px;
+        }
+
+        .chart-table-wrapper {
+          height: 123px;
+          overflow: auto;
+        }
+      }
+
       .img-avatar {
         aspect-ratio: 1;
         border-radius: 50%;
@@ -110,8 +121,8 @@ body {
           tbody {
             .btn-detail {
               background-color: #2d4059;
+              border-color: #2d4059;
             }
-
             tr {
               td {
                 font-weight: 300;
