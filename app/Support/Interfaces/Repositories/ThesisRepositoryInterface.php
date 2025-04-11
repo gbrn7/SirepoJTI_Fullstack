@@ -2,11 +2,11 @@
 
 namespace App\Support\Interfaces\Repositories;
 
-use App\Models\Student;
 use App\Models\Thesis;
 use App\Support\model\GetThesisReqModel;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 
 interface ThesisRepositoryInterface
 {
@@ -26,4 +26,5 @@ interface ThesisRepositoryInterface
   public function updateOrCreateThesisFile(Thesis $thesis, array $searchParams, array $newDataFiles);
   public function deleteThesis(Thesis $thesis): bool;
   public function bulkUpdateSubmissionStatus(array $IDs, ?bool $status, ?string $note): bool;
+  public function getThesisDashboardData(GetThesisReqModel $reqModel): SupportCollection;
 }

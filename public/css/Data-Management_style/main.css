@@ -54,6 +54,13 @@ body .content-wrapper .input-group {
 body .content-wrapper .main-content .dataTables_paginate .pagination {
   justify-content: end;
 }
+body .content-wrapper .main-content .dashboard-wrapper .subtitle-chart {
+  font-size: 12px;
+}
+body .content-wrapper .main-content .dashboard-wrapper .chart-table-wrapper {
+  height: 123px;
+  overflow: auto;
+}
 body .content-wrapper .main-content .img-avatar {
   aspect-ratio: 1;
   border-radius: 50%;

@@ -21,6 +21,8 @@
   <link rel="stylesheet" href="{{asset('css/Footer_style/main.css')}}" />
   <link rel="stylesheet" href="{{asset('css/Preloader/main.css')}}" />
 
+  @yield('custom-header')
+
 </head>
 
 <body class="d-flex flex-column justify-content-between">

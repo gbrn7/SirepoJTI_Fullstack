@@ -4,9 +4,11 @@ namespace App\Support\Interfaces\Services;
 
 use App\Models\Thesis;
 use App\Support\model\GetThesisReqModel;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection as SupportCollection;
 
 interface ThesisServiceInterface
 {
@@ -25,4 +27,13 @@ interface ThesisServiceInterface
   public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files);
   public function destroyThesisByID(string $ID): bool;
   public function bulkUpdateSubmissionStatus(array $IDs, string $status, ?string $note): bool;
+  public function getThesisTotalPerYearLineChart(SupportCollection $data): LarapexChart;
+  public function getThesisTotalMaleFemalePieChart(SupportCollection $data): LarapexChart;
+  public function getThesisTotalPerTopicDonatChart(SupportCollection $data): LarapexChart;
+  public function getThesisTotalPerLecturerPieChart(SupportCollection $data): LarapexChart;
+  public function getThesisTotalPerProgramStudyHztBarChart(SupportCollection $data): LarapexChart;
+  public function getThesisTotalPerClassYear(SupportCollection $data): SupportCollection;
+  public function getThesisTotalPerPublicationYear(SupportCollection $data): SupportCollection;
+  public function ThesisTotalPerTypeHztBarChart(SupportCollection $data): LarapexChart;
+  public function getThesisDashboard(GetThesisReqModel $reqModel);
 }

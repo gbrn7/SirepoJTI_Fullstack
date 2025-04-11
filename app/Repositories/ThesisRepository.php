@@ -6,8 +6,10 @@ use App\Models\Thesis;
 use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\model\GetThesisReqModel;
+use Flowframe\Trend\Trend;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\DB;
 
 class ThesisRepository implements ThesisRepositoryInterface
@@ -64,7 +66,7 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->join('program_study as ps', 'ps.id', 's.program_study_id')
       ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
       ->join('thesis_types as tte', 'tte.id', 't.type_id')
-      ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, ps.name as program_study_name, tte.id as thesis_type_id, tte.type as thesis_type')
+      ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.last_name, s.first_name, t.title as thesis_title, t.abstract as thesis_abstract, ps.name as program_study_name, tt.topic as thesis_topic, t.created_at as publication, tt.id as topic_id, ps.id as program_study_id, tte.id as thesis_type_id, tte.type as thesis_type')
       ->orderBy('t.id', 'DESC')
       ->paginate($paginatePage);
   }
@@ -189,5 +191,10 @@ class ThesisRepository implements ThesisRepositoryInterface
     return DB::table('thesis')
       ->whereIn('id', $IDs)
       ->update(['submission_status' => $status, 'note' => $note]);
+  }
+
+  public function getThesisDashboardData(GetThesisReqModel $reqModel): SupportCollection
+  {
+    return Thesis::dashboardDataQuery($reqModel)->get();
   }
 }

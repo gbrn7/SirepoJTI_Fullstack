@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LecturerManagementController;
@@ -51,13 +52,17 @@ Route::group(['prefix' => 'home'], function () {
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::group(['middleware' => ['auth:student,admin']], function () {
+    Route::group(['middleware' => ['auth:student,admin,lecturer']], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
         });
 
         Route::resource('thesis-submission', ThesisSubmissionController::class)->middleware('role:student');
+
+        Route::group(['middleware' => ['auth:admin,lecturer']], function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        });
 
         Route::group(['middleware' => ['role:admin']], function () {
             Route::resource('thesis-topic', ThesisTopicController::class)->only([
