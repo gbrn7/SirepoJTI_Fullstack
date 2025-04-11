@@ -31,7 +31,7 @@
   ]);
   @endphp
   <div class="wrapper mt-3">
-    <a href="{{route('documents-management.create')}}" class="btn btn-success">
+    <a href="{{route('document-management.create')}}" class="btn btn-success">
       <div class="wrapper d-flex gap-2 align-items-center">
         <i class="ri-add-line"></i>
         <span class="fw-semibold">Tambah Data</span>
@@ -72,8 +72,7 @@
     </div>
     <div class="btn-action-wrapper d-flex flex-column flex-lg-row justify-content-end gap-2 mt-2">
       <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black" @disabled($params->count() == 0)
-        ><a href="{{route('documents-management.index')}}"
-          class="text-decoration-none text-black">Bersihkan</a></button>
+        ><a href="{{route('document-management.index')}}" class="text-decoration-none text-black">Bersihkan</a></button>
       <button type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
         Terapkan
       </button>
@@ -102,7 +101,7 @@
             @default
             {{$labels->get($key)." : ".$value}}
             @endswitch
-            <a href="{{route('documents-management.index', $params->filter(function(string $item, string $key) use($value) {
+            <a href="{{route('document-management.index', $params->filter(function(string $item, string $key) use($value) {
               return $item != $value;
             }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i>
             </a>
@@ -142,11 +141,11 @@
               <div class="wrapper d-flex gap-1">
                 <div class="btn fw-medium btn-danger border-danger delete-btn" data-bs-toggle="modal"
                   data-bs-target="#deleteModal" data-title="{{$document->thesis_title}}"
-                  data-delete-link="{{route('documents-management.destroy', $document->thesis_id)}}">
+                  data-delete-link="{{route('document-management.destroy', $document->thesis_id)}}">
                   Hapus</div>
-                <a href="{{route('documents-management.edit', $document->thesis_id)}}"
+                <a href="{{route('document-management.edit', $document->thesis_id)}}"
                   class="btn fw-medium text-black text-decoration-none btn-warning edit-btn">Edit</a>
-                <a href="{{route('documents-management.show', $document->thesis_id)}}"
+                <a href="{{route('document-management.show', $document->thesis_id)}}"
                   class="btn fw-medium edit-btn btn-detail text-decoration-none text-white">Detail</a>
               </div>
             </td>
@@ -164,11 +163,11 @@
   <div class="bulk-action-button-wrapper gap-2 d-flex flex-column mt-2 flex-md-row justify-content-md-end">
     <button id="btn-declined" data-bs-toggle="modal" data-bs-target="#declineModal" disabled
       class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-danger"
-      data-update-link="{{route('documents-management.update-submission-status', ['submission_status' => 'declined'])}}">
+      data-update-link="{{route('document-management.update-submission-status', ['submission_status' => 'declined'])}}">
       Tolak Tugas
     </button>
     <button id="btn-accepted" disabled class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-success"
-      data-update-link="{{route('documents-management.update-submission-status', ['submission_status' => 'accepted'])}}">
+      data-update-link="{{route('document-management.update-submission-status', ['submission_status' => 'accepted'])}}">
       Terima Tugas
     </button>
   </div>

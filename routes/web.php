@@ -85,9 +85,9 @@ Route::group(['prefix' => 'home'], function () {
             Route::get('/getUserImportTemplate', [StudentManagementController::class, 'getStudentImportTemplate'])->name('getStudentImportTemplate');
             Route::post('student-management/importStudentExcelData', [StudentManagementController::class, 'importStudentExcelData'])->name('importStudentExcelData');
 
-            Route::put('documents-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('documents-management.update-submission-status');
+            Route::put('document-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('document-management.update-submission-status');
 
-            Route::resource('documents-management', DocumentController::class)->only([
+            Route::resource('document-management', DocumentController::class)->only([
                 'index',
                 'create',
                 'store',
@@ -105,6 +105,5 @@ Route::group(['prefix' => 'home'], function () {
 });
 
 Route::any('/{any}', function () {
-    if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
-    return redirect()->route('signIn.student');
+    abort(404);
 })->where('any', '.*');

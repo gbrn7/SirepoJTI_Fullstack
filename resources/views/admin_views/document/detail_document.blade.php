@@ -13,7 +13,7 @@
         <a href="{{route('home')}}" class="text-decoration-none">Beranda</a>
       </li>
       <li class="breadcrumb-item align-items-center">
-        <a href="{{route('documents-management.index')}}" class="text-decoration-none">Tugas Akhir</a>
+        <a href="{{route('document-management.index')}}" class="text-decoration-none">Tugas Akhir</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         Detail Data Tugas Akhir {{$document->student->username}}
