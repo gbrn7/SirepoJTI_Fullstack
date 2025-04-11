@@ -98,29 +98,28 @@
     @if ($params->count() > 0 )
     <div class="badge-wrapper mb-1 text-center text-md-start">
       @foreach ($params->toArray() as $key => $value)
-      @if ($key == 'program_study_id')
-      <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span
-          class=" d-flex align-items-center gap-2">{{$labels->get($key)." : ".$prodys->where('id',
+      <span class="badge rounded-pill mt-1 text-bg-secondary py-2">
+        <span class="d-flex align-items-center gap-2">
+          @switch($key)
+          @case($key == 'program_study_id')
+          {{$labels->get($key)." : ".$prodys->where('id',
           $value)->first()->name}}
-          <a href="{{route('student-management.index', $params->filter(function(string $item, string $key) use($value) {
-            return $item != $value;
-          }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
-      @elseif ($key == 'submission_status')
-      <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span class=" d-flex align-items-center gap-2">
+          @break
+          @case($key == 'submission_status')
           {{$labels->get($key)." : ".($value == App\Support\Enums\SubmissionStatusEnum::ACCEPTED->value ? 'Diterima' :
           ($value == App\Support\Enums\SubmissionStatusEnum::DECLINED->value ? 'Ditolak' :
           ($value == App\Support\Enums\SubmissionStatusEnum::UNSUBMITED->value ? 'Belum Dikumpulkan' :
           'Pending')))}}
-          <a href="{{route('student-management.index', $params->filter(function(string $item, string $key) use($value) {
-          return $item != $value;
-        }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
-      @else
-      <span class="badge rounded-pill mt-1 text-bg-secondary py-2"><span class=" d-flex align-items-center gap-2">
+          @break
+          @default
           {{$labels->get($key)." : ".$value}}
+          @endswitch
           <a href="{{route('student-management.index', $params->filter(function(string $item, string $key) use($value) {
-          return $item != $value;
-        }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i></a></span></span>
-      @endif
+            return $item != $value;
+          }))}}" class="text-decoration-none text-white"><i class="ri-close-line"></i>
+          </a>
+        </span>
+      </span>
       @endforeach
     </div>
     @endif

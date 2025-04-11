@@ -70,6 +70,17 @@ body {
         }
       }
 
+      .dashboard-wrapper {
+        .subtitle-chart {
+          font-size: 12px;
+        }
+
+        .chart-table-wrapper {
+          height: 123px;
+          overflow: auto;
+        }
+      }
+
       .img-avatar {
         aspect-ratio: 1;
         border-radius: 50%;

@@ -41,7 +41,7 @@ class DocumentController extends Controller
 
         $prodys = $this->programStudyService->getProgramStudys();
 
-        return view('admin_views.documents.index', ['documents' => $documents, 'prodys' => $prodys]);
+        return view('admin_views.document.index', ['documents' => $documents, 'prodys' => $prodys]);
     }
 
     public function create()
@@ -52,7 +52,7 @@ class DocumentController extends Controller
 
         $lecturers = $this->lecturerService->getLecturers();
 
-        return view('admin_views.documents.document_upsert_form', compact('topics', 'types', 'lecturers'));
+        return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers'));
     }
 
     public function edit(string $id)
@@ -67,7 +67,7 @@ class DocumentController extends Controller
 
         if (!$thesis) return back()->with('toast_error', 'Tugas akhir tidak ditemukan');
 
-        return view('admin_views.documents.document_upsert_form', compact('topics', 'types', 'lecturers', 'thesis'));
+        return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers', 'thesis'));
     }
 
     public function store(Request $request)
@@ -128,7 +128,7 @@ class DocumentController extends Controller
 
 
             Session::flash('toast_success', 'Tugas Akhir Ditambahkan');
-            return redirect()->route('documents-management.index');
+            return redirect()->route('document-management.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -197,7 +197,7 @@ class DocumentController extends Controller
             $this->thesisService->updateThesis($data, $ID, $files);
 
             Session::flash('toast_success', 'Tugas Akhir Diperbarui');
-            return redirect()->route('documents-management.index');
+            return redirect()->route('document-management.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
@@ -210,7 +210,7 @@ class DocumentController extends Controller
 
             if (!$isSuccess) throw new Exception("Internal server error");
 
-            return redirect()->route('documents-management.index')->with('toast_success', 'Tugas akhir berhasil dihapus');
+            return redirect()->route('document-management.index')->with('toast_success', 'Tugas akhir berhasil dihapus');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
@@ -223,7 +223,7 @@ class DocumentController extends Controller
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
-        return view('admin_views.documents.detail_document', ['document' => $document]);
+        return view('admin_views.document.detail_document', ['document' => $document]);
     }
 
     public function detailDocument($ID)
@@ -320,7 +320,7 @@ class DocumentController extends Controller
             $this->thesisService->bulkUpdateSubmissionStatus($data['thesisIDs'], $data['submission_status'], $note);
 
             Session::flash('toast_success', 'Tugas Akhir Diperbarui');
-            return redirect()->route('documents-management.index');
+            return redirect()->route('document-management.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
         }

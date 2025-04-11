@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LecturerManagementController;
@@ -51,13 +52,17 @@ Route::group(['prefix' => 'home'], function () {
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
 
-    Route::group(['middleware' => ['auth:student,admin']], function () {
+    Route::group(['middleware' => ['auth:student,admin,lecturer']], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
         });
 
         Route::resource('thesis-submission', ThesisSubmissionController::class)->middleware('role:student');
+
+        Route::group(['middleware' => ['auth:admin,lecturer']], function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+        });
 
         Route::group(['middleware' => ['role:admin']], function () {
             Route::resource('thesis-topic', ThesisTopicController::class)->only([
@@ -80,9 +85,9 @@ Route::group(['prefix' => 'home'], function () {
             Route::get('/getUserImportTemplate', [StudentManagementController::class, 'getStudentImportTemplate'])->name('getStudentImportTemplate');
             Route::post('student-management/importStudentExcelData', [StudentManagementController::class, 'importStudentExcelData'])->name('importStudentExcelData');
 
-            Route::put('documents-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('documents-management.update-submission-status');
+            Route::put('document-management/submission-status', [DocumentController::class, 'bulkUpdateSubmissionStatus'])->name('document-management.update-submission-status');
 
-            Route::resource('documents-management', DocumentController::class)->only([
+            Route::resource('document-management', DocumentController::class)->only([
                 'index',
                 'create',
                 'store',
@@ -100,6 +105,5 @@ Route::group(['prefix' => 'home'], function () {
 });
 
 Route::any('/{any}', function () {
-    if (Auth::guard('student')->check() || Auth::guard('admin')->check()) return redirect()->route('home');
-    return redirect()->route('signIn.student');
+    abort(404);
 })->where('any', '.*');

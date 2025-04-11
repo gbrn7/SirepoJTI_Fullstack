@@ -10,10 +10,17 @@
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
           href="{{route('home')}}"><i class="ri-home-2-fill nav-icon fs-5"></i><span class="Nav-text">Beranda</span></a>
       </li>
+      @if (Auth::guard('admin')->check() || Auth::guard('lecturer')->check())
+      <li class="nav-item py-1 fw-light ps-3">
+        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
+          href="{{route('dashboard.index')}}"><i class="ri-dashboard-fill nav-icon fs-5"></i><span class="Nav-text"
+            data-cy="btn-navbar-thesis">Dashboard</span></a>
+      </li>
+      @endif
       @if (Auth::guard('admin')->check())
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('documents-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
+          href="{{route('document-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
             class="Nav-text" data-cy="btn-navbar-thesis">Tugas Akhir</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">

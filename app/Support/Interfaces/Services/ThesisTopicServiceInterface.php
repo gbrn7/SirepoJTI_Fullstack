@@ -3,6 +3,7 @@
 namespace App\Support\Interfaces\Services;
 
 use App\Models\ThesisTopic;
+use App\Support\model\GetThesisReqModel;
 use Illuminate\Database\Eloquent\Collection;
 
 interface ThesisTopicServiceInterface
