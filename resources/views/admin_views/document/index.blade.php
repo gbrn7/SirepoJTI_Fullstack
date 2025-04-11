@@ -177,8 +177,7 @@
 </div>
 
 <!-- Decline Modal -->
-<div class="modal fade" id="declineModal" data-bs-backdrop="static" tabindex="-2" aria-labelledby="staticBackdropLabel"
-  aria-hidden="true">
+<div class="modal fade" id="declineModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -210,12 +209,11 @@
       <div class="modal-body">
         <h4 class="text-center">Apakah anda yakin menghapus tugas akhir <span class="document-title"></span> ?</h4>
       </div>
-      <form action="" method="post" id="deleteForm">
+      <form action="" method="post" id="deleteForm" class="modal-footer">
         @method('delete')
         @csrf
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Hapus</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Hapus</button>
       </form>
     </div>
   </div>
