@@ -210,7 +210,7 @@ class DocumentController extends Controller
 
             if (!$isSuccess) throw new Exception("Internal server error");
 
-            return redirect()->route('document-management.index')->with('toast_success', 'Tugas akhir berhasil dihapus');
+            return redirect()->route('document-management.index')->with('toast_success', 'Data Tugas Akhir Dihapus');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
