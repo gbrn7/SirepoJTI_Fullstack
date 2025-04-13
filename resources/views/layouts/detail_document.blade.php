@@ -161,7 +161,7 @@
       </button>
     </form>
   </div>
-  @endif
+
 
   <!-- Decline Modal -->
   <div class="modal fade" id="declineModal" data-bs-backdrop="static" tabindex="-2"
@@ -192,4 +192,6 @@
       </div>
     </form>
   </div>
+  @endif
+
 </div>
