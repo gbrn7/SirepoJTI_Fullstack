@@ -180,7 +180,7 @@ class ThesisRepository implements ThesisRepositoryInterface
     return Thesis::selectRaw('tt.id, tt.type, COUNT(*) as total')
       ->where('thesis.submission_status', true)
       ->join('thesis_types as tt', 'tt.id', 'thesis.type_id')
-      ->groupBy('thesis.type_id')
+      ->groupBy('tt.id', 'tt.type')
       ->orderBy('tt.type', 'asc')
       ->get();
   }
