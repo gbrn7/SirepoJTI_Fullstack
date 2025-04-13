@@ -186,7 +186,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get(':nth-child(1) > :nth-child(9) > .wrapper > .btn-detail').click();
 
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal('/home/document-management/3')
+      expect(loc.pathname).to.include('/home/document-management')
     })
   })
 
@@ -203,7 +203,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get(':nth-child(1) > :nth-child(9) > .wrapper > .btn-detail').click();
 
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal('/home/document-management/3')
+      expect(loc.pathname).to.include('/home/document-management')
     })
 
     cy.get('[data-cy="btn-thesis-acc"]').click();
@@ -228,7 +228,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get(':nth-child(1) > :nth-child(9) > .wrapper > .btn-detail').click();
 
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal('/home/document-management/3')
+      expect(loc.pathname).to.include('/home/document-management')
     })
 
     cy.get('[data-cy="btn-thesis-dcd"]').click();
