@@ -31,8 +31,8 @@ class ThesisTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'type' => 'required|string|unique:thesis_types,type',
         ], [
-            'type.required' => "Jenis Tugas Akhir Wajib Diisi",
-            'type.unique' => "Jenis Tugas Akhir :input Telah Ditambahkan",
+            'type.required' => "Data Jenis Tugas Akhir Wajib Diisi",
+            'type.unique' => "Data Jenis Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {
@@ -60,7 +60,7 @@ class ThesisTypeController extends Controller
         $validator = Validator::make($request->all(), [
             'type' => ['nullable', 'string', Rule::unique('thesis_types')->ignore($ID)],
         ], [
-            'type.unique' => "Jenis Tugas Akhir :input telah ditambahkan",
+            'type.unique' => "Data Jenis Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {

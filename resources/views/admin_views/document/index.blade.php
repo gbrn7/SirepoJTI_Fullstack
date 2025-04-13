@@ -34,25 +34,26 @@
     <a href="{{route('document-management.create')}}" class="btn btn-success">
       <div class="wrapper d-flex gap-2 align-items-center">
         <i class="ri-add-line"></i>
-        <span class="fw-semibold">Tambah Data</span>
+        <span class="fw-semibold" data-cy="btn-link-add-thesis">Tambah Data</span>
       </div>
     </a>
   </div>
   <form class="mt-2">
     <div class="wrapper filter-wrapper d-flex flex-column flex-lg-row gap-1">
       <div class="input-wrapper col">
-        <input type="text" class="form-control" name="title" value="{{request()->get('title')}}" placeholder="Judul">
+        <input type="text" class="form-control" data-cy="input-title" name="title" value="{{request()->get('title')}}"
+          placeholder="Judul">
       </div>
       <div class="input-wrapper col">
-        <input type="text" class="form-control" name="student_username" placeholder="Username"
+        <input type="text" class="form-control" data-cy="input-username" name="student_username" placeholder="Username"
           value="{{request()->get('student_username')}}">
       </div>
       <div class="input-wrapper col">
-        <input type="number" class="form-control" name="student_class_year"
+        <input type="number" class="form-control" data-cy="input-student-class-year" name="student_class_year"
           value="{{request()->get('student_class_year')}}" placeholder="Tahun Angkatan">
       </div>
       <div class="input-wrapper col">
-        <select class="form-select" name="program_study_id">
+        <select data-cy="select-program-study" class="form-select" name="program_study_id">
           <option value="">Program Studi</option>
           @foreach ($prodys as $prody)
           <option value="{{$prody->id}}" @selected(request()->get('program_study_id') == $prody->id)>
@@ -62,7 +63,7 @@
         </select>
       </div>
       <div class="input-wrapper col">
-        <select class="form-select" name="submission_status">
+        <select class="form-select" data-cy="select-submission-status" name="submission_status">
           <option value="">Status Penyerahan</option>
           <option value="pending" @selected(request()->get('submission_status') == 'pending')>Pending</option>
           <option value="accepted" @selected(request()->get('submission_status') == 'accepted')>Diterima</option>
@@ -73,7 +74,7 @@
     <div class="btn-action-wrapper d-flex flex-column flex-lg-row justify-content-end gap-2 mt-2">
       <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black" @disabled($params->count() == 0)
         ><a href="{{route('document-management.index')}}" class="text-decoration-none text-black">Bersihkan</a></button>
-      <button type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
+      <button data-cy="btn-submit" type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
         Terapkan
       </button>
     </div>
@@ -127,7 +128,8 @@
         <tbody id="tableBody">
           @forelse ($documents as $document)
           <tr>
-            <td><input id="checkbox-item" name="thesisIDs[]" type="checkbox" value="{{$document->thesis_id}}"></td>
+            <td><input id="checkbox-item" data-cy="checkbox-thesis" name="thesisIDs[]" type="checkbox"
+                value="{{$document->thesis_id}}"></td>
             <td>{{$document->thesis_id}}</td>
             <td>{{$document->thesis_title}}</td>
             <td>{{$document->thesis_topic}}</td>
@@ -139,12 +141,12 @@
               "Pending" : "-"}}</td>
             <td>
               <div class="wrapper d-flex gap-1">
-                <div class="btn fw-medium btn-danger border-danger delete-btn" data-bs-toggle="modal"
+                <div class="btn fw-medium btn-danger border-danger btn-delete" data-bs-toggle="modal"
                   data-bs-target="#deleteModal" data-title="{{$document->thesis_title}}"
                   data-delete-link="{{route('document-management.destroy', $document->thesis_id)}}">
                   Hapus</div>
                 <a href="{{route('document-management.edit', $document->thesis_id)}}"
-                  class="btn fw-medium text-black text-decoration-none btn-warning edit-btn">Edit</a>
+                  class="btn fw-medium btn-edit text-black text-decoration-none btn-warning edit-btn">Edit</a>
                 <a href="{{route('document-management.show', $document->thesis_id)}}"
                   class="btn fw-medium edit-btn btn-detail text-decoration-none text-white">Detail</a>
               </div>
@@ -161,12 +163,13 @@
     </form>
   </div>
   <div class="bulk-action-button-wrapper gap-2 d-flex flex-column mt-2 flex-md-row justify-content-md-end">
-    <button id="btn-declined" data-bs-toggle="modal" data-bs-target="#declineModal" disabled
+    <button data-cy="btn-thesis-dcd" id="btn-declined" data-bs-toggle="modal" data-bs-target="#declineModal" disabled
       class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-danger"
       data-update-link="{{route('document-management.update-submission-status', ['submission_status' => 'declined'])}}">
       Tolak Tugas
     </button>
-    <button id="btn-accepted" disabled class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-success"
+    <button data-cy="btn-thesis-acc" id="btn-accepted" disabled
+      class="col-12 fw-semibold col-md-3 col-lg-2 btn btn-bulk-action btn-success"
       data-update-link="{{route('document-management.update-submission-status', ['submission_status' => 'accepted'])}}">
       Terima Tugas
     </button>
@@ -177,8 +180,7 @@
 </div>
 
 <!-- Decline Modal -->
-<div class="modal fade" id="declineModal" data-bs-backdrop="static" tabindex="-2" aria-labelledby="staticBackdropLabel"
-  aria-hidden="true">
+<div class="modal fade" id="declineModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -188,12 +190,13 @@
       <div class="modal-body">
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Catatan</label>
-          <textarea class="form-control" id="declineThesisNote" name="note" rows="3"></textarea>
+          <textarea data-cy="textarea-note" class="form-control" id="declineThesisNote" name="note" rows="3"></textarea>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button type="submit" id="thesisDeclineBtn" class="btn btn-submit btn-warning">Submit</button>
+        <button data-cy="btn-thesis-dcd-submit" type="submit" id="thesisDeclineBtn"
+          class="btn btn-submit fw-bold btn-warning">Submit</button>
       </div>
     </div>
   </div>
@@ -210,12 +213,12 @@
       <div class="modal-body">
         <h4 class="text-center">Apakah anda yakin menghapus tugas akhir <span class="document-title"></span> ?</h4>
       </div>
-      <form action="" method="post" id="deleteForm">
+      <form action="" method="post" id="deleteForm" class="modal-footer">
         @method('delete')
         @csrf
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="deletecriteria" class="btn btn-submit btn-danger">Hapus</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="submit" data-cy="btn-delete-confirm" id="deletecriteria"
+          class="btn btn-delete-confirm btn-submit btn-danger">Hapus</button>
       </form>
     </div>
   </div>
@@ -226,7 +229,7 @@
 <script src="{{asset('js/jquery.simple-checkbox-table.min.js')}}"></script>
 
 <script>
-  $(document).on('click', '.delete-btn', function(event){
+  $(document).on('click', '.btn-delete', function(event){
         let title = $(this).data('title');
         let deleteLink = $(this).data('delete-link');
 

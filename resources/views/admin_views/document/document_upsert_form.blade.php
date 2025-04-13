@@ -34,7 +34,7 @@
     <div class="mb-2">
       <label class="form-label">Username</label>
       <div class="input-group p-1 shadow-none">
-        <input type="text" list="authorListOption" class="form-control author-input" placeholder="Masukkan Username"
+        <input type="text" data-cy="input-username" class="form-control author-input" placeholder="Masukkan Username"
           name="username" value="{{old('username', isset($thesis) ? $thesis->student->username : '')}}" />
       </div>
     </div>

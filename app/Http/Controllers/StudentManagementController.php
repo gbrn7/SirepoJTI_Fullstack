@@ -55,11 +55,13 @@ class StudentManagementController extends Controller
             'program_study_id' => 'required',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
         ], [
+            'username.unique' => 'Username Sudah Digunakan',
             'username.required' => 'Username Wajib Diisi',
             'first_name.required' => 'Nama Depan Wajib Diisi',
             'last_name.required' => 'Nama Belakang Wajib Diisi',
             'gender.required' => 'Jenis Kelamin Wajib Diisi',
             'class_year.required' => 'Tahun Angkatan Wajib Diisi',
+            'email.unique' => 'Email Sudah Digunakan',
             'email.required' => 'Email Wajib Diisi',
             'password.required' => 'Password Wajib Diisi',
             'program_study_id.required' => 'Program Studi Wajib Diisi',
@@ -113,6 +115,9 @@ class StudentManagementController extends Controller
             'password' => 'nullable|min:6',
             'program_study_id' => 'nullable',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
+        ], [
+            'username.unique' => 'Username Sudah Digunakan',
+            'email.unique' => 'Email Sudah Digunakan',
         ]);
 
         if ($validator->fails()) return redirect()

@@ -35,17 +35,17 @@
   <form class="filter-wrapper d-flex col-12 col-lg-2 flex-column" action="{{route('dashboard.index')}}" method="get">
     <div class="input-wrapper mb-2">
       <label class="form-label">Tahun Publikasi</label>
-      <input type="text" class="form-control" name="publication_year" placeholder="Tahun Publikasi"
-        value="{{request()->get('publication_year')}}">
+      <input type="text" class="form-control" data-cy="input-publication-year" name="publication_year"
+        placeholder="Tahun Publikasi" value="{{request()->get('publication_year')}}">
     </div>
     <div class="input-wrapper mb-2">
       <label class="form-label">Tahun Angkatan</label>
-      <input type="text" class="form-control" name="student_class_year" placeholder="Tahun Publikasi"
-        value="{{request()->get('student_class_year')}}">
+      <input type="text" class="form-control" data-cy="input-class-year" name="student_class_year"
+        placeholder="Tahun Publikasi" value="{{request()->get('student_class_year')}}">
     </div>
     <div class="input-wrapper mb-2">
       <label class="form-label">Program Studi</label>
-      <select class="form-select" name="program_study_id">
+      <select data-cy="select-program-study" class="form-select" name="program_study_id">
         <option value="">Program Studi</option>
         @foreach ($prodys as $prody)
         <option value="{{$prody->id}}" @selected(request()->get('program_study_id') == $prody->id)>
@@ -56,7 +56,7 @@
     </div>
     <div class="input-wrapper mb-2">
       <label class="form-label">Topik Tugas Akhir</label>
-      <select class="form-select" name="topic_id">
+      <select data-cy="select-topic" class="form-select" name="topic_id">
         <option value="">Pilih Topik Tugas Akhir</option>
         @foreach ($topics as $topic)
         <option value="{{$topic->id}}" @selected(request()->get('topic_id') == $topic->id)>
@@ -67,7 +67,7 @@
     </div>
     <div class="input-wrapper mb-2">
       <label class="form-label">Dosen Pembimbing</label>
-      <select data-cy="input-lecturer" class="form-select" aria-label="Default select example" name="lecturer_id">
+      <select data-cy="select-lecturer" class="form-select" aria-label="Default select example" name="lecturer_id">
         <option value="">Pilih Dosen Pembimbing</option>
         @foreach ($lecturers as $lecturer)
         <option value="{{$lecturer->id}}" @selected(request()->get('lecturer_id') == $lecturer->id)>
@@ -78,18 +78,17 @@
     </div>
     <div class="input-wrapper mb-2">
       <label class="form-label">Jenis Tugas Akhir</label>
-      <select data-cy="input-thesis-type" class="form-select" aria-label="Default select example" name="type_id">
+      <select data-cy="select-thesis-type" class="form-select" aria-label="Default select example" name="type_id">
         <option value="">Pilih Jenis Tugas Akhir</option>
         @foreach ($types as $type)
-        <option value="{{$type->id}}" @selected(old('type_id', isset($thesis) ? $thesis->type_id :
-          '') ==$type->id)>
+        <option value="{{$type->id}}" @selected(request()->get('type_id') == $type->id)>
           {{$type->type}}
         </option>
         @endforeach
       </select>
     </div>
     <div class="action-wrapper mb-2">
-      <Button type="submit" class="btn btn-danger fw-semibold col-12 mb-2">Terapkan</Button>
+      <Button type="submit" data-cy="btn-submit" class="btn btn-danger fw-semibold col-12 mb-2">Terapkan</Button>
       <button class="btn btn-warning fw-semibold col-12" @disabled($params->count() == 0)><a
           href="{{route('dashboard.index')}}" class="text-decoration-none text-black">Bersihkan</a></button>
     </div>

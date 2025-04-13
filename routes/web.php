@@ -10,7 +10,6 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\StudentManagementController;
 use App\Http\Controllers\ThesisTopicController;
 use App\Http\Controllers\ThesisTypeController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,14 +64,14 @@ Route::group(['prefix' => 'home'], function () {
         });
 
         Route::group(['middleware' => ['role:admin']], function () {
-            Route::resource('thesis-topic', ThesisTopicController::class)->only([
+            Route::resource('thesis-topic-management', ThesisTopicController::class)->only([
                 'index',
                 'store',
                 'update',
                 'destroy'
             ]);
 
-            Route::resource('thesis-type', ThesisTypeController::class)->only([
+            Route::resource('thesis-type-management', ThesisTypeController::class)->only([
                 'index',
                 'store',
                 'update',

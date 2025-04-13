@@ -10,8 +10,20 @@
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('signIn', (username, password) => {
-  cy.visit('/signIn')
+Cypress.Commands.add('logInStudent', (username, password) => {
+  cy.visit('/logIn')
+
+  cy.get('input[name=username]').type(username)
+
+  // {enter} causes the form to submit
+  cy.get('input[name=password]').type(`${password}{enter}`, { log: false })
+
+  // we should be redirected to /dashboard
+  cy.url().should('include', '/')
+})
+
+Cypress.Commands.add('logInAdmin', (username, password) => {
+  cy.visit('/logIn/admin')
 
   cy.get('input[name=username]').type(username)
 

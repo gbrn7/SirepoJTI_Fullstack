@@ -66,6 +66,18 @@ class StudentSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now()
                 ],
+                [
+                    'program_study_id' => 1,
+                    'first_name' => 'fahmi',
+                    'last_name' => 'alfarizi',
+                    'gender' => 'male',
+                    'class_year' => 2021,
+                    'username' => '2141762098',
+                    'email' => $faker->email(),
+                    'password' => Hash::make('userpass'),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ],
             ];
 
 

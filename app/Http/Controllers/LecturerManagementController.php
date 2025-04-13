@@ -51,9 +51,11 @@ class LecturerManagementController extends Controller
             'password' => 'required|min:6',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
         ], [
+            'username.unique' => 'Username Sudah Digunakan',
             'username.required' => 'Username Wajib Diisi',
             'name.required' => 'Nama Wajib Diisi',
             'topic_id.required' => 'Topik Wajib Diisi',
+            'email.unique' => 'Email Sudah Digunakan',
             'email.required' => 'Email Wajib Diisi',
             'password.required' => 'Password Wajib Diisi',
         ]);
@@ -115,6 +117,9 @@ class LecturerManagementController extends Controller
             'email' => 'nullable|email|unique:lecturers,email',
             'password' => 'nullable|min:6',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
+        ], [
+            'username.unique' => 'Username Sudah Digunakan',
+            'email.unique' => 'Email Sudah Digunakan',
         ]);
 
         if ($validator->fails()) return redirect()

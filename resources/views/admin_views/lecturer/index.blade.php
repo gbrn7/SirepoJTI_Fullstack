@@ -28,23 +28,25 @@
   @endphp
   <div class="action-wrapper d-lg-flex mt-3 justify-content-between align-items-end">
     <div class="wrapper d-flex gap-1">
-      <a href="{{route('lecturer-management.create')}}" class="btn btn-success">
+      <a href="{{route('lecturer-management.create')}}" data-cy="btn-link-add-lecturer" class="btn btn-success">
         <div class="wrapper d-flex gap-2 align-items-center">
           <i class="ri-add-line"></i>
           <span class="fw-medium">Tambah Data</span>
         </div>
       </a>
 
-      <div class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#importModal">
+      <div class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-cy="btn-import-excel"
+        data-bs-target="#importModal">
         <i class="ri-file-excel-2-line"></i><span>Impor Excel</span>
       </div>
     </div>
     <div class="wrapper mt-2 mt-lg-0">
       <form action="{{route('lecturer-management.index')}}" method="get">
         <div class="input-group">
-          <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="name" />
-          <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
-            id="basic-addon2">
+          <input type="text" data-cy="input-name" class="form-control py-2 px-3 search-input border-0"
+            placeholder="Telusuri" name="name" />
+          <button data-cy="btn-submit" type="submit"
+            class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3" id="basic-addon2">
             <i class="ri-search-line"></i>
           </button>
         </div>
@@ -84,14 +86,14 @@
           <td>{{$lecturer->topic->topic}}</td>
           <td>
             <div class="d-flex gap-1">
-              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                data-name="{{$lecturer->name}}"
+              <div class="btn btn-danger btn-delete" data-cy="btn-delete" data-bs-toggle="modal"
+                data-bs-target="#deleteModal" data-name="{{$lecturer->name}}"
                 data-delete-link="{{route('lecturer-management.destroy', $lecturer->id)}}">
                 Hapus</div>
-              <a href="{{route('lecturer-management.edit', $lecturer->id)}}"
-                class="btn btn-warning edit-btn text-black">Edit</a>
-              <a href="{{route('lecturer-management.show', $lecturer->id)}}"
-                class="btn edit-btn btn-detail text-white">Detail</a>
+              <a data-cy="btn-edit" href="{{route('lecturer-management.edit', $lecturer->id)}}"
+                class="btn btn-edit btn-warning text-black">Edit</a>
+              <a data-cy="btn-detail" href="{{route('lecturer-management.show', $lecturer->id)}}"
+                class="btn btn-detail text-white">Detail</a>
             </div>
           </td>
         </tr>
@@ -127,7 +129,8 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger btn-submit">Hapus</button>
+          <button type="submit" id="deletecriteria" data-cy="btn-delete-confirm"
+            class="btn btn-danger btn-submit">Hapus</button>
       </form>
     </div>
   </div>
@@ -147,11 +150,13 @@
         <div class="modal-body">
           <div class="template-wrapper mb-2">
             <label class="form-label">Unduh Template</label>
-            <a href="{{route('getLecturerImportTemplate')}}" class="d-block">Template_Dosen.XLSX</a>
+            <a data-cy="btn-download-template" href="{{route('getLecturerImportTemplate')}}"
+              class="d-block">Template_Dosen.XLSX</a>
           </div>
           <div class="mb-2">
             <label class="form-label">Topik Spesialis</label>
-            <select class="form-select" aria-label="Default select example" name="topic_id" required>
+            <select class="form-select" data-cy="select-import-topic" aria-label="Default select example"
+              name="topic_id" required>
               <option value="">Pilih Topik Spesialis</option>
               @foreach ($topics as $topic)
               <option value="{{$topic->id}}">
@@ -162,12 +167,13 @@
           </div>
           <div class="mb-2">
             <label class="form-label">Unggah Data</label>
-            <input class="form-control" type="file" id="formFile" name="import_file" required />
+            <input class="form-control" data-cy="input-upload-template" type="file" id="formFile" name="import_file"
+              required />
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-success btn-submit">Submit</button>
+          <button type="submit" data-cy="btn-submit-template" class="btn btn-success fw-bold btn-submit">Submit</button>
         </div>
       </div>
     </form>
@@ -178,7 +184,7 @@
 
 @push('js')
 <script>
-  $(document).on('click', '.delete-btn', function(event){
+  $(document).on('click', '.btn-delete', function(event){
         let name = $(this).data('name');
         let deleteLink = $(this).data('delete-link');
 
