@@ -13,7 +13,7 @@ describe('Cek Fungsi Halaman Detail Dokumen', () => {
   })
 
   it('Cek perilaku sistem jika menekan tab "PDF"', () => {
-    cy.signIn('farhan12', 'userpass')
+    cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.visit('/home')
 
@@ -31,7 +31,7 @@ describe('Cek Fungsi Halaman Detail Dokumen', () => {
   })
 
   it('Cek perilaku sistem jika menekan salah satu link dokumen', () => {
-    cy.signIn('farhan12', 'userpass')
+    cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.visit('/home')
 

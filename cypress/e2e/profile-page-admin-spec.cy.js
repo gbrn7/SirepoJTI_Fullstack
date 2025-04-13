@@ -1,6 +1,6 @@
 describe('Cek Fungsi Halaman Profil', () => {
   it('Cek perilaku sistem jika mengupload gambar profil', () => {
-    cy.signIn('farhan12', 'userpass')
+    cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.get('[data-cy="btn-dropdown-account"]').click();
     cy.get('[data-cy="btn-edit-account"]').click();
@@ -21,7 +21,7 @@ describe('Cek Fungsi Halaman Profil', () => {
   })
 
   it('Cek perilaku sistem jika mengganti password dengan data yang benar', () => {
-    cy.signIn('farhan12', 'userpass')
+    cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.get('[data-cy="btn-dropdown-account"]').click();
     cy.get('[data-cy="btn-edit-account"]').click();
@@ -30,9 +30,9 @@ describe('Cek Fungsi Halaman Profil', () => {
       expect(loc.pathname).to.include('/home/user')
     })
 
-    cy.get('[data-cy="input-old-password"]').type('userpass')
-    cy.get('[data-cy="input-new-password"]').type('userpass1')
-    cy.get('[data-cy="input-confirm-new-password"]').type('userpass1')
+    cy.get('[data-cy="input-old-password"]').type('adminpass')
+    cy.get('[data-cy="input-new-password"]').type('adminpass1')
+    cy.get('[data-cy="input-confirm-new-password"]').type('adminpass1')
 
     cy.get('[data-cy="btn-edit-profile-submit"]').click();
 
@@ -47,7 +47,7 @@ describe('Cek Fungsi Halaman Profil', () => {
     cy.get('[data-cy="btn-dropdown-account"]').click();
     cy.get('[data-cy="btn-logout"]').click();
 
-    cy.signIn('farhan12', 'userpass1')
+    cy.logInAdmin('adminsirepojti', 'adminpass1')
 
     cy.get('[data-cy="btn-dropdown-account"]').click();
     cy.get('[data-cy="btn-edit-account"]').click();
@@ -56,9 +56,9 @@ describe('Cek Fungsi Halaman Profil', () => {
       expect(loc.pathname).to.include('/home/user')
     })
 
-    cy.get('[data-cy="input-old-password"]').type('userpass1')
-    cy.get('[data-cy="input-new-password"]').type('userpass')
-    cy.get('[data-cy="input-confirm-new-password"]').type('userpass')
+    cy.get('[data-cy="input-old-password"]').type('adminpass1')
+    cy.get('[data-cy="input-new-password"]').type('adminpass')
+    cy.get('[data-cy="input-confirm-new-password"]').type('adminpass')
 
     cy.get('[data-cy="btn-edit-profile-submit"]').click();
 
@@ -70,7 +70,7 @@ describe('Cek Fungsi Halaman Profil', () => {
   })
 
   it('Cek perilaku sistem jika pengulangan password tidak sama dengan data yang valid', () => {
-    cy.signIn('farhan12', 'userpass')
+    cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.get('[data-cy="btn-dropdown-account"]').click();
     cy.get('[data-cy="btn-edit-account"]').click();
@@ -79,9 +79,9 @@ describe('Cek Fungsi Halaman Profil', () => {
       expect(loc.pathname).to.include('/home/user')
     })
 
-    cy.get('[data-cy="input-old-password"]').type('userpass')
-    cy.get('[data-cy="input-new-password"]').type('userpass1')
-    cy.get('[data-cy="input-confirm-new-password"]').type('userpass2')
+    cy.get('[data-cy="input-old-password"]').type('adminpass')
+    cy.get('[data-cy="input-new-password"]').type('adminpass1')
+    cy.get('[data-cy="input-confirm-new-password"]').type('adminpass2')
 
     cy.get('[data-cy="btn-edit-profile-submit"]').click();
 

@@ -36,19 +36,20 @@
     @csrf
     <div class="mb-2">
       <label class="form-label">Username</label>
-      <input type="text" class="form-control" placeholder="Masukkan Username" name="username"
+      <input type="text" data-cy="input-username" class="form-control" placeholder="Masukkan Username" name="username"
         {{Route::is('lecturer-management.create') ? 'required' : '' }}
         value="{{old('username', isset($lecturer) ? $lecturer->username : '')}}" />
     </div>
     <div class="mb-2">
       <label class="form-label">Nama</label>
-      <input type="text" class="form-control" placeholder="Masukkan Nama" name="name"
+      <input type="text" class="form-control" data-cy="input-name" placeholder="Masukkan Nama" name="name"
         {{Route::is('lecturer-management.create') ? 'required' : '' }}
         value="{{old('name', isset($lecturer) ? $lecturer->name : '')}}" />
     </div>
     <div class="mb-2">
       <label class="form-label">Topik Spesialis</label>
-      <select class="form-select" name="topic_id" {{Route::is('lecturer-management.create') ? 'required' : '' }}>
+      <select class="form-select" data-cy="select-topic" name="topic_id" {{Route::is('lecturer-management.create')
+        ? 'required' : '' }}>
         <option value="">Pilih Topik Spesialis</option>
         @foreach ($topics as $topic)
         <option value="{{$topic->id}}" @selected(old('topic_id', isset($lecturer) ? $lecturer->topic_id :
@@ -60,20 +61,21 @@
     </div>
     <div class="mb-2">
       <label class="form-label">Email</label>
-      <input type="email" class="form-control" placeholder="Masukkan Email" name="email"
+      <input type="email" class="form-control" data-cy="input-email" placeholder="Masukkan Email" name="email"
         value="{{old('email', isset($lecturer) ? $lecturer->email : '')}}" />
     </div>
     <div class="mb-2">
       <label class="form-label">Password</label>
-      <input type="password" class="form-control" {{Route::is('lecturer-management.create') ? 'required' : '' }}
-        placeholder="Masukkan Password" name="password" />
+      <input type="password" class="form-control" data-cy="input-password" {{Route::is('lecturer-management.create')
+        ? 'required' : '' }} placeholder="Masukkan Password" name="password" />
     </div>
     <div class="mb-2">
       <label for="formFile" class="form-label">Gambar Profil</label>
-      <input class="form-control" type="file" id="formFile" name="profile_picture" />
+      <input class="form-control" type="file" id="formFile" data-cy="input-profile-picture" name="profile_picture" />
     </div>
     <div class="wrapper d-flex justify-content-end">
-      <button class="btn btn-submit text-black px-5 btn-warning fw-semibold" type="submit">Submit</button>
+      <button data-cy="btn-submit" class="btn btn-submit text-black px-5 btn-warning fw-bold"
+        type="submit">Submit</button>
     </div>
   </form>
 </div>

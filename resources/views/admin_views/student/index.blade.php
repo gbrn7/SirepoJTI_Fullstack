@@ -35,29 +35,31 @@
       <a href="{{route('student-management.create')}}" class="btn btn-success">
         <div class="wrapper d-flex gap-2 align-items-center">
           <i class="ri-add-line"></i>
-          <span class="fw-medium">Tambah Data</span>
+          <span class="fw-medium" data-cy="btn-link-add-student">Tambah Data</span>
         </div>
       </a>
 
-      <div class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#importModal">
+      <div class="btn btn-success d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#importModal"
+        data-cy="btn-import-excel">
         <i class="ri-file-excel-2-line"></i><span>Impor Excel</span>
       </div>
     </div>
     <form method="GET" action="{{route('student-management.index')}}" class="mt-2">
       <div class="wrapper filter-wrapper d-flex flex-column flex-lg-row gap-1">
         <div class="input-wrapper col">
-          <input type="text" class="form-control" name="name" value="{{request()->get('name')}}" placeholder="Nama">
+          <input type="text" class="form-control" data-cy="input-name" name="name" value="{{request()->get('name')}}"
+            placeholder="Nama">
         </div>
         <div class="input-wrapper col">
-          <input type="text" class="form-control" name="username" placeholder="Username"
+          <input type="text" class="form-control" data-cy="input-username" name="username" placeholder="Username"
             value="{{request()->get('username')}}">
         </div>
         <div class="input-wrapper col">
-          <input type="number" class="form-control" name="class_year" value="{{request()->get('class_year')}}"
-            placeholder="Tahun Angkatan">
+          <input type="number" class="form-control" data-cy="input-class-year" name="class_year"
+            value="{{request()->get('class_year')}}" placeholder="Tahun Angkatan">
         </div>
         <div class="input-wrapper col">
-          <select class="form-select" name="program_study_id">
+          <select class="form-select" data-cy="select-program-study" name="program_study_id">
             <option value="">Program Studi</option>
             @foreach ($prodys as $prody)
             <option value="{{$prody->id}}" @selected(request()->get('program_study_id') == $prody->id)>
@@ -67,7 +69,7 @@
           </select>
         </div>
         <div class="input-wrapper col">
-          <select class="form-select" name="submission_status">
+          <select class="form-select" data-cy="select-submission-status" name="submission_status">
             <option value="">Status Penyerahan</option>
             <option value={{App\Support\Enums\SubmissionStatusEnum::PENDING->value}}
               @selected(request()->get('submission_status') ==
@@ -88,7 +90,7 @@
         <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black" @disabled($params->count() == 0)
           ><a href="{{route('student-management.index')}}"
             class="text-decoration-none text-black">Bersihkan</a></button>
-        <button type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
+        <button data-cy="btn-submit" type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
           Terapkan
         </button>
       </div>
@@ -152,14 +154,13 @@
           </td>
           <td>
             <div class="d-flex gap-1">
-              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
+              <div class="btn btn-delete btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
                 data-username="{{$student->username}}"
                 data-delete-link="{{route('student-management.destroy', $student->id)}}">
                 Delete</div>
               <a href="{{route('student-management.edit', $student->id)}}"
-                class="btn btn-warning edit-btn text-black">Edit</a>
-              <a href="{{route('student-management.show', $student->id)}}"
-                class="btn edit-btn btn-detail text-white">Detail</a>
+                class="btn btn-edit btn-warning text-black">Edit</a>
+              <a href="{{route('student-management.show', $student->id)}}" class="btn btn-detail text-white">Detail</a>
             </div>
           </td>
         </tr>
@@ -195,7 +196,8 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="submit" id="deletecriteria" class="btn btn-danger btn-submit">Delete</button>
+          <button type="submit" id="deletecriteria" data-cy="btn-delete-confirm"
+            class="btn btn-danger btn-submit">Delete</button>
       </form>
     </div>
   </div>
@@ -215,11 +217,13 @@
         <div class="modal-body">
           <div class="template-wrapper mb-2">
             <label class="form-label">Unduh Template</label>
-            <a href="{{route('getStudentImportTemplate')}}" class="d-block">Template_Mahasiswa.XLSX</a>
+            <a data-cy="btn-download-template" href="{{route('getStudentImportTemplate')}}"
+              class="d-block">Template_Mahasiswa.XLSX</a>
           </div>
           <div class="mb-2">
             <label class="form-label">Program Studi</label>
-            <select class="form-select" aria-label="Default select example" name="program_study_id" required>
+            <select class="form-select" data-cy="select-import-program-study" aria-label="Default select example"
+              name="program_study_id" required>
               <option value="">Pilih Program Studi</option>
               @foreach ($prodys as $prody)
               <option value="{{$prody->id}}">
@@ -230,12 +234,13 @@
           </div>
           <div class="mb-2">
             <label class="form-label">Unggah Data</label>
-            <input class="form-control" type="file" id="formFile" name="import_file" required />
+            <input class="form-control" data-cy="input-upload-template" type="file" id="formFile" name="import_file"
+              required />
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-success btn-submit">Submit</button>
+          <button type="submit" class="btn btn-success fw-bold btn-submit" data-cy="btn-submit-template">Submit</button>
         </div>
       </div>
     </form>
@@ -246,7 +251,7 @@
 
 @push('js')
 <script>
-  $(document).on('click', '.delete-btn', function(event){
+  $(document).on('click', '.btn-delete', function(event){
         let name = $(this).data('username');
         let deleteLink = $(this).data('delete-link');
 

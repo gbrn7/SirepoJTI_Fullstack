@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Imports\LecturerImport;
-use App\Imports\LecturerImportImport;
 use App\Models\Lecturer;
 use App\Support\Interfaces\Repositories\LecturerRepositoryInterface;
 use App\Support\Interfaces\Services\LecturerServiceInterface;
@@ -16,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Hash;
 
 class LecturerService implements LecturerServiceInterface
 {
@@ -67,6 +67,14 @@ class LecturerService implements LecturerServiceInterface
 
       $arrayOldData = $oldData->toArray();
       $newData = collection::make();
+
+      if (isset($reqData['old_password']) && isset($reqData['new_password'])) {
+        if (!(Hash::check($reqData['old_password'], $oldData->password))) {
+          throw new Exception('Password Lama Tidak Valid');
+        } else {
+          $newData->put('password', $reqData['new_password']);
+        }
+      }
 
       foreach ($arrayOldData as $key => $value) {
         if ($value != ($reqData[$key] ?? $value)) {

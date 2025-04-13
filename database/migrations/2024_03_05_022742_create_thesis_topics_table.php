@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('thesis_topics', function (Blueprint $table) {
             $table->id();
-            $table->string("topic");
+            $table->string("topic")->unique();
             $table->timestamps();
             $table->softDeletes();
         });

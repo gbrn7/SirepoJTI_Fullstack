@@ -13,7 +13,8 @@
       @if (Auth::guard('admin')->check() || Auth::guard('lecturer')->check())
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('dashboard.index')}}"><i class="ri-dashboard-fill nav-icon fs-5"></i><span class="Nav-text"
+          data-cy="btn-navbar-dashboard" href=" {{route('dashboard.index')}}"><i
+            class="ri-dashboard-fill nav-icon fs-5"></i><span class="Nav-text"
             data-cy="btn-navbar-thesis">Dashboard</span></a>
       </li>
       @endif
@@ -21,28 +22,28 @@
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
           href="{{route('document-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
-            class="Nav-text" data-cy="btn-navbar-thesis">Tugas Akhir</span></a>
+            class="Nav-text" data-cy="btn-navbar-thesis-admin" data-cy="btn-navbar-thesis-admin">Tugas Akhir</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('student-management.index')}}"><i class="ri-team-line nav-icon fs-5"></i><span
-            class="Nav-text">Mahasiswa</span></a>
+          data-cy="btn-navbar-student-admin" href="{{route('student-management.index')}}"><i
+            class="ri-team-line nav-icon fs-5"></i><span class="Nav-text">Mahasiswa</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('lecturer-management.index')}}"><i class="ri-group-2-line nav-icon fs-5"></i><span
-            class="Nav-text">Dosen</span></a>
+          data-cy="btn-navbar-lecturer-admin" href="{{route('lecturer-management.index')}}"><i
+            class="ri-group-2-line nav-icon fs-5"></i><span class="Nav-text">Dosen</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
-        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('thesis-topic.index')}}"><i class="ri-article-line nav-icon fs-5"></i><span
-            class="Nav-text">Topik
+        <a data-cy="btn-navbar-topic-admin" class="nav-link active d-flex align-items-center gap-2 text-white"
+          aria-current="page" href="{{route('thesis-topic-management.index')}}"><i
+            class="ri-article-line nav-icon fs-5"></i><span class="Nav-text">Topik
             Tugas Akhir</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
-        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('thesis-type.index')}}"><i class="ri-file-copy-2-fill nav-icon fs-5"></i><span
-            class="Nav-text">Jenis
+        <a data-cy="btn-navbar-type-admin" class="nav-link active d-flex align-items-center gap-2 text-white"
+          aria-current="page" href="{{route('thesis-type-management.index')}}"><i
+            class="ri-file-copy-2-fill nav-icon fs-5"></i><span class="Nav-text">Jenis
             Tugas Akhir</span></a>
       </li>
       @elseif (Auth::guard('student')->check())

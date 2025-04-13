@@ -62,22 +62,6 @@ class ThesisFileSeeder extends Seeder
                 "created_at" => now(),
                 "updated_at" => now(),
             ],
-            [
-                "thesis_id" => 4,
-                "label" => "Abstrak",
-                "file_name" => "Abstrak.pdf",
-                "sequence_num" => 1,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ],
-            [
-                "thesis_id" => 4,
-                "label" => "Bab I",
-                "file_name" => "Bab_I.pdf",
-                "sequence_num" => 2,
-                "created_at" => now(),
-                "updated_at" => now(),
-            ],
         ]);
     }
 }

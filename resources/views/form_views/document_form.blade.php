@@ -282,6 +282,5 @@
   </div>
 </div>
 <div class="wrapper d-flex justify-content-end">
-  <button class="btn btn-submit text-black px-5 btn-warning fw-semibold" data-cy="btn-submit"
-    type="submit">Submit</button>
+  <button class="btn btn-submit text-black px-5 btn-warning fw-bold" data-cy="btn-submit" type="submit">Submit</button>
 </div>

@@ -24,7 +24,7 @@
     <div class="wrapper">
       <a href="#" class="btn btn-success">
         <div class="wrapper d-flex gap-2 align-items-center" id="add" data-bs-toggle="modal"
-          data-bs-target="#addNewModal">
+          data-bs-target="#addNewModal" data-cy="btn-link-add-topic">
           <i class="ri-add-line"></i>
           <span class="fw-medium">Tambah Data</span>
         </div>
@@ -32,7 +32,8 @@
     </div>
     <div class="wrapper mt-2 mt-lg-0">
       <div class="input-group">
-        <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Telusuri" name="topic" />
+        <input data-cy="input-topic-name" type="text" class="form-control py-2 px-3 search-input border-0"
+          placeholder="Telusuri" name="topic" />
         <button type="submit" class="input-group-text btn btn-danger d-flex align-items-center fs-5 px-3"
           id="basic-addon2">
           <i class="ri-search-line"></i>
@@ -56,12 +57,13 @@
           <td>{{$topic->topic}}</td>
           <td>
             <div class="d-flex gap-1">
-              <div class="btn btn-danger delete-btn" data-bs-toggle="modal" data-bs-target="#deleteModal"
-                data-topic="{{$topic->topic}}" data-delete-link="{{route('thesis-topic.destroy', $topic->id)}}">
+              <div class="btn btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                data-topic="{{$topic->topic}}"
+                data-delete-link="{{route('thesis-topic-management.destroy', $topic->id)}}">
                 Delete</div>
               <div data-bs-toggle="modal" data-bs-target="#editModal"
-                data-edit-link="{{route('thesis-topic.update', $topic->id)}}" data-topic="{{$topic->topic}}"
-                class="btn btn-warning edit-btn text-black">Edit</div>
+                data-edit-link="{{route('thesis-topic-management.update', $topic->id)}}" data-topic="{{$topic->topic}}"
+                class="btn btn-warning btn-edit text-black">Edit</div>
             </div>
           </td>
         </tr>
@@ -84,17 +86,17 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('thesis-topic.store')}} class="form" id="addForm" method="POST">
+        <form action={{route('thesis-topic-management.store')}} class="form" id="addForm" method="POST">
           @csrf
           <div class="form-group mb-3">
             <label for="name" class="mb-1">Nama</label>
-            <input value="" required class="form-control" type="text" name="topic" id="topik"
+            <input value="" data-cy="input-topic" required class="form-control" type="text" name="topic" id="topik"
               placeholder="Masukkan nama topik" />
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-submit btn-success">Submit</button>
+        <button data-cy="btn-submit-store" type="submit" class="btn btn-submit btn-warning fw-bold">Submit</button>
       </div>
       </form>
     </div>
@@ -115,13 +117,14 @@
           @method('PUT')
           <div class="form-group mb-3">
             <label for="name" class="mb-1">Nama</label>
-            <input required class="form-control" type="text" name="topic" id="topic-edit"
+            <input data-cy="input-topic-edit" required class="form-control" type="text" name="topic" id="topic-edit"
               placeholder="Masukkan nama topik" />
           </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button type="submit" class="btn btn-warning btn-submit text-black">Submit</button>
+        <button type="submit" data-cy="btn-submit-update"
+          class="btn btn-warning btn-submit text-black fw-bold">Submit</button>
       </div>
       </form>
     </div>
@@ -144,7 +147,8 @@
         @csrf
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-          <button type="submit" id="deleteTopic" class="btn btn-submit btn-danger">Hapus</button>
+          <button type="submit" data-cy="btn-delete-confirm" id="deleteTopic"
+            class="btn btn-submit btn-danger">Hapus</button>
       </form>
     </div>
   </div>
@@ -155,7 +159,7 @@
 
 @push('js')
 <script>
-  $(document).on('click', '.edit-btn', function (event){
+  $(document).on('click', '.btn-edit', function (event){
           let topic = $(this).data('topic');
           let editLink = $(this).data('edit-link');
           $('#editmodal').modal('show');
@@ -174,7 +178,7 @@
           $('#editForm').attr('action', editLink);
       });
        
-      $(document).on('click', '.delete-btn', function(event){
+      $(document).on('click', '.btn-delete', function(event){
         let topic = $(this).data('topic');
         let deleteLink = $(this).data('delete-link');
 

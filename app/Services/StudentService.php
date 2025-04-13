@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
@@ -81,6 +82,14 @@ class StudentService implements StudentServiceInterface
 
       $arrayOldData = $oldData->toArray();
       $newData = collection::make();
+
+      if (isset($reqData['old_password']) && isset($reqData['new_password'])) {
+        if (!(Hash::check($reqData['old_password'], $oldData->password))) {
+          throw new Exception('Password Lama Tidak Valid');
+        } else {
+          $newData->put('password', $reqData['new_password']);
+        }
+      }
 
       foreach ($arrayOldData as $key => $value) {
         if ($value != ($reqData[$key] ?? $value)) {

@@ -148,7 +148,7 @@
   @if (Auth::guard('admin')->check())
   <div class="action-button-wrapper gap-2 d-flex flex-column mt-2 flex-md-row justify-content-md-end">
     <button data-bs-toggle="modal" data-bs-target="#declineModal"
-      class="btn fw-semibold btn-danger col-12 col-md-3 col-lg-2">
+      class="btn fw-semibold btn-danger col-12 col-md-3 col-lg-2" data-cy="btn-thesis-dcd">
       Tolak Tugas
     </button>
     <form action="{{route('document-management.update', $document->id)}}" method="post"
@@ -156,7 +156,7 @@
       @csrf
       @method('PUT')
       <input type="hidden" name="submission_status" value="accepted">
-      <button type="submit" class="btn btn-success fw-semibold col-12">
+      <button type="submit" class="btn btn-success fw-semibold col-12" data-cy="btn-thesis-acc">
         Terima Tugas
       </button>
     </form>
@@ -178,13 +178,15 @@
           <div class="modal-body">
             <div class="mb-3">
               <label for="exampleFormControlTextarea1" class="form-label">Catatan</label>
-              <textarea class="form-control" id="declineThesisNote" name="note" rows="3"></textarea>
+              <textarea data-cy="textarea-note" class="form-control" id="declineThesisNote" name="note"
+                rows="3"></textarea>
               <input type="hidden" name="submission_status" value="declined">
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-            <button type="submit" class="btn btn-submit btn-warning">Submit</button>
+            <button type="submit" class="btn btn-submit fw-bold btn-warning"
+              data-cy="btn-thesis-dcd-submit">Submit</button>
           </div>
         </div>
       </div>

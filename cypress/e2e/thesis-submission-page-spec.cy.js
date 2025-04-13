@@ -1,6 +1,6 @@
 describe('Cek Fungsi Halaman Tugas Akhir', () => {
   it('Cek perilaku sistem jika mengunggah dokumen tugas akhir', () => {
-    cy.signIn("farhan12", "userpass");
+    cy.logInStudent("farhan12", "userpass");
 
     cy.get('[data-cy="btn-navbar-toggler"]').click();
     cy.get('[data-cy="btn-navbar-thesis"]').click();
@@ -13,7 +13,6 @@ describe('Cek Fungsi Halaman Tugas Akhir', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal('/home/thesis-submission/create')
     })
-
 
     cy.get('[data-cy="input-title"]').type('test judul')
     cy.get('[data-cy="input-abstract"]').type('test abstract')

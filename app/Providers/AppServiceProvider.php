@@ -2,24 +2,28 @@
 
 namespace App\Providers;
 
+use App\Repositories\AdminRepository;
 use App\Repositories\LecturerRepository;
 use App\Repositories\ProgramStudyRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\ThesisRepository;
 use App\Repositories\ThesisTopicRepository;
 use App\Repositories\ThesisTypeRepository;
+use App\Services\AdminService;
 use App\Services\LecturerService;
 use App\Services\ProgramStudyService;
 use App\Services\StudentService;
 use App\Services\ThesisService;
 use App\Services\ThesisTopicService;
 use App\Services\ThesisTypeService;
+use App\Support\Interfaces\Repositories\AdminRepositoryInterface;
 use App\Support\Interfaces\Repositories\LecturerRepositoryInterface;
 use App\Support\Interfaces\Repositories\ProgramStudyRepositoryInterface;
 use App\Support\Interfaces\Repositories\StudentRepositoryInterface;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\Interfaces\Repositories\ThesisTopicRepositoryInterface;
 use App\Support\Interfaces\Repositories\ThesisTypeRepositoryInterface;
+use App\Support\Interfaces\Services\AdminServiceInterface;
 use App\Support\Interfaces\Services\LecturerServiceInterface;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
@@ -55,6 +59,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(LecturerRepositoryInterface::class, LecturerRepository::class);
         $this->app->bind(LecturerServiceInterface::class, LecturerService::class);
+
+        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
+        $this->app->bind(AdminServiceInterface::class, AdminService::class);
     }
 
     /**

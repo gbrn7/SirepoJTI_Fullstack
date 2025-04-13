@@ -16,7 +16,7 @@ class LecturerSeeder extends Seeder
         Lecturer::create([
             "topic_id" => 1,
             "name" => "Usman Nur Hasan",
-            "username" => "usmen",
+            "username" => "usmannurhasan",
             "email" => "usmen@gmail.com",
             "password" => Hash::make("userpass"),
             "created_at" => now(),

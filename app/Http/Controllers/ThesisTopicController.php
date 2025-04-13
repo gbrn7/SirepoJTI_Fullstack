@@ -32,8 +32,8 @@ class ThesisTopicController extends Controller
         $validator = Validator::make($request->all(), [
             'topic' => 'required|string|unique:thesis_topics,topic',
         ], [
-            'topic.required' => "Topik Wajib Diisi",
-            'topic.unique' => "Topik :input Telah Ditambahkan",
+            'topic.required' => "Data Topik Tugas Akhir Wajib Diisi",
+            'topic.unique' => "Data Topik Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {
@@ -46,7 +46,7 @@ class ThesisTopicController extends Controller
 
             $this->thesisTopicService->storeThesisTopic($data);
 
-            return redirect()->back()->with('toast_success', 'Data Topik Ditambahkan');
+            return redirect()->back()->with('toast_success', 'Data Topik Tugas Akhir Ditambahkan');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', $th->getMessage());
@@ -75,12 +75,12 @@ class ThesisTopicController extends Controller
 
             $isSuccess = $this->thesisTopicService->updateThesisTopic($ID, $data);
 
-            if (!$isSuccess) return redirect()->back();
+            if (!$isSuccess) return back();
 
-            return redirect()->back()->with('toast_success', 'Data Topik Diperbarui');
+            return back()->with('toast_success', 'Data Topik Tugas Akhir Diperbarui');
         } catch (\Throwable $th) {
             return back()
-                ->with('toast_error', 'Gagal Memperbarui Data Topik');
+                ->with('toast_error', 'Gagal Memperbarui Data Topik Tugas Akhir');
         }
     }
 
@@ -94,7 +94,7 @@ class ThesisTopicController extends Controller
 
             if (!$isSuccess) return redirect()->back();
 
-            return redirect()->back()->with('toast_success', 'Data Topik Dihapus');
+            return back()->with('toast_success', 'Data Topik Tugas Akhir Dihapus');
         } catch (\Throwable $th) {
             return back()
                 ->with('toast_error', 'Gagal Menghapus Data Topik');
