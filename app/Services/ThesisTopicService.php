@@ -29,7 +29,7 @@ class ThesisTopicService implements ThesisTopicServiceInterface
     try {
       $thesisTopic = $this->repository->getThesisTopicByID($ID);
 
-      if (!isset($thesisTopic)) throw new Exception('Data Topic Tidak Ditemukan');
+      if (!isset($thesisTopic)) throw new Exception('Data Topik Tidak Ditemukan');
 
       return  $this->repository->updateThesisTopic($thesisTopic, $data);
     } catch (\Throwable $th) {
@@ -42,7 +42,7 @@ class ThesisTopicService implements ThesisTopicServiceInterface
     try {
       $thesisTopic = $this->repository->getThesisTopicByID($ID);
 
-      if (!isset($thesisTopic)) throw new Exception('Data Topic Tidak Ditemukan');
+      if (!isset($thesisTopic)) throw new Exception('Data Topik Tidak Ditemukan');
 
       return  $this->repository->deleteThesisTopic($thesisTopic);
     } catch (\Throwable $th) {

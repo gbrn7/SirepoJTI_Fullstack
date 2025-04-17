@@ -11,7 +11,7 @@ interface LecturerRepositoryInterface
 {
   public function getLecturers(GetLecturerReqModel $params, bool $wantPaginate = true): Collection|Paginator;
   public function storeLecturer(array $data): Lecturer;
-  public function getLecturerByID(string $ID): Lecturer;
+  public function getLecturerByID(string $ID): ?Lecturer;
   public function updateLecturer(Lecturer $lecturer, array $reqData): bool;
   public function deleteLecturer(string $ID): ?Lecturer;
   public function insertLecturers(array $data);

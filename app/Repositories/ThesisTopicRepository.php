@@ -20,7 +20,7 @@ class ThesisTopicRepository implements ThesisTopicRepositoryInterface
     return ThesisTopic::create($data);
   }
 
-  public function getThesisTopicByID(string $ID): ThesisTopic
+  public function getThesisTopicByID(string $ID): ?ThesisTopic
   {
     return ThesisTopic::find($ID);
   }

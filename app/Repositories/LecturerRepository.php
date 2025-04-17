@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Lecturer;
 use App\Support\Interfaces\Repositories\LecturerRepositoryInterface;
 use App\Support\model\GetLecturerReqModel;
+use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 
@@ -32,7 +33,7 @@ class LecturerRepository implements LecturerRepositoryInterface
     return $lecturer;
   }
 
-  public function getLecturerByID(string $ID): Lecturer
+  public function getLecturerByID(string $ID): ?Lecturer
   {
     return Lecturer::with('topic')->find($ID);
   }
@@ -45,6 +46,8 @@ class LecturerRepository implements LecturerRepositoryInterface
   public function deleteLecturer(string $ID): ?Lecturer
   {
     $lecturer = Lecturer::find($ID);
+
+    if (!isset($lecturer)) throw new Exception("Data Dosen Tidak Ditemukan");
 
     $lecturer->delete($ID);
 

@@ -26,7 +26,7 @@ class DashboardController extends Controller
 
         $prodys = $this->prodyService->getProgramStudys();
         $topics = $this->thesisTopicService->getThesisTopics();
-        $lecturer = $this->lecturerService->getLecturers();
+        $lecturer = $this->lecturerService->getLecturers(null, false);
         $types = $this->thesisTypeService->getThesisTypes();
 
         $dashboard = $this->thesisService->getThesisDashboard($reqModel);

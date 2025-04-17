@@ -19,7 +19,7 @@ class ThesisTypeRepository implements ThesisTypeRepositoryInterface
     return ThesisType::create($data);
   }
 
-  public function getThesisTypeByID(string $ID): ThesisType
+  public function getThesisTypeByID(string $ID): ?ThesisType
   {
     return ThesisType::find($ID);
   }
