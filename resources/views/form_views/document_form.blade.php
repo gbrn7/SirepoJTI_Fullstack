@@ -107,8 +107,8 @@
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_1_file" data-cy="input-chapter-1-document" hidden id="input-file"
-            class="input-file">
+          <input type="file" value="BAB I" name="chapter_1_file" data-cy="input-chapter-1-document" hidden
+            id="input-file" class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>
