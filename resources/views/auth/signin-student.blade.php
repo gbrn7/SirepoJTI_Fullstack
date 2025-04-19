@@ -12,6 +12,6 @@
 
 @section('custom_link_label_second', 'Dosen')
 
-@section('background_url', asset('img/auth-user-hero.jpg'))
+@section('background_url', asset('img/student-signin-hero.jpg'))
 
 @section('bg-position-y', '80%')

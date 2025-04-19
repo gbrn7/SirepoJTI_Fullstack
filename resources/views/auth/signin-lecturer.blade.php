@@ -12,6 +12,6 @@
 
 @section('custom_link_label_second', 'Admin')
 
-@section('background_url', asset('img/auth-lecturer-hero.png'))
+@section('background_url', asset('img/lecturer-signin-hero.png'))
 
 @section('bg-position-y', '80%')

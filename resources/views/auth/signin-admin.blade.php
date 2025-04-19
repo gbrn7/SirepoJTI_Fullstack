@@ -12,4 +12,4 @@
 
 @section('custom_link_label_second', 'Mahasiswa')
 
-@section('background_url', asset('img/auth-admin-hero.jpg'))
+@section('background_url', asset('img/admin-signin-hero.jpg'))
