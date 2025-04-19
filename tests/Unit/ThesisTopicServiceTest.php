@@ -31,7 +31,7 @@ test('Store Thesis Topic With Not Pass Topic Name', function () {
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
     $thesisService->storeThesisTopic([]);
-})->throws(Exception::class, "Nama Topik Tugas Akhir Wajib Disertakan");
+})->throws(Exception::class, "Data Topik Tugas Akhir Wajib Disertakan");
 
 test('Store Thesis Topic', function () {
     $thesisTopic = ThesisTopic::factory()->make();
@@ -54,7 +54,7 @@ test('Store Thesis Topic With Null Deleted At Thesis Topic', function () {
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
     expect($thesisService->storeThesisTopic(["topic" => fake()->sentence()]))->tobe($thesisTopic);
-})->throws(Exception::class, "Nama Topik Tugas Akhir Telah Ditambahkan");
+})->throws(Exception::class, "Data Topik Tugas Akhir Telah Ditambahkan");
 
 test('Store Thesis Topic With Not Null Deleted At Thesis Topic', function () {
     $thesisTopic = ThesisTopic::factory()->make([

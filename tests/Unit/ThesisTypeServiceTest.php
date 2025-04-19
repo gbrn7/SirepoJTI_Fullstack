@@ -31,7 +31,7 @@ test('Store Thesis Type With Not Pass Type Name', function () {
     $thesisService = new ThesisTypeService($thesisTypeMockRepo);
 
     $thesisService->storeThesisType([]);
-})->throws(Exception::class, "Nama Jenis Tugas Akhir Wajib Disertakan");
+})->throws(Exception::class, "Data Jenis Tugas Akhir Wajib Disertakan");
 
 test('Store Thesis Type', function () {
     $ThesisType = ThesisType::factory()->make();
@@ -54,7 +54,7 @@ test('Store Thesis Type With Null Deleted At Thesis Type', function () {
     $thesisService = new ThesisTypeService($thesisTypeMockRepo);
 
     expect($thesisService->storeThesisType(["type" => fake()->sentence()]))->tobe($thesisType);
-})->throws(Exception::class, "Nama Jenis Tugas Akhir Telah Ditambahkan");
+})->throws(Exception::class, "Data Jenis Tugas Akhir Telah Ditambahkan");
 
 test('Store Thesis Type With Not Null Deleted At Thesis Type', function () {
     $thesisType = ThesisType::factory()->make([

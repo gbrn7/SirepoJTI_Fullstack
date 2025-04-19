@@ -22,14 +22,14 @@ class ThesisTopicService implements ThesisTopicServiceInterface
   public function storeThesisTopic(array $data): ThesisTopic
   {
     try {
-      if (!isset($data['topic'])) throw new Exception("Nama Topik Tugas Akhir Wajib Disertakan");
+      if (!isset($data['topic'])) throw new Exception("Data Topik Tugas Akhir Wajib Disertakan");
 
       $thesisTopic = $this->repository->getThesisTopicByTopicName($data['topic']);
 
       if (!$thesisTopic) {
         return $this->repository->storeThesisTopic($data);
       } else if (!$thesisTopic->deleted_at) {
-        throw new Exception("Nama Topik Tugas Akhir Telah Ditambahkan");
+        throw new Exception("Data Topik Tugas Akhir Telah Ditambahkan");
       }
 
       $data = [

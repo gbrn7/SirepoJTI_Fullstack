@@ -22,14 +22,14 @@ class ThesisTypeService implements ThesisTypeServiceInterface
   public function storeThesisType(array $data): ThesisType
   {
     try {
-      if (!isset($data['type'])) throw new Exception("Nama Jenis Tugas Akhir Wajib Disertakan");
+      if (!isset($data['type'])) throw new Exception("Data Jenis Tugas Akhir Wajib Disertakan");
 
       $thesisType = $this->repository->getThesisTypeByTypeName($data['type']);
 
       if (!$thesisType) {
         return $this->repository->storeThesisType($data);
       } else if (!$thesisType->deleted_at) {
-        throw new Exception("Nama Jenis Tugas Akhir Telah Ditambahkan");
+        throw new Exception("Data Jenis Tugas Akhir Telah Ditambahkan");
       }
 
       $data = [
