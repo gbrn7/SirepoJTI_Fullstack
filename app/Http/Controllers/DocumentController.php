@@ -50,7 +50,7 @@ class DocumentController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers();
+        $lecturers = $this->lecturerService->getLecturers(null, false);
 
         return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers'));
     }
@@ -61,11 +61,11 @@ class DocumentController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers();
+        $lecturers = $this->lecturerService->getLecturers(null, false);
 
         $thesis = $this->thesisService->getThesisByID($id);
 
-        if (!$thesis) return back()->with('toast_error', 'Tugas akhir tidak ditemukan');
+        if (!$thesis) return back()->with('toast_error', 'Tugas Akhir Tidak Ditemukan');
 
         return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers', 'thesis'));
     }
@@ -221,7 +221,7 @@ class DocumentController extends Controller
     {
         $document = $this->thesisService->getDetailDocument($ID);
 
-        if (!$document) return back()->with('toast_error', 'Document Not Found');
+        if (!$document) return back()->with('toast_error', 'Dokumen Tidak Ditemukan');
 
         return view('admin_views.document.detail_document', ['document' => $document]);
     }
@@ -239,20 +239,43 @@ class DocumentController extends Controller
         return view('public_views.detail_document', ['document' => $document]);
     }
 
-    public function downloadDocument(string $fileName)
+    public function downloadDocument(string $ID, Request $request)
     {
-        // Get document from storage
-        $file = $this->thesisService->downloadDocument($fileName);
-        if (!$file) return back()->with('toast_error', 'Document Not Found');
+        $validator = Validator::make($request->all(), [
+            'file_name' => 'required',
+        ], [
+            'file_name.required' => "Nama File Wajib Disertakan",
+        ]);
 
-        $response = Response::make($file, 200);
-        $response->header('Content-Type', 'application/pdf');
-        $response->header('Content-disposition', 'inline; filename="' . $fileName . '.pdf"');
+        if ($validator->fails()) {
+            return back()
+                ->withInput()
+                ->with('toast_error', join(', ', $validator->messages()->all()));
+        }
 
-        return $response;
+        try {
+            // Get document from storage
+            $fileName = $validator->safe()->file_name;
 
-        // Stream PDF
-        // return response()->file('storage/Document/'.$fileName);
+            //Update download count
+            $this->thesisService->updateThesisDownloadCount($ID);
+
+            //Download document
+            $file = $this->thesisService->downloadDocument($fileName);
+            if (!$file) return back()->with('toast_error', 'Document Not Found');
+
+            $response = Response::make($file, 200);
+            $response->header('Content-Type', 'application/pdf');
+            $response->header('Content-disposition', 'inline; filename="' . $fileName . '.pdf"');
+
+            return $response;
+
+            // Stream PDF
+            // return response()->file('storage/Document/'.$fileName);
+        } catch (\Throwable $th) {
+            return back()
+                ->with('toast_error', $th->getMessage());
+        }
     }
 
     public function userDocument(Request $request, string $ID)

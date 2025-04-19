@@ -16,7 +16,8 @@ class ThesisType extends Model
     protected $fillable = [
         'type',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'deleted_at'
     ];
 
     public function thesistTypes(): HasMany

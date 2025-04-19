@@ -31,22 +31,22 @@ class Thesis extends Model
 
     public function topic(): BelongsTo
     {
-        return $this->belongsTo(ThesisTopic::class, 'topic_id', 'id');
+        return $this->belongsTo(ThesisTopic::class, 'topic_id', 'id')->withTrashed();
     }
 
     public function lecturer(): BelongsTo
     {
-        return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id');
+        return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id')->withTrashed();
     }
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(ThesisType::class, 'type_id', 'id');
+        return $this->belongsTo(ThesisType::class, 'type_id', 'id')->withTrashed();
     }
 
     public function student(): BelongsTo
     {
-        return $this->belongsTo(Student::class, 'student_id', 'id');
+        return $this->belongsTo(Student::class, 'student_id', 'id')->withTrashed();
     }
 
     public function files(): HasMany
@@ -103,7 +103,7 @@ class Thesis extends Model
             ->join('thesis_topics as tt', 'tt.id', 't.topic_id')
             ->join('thesis_types as tte', 'tte.id', 't.type_id')
             ->join('lecturers as l', 'l.id', 't.lecturer_id')
-            ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.program_study_id, ps.name as program_study_name, t.topic_id, tt.topic as thesis_topic, Year(t.created_at) as publication_year, tte.id as thesis_type_id, tte.type as thesis_type, t.lecturer_id, l.name as lecturer_name, s.class_year, s.gender')
+            ->selectRaw('t.id as thesis_id, t.student_id, t.submission_status, s.username, s.program_study_id, ps.name as program_study_name, t.topic_id, tt.topic as thesis_topic, Year(t.created_at) as publication_year, tte.id as thesis_type_id, tte.type as thesis_type, t.lecturer_id, l.name as lecturer_name, s.class_year, s.gender, t.download_count, t.title')
             ->orderBy('t.id', 'DESC');
     }
 }

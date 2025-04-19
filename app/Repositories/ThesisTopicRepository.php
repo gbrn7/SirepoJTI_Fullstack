@@ -20,7 +20,7 @@ class ThesisTopicRepository implements ThesisTopicRepositoryInterface
     return ThesisTopic::create($data);
   }
 
-  public function getThesisTopicByID(string $ID): ThesisTopic
+  public function getThesisTopicByID(string $ID): ?ThesisTopic
   {
     return ThesisTopic::find($ID);
   }
@@ -33,5 +33,10 @@ class ThesisTopicRepository implements ThesisTopicRepositoryInterface
   public function deleteThesisTopic(ThesisTopic $thesisTopic): bool
   {
     return $thesisTopic->delete();
+  }
+
+  public function getThesisTopicByTopicName(string $topicName): ?ThesisTopic
+  {
+    return ThesisTopic::where('topic', $topicName)->withTrashed()->first();
   }
 }

@@ -19,7 +19,7 @@ class ThesisTypeRepository implements ThesisTypeRepositoryInterface
     return ThesisType::create($data);
   }
 
-  public function getThesisTypeByID(string $ID): ThesisType
+  public function getThesisTypeByID(string $ID): ?ThesisType
   {
     return ThesisType::find($ID);
   }
@@ -32,5 +32,10 @@ class ThesisTypeRepository implements ThesisTypeRepositoryInterface
   public function deleteThesisType(ThesisType $thesisType): bool
   {
     return $thesisType->delete();
+  }
+
+  public function getThesisTypeByTypeName(string $typeName): ?ThesisType
+  {
+    return ThesisType::where('type', $typeName)->withTrashed()->first();
   }
 }

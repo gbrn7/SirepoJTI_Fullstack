@@ -67,7 +67,7 @@ describe('Cek fungsi halaman topik tugas akhir', () => {
       expect(loc.pathname).to.equal('/home/thesis-topic-management')
     })
 
-    cy.contains('Data Topik Tugas Akhir Cyber Security Telah Ditambahkan')
+    cy.contains('Data Topik Tugas Akhir Telah Ditambahkan')
   })
 
   it('Cek perilaku sistem jika edit data topik tugas akhir', () => {

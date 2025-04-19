@@ -44,7 +44,7 @@ class ThesisSubmissionController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers();
+        $lecturers = $this->lecturerService->getLecturers(null, false);
 
         return view('user_views.thesis_document_form', compact('topics', 'types', 'lecturers'));
     }
@@ -105,11 +105,9 @@ class ThesisSubmissionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $ID)
     {
-        $document = Thesis::with('user.programStudy.majority')
-            ->with('category')
-            ->find($id);
+        $document = $this->thesisService->getThesisByID($ID);
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
@@ -119,15 +117,15 @@ class ThesisSubmissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $ID)
     {
-        $topics = ThesisTopic::all();
+        $topics = $this->thesisTopicService->getThesisTopics();
 
-        $types = ThesisType::all();
+        $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = Lecturer::all();
+        $lecturers = $this->lecturerService->getLecturers(null, false);
 
-        $document = Thesis::find($id);
+        $document = $this->thesisService->getThesisByID($ID);
 
         if (!$document) return back()->with('toast_error', 'Document Not Found');
 
@@ -175,27 +173,6 @@ class ThesisSubmissionController extends Controller
             return redirect()->route('thesis-submission.index');
         } catch (\Throwable $th) {
             return back()->with('toast_error', $th->getMessage())->withInput();
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        try {
-            $thesis = Thesis::find($id);
-
-            if (!$thesis) return redirect()->route('thesis-submission.index')->with('toast_error', 'Document Not Found');
-
-            Storage::delete('document/' . $thesis->file_name);
-
-            $thesis->delete();
-
-            return redirect()->route('thesis-submission.index')->with('toast_success', 'Document deleted');
-        } catch (\Throwable $th) {
-            return back()
-                ->with('toast_error', $th->getMessage());
         }
     }
 }

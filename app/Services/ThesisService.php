@@ -161,6 +161,20 @@ class ThesisService implements ThesisServiceInterface
     }
   }
 
+  public function updateThesisDownloadCount(string $ID): bool
+  {
+    try {
+      $oldData = $this->repository->getThesisByID($ID);
+
+      if (!isset($oldData)) throw new Exception('Tugas Akhir Tidak Ditemukan');
+      $newData = ["download_count" => ($oldData->download_count + 1)];
+
+      return $this->repository->updateThesis($oldData, $newData);
+    } catch (\Throwable $th) {
+      throw $th;
+    }
+  }
+
   public function processThesisFile(string $fileName, string $filePathName)
   {
     $logo = public_path("img/POLINEMA.png");
@@ -218,7 +232,7 @@ class ThesisService implements ThesisServiceInterface
     $thesis = $this->repository->getThesisbyID($ID);
 
     if (!isset($thesis)) {
-      throw new Error('Tugas akhir tidak ditemukan');
+      throw new Error('Tugas Akhir Tidak Ditemukan');
     }
 
     $files = $thesis->files;
@@ -481,31 +495,11 @@ class ThesisService implements ThesisServiceInterface
     return $TopThesisTypePerClassYear;
   }
 
-  public function getThesisTotalPerPublicationYear(SupportCollection $data): SupportCollection
+  public function getThesisDownloadLeaderboard(SupportCollection $data): SupportCollection
   {
-    $thesisTotalPerPublicationYearRaw = $data->groupBy('publication_year')->map(function ($items) {
-      return $items->count();
-    });
+    $thesisDownloadLeaderboard = $data->sortByDesc('download_count')->take(5);
 
-    $thesisTypePerPublicationYear = collect();
-
-    foreach ($thesisTotalPerPublicationYearRaw as $key => $value) {
-      $item = collect(['label' => $key, 'value' => $value]);
-      $thesisTypePerPublicationYear->push($item);
-    }
-
-    $thesisTypePerPublicationYear = $thesisTypePerPublicationYear->sortByDesc('label');
-
-    $TopThesisTypePerPublicationYear  = $thesisTypePerPublicationYear->take(5);
-
-    if ($thesisTypePerPublicationYear->count() > 5) {
-      $otherThesis = $thesisTypePerPublicationYear->skip(5);
-      $otherCount = $otherThesis->sum('value');
-
-      $TopThesisTypePerPublicationYear->push(collect(['label' => 'Lainnya', 'value' => $otherCount]));
-    }
-
-    return $TopThesisTypePerPublicationYear;
+    return $thesisDownloadLeaderboard;
   }
 
   public function getThesisDashboard(GetThesisReqModel $reqModel)
@@ -520,7 +514,7 @@ class ThesisService implements ThesisServiceInterface
     $thesisTotalPerPrody = $this->getThesisTotalPerProgramStudyHztBarChart($dashboardData);
     $thesisTotalPerType = $this->ThesisTotalPerTypeHztBarChart($dashboardData);
     $thesisTotalPerClassYear = $this->getThesisTotalPerClassYear($dashboardData);
-    $thesisTotalPerPublicationYear = $this->getThesisTotalPerPublicationYear($dashboardData);
+    $thesisDownloadLeaderboard = $this->getThesisDownloadLeaderboard($dashboardData);
 
     return [
       'thesisTotalCount' => $thesisTotalCount,
@@ -531,7 +525,7 @@ class ThesisService implements ThesisServiceInterface
       'thesisTotalPerPrody' => $thesisTotalPerPrody,
       'thesisTotalPerType' => $thesisTotalPerType,
       'thesisTotalPerClassYear' => $thesisTotalPerClassYear,
-      'thesisTotalPerPublicationYear' => $thesisTotalPerPublicationYear,
+      'thesisDownloadLeaderboard' => $thesisDownloadLeaderboard,
     ];
   }
 }

@@ -67,7 +67,7 @@ describe('Cek fungsi halaman jenis tugas akhir', () => {
       expect(loc.pathname).to.equal('/home/thesis-type-management')
     })
 
-    cy.contains('Data Jenis Tugas Akhir Test Add Data Telah Ditambahkan')
+    cy.contains('Data Jenis Tugas Akhir Telah Ditambahkan')
   })
 
   it('Cek perilaku sistem jika edit data jenis tugas akhir', () => {

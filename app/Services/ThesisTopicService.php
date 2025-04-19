@@ -21,7 +21,27 @@ class ThesisTopicService implements ThesisTopicServiceInterface
 
   public function storeThesisTopic(array $data): ThesisTopic
   {
-    return $this->repository->storeThesisTopic($data);
+    try {
+      if (!isset($data['topic'])) throw new Exception("Data Topik Tugas Akhir Wajib Disertakan");
+
+      $thesisTopic = $this->repository->getThesisTopicByTopicName($data['topic']);
+
+      if (!$thesisTopic) {
+        return $this->repository->storeThesisTopic($data);
+      } else if (!$thesisTopic->deleted_at) {
+        throw new Exception("Data Topik Tugas Akhir Telah Ditambahkan");
+      }
+
+      $data = [
+        "deleted_at" => null
+      ];
+
+      $this->repository->updateThesisTopic($thesisTopic, $data);
+
+      return $thesisTopic;
+    } catch (\Throwable $th) {
+      throw $th;
+    }
   }
 
   public function updateThesisTopic(string $ID, array $data): bool
@@ -29,7 +49,7 @@ class ThesisTopicService implements ThesisTopicServiceInterface
     try {
       $thesisTopic = $this->repository->getThesisTopicByID($ID);
 
-      if (!isset($thesisTopic)) throw new Exception('Data Topic Tidak Ditemukan');
+      if (!isset($thesisTopic)) throw new Exception('Data Topik Tugas Akhir Tidak Ditemukan');
 
       return  $this->repository->updateThesisTopic($thesisTopic, $data);
     } catch (\Throwable $th) {
@@ -42,7 +62,7 @@ class ThesisTopicService implements ThesisTopicServiceInterface
     try {
       $thesisTopic = $this->repository->getThesisTopicByID($ID);
 
-      if (!isset($thesisTopic)) throw new Exception('Data Topic Tidak Ditemukan');
+      if (!isset($thesisTopic)) throw new Exception('Data Topik Tugas Akhir Tidak Ditemukan');
 
       return  $this->repository->deleteThesisTopic($thesisTopic);
     } catch (\Throwable $th) {

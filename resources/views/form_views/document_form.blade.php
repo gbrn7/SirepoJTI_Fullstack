@@ -102,13 +102,13 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" name=" chapter_1_label" required
-            disabled />
+          <input type="text" class="form-control" value="BAB I" placeholder="Masukan judul" name=" chapter_1_label"
+            required disabled />
         </div>
         <div class="file-wrapper">
           <label class="form-label d-block text-start">Dokumen</label>
-          <input type="file" name="chapter_1_file" data-cy="input-chapter-1-document" hidden id="input-file"
-            class="input-file">
+          <input type="file" value="BAB I" name="chapter_1_file" data-cy="input-chapter-1-document" hidden
+            id="input-file" class="input-file">
           <div class="img-view py-3 w-100 rounded rounded-2 d-flex justify-content-center align-items-center">
             <div class="default-view">
               <i class="ri-upload-cloud-2-fill upload-icon"></i>

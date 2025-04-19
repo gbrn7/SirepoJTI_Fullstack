@@ -25,6 +25,7 @@ interface ThesisServiceInterface
   public function storeThesis(string $studentID, array $data, UploadedFile|array|null $files);
   public function processThesisFile(string $fileName, string $filePathName);
   public function updateThesis(array $reqData, string $ID, UploadedFile|array|null $files);
+  public function updateThesisDownloadCount(string $ID): bool;
   public function destroyThesisByID(string $ID): bool;
   public function bulkUpdateSubmissionStatus(array $IDs, string $status, ?string $note): bool;
   public function getThesisTotalPerYearLineChart(SupportCollection $data): LarapexChart;
@@ -33,7 +34,7 @@ interface ThesisServiceInterface
   public function getThesisTotalPerLecturerPieChart(SupportCollection $data): LarapexChart;
   public function getThesisTotalPerProgramStudyHztBarChart(SupportCollection $data): LarapexChart;
   public function getThesisTotalPerClassYear(SupportCollection $data): SupportCollection;
-  public function getThesisTotalPerPublicationYear(SupportCollection $data): SupportCollection;
+  public function getThesisDownloadLeaderboard(SupportCollection $data): SupportCollection;
   public function ThesisTotalPerTypeHztBarChart(SupportCollection $data): LarapexChart;
   public function getThesisDashboard(GetThesisReqModel $reqModel);
 }

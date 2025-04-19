@@ -60,7 +60,7 @@
               <div class="btn btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal"
                 data-topic="{{$topic->topic}}"
                 data-delete-link="{{route('thesis-topic-management.destroy', $topic->id)}}">
-                Delete</div>
+                Hapus</div>
               <div data-bs-toggle="modal" data-bs-target="#editModal"
                 data-edit-link="{{route('thesis-topic-management.update', $topic->id)}}" data-topic="{{$topic->topic}}"
                 class="btn btn-warning btn-edit text-black">Edit</div>
@@ -140,7 +140,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h4 class="text-center">Apakah anda yakin menghapus topik<span class="topic-name"></span> ?</h4>
+        <h4 class="text-center">Apakah anda yakin menghapus topik <span class="topic-name"></span> ?</h4>
       </div>
       <form action="" class="form" method="post" id="deleteForm">
         @method('delete')
