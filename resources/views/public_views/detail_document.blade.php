@@ -96,8 +96,11 @@
             @foreach ($document->files as $file)
             <tr>
               <td>{{$loop->iteration}}</td>
-              <td> <a target="blank" href="{{route('detail.document.download', $file->file_name)}}"
-                  class="text-decoration-none" data-cy="link-document">{{$file->file_name}}</a>
+              <td>
+                <a target="blank" href="{{route('detail.document.download', 
+                ['thesis_id'=> $document->id, 'file_name'=>
+                  $file->file_name])}}" class="text-decoration-none" data-cy="link-document">{{$file->file_name}}
+                </a>
               </td>
               <td>
                 <p class="mb-0">{{$file->label}}</p>

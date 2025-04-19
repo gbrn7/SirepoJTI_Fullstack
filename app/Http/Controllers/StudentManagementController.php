@@ -133,7 +133,7 @@ class StudentManagementController extends Controller
             return redirect()->route('student-management.index')->with('toast_success', 'Data Mahasiswa Diperbarui');
         } catch (\Throwable $th) {
             return redirect()
-                ->route('student-management.create')
+                ->route('student-management.index')
                 ->withInput()
                 ->with('toast_error', $th->getMessage());
         }

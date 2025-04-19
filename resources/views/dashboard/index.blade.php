@@ -230,24 +230,24 @@
         </div>
         <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
           <div class="subtitle-wrapper">
-            <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Tahun Publikasi</p>
-            <p class="text-secondary subtitle-chart">Tabel Total Tugas Akhir Berdasarkan Tahun Publikasi</p>
+            <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Pengunduhan Tugas Akhir</p>
+            <p class="text-secondary subtitle-chart">Tabel Peringkat Tugas Akhir Berdasarkan Jumlah Pengunduhan</p>
           </div>
           <div class="chart-wrapper chart-table-wrapper col-12">
             <table class="table table-hover">
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Tahun Publikasi</th>
+                  <th>Judul</th>
                   <th>Jumlah</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($thesisTotalPerPublicationYear as $item)
+                @foreach ($thesisDownloadLeaderboard as $item)
                 <tr>
                   <td>{{$loop->iteration}}</td>
-                  <td>{{$item->get('label')}}</td>
-                  <td>{{$item->get('value')}}</td>
+                  <td>{{$item->title}}</td>
+                  <td>{{$item->download_count}}</td>
                 </tr>
                 @endforeach
               </tbody>

@@ -199,7 +199,7 @@ test('Update Thesis', function () {
 
     $thesisMockRepo->shouldReceive('getThesisByID')->andReturn($thesis);
 
-    $thesisMockRepo->shouldReceive('updateThesis')->andReturn(null);
+    $thesisMockRepo->shouldReceive('updateThesis')->andReturn(true);
 
     $data = [
         'topic_id' => fake()->randomNumber(),
@@ -272,6 +272,68 @@ test('Update Thesis Fails', function () {
     $thesisService = new ThesisService($thesisMockRepo, $thesisTopicMockRepo, $thesisTypeMockRepo, $lecturerMockRepo, $ProgramStudyMockRepo);
 
     expect($thesisService->updateThesis($data, fake()->randomNumber(), []))->toBeNull();
+})->throws(Exception::class);
+
+test('Update Download Count Thesis', function () {
+    $thesis = Thesis::factory()->make();
+
+    $thesisMockRepo = Mockery::mock(ThesisRepositoryInterface::class);
+    $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisTypeMockRepo = Mockery::mock(ThesisTypeRepositoryInterface::class);
+    $lecturerMockRepo = Mockery::mock(LecturerRepositoryInterface::class);
+    $ProgramStudyMockRepo = Mockery::mock(ProgramStudyRepositoryInterface::class);
+
+    $thesisMockRepo->shouldReceive('getThesisByID')->andReturn($thesis);
+
+    $thesisMockRepo->shouldReceive('updateThesis')->andReturn(true);
+
+    $data = [
+        'download_count' => ($thesis->download_count + 1),
+    ];
+
+    $thesisService = new ThesisService($thesisMockRepo, $thesisTopicMockRepo, $thesisTypeMockRepo, $lecturerMockRepo, $ProgramStudyMockRepo);
+
+    expect($thesisService->updateThesisDownloadCount(fake()->randomNumber(), $data))->toBeTrue();
+});
+
+test('Update Download Count Thesis Fails Get Thesis', function () {
+    $thesisMockRepo = Mockery::mock(ThesisRepositoryInterface::class);
+    $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisTypeMockRepo = Mockery::mock(ThesisTypeRepositoryInterface::class);
+    $lecturerMockRepo = Mockery::mock(LecturerRepositoryInterface::class);
+    $ProgramStudyMockRepo = Mockery::mock(ProgramStudyRepositoryInterface::class);
+
+    $thesisMockRepo->shouldReceive('getThesisbyID')->andReturn(null);
+
+    $data = [
+        'download_count' => fake()->randomNumber(),
+    ];
+
+    $thesisService = new ThesisService($thesisMockRepo, $thesisTopicMockRepo, $thesisTypeMockRepo, $lecturerMockRepo, $ProgramStudyMockRepo);
+
+    $thesisService->updateThesisDownloadCount(fake()->randomNumber(), $data);
+})->throws(Exception::class, 'Tugas Akhir Tidak Ditemukan');
+
+test('Update Download Count Thesis Fails', function () {
+    $thesis = Thesis::factory()->make();
+
+    $thesisMockRepo = Mockery::mock(ThesisRepositoryInterface::class);
+    $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisTypeMockRepo = Mockery::mock(ThesisTypeRepositoryInterface::class);
+    $lecturerMockRepo = Mockery::mock(LecturerRepositoryInterface::class);
+    $ProgramStudyMockRepo = Mockery::mock(ProgramStudyRepositoryInterface::class);
+
+    $thesisMockRepo->shouldReceive('getThesisByID')->andReturn($thesis);
+
+    $thesisMockRepo->shouldReceive('updateThesis')->andThrow(Exception::class);
+
+    $data = [
+        'download_count' => ($thesis->download_count + 1),
+    ];
+
+    $thesisService = new ThesisService($thesisMockRepo, $thesisTopicMockRepo, $thesisTypeMockRepo, $lecturerMockRepo, $ProgramStudyMockRepo);
+
+    $thesisService->updateThesisDownloadCount(fake()->randomNumber(), $data);
 })->throws(Exception::class);
 
 test('Get Detail Document By Student ID', function () {
@@ -525,7 +587,7 @@ test('Destroy Empty Thesis BY ID', function () {
     $thesisService = new ThesisService($thesisMockRepo, $thesisTopicMockRepo, $thesisTypeMockRepo, $lecturerMockRepo, $ProgramStudyMockRepo);
 
     $thesisService->destroyThesisByID(fake()->randomNumber());
-})->throws(Error::class, 'Tugas akhir tidak ditemukan');
+})->throws(Error::class, 'Tugas Akhir Tidak Ditemukan');
 
 test('Destroy Thesis BY ID Fails', function () {
     $thesis = Thesis::factory()->make();
@@ -1300,7 +1362,7 @@ test('Get Thesis Total Per Publication Year', function () {
         ],
     ]);
 
-    expect($thesisService->getThesisTotalPerPublicationYear($data))->toBeInstanceOf(SupportCollection::class);
+    expect($thesisService->getThesisDownloadLeaderboard($data))->toBeInstanceOf(SupportCollection::class);
 });
 
 test('Get Thesis Dashbaord', function () {

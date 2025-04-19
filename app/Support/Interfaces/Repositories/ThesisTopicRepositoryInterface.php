@@ -12,4 +12,5 @@ interface ThesisTopicRepositoryInterface
   public function getThesisTopicByID(string $ID): ?ThesisTopic;
   public function updateThesisTopic(ThesisTopic $thesisTopic, array $data): bool;
   public function deleteThesisTopic(ThesisTopic $thesisTopic): bool;
+  public function getThesisTopicByTopicName(string $topicName): ?ThesisTopic;
 }

@@ -22,6 +22,7 @@ class AdminFactory extends Factory
         return [
             'name' => fake()->name(),
             'username' => fake()->userName(),
+            'email' => fake()->email(),
             'password' => Hash::make('adminpass'),
             'created_at' => now(),
             'updated_at' => now(),

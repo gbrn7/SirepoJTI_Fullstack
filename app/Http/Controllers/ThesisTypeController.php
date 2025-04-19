@@ -29,10 +29,9 @@ class ThesisTypeController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'type' => 'required|string|unique:thesis_types,type',
+            'type' => 'required|string',
         ], [
             'type.required' => "Data Jenis Tugas Akhir Wajib Diisi",
-            'type.unique' => "Data Jenis Tugas Akhir :input Telah Ditambahkan",
         ]);
 
         if ($validator->fails()) {

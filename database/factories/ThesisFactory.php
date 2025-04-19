@@ -27,7 +27,7 @@ class ThesisFactory extends Factory
             'student_id' => Student::inRandomOrder()->first()->id,
             'title' => fake()->sentence(),
             'abstract' => fake()->text(),
-            'download_count' => fake()->randomNumber(),
+            'download_count' => 0,
             'submission_status' => fake()->randomElement([null, 0, 1]),
             'note' => fake()->text(),
             'created_at' => now(),

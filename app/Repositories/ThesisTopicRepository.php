@@ -34,4 +34,9 @@ class ThesisTopicRepository implements ThesisTopicRepositoryInterface
   {
     return $thesisTopic->delete();
   }
+
+  public function getThesisTopicByTopicName(string $topicName): ?ThesisTopic
+  {
+    return ThesisTopic::where('topic', $topicName)->withTrashed()->first();
+  }
 }

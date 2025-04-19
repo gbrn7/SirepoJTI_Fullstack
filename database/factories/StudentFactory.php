@@ -22,7 +22,7 @@ class StudentFactory extends Factory
             'program_study_id' => ProgramStudy::inRandomOrder()->first()->id,
             'first_name' => fake()->firstName(),
             'last_name' => fake()->lastName(),
-            'gender' => fake()->randomElement(['male', 'female']),
+            'gender' => fake()->randomElement(['Male', 'Female']),
             'class_year' => fake()->year(),
             'username' => fake()->userName(),
             'email' => fake()->email(),

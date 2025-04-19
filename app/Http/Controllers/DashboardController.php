@@ -44,7 +44,7 @@ class DashboardController extends Controller
             'thesisTotalPerPrody' => $dashboard['thesisTotalPerPrody'],
             'thesisTotalPerType' => $dashboard['thesisTotalPerType'],
             'thesisTotalPerClassYear' => $dashboard['thesisTotalPerClassYear'],
-            'thesisTotalPerPublicationYear' => $dashboard['thesisTotalPerPublicationYear'],
+            'thesisDownloadLeaderboard' => $dashboard['thesisDownloadLeaderboard'],
         ]);
     }
 }

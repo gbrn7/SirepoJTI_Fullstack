@@ -33,4 +33,9 @@ class ThesisTypeRepository implements ThesisTypeRepositoryInterface
   {
     return $thesisType->delete();
   }
+
+  public function getThesisTypeByTypeName(string $typeName): ?ThesisType
+  {
+    return ThesisType::where('type', $typeName)->withTrashed()->first();
+  }
 }

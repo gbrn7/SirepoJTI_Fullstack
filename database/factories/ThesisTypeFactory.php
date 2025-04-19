@@ -17,9 +17,7 @@ class ThesisTypeFactory extends Factory
     public function definition(): array
     {
         return [
-            'type' => fake()->randomElement(['Skripsi', 'Tesis', 'Desertasi']),
-            'created_at' => now(),
-            'updated-at' => now()
+            'type' => fake()->sentence(),
         ];
     }
 }

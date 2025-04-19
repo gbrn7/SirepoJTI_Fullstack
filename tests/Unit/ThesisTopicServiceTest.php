@@ -26,25 +26,49 @@ test('Get Thesis Topics Fails', function () {
     $thesisService->getThesisTopics();
 })->throws(Exception::class);
 
+test('Store Thesis Topic With Not Pass Topic Name', function () {
+    $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisService = new ThesisTopicService($thesisTopicMockRepo);
+
+    $thesisService->storeThesisTopic([]);
+})->throws(Exception::class, "Nama Topik Tugas Akhir Wajib Disertakan");
+
 test('Store Thesis Topic', function () {
     $thesisTopic = ThesisTopic::factory()->make();
 
     $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisTopicMockRepo->shouldReceive('getThesisTopicByTopicName')->andReturn(null);
     $thesisTopicMockRepo->shouldReceive('storeThesisTopic')->andReturn($thesisTopic);
 
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
-    expect($thesisService->storeThesisTopic([]))->tobe($thesisTopic);
+    expect($thesisService->storeThesisTopic(["topic" => fake()->sentence()]))->tobe($thesisTopic);
 });
 
-test('Store Thesis Topic Fails', function () {
+test('Store Thesis Topic With Null Deleted At Thesis Topic', function () {
+    $thesisTopic = ThesisTopic::factory()->make();
+
     $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
-    $thesisTopicMockRepo->shouldReceive('storeThesisTopic')->andThrow(Exception::class);
+    $thesisTopicMockRepo->shouldReceive('getThesisTopicByTopicName')->andReturn($thesisTopic);
 
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
-    $thesisService->storeThesisTopic([]);
-})->throws(Exception::class);
+    expect($thesisService->storeThesisTopic(["topic" => fake()->sentence()]))->tobe($thesisTopic);
+})->throws(Exception::class, "Nama Topik Tugas Akhir Telah Ditambahkan");
+
+test('Store Thesis Topic With Not Null Deleted At Thesis Topic', function () {
+    $thesisTopic = ThesisTopic::factory()->make([
+        "deleted_at" => now()
+    ]);
+
+    $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
+    $thesisTopicMockRepo->shouldReceive('getThesisTopicByTopicName')->andReturn($thesisTopic);
+    $thesisTopicMockRepo->shouldReceive('updateThesisTopic')->andReturnTrue();
+
+    $thesisService = new ThesisTopicService($thesisTopicMockRepo);
+
+    expect($thesisService->storeThesisTopic(["topic" => fake()->sentence()]))->tobe($thesisTopic);
+});
 
 test('Update Thesis Topic', function () {
     $thesisTopic = ThesisTopic::factory()->make();
@@ -65,7 +89,7 @@ test('Update Thesis Topic Fails Get Thesis', function () {
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
     $thesisService->updateThesisTopic(fake()->randomNumber(), []);
-})->throws(Exception::class, 'Data Topik Tidak Ditemukan');
+})->throws(Exception::class, 'Data Topik Tugas Akhir Tidak Ditemukan');
 
 test('Update Thesis Topic Error Get Thesis', function () {
     $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);
@@ -107,7 +131,7 @@ test('Delete Thesis Topic Fails Get Thesis', function () {
     $thesisService = new ThesisTopicService($thesisTopicMockRepo);
 
     $thesisService->deleteThesisTopic(fake()->randomNumber());
-})->throws(Exception::class, 'Data Topik Tidak Ditemukan');
+})->throws(Exception::class, 'Data Topik Tugas Akhir Tidak Ditemukan');
 
 test('Delete Thesis Topic Error Get Thesis', function () {
     $thesisTopicMockRepo = Mockery::mock(ThesisTopicRepositoryInterface::class);

@@ -30,10 +30,9 @@ class ThesisTopicController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'topic' => 'required|string|unique:thesis_topics,topic',
+            'topic' => 'required|string',
         ], [
-            'topic.required' => "Data Topik Tugas Akhir Wajib Diisi",
-            'topic.unique' => "Data Topik Tugas Akhir :input Telah Ditambahkan",
+            'topic.required' => "Data Topik Tugas Akhir Wajib Diisi"
         ]);
 
         if ($validator->fails()) {
@@ -62,7 +61,7 @@ class ThesisTopicController extends Controller
         $validator = Validator::make($request->all(), [
             'topic' => ['nullable', 'string', Rule::unique('thesis_topics')->ignore($ID)],
         ], [
-            'topic.unique' => "Topik :input telah ditambahkan",
+            'topic.unique' => "Data Topik Tugas Akhir :input telah ditambahkan",
         ]);
 
         if ($validator->fails()) {
