@@ -59,25 +59,25 @@
       <div class="tab-pane overview-wrapper fade show active" id="overview-tab-pane" role="tabpanel"
         aria-labelledby="home-tab" tabindex="0">
         <div class="info-wrapper abstract-wrapper mt-2">
-          <div class="title fw-medium">Abstract :</div>
+          <div class="title fw-medium">Abstrak :</div>
           <div class="body fw-light">
             {{$document->abstract}}
           </div>
         </div>
         <div class="info-wrapper date-publication-wrapper">
-          <div class="title fw-medium">Date Of publication :</div>
+          <div class="title fw-medium">Tanggal Publikasi :</div>
           <div class="body fw-light">{{$document->created_at->format('d F Y')}}</div>
         </div>
         <div class="info-wrapper author-wrapper">
-          <div class="title fw-medium">Author :</div>
-          <div class="body fw-light">{{$document->student->name}}</div>
+          <div class="title fw-medium">Penulis :</div>
+          <div class="body fw-light">{{$document->student->first_name." ".$document->student->last_name}}</div>
         </div>
         <div class="info-wrapper prody-wrapper">
-          <div class="title fw-medium">Program Study :</div>
+          <div class="title fw-medium">Program Studi :</div>
           <div class="body fw-light">{{$document->student->programStudy->name}}</div>
         </div>
         <div class="info-wrapper majority-wrapper">
-          <div class="title fw-medium">Majority :</div>
+          <div class="title fw-medium">Jurusan :</div>
           <div class="body fw-light">{{$document->student->programStudy->majority->name}}</div>
         </div>
       </div>
@@ -112,8 +112,7 @@
         @else
         <div class="sign-in-download-wrapper d-flex align-items-center gap-2 mt-2">
           <a href="{{route('signIn.student')}}" class="mb-0 text-decoration-none d-flex align-items-center gap-1"><i
-              class="ri-login-circle-line"></i>Sign
-            In To Download</a>
+              class="ri-login-circle-line"></i>Log In untuk mengunduh dokumen</a>
         </div>
         @endif
       </div>
