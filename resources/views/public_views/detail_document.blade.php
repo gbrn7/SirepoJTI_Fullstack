@@ -64,26 +64,37 @@
             {{$document->abstract}}
           </div>
         </div>
-        <div class="info-wrapper date-publication-wrapper">
-          <div class="title fw-medium">Tanggal Publikasi :</div>
-          <div class="body fw-light">{{$document->created_at->format('d F Y')}}</div>
-        </div>
-        <div class="info-wrapper author-wrapper">
-          <div class="title fw-medium">Penulis :</div>
-          <div class="body fw-light">{{$document->student->first_name." ".$document->student->last_name}}</div>
-        </div>
-        <div class="info-wrapper prody-wrapper">
-          <div class="title fw-medium">Program Studi :</div>
-          <div class="body fw-light">{{$document->student->programStudy->name}}</div>
-        </div>
-        <div class="info-wrapper majority-wrapper">
-          <div class="title fw-medium">Jurusan :</div>
-          <div class="body fw-light">{{$document->student->programStudy->majority->name}}</div>
+        <div class="wrapper row">
+          <div class="col-12 col-lg-6">
+            <div class="info-wrapper date-publication-wrapper">
+              <div class="title fw-medium">Tanggal Publikasi :</div>
+              <div class="body fw-light">{{$document->created_at->format('d F Y')}}</div>
+            </div>
+            <div class="info-wrapper author-wrapper">
+              <div class="title fw-medium">Penulis :</div>
+              <div class="body fw-light">{{$document->student->first_name." ".$document->student->last_name}}</div>
+            </div>
+            <div class="info-wrapper majority-wrapper">
+              <div class="title fw-medium">Jurusan :</div>
+              <div class="body fw-light">{{$document->student->programStudy->majority->name}}</div>
+            </div>
+            <div class="info-wrapper prody-wrapper">
+              <div class="title fw-medium">Program Studi :</div>
+              <div class="body fw-light">{{$document->student->programStudy->name}}</div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <div class="info-wrapper donwload-count-info-wrapper">
+              <div class="title fw-medium">Total Download :</div>
+              <div class="body fw-light">{{$document->download_count}} Kali</div>
+            </div>
+          </div>
+
         </div>
       </div>
       <div class="tab-pane fade document-link-wrapper" data-cy="wrapper-document-link" id="pdf-tab-pane" role="tabpanel"
         aria-labelledby="pdf-tab-pane" tabindex="0">
-        @if(Auth::user() || Auth::guard('admin')->user())
+        @if(Auth::user() || Auth::guard('admin')->user() || Auth::guard('lecturer')->user())
         <table class="table bg-white mt-3 table-bordered" data-cy="table-document-link">
           <thead>
             <tr>

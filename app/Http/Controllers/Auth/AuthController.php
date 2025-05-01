@@ -37,7 +37,8 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string',
             'password' => 'required',
-            'isAdmin' => 'nullable|boolean'
+            'isAdmin' => 'nullable|boolean',
+            'isLecturer' => 'nullable|boolean'
         ]);
 
         if ($validator->fails()) {
@@ -48,32 +49,32 @@ class AuthController extends Controller
 
         $credentials = $validator->safe()->only('username', 'password');
 
-
         if ($validator->safe()->only('isAdmin')) {
             // Auth::setDefaultDriver('admin');
-
-            if (Auth::guard('admin')->attempt($credentials)) {
-                $request->session()->regenerate();
-
-                return redirect()->route('welcome');
-            }
+            $auth = Auth::guard('admin');
+        } else if ($validator->safe()->only('isLecturer')) {
+            $auth = Auth::guard('lecturer');
         } else {
-            if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-
-                return redirect()->route('welcome');
-            }
+            $auth = Auth::guard('student');
         }
 
-        return back()->with('toast_error', 'Username or password invalid!');
+        if (!$auth->attempt($credentials)) {
+            return back()->with('toast_error', 'Username or password invalid!');
+        }
+
+        $request->session()->regenerate();
+
+        return redirect()->route('welcome');
     }
 
     public function signOut(Request $request)
     {
-        if (Auth::guard('student')->check()) {
-            Auth::guard('student')->logout();
-        } elseif (Auth::guard('admin')->check()) {
+        if (Auth::guard('admin')->check()) {
             Auth::guard('admin')->logout();
+        } elseif (Auth::guard('lecturer')->check()) {
+            Auth::guard('lecturer')->logout();
+        } else {
+            Auth::logout();
         }
 
         $request->session()->invalidate();

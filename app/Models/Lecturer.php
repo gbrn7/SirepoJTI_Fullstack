@@ -33,6 +33,10 @@ class Lecturer extends Authenticatable
         "password"
     ];
 
+    protected $casts = [
+        'password' => 'hashed',
+    ];
+
     public function thesis(): HasMany
     {
         return $this->hasMany(Thesis::class, "lecturer_id", "id");

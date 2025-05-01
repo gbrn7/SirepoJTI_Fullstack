@@ -2,7 +2,7 @@
 
 @section('title', 'Log In Dosen')
 
-@section('form_action', route('signIn.user.authenticate'))
+@section('form_action', route('signIn.user.authenticate', ['isLecturer' => true]))
 
 @section('custom_link_first', route('signIn.student'))
 

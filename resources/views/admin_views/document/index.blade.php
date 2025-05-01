@@ -133,7 +133,7 @@
             <td>{{$document->thesis_id}}</td>
             <td>{{$document->thesis_title}}</td>
             <td>{{$document->thesis_topic}}</td>
-            <td>{{$document->last_name.', '.$document->first_name}}</td>
+            <td class="text-capitalize">{{$document->last_name.', '.$document->first_name}}</td>
             <td>{{$document->program_study_name}}</td>
             <td>{{$document->username}}</td>
             <td>{{isset($document) ? isset($document?->submission_status) ? $document?->submission_status ? "Diterima":

@@ -34,6 +34,18 @@ Cypress.Commands.add('logInAdmin', (username, password) => {
   cy.url().should('include', '/')
 })
 
+Cypress.Commands.add('logInLecturer', (username, password) => {
+  cy.visit('/logIn/lecturer')
+
+  cy.get('input[name=username]').type(username)
+
+  // {enter} causes the form to submit
+  cy.get('input[name=password]').type(`${password}{enter}`, { log: false })
+
+  // we should be redirected to /dashboard
+  cy.url().should('include', '/')
+})
+
 //
 // -- This is a child command --
 // Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })

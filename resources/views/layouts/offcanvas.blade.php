@@ -21,7 +21,7 @@
       @if (Auth::guard('admin')->check())
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('document-management.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
+          href="{{route('document-management.index')}}"><i class="ri-article-line nav-icon fs-5"></i><span
             class="Nav-text" data-cy="btn-navbar-thesis-admin" data-cy="btn-navbar-thesis-admin">Tugas Akhir</span></a>
       </li>
       <li class="nav-item py-1 fw-light ps-3">
@@ -49,8 +49,14 @@
       @elseif (Auth::guard('student')->check())
       <li class="nav-item py-1 fw-light ps-3">
         <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
-          href="{{route('thesis-submission.index')}}"><i class="ri-article-fill nav-icon fs-5"></i><span
+          href="{{route('thesis-submission.index')}}"><i class="ri-article-line nav-icon fs-5"></i><span
             class="Nav-text" data-cy="btn-navbar-thesis">Tugas Akhir</span></a>
+      </li>
+      @elseif (Auth::guard('lecturer')->check())
+      <li class="nav-item py-1 fw-light ps-3">
+        <a class="nav-link active d-flex align-items-center gap-2 text-white" aria-current="page"
+          href="{{route('thesis-submission-lecturer.index')}}"><i class="ri-article-line nav-icon fs-5"></i><span
+            class="Nav-text" data-cy="btn-thesis-submission-lecturer">Tugas Akhir Bimbingan</span></a>
       </li>
       @endif
     </ul>

@@ -11,7 +11,7 @@
       </a>
     </div>
 
-    @if (auth()->user() || Auth::guard('admin')->user())
+    @if (auth()->user() || Auth::guard('admin')->user() || Auth::guard('lecturer')->user())
     <div class="dropdown" data-cy="btn-dropdown-account">
       <a class="nav-link d-flex gap-2 pt-3 pt-md-0 align-items-center justify-content-end dropdown-toggle"
         href="user-edit-profile.html" role="button" aria-current="page" data-bs-toggle="dropdown" aria-expanded="false">
@@ -23,21 +23,37 @@
         <img src="{{asset(Auth::guard('admin')->user()->profile_picture ? 'storage/profile/'.Auth::guard('admin')->user()->profile_picture
         :'img/default-profile.png')}}" class="img-fluid img-avatar" />
         @endauth
+        @auth('lecturer')
+        <img src="{{asset(Auth::guard('lecturer')->user()->profile_picture ? 'storage/profile/'.Auth::guard('lecturer')->user()->profile_picture
+        :'img/default-profile.png')}}" class="img-fluid img-avatar" />
+        @endauth
       </a>
+      @php
+      $user = auth()->user()
+      @endphp
       <ul class="dropdown-menu dropdown-menu-end px-2">
         <li class="rounded-2 dropdown-list">
           <p class="mb-0 text-white text-center">
             @auth('student')
-            {{auth()->user()->username}}
+            @php
+            $user = auth()->user()
+            @endphp
             @endauth
             @auth('admin')
-            {{Auth::guard('admin')->user()->username}}
+            @php
+            $user = Auth::guard('admin')->user()
+            @endphp
             @endauth
+            @auth('lecturer')
+            @php
+            $user = Auth::guard('lecturer')->user()
+            @endphp
+            @endauth
+            {{$user->username}}
           </p>
         </li>
         <li class="rounded-2 dropdown-list my-profile">
-          <a class="dropdown-item text-white rounded-2"
-            href="{{route('user.editProfile', Auth::user() ? Auth::user()->id : Auth::guard('admin')->user()->id)}}"
+          <a class="dropdown-item text-white rounded-2" href="{{route('user.editProfile', $user->id)}}"
             data-cy="btn-edit-account"><i class="ri-user-3-line me-2 text-white"></i>Edit Profil</a>
         </li>
         <li class="rounded-2 dropdown-list">

@@ -348,4 +348,17 @@ class DocumentController extends Controller
             return back()->with('toast_error', $th->getMessage())->withInput();
         }
     }
+
+    public function thesisSubmissionLecturer(Request $request)
+    {
+        $request->merge(['lecturer_id' => Auth::guard('lecturer')->user()->id]);
+
+        $reqModel = new GetThesisReqModel($request);
+
+        $documents = $this->thesisService->getThesis($reqModel, 10);
+
+        $prodys = $this->programStudyService->getProgramStudys();
+
+        return view('lecturer_views.index', ['documents' => $documents, 'prodys' => $prodys]);
+    }
 }

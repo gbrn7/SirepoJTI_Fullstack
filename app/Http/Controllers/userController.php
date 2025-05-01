@@ -34,6 +34,8 @@ class userController extends Controller
     {
         if (Auth::guard('admin')->check()) {
             $user = $this->adminService->getAdminByID($ID);
+        } else if (Auth::guard('lecturer')->check()) {
+            $user = $this->lecturerService->getLecturerByID($ID);
         } else {
             $user = $this->studentService->getStudentByID($ID);
         };
@@ -65,6 +67,8 @@ class userController extends Controller
         try {
             if (Auth::guard('admin')->check()) {
                 $this->adminService->updateAdmin($ID, $data);
+            } else if (Auth::guard('lecturer')->check()) {
+                $this->lecturerService->updateLecturer($ID, $data);
             } else {
                 $this->studentService->updateStudent($ID, $data);
             };

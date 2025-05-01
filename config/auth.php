@@ -119,7 +119,7 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
-        'admins' => [
+        'lecturers' => [
             'provider' => 'lecturers',
             'table' => 'password_reset_tokens',
             'expire' => 60,

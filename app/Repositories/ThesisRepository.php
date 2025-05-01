@@ -56,6 +56,9 @@ class ThesisRepository implements ThesisRepositoryInterface
       ->when($reqModel->studentID, function ($query) use ($reqModel) {
         return $query->where('t.student_id', $reqModel->studentID);
       })
+      ->when($reqModel->lecturerID, function ($query) use ($reqModel) {
+        return $query->where('t.lecturer_id', $reqModel->lecturerID);
+      })
       ->when($reqModel->publicationFrom, function ($query) use ($reqModel) {
         return $query->where('t.created_at', '>=', $reqModel->publicationFrom);
       })

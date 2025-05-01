@@ -46,7 +46,7 @@ Route::group(['prefix' => 'home'], function () {
 
     Route::group(['prefix' => 'document'], function () {
         Route::get('/{ID}', [DocumentController::class, 'detailDocument'])->name('detail.document');
-        Route::get('/download/{thesis_id}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download')->middleware('auth:student,admin');
+        Route::get('/download/{thesis_id}', [DocumentController::class, 'downloadDocument'])->name('detail.document.download')->middleware('auth:student,admin,lecturer');
         Route::get('/user/{id}', [DocumentController::class, 'userDocument'])->name('user.document');
         Route::get('/user/{id}/getSuggestionTitle', [DocumentController::class, 'getSuggestionTitle'])->name('user.document.getSuggestionTitle');
     });
@@ -99,6 +99,10 @@ Route::group(['prefix' => 'home'], function () {
             Route::resource('lecturer-management', LecturerManagementController::class);
             Route::get('/getLecturerImportTemplate', [LecturerManagementController::class, 'getLecturerImportTemplate'])->name('getLecturerImportTemplate');
             Route::post('lecturer-management/importLecturerExcelData', [LecturerManagementController::class, 'importLecturerExcelData'])->name('importLecturerExcelData');
+        });
+
+        Route::group(['middleware' => ['auth:lecturer']], function () {
+            route::get('/thesis-submission-lecturer', [DocumentController::class, 'thesisSubmissionLecturer'])->name('thesis-submission-lecturer.index');
         });
     });
 });

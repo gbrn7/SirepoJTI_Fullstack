@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Admin;
-use App\Models\Student;
 use App\Models\Thesis;
 use App\Support\Enums\SubmissionStatusEnum;
 use Illuminate\Support\Facades\Auth;
@@ -159,8 +158,6 @@ test('Edit submission status multiple document', function () {
 });
 
 test('Edit submission status multiple document fails', function () {
-    $thesis = Thesis::factory()->count(10)->create();
-
     $this->actingAs($this->admin);
 
     $response = $this->put(route('document-management.update-submission-status'), [
