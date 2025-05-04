@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Composer:Install",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "composer install",
+    },
+    {
+      "label": "Laravel Migrate Fresh & Seed",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan migrate:fresh --seed",
+    },
+    {
+      "label": "Laravel Serve",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan serve",
+    },
+    {
+      "label": "Laravel Serve",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan serve",
+    },
+    {
+      "label": "Laravel Run All Test",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan test",
+    },
+    {
+      "label": "Laravel Run Feature Test",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan test ./tests/Feature",
+    },
+    {
+      "label": "Laravel Run Unit Test",
+      "problemMatcher": [],
+      "type": "shell",
+      "command": "php artisan test ./tests/Unit",
+    },
+  ]
+}
