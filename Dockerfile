@@ -12,7 +12,7 @@ RUN apt-get update && apt-get install -y \
   && docker-php-ext-enable zip \
   && rm -rf /var/lib/apt/lists/*
 
-# Install Composer
+# Install Composer in docker
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set the working directory
