@@ -65,13 +65,21 @@
         </select>
       </div>
     </div>
-    <div class="btn-action-wrapper d-flex flex-column flex-lg-row justify-content-end gap-2 mt-2">
-      <button class="btn btn-warning fw-semibold col-12 col-lg-2 text-black" @disabled($params->count() == 0)
-        ><a href="{{route('thesis-submission-lecturer.index')}}"
-          class="text-decoration-none text-black">Bersihkan</a></button>
-      <button data-cy="btn-submit" type="submit" class="col-12 fw-semibold col-lg-2 btn btn-danger">
-        Terapkan
-      </button>
+    <div class="btn-action-wrapper d-flex flex-column flex-lg-row justify-content-between gap-2 mt-2">
+
+      <div data-cy="btn-modal-export" data-bs-toggle="modal" data-bs-target="#exportModal"
+        class="btn btn-success fw-semibold col-12 col-lg-2">
+        Ekspor Data
+      </div>
+      <div class="group col-12 col-lg-8 text-end">
+        <button class="btn btn-warning col-12 col-lg-3 fw-semibold text-black" @disabled($params->count() == 0)>
+          <a href="{{route('thesis-submission-lecturer.index')}}" class="text-decoration-none text-black">Bersihkan</a>
+        </button>
+        <button data-cy="btn-submit" type="submit" class="mt-1 mt-lg-0 col-12 col-lg-3 fw-semibold btn btn-danger">
+          Terapkan
+        </button>
+      </div>
+
     </div>
   </form>
   <div class="table-wrapper pb-5 mt-3">
@@ -140,6 +148,70 @@
   </div>
   <div class=" pagination-box d-flex justify-content-end mt-2">
     {{$documents->links('pagination::simple-bootstrap-5')}}
+  </div>
+</div>
+
+<!-- Export Modal -->
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel">Ekspor Data</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action={{route('export-students-guidance-thesis-status-data')}} class="form" id="addForm">
+          <div class="form-group mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Tahun Angkatan</label>
+            <input type="number" class="form-control" data-cy="input-student-class-year-export"
+              name="student_class_year" value="{{request()->get('student_class_year')}}" placeholder="Tahun Angkatan">
+          </div>
+          <div class="form-group mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Program Studi</label>
+            <select data-cy="select-program-study-export" class="form-select" name="program_study_id">
+              <option value="">Program Studi</option>
+              @foreach ($prodys as $prody)
+              <option value="{{$prody->id}}" @selected(request()->get('program_study_id') == $prody->id)>
+                {{$prody->name}}
+              </option>
+              @endforeach
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Status Penyerahan</label>
+            <select class="form-select" data-cy="select-submission-status-export" name="submission_status">
+              <option value="">Status Penyerahan</option>
+              <option value={{App\Support\Enums\SubmissionStatusEnum::PENDING->value}}
+                @selected(request()->get('submission_status') ==
+                App\Support\Enums\SubmissionStatusEnum::PENDING->value)>
+                Pending
+              </option>
+              <option value={{App\Support\Enums\SubmissionStatusEnum::ACCEPTED->value}}
+                @selected(request()->get('submission_status') ==
+                App\Support\Enums\SubmissionStatusEnum::ACCEPTED->value)>
+                Diterima
+              </option>
+              <option value={{App\Support\Enums\SubmissionStatusEnum::DECLINED->value}}
+                @selected(request()->get('submission_status') ==
+                App\Support\Enums\SubmissionStatusEnum::DECLINED->value)>
+                Ditolak
+              </option>
+            </select>
+          </div>
+          <div class="form-group mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Format Ekspor</label>
+            <select class="form-select" data-cy="select-submission-status-export" name="export_format">
+              <option value="excel">Excel</option>
+              <option value="pdf">PDF</option>
+            </select>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+        <button data-cy="btn-export-submit" type="submit" class="btn btn-submit btn-success fw-bold">Ekspor</button>
+      </div>
+      </form>
+    </div>
   </div>
 </div>
 

@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Exports\StudentsExport;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
+use App\Support\Interfaces\Services\ThesisServiceInterface;
 use App\Support\model\GetStudentReqModel;
+use App\Support\model\GetThesisReqModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
@@ -16,6 +19,7 @@ class StudentManagementController extends Controller
 
     public function __construct(
         protected  StudentServiceInterface $studentService,
+        protected  ThesisServiceInterface $thesisService,
         protected  ProgramStudyServiceInterface $prodyService,
     ) {}
     /**
@@ -220,35 +224,32 @@ class StudentManagementController extends Controller
 
         $reqModel = new GetStudentReqModel($request);
 
-        $students = $this->studentService->getStudents($reqModel, null);
+        return $this->studentService->exportStudentsData($request, $reqModel);
+    }
 
-        $processedData = collect();
-        foreach ($students as $value) {
-            $data = [
-                "username" => $value->username,
-                "name" => $value->first_name . " " . $value->last_name,
-                "program_study" => $value->programStudy->name,
-            ];
+    public function exportStudentsGuidanceData(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'student_class_year' => 'nullable',
+            'program_study_id' => 'nullable',
+            'submission_status' => 'nullable',
+            'export_format' => 'required|in:excel,pdf',
+        ], [
+            'export_format.required' => 'Format ekspor wajib disertakan',
+            'export_format.in' => 'Format ekspor tidak valid',
+        ]);
 
-            if (!$value->thesis) {
-                $submissionStatus = 'Belum Dikumpulkan';
-            } else if (!isset($value->thesis->submission_status)) {
-                $submissionStatus = 'Pending';
-            } else {
-                $submissionStatus = $value->thesis->submission_status ? "Diterima" : "Ditolak";
-            }
+        if ($validator->fails()) return redirect()
+            ->back()
+            ->withInput()
+            ->with('toast_error', join(', ', $validator->messages()->all()));
 
-            $data["submission_status"] = $submissionStatus;
+        $request->merge([
+            'lecturer_id' => Auth::user()->id,
+        ]);
 
-            $processedData->push($data);
-        }
+        $reqModel = new GetThesisReqModel($request);
 
-        if ($request->export_format == 'excel') {
-            return Excel::download(new StudentsExport($processedData), 'data-tugas-akhir-mahasiswa.xlsx');
-        } else {
-            $mpdf = new Mpdf();
-            $mpdf->WriteHTML(view("pdf.students-data-export", ['students' => $processedData]));
-            $mpdf->Output('data-status-tugas-akhir-mhs.pdf', 'D');
-        }
+        return $this->thesisService->exportStudentsGuidanceData($request, $reqModel);
     }
 }

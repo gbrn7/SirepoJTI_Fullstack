@@ -12,6 +12,7 @@ class GetStudentReqModel
   public ?string $classYear;
   public ?string $programStudyID;
   public ?string $submissionStatus;
+  public ?string $lecturerID;
 
   public function __construct(Request $request)
   {
@@ -21,5 +22,6 @@ class GetStudentReqModel
     $this->classYear = $request->class_year;
     $this->programStudyID = $request->program_study_id;
     $this->submissionStatus = $request->submission_status;
+    $this->lecturerID = $request->lecturer_id;
   }
 }

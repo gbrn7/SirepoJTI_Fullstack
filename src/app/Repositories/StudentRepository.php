@@ -44,7 +44,7 @@ class StudentRepository implements StudentRepositoryInterface
       })
       ->orderBy('id', 'DESC')
       ->when(!$paginatePage, fn($q) => $q->get())
-      ->when($paginatePage, fn($q) => $q->paginate(10));
+      ->when($paginatePage, fn($q) => $q->paginate($paginatePage));
   }
 
   public function getStudentByID(string $ID): ?Student

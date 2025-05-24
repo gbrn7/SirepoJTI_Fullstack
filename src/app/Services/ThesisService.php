@@ -8,6 +8,7 @@ use App\Charts\ThesisTotalPerProdyHztBarChart;
 use App\Charts\ThesisTotalPerTopicDonatChart;
 use App\Charts\ThesisTotalPerTypeHztBarChart;
 use App\Charts\ThesisTotalPerYearLineChart;
+use App\Exports\StudentsExport;
 use App\Models\Thesis;
 use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Repositories\LecturerRepositoryInterface;
@@ -24,11 +25,13 @@ use Error;
 use Exception;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 use Mpdf\Mpdf;
 
 class ThesisService implements ThesisServiceInterface
@@ -41,7 +44,7 @@ class ThesisService implements ThesisServiceInterface
     protected ProgramStudyRepositoryInterface $ProgramStudyRepository
   ) {}
 
-  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator
+  public function getThesis(GetThesisReqModel $reqModel, ?int $paginatePage = 5): Paginator|SupportCollection
   {
     return $this->repository->getThesis($reqModel, $paginatePage);
   }
@@ -527,5 +530,37 @@ class ThesisService implements ThesisServiceInterface
       'thesisTotalPerClassYear' => $thesisTotalPerClassYear,
       'thesisDownloadLeaderboard' => $thesisDownloadLeaderboard,
     ];
+  }
+
+  public function exportStudentsGuidanceData(Request $request, GetThesisReqModel $reqModel)
+  {
+    $documents = $this->getThesis($reqModel, null);
+
+    $processedData = collect();
+    foreach ($documents as $value) {
+      $data = [
+        "username" => $value->username,
+        "name" => $value->first_name . " " . $value->last_name,
+        "program_study" => $value->program_study_name,
+      ];
+
+      if (!isset($value->submission_status)) {
+        $submissionStatus = 'Pending';
+      } else {
+        $submissionStatus = $value->submission_status ? "Diterima" : "Ditolak";
+      }
+
+      $data["submission_status"] = $submissionStatus;
+
+      $processedData->push($data);
+    }
+
+    if ($request->export_format == 'excel') {
+      return Excel::download(new StudentsExport($processedData), 'data-tugas-akhir-mahasiswa.xlsx');
+    } else {
+      $mpdf = new Mpdf();
+      $mpdf->WriteHTML(view("pdf.students-data-export", ['students' => $processedData]));
+      return $mpdf->Output('data-status-tugas-akhir-mhs.pdf', 'D');
+    }
   }
 }

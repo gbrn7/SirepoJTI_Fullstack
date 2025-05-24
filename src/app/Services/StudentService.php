@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exports\StudentsExport;
 use App\Imports\StudentImport;
 use App\Models\Student;
 use App\Support\Interfaces\Repositories\StudentRepositoryInterface;
@@ -10,6 +11,7 @@ use App\Support\model\GetStudentReqModel;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +19,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
+use Mpdf\Mpdf;
 
 class StudentService implements StudentServiceInterface
 {
@@ -170,4 +173,41 @@ class StudentService implements StudentServiceInterface
       throw $th;
     }
   }
+
+  public function exportStudentsData(Request $request, GetStudentReqModel $reqModel)
+  {
+    $students = $this->getStudents($reqModel, null);
+
+    $processedData = collect();
+    foreach ($students as $value) {
+      $data = [
+        "username" => $value->username,
+        "name" => $value->first_name . " " . $value->last_name,
+        "program_study" => $value->programStudy->name,
+      ];
+
+      if (!$value->thesis) {
+        $submissionStatus = 'Belum Dikumpulkan';
+      } else if (!isset($value->thesis->submission_status)) {
+        $submissionStatus = 'Pending';
+      } else {
+        $submissionStatus = $value->thesis->submission_status ? "Diterima" : "Ditolak";
+      }
+
+      $data["submission_status"] = $submissionStatus;
+
+      $processedData->push($data);
+    }
+
+    if ($request->export_format == 'excel') {
+      return Excel::download(new StudentsExport($processedData), 'data-tugas-akhir-mahasiswa.xlsx');
+    } else {
+      $mpdf = new Mpdf();
+      $mpdf->WriteHTML(view("pdf.students-data-export", ['students' => $processedData]));
+
+      return $mpdf->Output('data-status-tugas-akhir-mhs.pdf', 'D');
+    }
+  }
+
+  public function exportStudentsGuidanceData(Request $request) {}
 }

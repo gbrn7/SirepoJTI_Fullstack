@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Support\model\GetStudentReqModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection as SupportCollection;
 
@@ -20,4 +21,5 @@ interface StudentServiceInterface
   public function updateStudent(string $ID, array $reqData);
   public function deleteStudent(string $ID);
   public function importExcel(string $programStudyID, UploadedFile|array|null $file);
+  public function exportStudentsData(Request $request, GetStudentReqModel $reqModel);
 }

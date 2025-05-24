@@ -10,7 +10,7 @@ use Illuminate\Support\Collection as SupportCollection;
 
 interface ThesisRepositoryInterface
 {
-  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator;
+  public function getThesis(GetThesisReqModel $reqModel, ?int $paginatePage = 5): Paginator|SupportCollection;
   public function getThesisbyID(string $ID): ?Thesis;
   public function getThesisByStudentID(string $studentID): Collection;
   public function destroyThesisByIDs(array $IDs): bool;

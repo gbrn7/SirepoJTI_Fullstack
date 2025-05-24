@@ -7,12 +7,13 @@ use App\Support\model\GetThesisReqModel;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection as SupportCollection;
 
 interface ThesisServiceInterface
 {
-  public function getThesis(GetThesisReqModel $reqModel, int $paginatePage = 5): Paginator;
+  public function getThesis(GetThesisReqModel $reqModel, ?int $paginatePage = 5): Paginator|SupportCollection;
   public function getThesisByID(string $ID): ?Thesis;
   public function getYearFilters(): Collection;
   public function getProgramStudyFilters(): Collection;
@@ -37,4 +38,5 @@ interface ThesisServiceInterface
   public function getThesisDownloadLeaderboard(SupportCollection $data): SupportCollection;
   public function ThesisTotalPerTypeHztBarChart(SupportCollection $data): LarapexChart;
   public function getThesisDashboard(GetThesisReqModel $reqModel);
+  public function exportStudentsGuidanceData(Request $request, GetThesisReqModel $reqModel);
 }

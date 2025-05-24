@@ -240,7 +240,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('export-students-data')}} class="form" id="addForm">
+        <form action={{route('export-students-thesis-status-data')}} class="form" id="addForm">
           <div class="form-group mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Tahun Angkatan</label>
             <input type="number" class="form-control" data-cy="input-student-class-year-export"

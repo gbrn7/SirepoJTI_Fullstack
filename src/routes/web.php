@@ -64,7 +64,8 @@ Route::group(['prefix' => 'home'], function () {
         });
 
         Route::group(['middleware' => ['role:admin']], function () {
-            Route::get('export-thesis-status-data', [StudentManagementController::class, 'exportStudentsData'])->name('export-students-data');
+
+            Route::get('export-students-thesis-status-data', [StudentManagementController::class, 'exportStudentsData'])->name('export-students-thesis-status-data');
 
             Route::resource('thesis-topic-management', ThesisTopicController::class)->only([
                 'index',
@@ -104,6 +105,8 @@ Route::group(['prefix' => 'home'], function () {
         });
 
         Route::group(['middleware' => ['auth:lecturer']], function () {
+            Route::get('export-students-guidance-thesis-status-data', [StudentManagementController::class, 'exportStudentsGuidanceData'])->name('export-students-guidance-thesis-status-data');
+
             route::get('/thesis-submission-lecturer', [DocumentController::class, 'thesisSubmissionLecturer'])->name('thesis-submission-lecturer.index');
         });
     });
