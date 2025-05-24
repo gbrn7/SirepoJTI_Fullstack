@@ -282,7 +282,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.contains('Tugas Akhir Diperbarui');
   })
 
-  it('Cek perilaku sistem saat ekspor data excel', () => {
+  it('Cek perilaku sistem saat ekspor data format excel', () => {
     cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.get('[data-cy="btn-navbar-toggler"]').click();
@@ -297,7 +297,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get('[data-cy="btn-export-submit"]').click();
   })
 
-  it('Cek perilaku sistem saat ekspor data pdf', () => {
+  it('Cek perilaku sistem saat ekspor data format pdf', () => {
     cy.logInAdmin('adminsirepojti', 'adminpass')
 
     cy.get('[data-cy="btn-navbar-toggler"]').click();
