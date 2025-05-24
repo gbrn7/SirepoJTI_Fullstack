@@ -172,6 +172,28 @@ test('Edit submission status multiple document fails', function () {
     $response->assertSessionHas('toast_error', "ID Tugas Akhir Wajib Dikirimkan");
 });
 
+test('Export Student Thesis Status PDF format', function () {
+
+    $response = $this->actingAs($this->admin)->get(route('export-students-thesis-status-data', ['export_format' => 'pdf']));
+
+    $response->assertStatus(200);
+});
+
+test('Export Student Thesis Status Excel format', function () {
+
+    $response = $this->actingAs($this->admin)->get(route('export-students-thesis-status-data', ['export_format' => 'excel']));
+
+    $response->assertStatus(200);
+});
+
+test('Export Student Thesis Status Error', function () {
+
+    $response = $this->actingAs($this->admin)->get(route('export-students-thesis-status-data'));
+
+    $response->assertSessionHas('toast_error', "Format ekspor wajib disertakan");
+});
+
+
 afterEach(function () {
     DB::rollBack();
 });

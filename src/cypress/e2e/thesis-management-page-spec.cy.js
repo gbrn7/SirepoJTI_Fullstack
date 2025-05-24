@@ -23,8 +23,8 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get('[data-cy="input-title"]').type('Sistem Informasi-1')
     cy.get('[data-cy="input-username"]').type('bagustejo')
     cy.get('[data-cy="input-student-class-year"]').type('2021')
-    cy.get('[data-cy="select-program-study"]').type('3')
-    cy.get('[data-cy="select-submission-status"]').type('accepted')
+    cy.get('[data-cy="select-program-study"]').select('3')
+    cy.get('[data-cy="select-submission-status"]').select('accepted')
     cy.get('[data-cy="btn-submit"]').click()
 
     cy.contains('tr', 'Sistem Informasi-1').should('exist');
@@ -280,5 +280,35 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.get('[data-cy="btn-thesis-acc"]').click();
 
     cy.contains('Tugas Akhir Diperbarui');
+  })
+
+  it('Cek perilaku sistem saat ekspor data excel', () => {
+    cy.logInAdmin('adminsirepojti', 'adminpass')
+
+    cy.get('[data-cy="btn-navbar-toggler"]').click();
+    cy.get('[data-cy="btn-navbar-thesis-admin"]').click();
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal('/home/document-management')
+    })
+
+    cy.get('[data-cy="btn-modal-export"]').click();
+    cy.get('[data-cy="select-format-export-type"]').select('excel')
+    cy.get('[data-cy="btn-export-submit"]').click();
+  })
+
+  it('Cek perilaku sistem saat ekspor data pdf', () => {
+    cy.logInAdmin('adminsirepojti', 'adminpass')
+
+    cy.get('[data-cy="btn-navbar-toggler"]').click();
+    cy.get('[data-cy="btn-navbar-thesis-admin"]').click();
+
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal('/home/document-management')
+    })
+
+    cy.get('[data-cy="btn-modal-export"]').click();
+    cy.get('[data-cy="select-format-export-type"]').select('pdf')
+    cy.get('[data-cy="btn-export-submit"]').click();
   })
 })

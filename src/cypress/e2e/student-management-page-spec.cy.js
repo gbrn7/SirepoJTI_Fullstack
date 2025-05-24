@@ -23,8 +23,8 @@ describe('Cek fungsi halaman mahasiswa', () => {
     cy.get('[data-cy="input-name"]').type('Ade Susilo')
     cy.get('[data-cy="input-username"]').type('adesusilo')
     cy.get('[data-cy="input-class-year"]').type('2021')
-    cy.get('[data-cy="select-program-study"]').type('3')
-    cy.get('[data-cy="select-submission-status"]').type('accepted')
+    cy.get('[data-cy="select-program-study"]').select('3')
+    cy.get('[data-cy="select-submission-status"]').select('accepted')
     cy.get('[data-cy="btn-submit"]').click()
 
     cy.contains('tr', 'Ade Susilo').should('exist');

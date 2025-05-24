@@ -232,7 +232,8 @@
 </div>
 
 <!-- Export Modal -->
-<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div data-bs-dismiss="modal" class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="myModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
@@ -277,7 +278,7 @@
           </div>
           <div class="form-group mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Format Ekspor</label>
-            <select class="form-select" data-cy="select-submission-status-export" name="export_format">
+            <select class="form-select" data-cy="select-format-export-type" name="export_format">
               <option value="excel">Excel</option>
               <option value="pdf">PDF</option>
             </select>
@@ -285,7 +286,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button data-cy="btn-export-submit" type="submit" class="btn btn-submit btn-success fw-bold">Ekspor</button>
+        <button data-cy="btn-export-submit" type="submit"
+          class="btn btn-submit btn-submit-export btn-success fw-bold">Ekspor</button>
       </div>
       </form>
     </div>
