@@ -64,6 +64,8 @@ Route::group(['prefix' => 'home'], function () {
         });
 
         Route::group(['middleware' => ['role:admin']], function () {
+            Route::get('export-thesis-status-data', [StudentManagementController::class, 'exportStudentsData'])->name('export-students-data');
+
             Route::resource('thesis-topic-management', ThesisTopicController::class)->only([
                 'index',
                 'store',

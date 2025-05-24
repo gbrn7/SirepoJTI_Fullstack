@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentsExport;
 use App\Support\Interfaces\Services\ProgramStudyServiceInterface;
 use App\Support\Interfaces\Services\StudentServiceInterface;
 use App\Support\model\GetStudentReqModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
+use Mpdf\Mpdf;
 
 class StudentManagementController extends Controller
 {
@@ -196,5 +199,56 @@ class StudentManagementController extends Controller
     public function getStudentImportTemplate()
     {
         return response()->download(public_path('template/Template_Mahasiswa.xlsx'), 'Template_Mahasiswa.xlsx');
+    }
+
+    public function exportStudentsData(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'student_class_year' => 'nullable',
+            'program_study_id' => 'nullable',
+            'submission_status' => 'nullable',
+            'export_format' => 'required|in:excel,pdf',
+        ], [
+            'export_format.required' => 'Format ekspor wajib disertakan',
+            'export_format.in' => 'Format ekspor tidak valid',
+        ]);
+
+        if ($validator->fails()) return redirect()
+            ->back()
+            ->withInput()
+            ->with('toast_error', join(', ', $validator->messages()->all()));
+
+        $reqModel = new GetStudentReqModel($request);
+
+        $students = $this->studentService->getStudents($reqModel, null);
+
+        $processedData = collect();
+        foreach ($students as $value) {
+            $data = [
+                "username" => $value->username,
+                "name" => $value->first_name . " " . $value->last_name,
+                "program_study" => $value->programStudy->name,
+            ];
+
+            if (!$value->thesis) {
+                $submissionStatus = 'Belum Dikumpulkan';
+            } else if (!isset($value->thesis->submission_status)) {
+                $submissionStatus = 'Pending';
+            } else {
+                $submissionStatus = $value->thesis->submission_status ? "Diterima" : "Ditolak";
+            }
+
+            $data["submission_status"] = $submissionStatus;
+
+            $processedData->push($data);
+        }
+
+        if ($request->export_format == 'excel') {
+            return Excel::download(new StudentsExport($processedData), 'data-tugas-akhir-mahasiswa.xlsx');
+        } else {
+            $mpdf = new Mpdf();
+            $mpdf->WriteHTML(view("pdf.students-data-export", ['students' => $processedData]));
+            $mpdf->Output('data-status-tugas-akhir-mhs.pdf', 'D');
+        }
     }
 }

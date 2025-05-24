@@ -115,7 +115,6 @@
       </div>
     </div>
     <hr>
-    <hr>
     <div class="detail-field title-field d-lg-flex">
       <div class="label-wrapper col-12 col-lg-2 py-2 d-flex justify-content-lg-between gap-3 gap-lg-0">
         <span class="label-field d-block">Status Tugas Akhir</span>

@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -22,9 +23,9 @@ class StudentService implements StudentServiceInterface
 
   public function __construct(protected StudentRepositoryInterface $repository) {}
 
-  public function getStudents(GetStudentReqModel $reqModel): Paginator
+  public function getStudents(GetStudentReqModel $reqModel, $paginatePage = 10): Paginator|SupportCollection
   {
-    return $this->repository->getStudents($reqModel);
+    return $this->repository->getStudents($reqModel, $paginatePage);
   }
 
   public function getStudentByID(string $ID): ?Student

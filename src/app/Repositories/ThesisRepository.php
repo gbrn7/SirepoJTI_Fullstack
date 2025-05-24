@@ -6,7 +6,6 @@ use App\Models\Thesis;
 use App\Support\Enums\SubmissionStatusEnum;
 use App\Support\Interfaces\Repositories\ThesisRepositoryInterface;
 use App\Support\model\GetThesisReqModel;
-use Flowframe\Trend\Trend;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;

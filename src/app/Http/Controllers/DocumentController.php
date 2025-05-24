@@ -44,6 +44,7 @@ class DocumentController extends Controller
         return view('admin_views.document.index', ['documents' => $documents, 'prodys' => $prodys]);
     }
 
+
     public function create()
     {
         $topics = $this->thesisTopicService->getThesisTopics();

@@ -8,14 +8,16 @@ use App\Support\Interfaces\Repositories\StudentRepositoryInterface;
 use App\Support\model\GetStudentReqModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
+use Illuminate\Support\Collection as SupportCollection;
 
 class StudentRepository implements StudentRepositoryInterface
 {
 
-  public function getStudents(GetStudentReqModel $reqModel): Paginator
+  public function getStudents(GetStudentReqModel $reqModel, ?int $paginatePage = 10): Paginator|SupportCollection
   {
     return  Student::query()
       ->with('thesis')
+      ->with('programStudy')
       ->when(
         $reqModel->name,
         fn($q) =>
@@ -41,7 +43,8 @@ class StudentRepository implements StudentRepositoryInterface
         }
       })
       ->orderBy('id', 'DESC')
-      ->paginate(10);
+      ->when(!$paginatePage, fn($q) => $q->get())
+      ->when($paginatePage, fn($q) => $q->paginate(10));
   }
 
   public function getStudentByID(string $ID): ?Student

@@ -7,10 +7,11 @@ use App\Support\model\GetStudentReqModel;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Collection as SupportCollection;
 
 interface StudentServiceInterface
 {
-  public function getStudents(GetStudentReqModel $reqModel): Paginator;
+  public function getStudents(GetStudentReqModel $reqModel, ?int $paginatePage = 10): Paginator|SupportCollection;
   public function getStudentByID(string $ID): ?Student;
   public function getSuggestionAuthor(string $searchInput): Collection;
   public function getAuthorFilters(?string $alphabet = "A"): Collection;
