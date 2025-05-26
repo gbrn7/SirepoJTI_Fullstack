@@ -274,6 +274,7 @@ class DocumentController extends Controller
             // Stream PDF
             // return response()->file('storage/Document/'.$fileName);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return back()
                 ->with('toast_error', $th->getMessage());
         }
