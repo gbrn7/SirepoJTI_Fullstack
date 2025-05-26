@@ -268,13 +268,13 @@ class DocumentController extends Controller
             $response = Response::make($file, 200);
             $response->header('Content-Type', 'application/pdf');
             $response->header('Content-disposition', 'inline; filename="' . $fileName . '.pdf"');
+            dd($response);
 
             return $response;
 
             // Stream PDF
             // return response()->file('storage/Document/'.$fileName);
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return back()
                 ->with('toast_error', $th->getMessage());
         }
