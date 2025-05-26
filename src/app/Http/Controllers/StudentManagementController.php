@@ -196,7 +196,6 @@ class StudentManagementController extends Controller
 
             return back()->with('toast_success', 'Impor Berhasil');
         } catch (\Throwable $th) {
-            dd($th->getMessage());
             return back()->with('toast_error', 'Gagal Menambahkan Data');
         }
     }
