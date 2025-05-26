@@ -40,6 +40,8 @@ class HomePageFeatTest extends TestCase
 
                 $response = $this->actingAs($student)->get(route('detail.document.download', ["thesis_id" => $thesis->id, "file_name" => $thesis->files()->first()->file_name]));
 
+                dd($response);
+
                 $response->assertStatus(200);
                 $response->assertHeader('Content-Type', 'application/pdf');
                 $response->assertHeader('Content-disposition', 'inline; filename="' . $thesis->files()->first()->file_name . '.pdf"');
