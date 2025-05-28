@@ -82,6 +82,8 @@ describe('Cek fungsi halaman jenis tugas akhir', () => {
 
     cy.get('.table').find('.btn-edit').first().click();
 
+    cy.get('[data-cy="input-type-edit"]').clear()
+
     cy.get('[data-cy="input-type-edit"]').type('Edit Jenis')
     cy.get('[data-cy="btn-submit-update"]').click()
 

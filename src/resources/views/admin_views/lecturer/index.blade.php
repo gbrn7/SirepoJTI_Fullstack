@@ -124,7 +124,7 @@
             class="lecturer-name"></span>?
         </h4>
       </div>
-      <form id="form-tag" class="form" action="" method="post" id="deleteForm">
+      <form class="form" action="" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">

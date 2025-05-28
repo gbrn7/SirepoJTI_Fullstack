@@ -85,7 +85,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-tag" action={{route('thesis-type-management.store')}} class="form" id="addForm" method="POST">
+        <form action={{route('thesis-type-management.store')}} class="form" id="addForm" method="POST">
           @csrf
           <div class="form-group mb-3">
             <label for="name" class="mb-1">Nama</label>
@@ -112,7 +112,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form id="form-tag" class="form" id="editForm" method="POST">
+        <form class="form" id="editForm" method="POST">
           @csrf
           @method('PUT')
           <div class="form-group mb-3">
@@ -142,7 +142,7 @@
       <div class="modal-body">
         <h4 class="text-center">Apakah anda yakin menghapus jenis <span class="type-name"></span> ?</h4>
       </div>
-      <form id="form-tag" action="" class="form" method="post" id="deleteForm">
+      <form action="" class="form" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">

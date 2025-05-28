@@ -87,7 +87,7 @@
     </div>
   </form>
   <div class="table-wrapper pb-5 mt-3">
-    <form id="form-tag" id="bulk-action-form" method="POST">
+    <form id="bulk-action-form" method="POST">
       @csrf
       @method('PUT')
       @if ($params->count() > 0 )

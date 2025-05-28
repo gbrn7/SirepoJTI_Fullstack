@@ -191,7 +191,7 @@
             class="username"></span>?
         </h4>
       </div>
-      <form id="form-tag" class="form" action="" method="post" id="deleteForm">
+      <form class="form" action="" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">
@@ -261,24 +261,5 @@
 
         $('#deleteForm').attr('action', deleteLink);
       });
-
-  $('.author-input').on('input', debounce(function (e) {
-    let authorinput = e.target.value;
-
-    $.get("{{route('getSuggestionAuthor')}}", {
-      name : authorinput
-    },
-      function (data, textStatus, jqXHR) {
-        if (data.length !== 0) {
-          $('#userListOption').empty();
-        }
-        data.forEach(e => {
-          $('#userListOption').append($('<option>', {
-            value: e.name
-          }));
-        }); 
-      },
-    );
-  }, 300));
 </script>
 @endpush
