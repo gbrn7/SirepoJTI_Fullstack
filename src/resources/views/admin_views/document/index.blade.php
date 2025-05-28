@@ -127,7 +127,7 @@
             <th class="text-white fw-medium">Topik</th>
             <th class="text-white fw-medium">Penulis</th>
             <th class="text-white fw-medium">Prodi</th>
-            <th class="text-white fw-medium">Username</th>
+            <th class="text-white fw-medium">NIM</th>
             <th class="text-white fw-medium">Status</th>
             <th class="text-white fw-medium">Aksi</th>
           </tr>

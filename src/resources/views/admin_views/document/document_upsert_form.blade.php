@@ -32,9 +32,9 @@
     @endif
     @csrf
     <div class="mb-2">
-      <label class="form-label">Username</label>
+      <label class="form-label">NIM</label>
       <div class="input-group p-1 shadow-none">
-        <input type="text" data-cy="input-username" class="form-control author-input" placeholder="Masukkan Username"
+        <input type="text" data-cy="input-username" class="form-control author-input" placeholder="Masukkan nim"
           name="username" value="{{old('username', isset($thesis) ? $thesis->student->username : '')}}" />
       </div>
     </div>

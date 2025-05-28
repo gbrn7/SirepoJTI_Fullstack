@@ -148,13 +148,13 @@ class StudentService implements StudentServiceInterface
         foreach ($raw as $row) {
           $parts = explode(' ', $row['nama']);
 
-          $last_name = array_pop($parts);
+          $last_name = count($parts) > 1 ? array_pop($parts) : "";
           $first_name = count($parts) > 0 ? implode(' ', $parts) : "";
 
           $newData->push([
             'first_name' => $first_name,
             'last_name' => $last_name,
-            'username' => $row['username'],
+            'username' => $row['nim'],
             'gender' => $row['jenis_kelamin_malefemale'],
             'class_year' => $row['tahun_angkatan'],
             'email' => $row['email'],
@@ -181,7 +181,7 @@ class StudentService implements StudentServiceInterface
     $processedData = collect();
     foreach ($students as $value) {
       $data = [
-        "username" => $value->username,
+        "nim" => $value->username,
         "name" => $value->first_name . " " . $value->last_name,
         "program_study" => $value->programStudy->name,
       ];

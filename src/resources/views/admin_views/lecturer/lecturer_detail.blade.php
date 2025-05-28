@@ -28,7 +28,7 @@
   <div class="detail-thesis-wrapper mt-3">
     <div class="detail-field title-field d-lg-flex">
       <div class="label-wrapper col-12 col-lg-2 py-2 d-flex justify-content-lg-between gap-3 gap-lg-0">
-        <span class="label-field d-block">Username</span>
+        <span class="label-field d-block">NIP</span>
         <span class="d-block">:</span>
       </div>
       <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">

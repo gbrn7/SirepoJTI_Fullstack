@@ -130,7 +130,7 @@
         <tr>
           <th class="text-white fw-medium">No.</th>
           <th class="text-white fw-medium">Nama</th>
-          <th class="text-white fw-medium">Username</th>
+          <th class="text-white fw-medium">NIM</th>
           <th class="text-white fw-medium">Email</th>
           <th class="text-white fw-medium">Status Tugas Akhir</th>
           <th class="text-white fw-medium">Aksi</th>

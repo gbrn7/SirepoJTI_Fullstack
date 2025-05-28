@@ -35,7 +35,7 @@
     @endif
     @csrf
     <div class="mb-2">
-      <label class="form-label">Username</label>
+      <label class="form-label">NIP</label>
       <input type="text" data-cy="input-username" class="form-control" placeholder="Masukkan Username" name="username"
         {{Route::is('lecturer-management.create') ? 'required' : '' }}
         value="{{old('username', isset($lecturer) ? $lecturer->username : '')}}" />
@@ -74,8 +74,12 @@
       <input class="form-control" type="file" id="formFile" data-cy="input-profile-picture" name="profile_picture" />
     </div>
     <div class="wrapper d-flex justify-content-end">
-      <button data-cy="btn-submit" class="btn btn-submit text-black px-5 btn-warning fw-bold"
-        type="submit">Submit</button>
+      <button @class(['btn btn-submit text-black px-5 fw-bold', 'btn-success text-white'=>
+        Route::is('lecturer-management.create'), 'btn-warning text-black'=>
+        Route::is('lecturer-management.edit')])
+        data-cy="btn-submit"
+        type="submit">Submit
+      </button>
     </div>
   </form>
 </div>

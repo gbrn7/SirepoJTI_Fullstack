@@ -95,7 +95,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-        <button data-cy="btn-submit-store" type="submit" class="btn btn-submit btn-warning fw-bold">Submit</button>
+        <button data-cy="btn-submit-store" type="submit"
+          class="btn btn-submit btn-success text-white fw-bold">Submit</button>
       </div>
       </form>
     </div>

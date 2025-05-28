@@ -48,7 +48,7 @@
     <thead>
       <tr>
         <th class="text-white fw-medium">No.</th>
-        <th class="text-white fw-medium">Username</th>
+        <th class="text-white fw-medium">NIM</th>
         <th class="text-white fw-medium">Nama</th>
         <th class="text-white fw-medium">Program Studi</th>
         <th class="text-white fw-medium">Status</th>
@@ -58,7 +58,7 @@
       @forelse ($students as $student)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$student['username']}}</td>
+        <td>{{$student['nim']}}</td>
         <td class="text-capitalize">{{$student['name']}}</td>
         <td>{{$student['program_study']}}</td>
         <td>{{$student['submission_status']}}</td>

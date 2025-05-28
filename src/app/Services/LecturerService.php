@@ -130,7 +130,7 @@ class LecturerService implements LecturerServiceInterface
         foreach ($raw as $row) {
           $newData->push([
             'name' => $row['nama'],
-            'username' => $row['username'],
+            'username' => $row['nip'],
             'topic_id' => $topicID,
             'email' => $row['email'],
             'password' => $row['password'],
