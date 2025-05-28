@@ -22,7 +22,7 @@
 
 @section('main-content')
 <div class="main-content mt-3">
-  <form action="{{route('user.editProfile', $user->id)}}" method="POST" enctype="multipart/form-data">
+  <form id="form-tag" action="{{route('user.editProfile', $user->id)}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="mb-2">
       <label for="formFile" class="form-label">Gambar Profil</label>

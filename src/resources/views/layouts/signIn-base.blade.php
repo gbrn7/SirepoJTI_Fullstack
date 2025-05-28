@@ -47,7 +47,7 @@
               <h1 class="my-0 mt-4 fs-4 fw-normal" data-cy="title">@yield('title')</h1>
             </div>
           </div>
-          <form action="@yield('form_action')" method="post">
+          <form id="form-tag" action="@yield('form_action')" method="post">
             @csrf
             <div class="login-form d-flex flex-column gap-1 gap-lg-3 mt-3">
               <div class="username-input-wrapper">

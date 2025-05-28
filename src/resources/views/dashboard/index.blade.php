@@ -32,7 +32,8 @@
   'type_id' => 'Jenis Tugas Akhir',
   ]);
   @endphp
-  <form class="filter-wrapper d-flex col-12 col-lg-2 flex-column" action="{{route('dashboard.index')}}" method="get">
+  <form id="form-tag" class="filter-wrapper d-flex col-12 col-lg-2 flex-column" action="{{route('dashboard.index')}}"
+    method="get">
     <div class="input-wrapper mb-2">
       <label class="form-label">Tahun Publikasi</label>
       <input type="text" class="form-control" data-cy="input-publication-year" name="publication_year"

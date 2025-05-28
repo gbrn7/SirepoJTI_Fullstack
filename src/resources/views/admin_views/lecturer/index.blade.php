@@ -41,7 +41,7 @@
       </div>
     </div>
     <div class="wrapper mt-2 mt-lg-0">
-      <form action="{{route('lecturer-management.index')}}" method="get">
+      <form id="form-tag" action="{{route('lecturer-management.index')}}" method="get">
         <div class="input-group">
           <input type="text" data-cy="input-name" class="form-control py-2 px-3 search-input border-0"
             placeholder="Telusuri" name="name" />
@@ -124,7 +124,7 @@
             class="lecturer-name"></span>?
         </h4>
       </div>
-      <form class="form" action="" method="post" id="deleteForm">
+      <form id="form-tag" class="form" action="" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">
@@ -140,7 +140,8 @@
 <!-- Import Lecturer Modal -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
-    <form action="{{route('importLecturerExcelData')}}" class="form" method="POST" enctype="multipart/form-data">
+    <form id="form-tag" action="{{route('importLecturerExcelData')}}" class="form" method="POST"
+      enctype="multipart/form-data">
       @csrf
       <div class="modal-content">
         <div class="modal-header">

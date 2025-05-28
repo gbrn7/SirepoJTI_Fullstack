@@ -27,7 +27,7 @@
 
 @section('main-content')
 <div class="main-content mt-3">
-  <form class="form"
+  <form id="form-tag" class="form"
     action="{{Route::is('lecturer-management.create')  ? route('lecturer-management.store') : route('lecturer-management.update', isset($lecturer) ? $lecturer->id : "")}}"
     method="POST" enctype="multipart/form-data">
     @if (Route::is('lecturer-management.edit'))

@@ -38,7 +38,7 @@
   <div class="list-thesis-wrapper mt-4">
     <div class="action-wrapper d-lg-flex justify-content-end align-items-baseline">
       <div class="wrappper mt-2 mt-lg-0">
-        <form action="{{route('user.document', $user->id)}}" method="get">
+        <form id="form-tag" action="{{route('user.document', $user->id)}}" method="get">
           <div class="input-group">
             <input type="text" class="form-control py-2 px-3 search-input border-0" placeholder="Search"
               aria-label="Recipient's username" value="{{request()->get('title')}}" list="titleListOption"

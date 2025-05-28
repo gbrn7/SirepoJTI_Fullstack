@@ -38,7 +38,7 @@
       </div>
     </a>
   </div>
-  <form class="mt-2">
+  <form id="form-tag" class="mt-2">
     <div class="wrapper filter-wrapper d-flex flex-column flex-lg-row gap-1">
       <div class="input-wrapper col">
         <input type="text" class="form-control" data-cy="input-title" name="title" value="{{request()->get('title')}}"
@@ -87,7 +87,7 @@
     </div>
   </form>
   <div class="table-wrapper pb-5 mt-3">
-    <form id="bulk-action-form" method="POST">
+    <form id="form-tag" id="bulk-action-form" method="POST">
       @csrf
       @method('PUT')
       @if ($params->count() > 0 )
@@ -220,7 +220,7 @@
       <div class="modal-body">
         <h4 class="text-center">Apakah anda yakin menghapus tugas akhir <span class="document-title"></span> ?</h4>
       </div>
-      <form action="" method="post" id="deleteForm" class="modal-footer">
+      <form id="deleteForm" action="" method="post" class="modal-footer">
         @method('delete')
         @csrf
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
@@ -240,7 +240,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('export-students-thesis-status-data')}} class="form" id="addForm">
+        <form id="form-tag" action={{route('export-students-thesis-status-data')}} class="form" id="addForm">
           <div class="form-group mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Tahun Angkatan</label>
             <input type="number" class="form-control" data-cy="input-student-class-year-export"

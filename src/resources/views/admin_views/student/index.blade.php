@@ -44,7 +44,7 @@
         <i class="ri-file-excel-2-line"></i><span>Impor Excel</span>
       </div>
     </div>
-    <form method="GET" action="{{route('student-management.index')}}" class="mt-2">
+    <form id="form-tag" method="GET" action="{{route('student-management.index')}}" class="mt-2">
       <div class="wrapper filter-wrapper d-flex flex-column flex-lg-row gap-1">
         <div class="input-wrapper col">
           <input type="text" class="form-control" data-cy="input-name" name="name" value="{{request()->get('name')}}"
@@ -191,7 +191,7 @@
             class="username"></span>?
         </h4>
       </div>
-      <form class="form" action="" method="post" id="deleteForm">
+      <form id="form-tag" class="form" action="" method="post" id="deleteForm">
         @method('delete')
         @csrf
         <div class="modal-footer">
@@ -207,7 +207,8 @@
 <!-- Import Student Modal -->
 <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
-    <form class="form" action="{{route('importStudentExcelData')}}" method="POST" enctype="multipart/form-data">
+    <form id="form-tag" class="form" action="{{route('importStudentExcelData')}}" method="POST"
+      enctype="multipart/form-data">
       @csrf
       <div class="modal-content">
         <div class="modal-header">

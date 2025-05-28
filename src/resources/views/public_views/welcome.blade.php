@@ -5,7 +5,7 @@
 @section('custom_css_link', asset('css/Home_style/main.css'))
 
 @section('main-content')
-<form action="{{route('home')}}" class="form-search">
+<form id="form-tag" action="{{route('home')}}" class="form-search">
   <div class="row justify-content-center h-100">
     <div class="d-flex flex-column align-items-center main-content col-10 col-lg-8">
       <div class="logo-wrapper d-flex align-items-center justify-content-center gap-3">
@@ -31,7 +31,7 @@
         <a href="{{route('filter.year.view')}}"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center"
           data-cy="filter-box-publication-year">
-          <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
+          <img src="{{asset('img/Calender-Icon.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Tahun Publikasi</p>
           </div>
@@ -39,28 +39,28 @@
         <a href="{{route('filter.program-study.view')}}"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center"
           data-cy="filter-box-program-study">
-          <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
+          <img src="{{asset('img/Program-Study-Icon.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Program Studi</p>
           </div>
         </a>
         <a href="{{route('filter.topic.view')}}" data-cy="filter-box-topic"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
-          <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
+          <img src="{{asset('img/Topic-Icon.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Topik</p>
           </div>
         </a>
         <a href="{{route('filter.author.view')}}" data-cy="filter-box-author"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
-          <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
+          <img src="{{asset('img/User-Search-Icon.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Penulis</p>
           </div>
         </a>
         <a href="{{route('filter.thesis-type.view')}}" data-cy="filter-box-thesis-type"
           class="filter-box text-decoration-none col-6 col-md-4 col-lg-2 rounded-4 p-1 text-center">
-          <img src="{{asset('img/proicons_folder.png')}}" class="folder-logo" />
+          <img src="{{asset('img/Type-Icon.png')}}" class="folder-logo" />
           <div class="folder-box-label">
             <p class="filter-text mb-1 mt-1">Jenis Tugas Akhir</p>
           </div>

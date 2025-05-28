@@ -20,7 +20,7 @@
 @endsection
 
 @section('main-content')
-<form action="{{route('home')}}" class="form-search">
+<form id="form-tag" action="{{route('home')}}" class="form-search">
   <div class="col-lg-11 col-12 position-relative">
     <div class="search-wrapper position-relative rounded rounded-3 w-100">
       <div class="input-group input-group-search position-relative">

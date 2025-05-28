@@ -154,7 +154,7 @@
       class="btn fw-semibold btn-danger col-12 col-md-3 col-lg-2" data-cy="btn-thesis-dcd">
       Tolak Tugas
     </button>
-    <form action="{{route('document-management.update', $document->id)}}" method="post"
+    <form id="form-tag" action="{{route('document-management.update', $document->id)}}" method="post"
       class="col-12 fw-semibold col-md-3 col-lg-2 btn-bulk-action">
       @csrf
       @method('PUT')
@@ -169,7 +169,7 @@
   <!-- Decline Modal -->
   <div class="modal fade" id="declineModal" data-bs-backdrop="static" tabindex="-2"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <form action="{{route('document-management.update', $document->id)}}" method="post">
+    <form id="form-tag" action="{{route('document-management.update', $document->id)}}" method="post">
       @csrf
       @method('PUT')
       <div class="modal-dialog">

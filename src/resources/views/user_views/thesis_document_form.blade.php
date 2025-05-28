@@ -6,8 +6,8 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">{{Request::segment(3) === 'create' ? 'Add Document' : 'Edit
-    Document'}}</div>
+  <div class="page-title mb-1">{{Route::is('thesis-submission.create') ? 'Tambah Data Tugas Akhir' : 'Edit Data Tugas
+    Akhir'}}</div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item align-items-center">
@@ -16,9 +16,9 @@
       <li class="breadcrumb-item align-items-center">
         <a href="{{route('thesis-submission.index')}}" class="text-decoration-none">Tugas Akhir</a>
       </li>
-      <li class="breadcrumb-item align-items-center">
-        <a href="#" class="text-decoration-none">{{Request::segment(3) === 'create' ? 'Add Document' : 'Edit
-          Document'}}</a>
+      <li class="breadcrumb-item align-items-center active">
+        {{Route::is('thesis-submission.create') ? 'Tambah Data Tugas Akhir
+        '.auth()->user()->username : 'Edit Data Tugas Akhir '.auth()->user()->username}}
       </li>
     </ol>
   </nav>
@@ -27,14 +27,22 @@
 
 @section('main-content')
 <div class="main-content mt-3">
-  <form
+  <form id="form-tag"
     action="{{Route::is('thesis-submission.create') ? route('thesis-submission.store') : route('thesis-submission.update', Request::segment(3))}}"
-    method="POST" enctype="multipart/form-data">
+    method="POST" enctype="multipart/form-data" class="no-interval-load">
     @if (Route::is('thesis-submission.edit', Request::segment(3)))
     @method('PUT')
     @endif
     @csrf
     @include('form_views.document_form')
+    <div class="wrapper d-flex justify-content-end">
+      <button @class(['btn btn-submit text-black px-5 fw-bold', 'btn-success text-white'=>
+        Route::is('thesis-submission.create'), 'btn-warning text-black'=>
+        Route::is('thesis-submission.edit')])
+        data-cy="btn-submit"
+        type="submit">Submit
+      </button>
+    </div>
   </form>
 </div>
 @endsection

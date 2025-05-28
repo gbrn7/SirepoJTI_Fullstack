@@ -24,7 +24,7 @@
 
 @section('main-content')
 <div class="main-content mt-3">
-  <form
+  <form id="form-tag"
     action="{{Route::is('document-management.create') ? route('document-management.store') : route('document-management.update', [isset($thesis) ? $thesis->id : ''])}}"
     method="POST" enctype="multipart/form-data">
     @if (Route::is('document-management.edit'))
@@ -39,6 +39,14 @@
       </div>
     </div>
     @include('form_views.document_form')
+    <div class="wrapper d-flex justify-content-end">
+      <button @class(['btn btn-submit text-black px-5 fw-bold', 'btn-success text-white'=>
+        Route::is('document-management.create'), 'btn-warning text-black'=>
+        Route::is('document-management.edit')])
+        data-cy="btn-submit"
+        type="submit">Submit
+      </button>
+    </div>
   </form>
 </div>
 @endsection

@@ -32,7 +32,7 @@
   @endphp
   <div class="wrapper mt-3">
   </div>
-  <form class="mt-2">
+  <form id="form-tag" class="mt-2">
     <div class="wrapper filter-wrapper d-flex flex-column flex-lg-row gap-1">
       <div class="input-wrapper col">
         <input type="text" class="form-control" data-cy="input-title" name="title" value="{{request()->get('title')}}"
@@ -161,7 +161,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action={{route('export-students-guidance-thesis-status-data')}} class="form" id="addForm">
+        <form id="form-tag" action={{route('export-students-guidance-thesis-status-data')}} class="form" id="addForm">
           <div class="form-group mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Tahun Angkatan</label>
             <input type="number" class="form-control" data-cy="input-student-class-year-export"

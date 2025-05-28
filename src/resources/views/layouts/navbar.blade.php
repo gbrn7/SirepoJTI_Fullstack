@@ -57,7 +57,7 @@
             data-cy="btn-edit-account"><i class="ri-user-3-line me-2 text-white"></i>Edit Profil</a>
         </li>
         <li class="rounded-2 dropdown-list">
-          <form action="{{route('signIn.user.signOut')}}" method="POST">
+          <form id="form-tag" action="{{route('signIn.user.signOut')}}" method="POST">
             @csrf
             <button data-cy="btn-logout" type="submit" class="dropdown-item btn-submit rounded-2 text-white"><i
                 class="ri-logout-circle-line me-2 text-white"></i>Log Out</button>
