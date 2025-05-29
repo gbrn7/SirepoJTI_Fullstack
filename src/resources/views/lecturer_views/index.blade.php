@@ -152,8 +152,7 @@
 </div>
 
 <!-- Export Modal -->
-<div data-bs-dismiss="modal" class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="myModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="exportModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog ">
     <div class="modal-content">
       <div class="modal-header">
