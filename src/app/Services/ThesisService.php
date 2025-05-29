@@ -539,7 +539,7 @@ class ThesisService implements ThesisServiceInterface
     $processedData = collect();
     foreach ($documents as $value) {
       $data = [
-        "username" => $value->username,
+        "nim" => $value->username,
         "name" => $value->first_name . " " . $value->last_name,
         "program_study" => $value->program_study_name,
       ];

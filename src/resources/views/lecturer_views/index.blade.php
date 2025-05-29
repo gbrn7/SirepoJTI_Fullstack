@@ -39,7 +39,7 @@
           placeholder="Judul">
       </div>
       <div class="input-wrapper col">
-        <input type="text" class="form-control" data-cy="input-username" name="student_username" placeholder="Username"
+        <input type="text" class="form-control" data-cy="input-username" name="student_username" placeholder="NIM"
           value="{{request()->get('student_username')}}">
       </div>
       <div class="input-wrapper col">
@@ -121,7 +121,7 @@
           <th class="text-white fw-medium">Topik</th>
           <th class="text-white fw-medium">Penulis</th>
           <th class="text-white fw-medium">Prodi</th>
-          <th class="text-white fw-medium">Username</th>
+          <th class="text-white fw-medium">NIM</th>
           <th class="text-white fw-medium">Status</th>
         </tr>
       </thead>
