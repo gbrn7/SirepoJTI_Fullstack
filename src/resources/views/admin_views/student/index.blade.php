@@ -51,7 +51,7 @@
             placeholder="Nama">
         </div>
         <div class="input-wrapper col">
-          <input type="text" class="form-control" data-cy="input-username" name="username" placeholder="Username"
+          <input type="text" class="form-control" data-cy="input-username" name="username" placeholder="NIM"
             value="{{request()->get('username')}}">
         </div>
         <div class="input-wrapper col">
