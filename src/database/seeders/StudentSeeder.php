@@ -72,7 +72,7 @@ class StudentSeeder extends Seeder
                     'last_name' => 'alfarizi',
                     'gender' => 'male',
                     'class_year' => 2021,
-                    'username' => '2141762098',
+                    'username' => '2131762099',
                     'email' => $faker->email(),
                     'password' => Hash::make('userpass'),
                     'created_at' => now(),
