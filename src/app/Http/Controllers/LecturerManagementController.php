@@ -111,7 +111,7 @@ class LecturerManagementController extends Controller
     public function update(Request $request, string $ID)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'nullable|unique:lecturers,username',
+            'username' => 'nullable|unique:lecturers,username,' . $ID . 'id',
             'name' => 'nullable',
             'topic_id' => 'nullable',
             'email' => 'nullable|email|unique:lecturers,email',
