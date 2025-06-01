@@ -26,7 +26,7 @@
 <div class="main-content mt-3">
   <form id="form-tag"
     action="{{Route::is('document-management.create') ? route('document-management.store') : route('document-management.update', [isset($thesis) ? $thesis->id : ''])}}"
-    method="POST" enctype="multipart/form-data">
+    method="POST" class="no-interval-load" enctype="multipart/form-data">
     @if (Route::is('document-management.edit'))
     @method('PUT')
     @endif
