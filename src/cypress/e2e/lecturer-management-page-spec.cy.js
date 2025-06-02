@@ -21,10 +21,10 @@ describe('Cek fungsi halaman dosen', () => {
       expect(loc.pathname).to.equal('/home/lecturer-management')
     })
 
-    cy.get('[data-cy="input-name"]').type('Usman Nur Hasan')
+    cy.get('[data-cy="input-name"]').type('Usman Nurhasan')
     cy.get('[data-cy="btn-submit"]').click()
 
-    cy.contains('tr', 'Usman Nur Hasan').should('exist');
+    cy.contains('tr', 'Usman Nurhasan').should('exist');
   })
 
   it('Cek perilaku sistem jika menambah data dosen', () => {
