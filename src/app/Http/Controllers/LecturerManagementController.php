@@ -114,7 +114,7 @@ class LecturerManagementController extends Controller
             'username' => 'nullable|unique:lecturers,username,' . $ID . 'id',
             'name' => 'nullable',
             'topic_id' => 'nullable',
-            'email' => 'nullable|email|unique:lecturers,email',
+            'email' => 'nullable|email|unique:lecturers,email,' . $ID . 'id',
             'password' => 'nullable|min:6',
             'profile_picture' => 'nullable|mimes:png,jpg,jpeg|max:1024',
         ], [
