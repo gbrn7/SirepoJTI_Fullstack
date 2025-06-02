@@ -12,14 +12,14 @@ use Illuminate\Contracts\Pagination\Paginator;
 class LecturerRepository implements LecturerRepositoryInterface
 {
 
-  public function getLecturers(GetLecturerReqModel $params, bool $wantPaginate = true): Collection|Paginator
+  public function getLecturers(GetLecturerReqModel $params, bool $wantPaginate = true, string $sortBy = 'id', string $sequence = 'DESC'): Collection|Paginator
   {
     $query = Lecturer::query()
       ->with('topic')
       ->when($params->name, fn($q) => $q->where('name', 'like', '%' . $params->name . '%'))
       ->when($params->username, fn($q) => $q->where('username', 'like', '%' . $params->username . '%'))
-      ->when($params->username, fn($q) => $q->where('email', 'like', '%' . $params->email . '%'))
-      ->orderBy('id', 'DESC');
+      ->when($params->email, fn($q) => $q->where('email', 'like', '%' . $params->email . '%'))
+      ->orderBy($sortBy, $sequence);
 
     return $wantPaginate ?  $query->paginate(10) :  $query->get();
   }

@@ -13,7 +13,7 @@
         <a href="{{route('home')}}" class="text-decoration-none">Beranda</a>
       </li>
       <li class="breadcrumb-item align-items-center">
-        <a href="{{route('student-management.index')}}" class="text-decoration-none">Beranda</a>
+        <a href="{{route('student-management.index')}}" class="text-decoration-none">Mahasiswa</a>
       </li>
       <li class="breadcrumb-item active" aria-current="page">
         Detail Data Mahasiswa

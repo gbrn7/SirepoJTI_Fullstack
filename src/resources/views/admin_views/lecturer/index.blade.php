@@ -138,7 +138,8 @@
 </div>
 
 <!-- Import Lecturer Modal -->
-<div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade no-interval-load" id="importModal" tabindex="-1" aria-labelledby="myModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog ">
     <form id="form-tag" action="{{route('importLecturerExcelData')}}" class="form no-interval-load" method="POST"
       enctype="multipart/form-data">

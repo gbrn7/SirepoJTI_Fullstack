@@ -23,11 +23,11 @@ class LecturerService implements LecturerServiceInterface
     protected LecturerRepositoryInterface $repository
   ) {}
 
-  public function getLecturers(?GetLecturerReqModel $reqModel = null, bool $wantPaginate = true): Collection|Paginator
+  public function getLecturers(?GetLecturerReqModel $reqModel = null, bool $wantPaginate = true, string $sortBy = 'id', string $sequence = 'DESC'): Collection|Paginator
   {
     $params = isset($reqModel) ? $reqModel : new GetLecturerReqModel();
 
-    return $this->repository->getLecturers($params, $wantPaginate);
+    return $this->repository->getLecturers($params, $wantPaginate, $sortBy, $sequence);
   }
 
   public function storeLecturer(array $data): Lecturer

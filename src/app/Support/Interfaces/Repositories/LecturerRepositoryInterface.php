@@ -9,7 +9,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 
 interface LecturerRepositoryInterface
 {
-  public function getLecturers(GetLecturerReqModel $params, bool $wantPaginate = true): Collection|Paginator;
+  public function getLecturers(GetLecturerReqModel $params, bool $wantPaginate = true, string $sortBy = 'id', string $sequence = 'DESC'): Collection|Paginator;
   public function storeLecturer(array $data): Lecturer;
   public function getLecturerByID(string $ID): ?Lecturer;
   public function updateLecturer(Lecturer $lecturer, array $reqData): bool;

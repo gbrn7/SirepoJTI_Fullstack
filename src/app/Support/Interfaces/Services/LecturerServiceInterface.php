@@ -10,7 +10,7 @@ use Illuminate\Http\UploadedFile;
 
 interface LecturerServiceInterface
 {
-  public function getLecturers(?GetLecturerReqModel $reqModel = null, bool $wantPaginate = true): Collection|Paginator;
+  public function getLecturers(?GetLecturerReqModel $reqModel = null, bool $wantPaginate = true, string $sortBy = 'id', string $sequence = 'DESC'): Collection|Paginator;
   public function storeLecturer(array $reqData): Lecturer;
   public function getLecturerByID(string $ID): ?Lecturer;
   public function updateLecturer(string $ID, array $reqData): bool;

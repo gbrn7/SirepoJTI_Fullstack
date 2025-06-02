@@ -44,7 +44,7 @@ class ThesisSubmissionController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers(null, false);
+        $lecturers = $this->lecturerService->getLecturers(null, false, 'name', 'ASC');
 
         return view('user_views.thesis_document_form', compact('topics', 'types', 'lecturers'));
     }
@@ -123,7 +123,7 @@ class ThesisSubmissionController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers(null, false);
+        $lecturers = $this->lecturerService->getLecturers(null, false, 'name', 'ASC');
 
         $document = $this->thesisService->getThesisByID($ID);
 

@@ -45,7 +45,7 @@ describe('Cek fungsi halaman tugas akhir', () => {
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal('/home/document-management/create')
     })
-    cy.get('[data-cy="input-username"]').type('2141762098')
+    cy.get('[data-cy="input-username"]').type('2131762099')
     cy.get('[data-cy="input-title"]').type('test judul')
     cy.get('[data-cy="input-abstract"]').type('test abstract')
     cy.get('[data-cy="input-topic"]').select(1)

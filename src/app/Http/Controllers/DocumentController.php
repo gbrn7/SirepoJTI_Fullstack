@@ -51,7 +51,7 @@ class DocumentController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers(null, false);
+        $lecturers = $this->lecturerService->getLecturers(null, false, 'name', 'ASC');
 
         return view('admin_views.document.document_upsert_form', compact('topics', 'types', 'lecturers'));
     }
@@ -62,7 +62,7 @@ class DocumentController extends Controller
 
         $types = $this->thesisTypeService->getThesisTypes();
 
-        $lecturers = $this->lecturerService->getLecturers(null, false);
+        $lecturers = $this->lecturerService->getLecturers(null, false, 'name', 'ASC');
 
         $thesis = $this->thesisService->getThesisByID($id);
 
