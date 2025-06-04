@@ -30,18 +30,18 @@
     </div>
     <div class="mb-2">
       <label class="form-label">Password Lama</label>
-      <input type="password" class="form-control" data-cy="input-old-password" placeholder="Enter the password"
+      <input type="password" class="form-control" data-cy="input-old-password" placeholder="Masukkan password lama anda"
         name="old_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">Password Baru</label>
-      <input type="password" class="form-control" data-cy="input-new-password" placeholder="Enter the password"
+      <input type="password" class="form-control" data-cy="input-new-password" placeholder="Masukkan password baru anda"
         name="new_password" />
     </div>
     <div class="mb-2">
       <label class="form-label">Ulangi Password Baru</label>
       <input type="password" class="form-control" data-cy="input-confirm-new-password"
-        placeholder="Enter your new password again" name="confirm_password" />
+        placeholder="Masukkan konfirmasi password baru anda" name="confirm_password" />
     </div>
     <div class="wrapper d-flex justify-content-end">
       <button type="submit" class="btn btn-submit fw-bold text-black px-5 btn-warning"
