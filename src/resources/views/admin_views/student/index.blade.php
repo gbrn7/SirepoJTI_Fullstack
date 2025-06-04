@@ -157,7 +157,7 @@
               <div class="btn btn-delete btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
                 data-username="{{$student->username}}"
                 data-delete-link="{{route('student-management.destroy', $student->id)}}">
-                Delete</div>
+                Hapus</div>
               <a href="{{route('student-management.edit', $student->id)}}"
                 class="btn btn-edit btn-warning text-black">Edit</a>
               <a href="{{route('student-management.show', $student->id)}}" class="btn btn-detail text-white">Detail</a>
