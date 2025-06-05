@@ -19,9 +19,9 @@ class EnsureUserIdMatchesAuthenticated
         $routeUserId = (string) $request->route('id');
 
         if (Auth::guard('admin')->check()) {
-            $authUserId = (string) Auth::guard('admin')->id;
+            $authUserId = (string) Auth::guard('admin')->user()->id;
         } elseif (Auth::guard('lecturer')->check()) {
-            $authUserId = (string) Auth::guard('lecturer')->id;
+            $authUserId = (string) Auth::guard('lecturer')->user()->id;
         } else {
             $authUserId = (string) Auth::guard('student')->user()->id;
         }
