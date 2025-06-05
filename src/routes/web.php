@@ -52,7 +52,7 @@ Route::group(['prefix' => 'home'], function () {
     });
 
     Route::group(['middleware' => ['auth:student,admin,lecturer']], function () {
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'user', 'middleware' => ['user.match']], function () {
             Route::get('/{id}', [userController::class, 'editProfile'])->name('user.editProfile');
             Route::post('/{id}', [userController::class, 'updateProfile'])->name('user.updateProfile');
         });

@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            \Illuminate\Routing\Middleware\ThrottleRequests::class.':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
     ];
@@ -69,6 +69,7 @@ class Kernel extends HttpKernel
         // SweetAlert
         'Alert' => \RealRashid\SweetAlert\Facades\Alert::class,
         'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+        'user.match' => \App\Http\Middleware\EnsureUserIdMatchesAuthenticated::class,
         // 'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
         // 'roleOrPermission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
     ];
