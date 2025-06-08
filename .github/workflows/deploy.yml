@@ -47,6 +47,6 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /var/www/sirepo-jti.raygbrn.site
+            cd /var/www/sirepo-jti.raygbrn.site/html
             php artisan migrate --force
             php artisan optimize
