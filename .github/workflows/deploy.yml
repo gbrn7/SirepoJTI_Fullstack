@@ -51,6 +51,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/sirepo-jti.raygbrn.site
-            php artisan key:generate
-            php artisan migrate --force
+            php artisan migrate:fresh --seed
             php artisan optimize
