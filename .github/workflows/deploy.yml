@@ -24,7 +24,7 @@ jobs:
         run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
 
       - name: Test PHPUnit
-        run: ./vendor/bin/phpunit
+        run: php artisan test
 
       # - name: Install Node
       #   uses: actions/setup-node@v3
