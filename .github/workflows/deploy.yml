@@ -52,5 +52,5 @@ jobs:
           script: |
             cd /var/www/sirepo-jti.raygbrn.site
             php artisan test
-            php artisan migrate:fresh --seed
-            php artisan optimize
+            # php artisan migrate:fresh --seed
+            # php artisan optimize
