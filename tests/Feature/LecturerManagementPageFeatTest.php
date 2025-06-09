@@ -72,6 +72,7 @@ test('Import lecturer fails', function () {
     ]);
 
     $response->assertRedirect(route('lecturer-management.index'));
+
     $response->assertSessionHas('toast_error', 'Gagal Menambahkan Data');
 });
 

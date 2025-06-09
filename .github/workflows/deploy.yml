@@ -20,8 +20,8 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
 
-      # - name: Test PHPUnit
-      #   run: php artisan test
+      - name: Test Unit
+        run: .\vendor\bin\pest
 
       # - name: Install Node
       #   uses: actions/setup-node@v3

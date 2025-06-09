@@ -130,7 +130,7 @@ class LecturerServiceTest extends TestCase
 
         $newData = [
             'name' => "test_update",
-            'username' => "test_username"
+            'nip' => "test_username"
         ];
 
         $lecturerRepository = \Mockery::mock(LecturerRepository::class, function (MockInterface $mock) use ($lecturer) {
@@ -222,19 +222,19 @@ class LecturerServiceTest extends TestCase
                 [
                     [
                         'nama' => 'test',
-                        'username' => 'testusername',
+                        'nip' => 'testusername',
                         'email' => 'testemail@test.com',
                         'password' => 'testpassword',
                     ],
                     [
                         'nama' => 'test',
-                        'username' => 'testusername',
+                        'nip' => 'testusername',
                         'email' => 'testemail@test.com',
                         'password' => 'testpassword',
                     ],
                     [
                         'nama' => 'test',
-                        'username' => 'testusername',
+                        'nip' => 'testusername',
                         'email' => 'testemail@test.com',
                         'password' => 'testpassword',
                     ],
