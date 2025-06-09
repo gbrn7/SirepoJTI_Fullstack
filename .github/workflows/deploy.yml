@@ -45,4 +45,4 @@ jobs:
           script: |
             cd ${{ secrets.APP_PATH }}
             chmod +x ./build-script.sh
-            ./.build-script.sh
+            ./build-script.sh
