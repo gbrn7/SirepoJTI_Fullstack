@@ -47,6 +47,7 @@ jobs:
         uses: deployphp/action@v1
         with:
           dep: deploy
+          deployer-version: "7.3.3"
           private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       # - name: Run Remote/Artisan Commands
