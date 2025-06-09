@@ -46,3 +46,9 @@ jobs:
       #       cd ${{ secrets.APP_PATH }}
       #       composer install
       #       php artisan test
+
+      - name: Deploy to Production Server
+        uses: deployphp/action@v1
+        with:
+          dep: deploy
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
