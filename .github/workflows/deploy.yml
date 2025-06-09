@@ -36,8 +36,12 @@ jobs:
       # - name: Build NPM Assets
       #   run: npm run build
 
-      - name: Set Up Deployer
-        run: curl -LO https://deployer.org/deployer.phar && mv deployer.phar bin/dep && sudo chmod +x bin/dep
+      - name: Install Deployer
+        run: |
+          curl -LO https://deployer.org/deployer.phar
+          chmod +x deployer.phar
+          mkdir -p ./bin
+          mv deployer.phar ./bin/dep
 
       - name: Deploy to Production Server
         uses: deployphp/action@v1
