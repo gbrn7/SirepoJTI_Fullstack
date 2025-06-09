@@ -44,6 +44,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
+            chown -R www-data:www-data storage bootstrap/cache
+            chmod -R 775 storage bootstrap/cache
             composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
             git pull
             # php artisan test
