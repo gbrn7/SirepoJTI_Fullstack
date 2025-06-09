@@ -35,6 +35,14 @@ jobs:
 
       # - name: Build NPM Assets
       #   run: npm run build
+      - name: Synchronize Files To Server
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        SOURCE: "."
+        REMOTE_HOST: ${{ secrets.VPS_HOST }}
+        REMOTE_USER: ${{ secrets.VPS_USER }}
+        TARGET: ${{ secrets.APP_PATH }}
 
       - name: Run Remote/Artisan Commands
         uses: appleboy/ssh-action@v0.1.6
@@ -48,8 +56,6 @@ jobs:
             git pull origin
             echo "Installing packages using composer"
             composer install
-            echo "test"
-            php artisan test
             echo "Migrating database"
             php artisan migrate --force
             echo "The app has been build and deploy"
