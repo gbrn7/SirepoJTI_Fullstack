@@ -36,20 +36,26 @@ jobs:
       # - name: Build NPM Assets
       #   run: npm run build
 
-      - name: Run Remote/Artisan Commands
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Deploy
+        uses: deployphp/action@v1
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ secrets.APP_PATH }}
-            echo "Pulling from GitHub"
-            git pull origin
-            echo "Installing packages using composer"
-            composer install
-            echo "test"
-            php artisan test
-            echo "Migrating database"
-            php artisan migrate --force
-            echo "The app has been build and deploy"
+          dep: deploy
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # - name: Run Remote/Artisan Commands
+      #   uses: appleboy/ssh-action@v0.1.6
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: ${{ secrets.VPS_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd ${{ secrets.APP_PATH }}
+      #       echo "Pulling from GitHub"
+      #       git pull origin
+      #       echo "Installing packages using composer"
+      #       composer install
+      #       echo "test"
+      #       php artisan test
+      #       echo "Migrating database"
+      #       php artisan migrate --force
+      #       echo "The app has been build and deploy"
