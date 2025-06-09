@@ -42,7 +42,7 @@ jobs:
         SOURCE: "."
         REMOTE_HOST: ${{ secrets.VPS_HOST }}
         REMOTE_USER: ${{ secrets.VPS_USER }}
-        TARGET: "${{ secrets.APP_PATH }}"
+        TARGET: "/var/www/sirepo-jti.raygbrn.site"
 
       - name: Run Remote/Artisan Commands
         uses: appleboy/ssh-action@v0.1.6
@@ -52,8 +52,8 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
-            echo "Pulling from GitHub"
-            git pull origin
+            # echo "Pulling from GitHub"
+            # git pull origin
             echo "Installing packages using composer"
             composer install
             echo "Migrating database"
