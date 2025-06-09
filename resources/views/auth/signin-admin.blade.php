@@ -6,7 +6,7 @@
 
 @section('custom_link_first', route('signIn.lecturer'))
 
-@section('custom_link_label_first', 'Dosen test')
+@section('custom_link_label_first', 'Dosen')
 
 @section('custom_link_second', route('signIn.student'))
 
