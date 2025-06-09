@@ -35,17 +35,22 @@ jobs:
 
       # - name: Build NPM Assets
       #   run: npm run build
-
-      - name: Run Remote/Artisan Commands
-        uses: appleboy/ssh-action@v0.1.6
+      - name: Deploy to Production Server
+        uses: deployphp/action@v1
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ secrets.APP_PATH }}
-            sudo chown -R www-data:www-data storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
-            composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
-            git pull
-            # php artisan test
+          dep: deploy
+          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      # - name: Run Remote/Artisan Commands
+      #   uses: appleboy/ssh-action@v0.1.6
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: ${{ secrets.VPS_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd ${{ secrets.APP_PATH }}
+      #       sudo chown -R www-data:www-data storage bootstrap/cache
+      #       sudo chmod -R 775 storage bootstrap/cache
+      #       composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+      #       git pull
+      #       # php artisan test
