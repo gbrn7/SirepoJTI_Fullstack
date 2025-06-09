@@ -20,9 +20,6 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
 
-      - name: Test Unit
-        run: .\vendor\bin\pest
-
       # - name: Install Node
       #   uses: actions/setup-node@v3
       #   with:
@@ -51,6 +48,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/sirepo-jti.raygbrn.site
-            php artisan test
+            .\vendor\bin\pest
             # php artisan migrate:fresh --seed
             # php artisan optimize
