@@ -18,8 +18,8 @@ jobs:
           php-version: 8.3
 
       # with dev library install
-      - name: Install Composer Dependencies
-        run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+      # - name: Install Composer Dependencies
+      #   run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
 
       # no dev library install
       # - name: Install Composer Dependencies
@@ -44,5 +44,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
-            git pull origin
-            ./build.sh
+            composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+            php artisan test
