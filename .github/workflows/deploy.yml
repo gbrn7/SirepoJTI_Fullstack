@@ -46,11 +46,3 @@ jobs:
             cd ${{ secrets.APP_PATH }}
             chmod +x ./.build.sh
             ./.build.sh
-
-            # echo "Pulling from GitHub"
-            # git pull origin
-            # echo "Installing packages using composer"
-            # composer install
-            # echo "Migrating database"
-            # php artisan migrate --force
-            # echo "The app has been build and deploy"
