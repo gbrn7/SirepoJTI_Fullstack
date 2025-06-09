@@ -18,8 +18,8 @@ jobs:
           php-version: 8.3
 
       # with dev library install
-      # - name: Install Composer Dependencies
-      #   run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+      - name: Install Composer Dependencies
+        run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
 
       # no dev library install
       # - name: Install Composer Dependencies
@@ -36,15 +36,13 @@ jobs:
       # - name: Build NPM Assets
       #   run: npm run build
 
-      - name: Run Remote/Artisan Commands
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd ${{ secrets.APP_PATH }}
-            chmod -R 775 storage bootstrap/cache
-            touch storage/logs/laravel.log || true
-            chmod 666 storage/logs/laravel.log || true
-            composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+      # - name: Run Remote/Artisan Commands
+      #   uses: appleboy/ssh-action@v0.1.6
+      #   with:
+      #     host: ${{ secrets.VPS_HOST }}
+      #     username: ${{ secrets.VPS_USER }}
+      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
+      #     script: |
+      #       cd ${{ secrets.APP_PATH }}
+      #       composer install
+      #       php artisan test
