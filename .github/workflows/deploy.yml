@@ -36,33 +36,20 @@ jobs:
       # - name: Build NPM Assets
       #   run: npm run build
 
-      - name: Install Deployer
-        run: |
-          curl -LO https://deployer.org/deployer.phar
-          chmod +x deployer.phar
-          mkdir -p ./bin
-          mv deployer.phar ./bin/dep
-
-      - name: Deploy to Production Server
-        uses: deployphp/action@v1
+      - name: Run Remote/Artisan Commands
+        uses: appleboy/ssh-action@v0.1.6
         with:
-          deployer-version: "7.3.3"
-          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      # - name: Run Remote/Artisan Commands
-      #   uses: appleboy/ssh-action@v0.1.6
-      #   with:
-      #     host: ${{ secrets.VPS_HOST }}
-      #     username: ${{ secrets.VPS_USER }}
-      #     key: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     script: |
-      #       cd ${{ secrets.APP_PATH }}
-      #       echo "Pulling from GitHub"
-      #       git pull origin
-      #       echo "Installing packages using composer"
-      #       composer install
-      #       echo "test"
-      #       php artisan test
-      #       echo "Migrating database"
-      #       php artisan migrate --force
-      #       echo "The app has been build and deploy"
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.APP_PATH }}
+            echo "Pulling from GitHub"
+            git pull origin
+            echo "Installing packages using composer"
+            composer install
+            echo "test"
+            php artisan test
+            echo "Migrating database"
+            php artisan migrate --force
+            echo "The app has been build and deploy"
