@@ -21,9 +21,6 @@ jobs:
       - name: Install Composer Dependencies
         run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
 
-      - name: Test
-        run: php artisan test
-
       # no dev library install
       # - name: Install Composer Dependencies
       #   run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
@@ -51,6 +48,8 @@ jobs:
             git pull origin
             echo "Installing packages using composer"
             composer install
+            echo "test"
+            php artisan test
             echo "Migrating database"
             php artisan migrate --force
             echo "The app has been build and deploy"
