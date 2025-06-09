@@ -44,4 +44,10 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
-            git pull
+            echo "Pulling from GitHub"
+            git pull origin
+            echo "Installing packages using composer"
+            composer install
+            echo "Migrating database"
+            php artisan migrate --force
+            echo "The app has been build and deploy"
