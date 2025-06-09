@@ -9,19 +9,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Fetch built assets from Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: assets
-          path: public
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
       - name: Setup PHP
-        uses: shivammathur/setup-php@master
+        uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3"
-          extensions: mbstring, bcmath
-      - name: Composer install
-        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress
+          php-version: 8.3
+
+      # with dev library install
+      - name: Install Composer Dependencies
+        run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+
+      # no dev library install
+      # - name: Install Composer Dependencies
+      #   run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
+
+      # - name: Install Node
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: "20"
+
+      # - name: Install NPM Dependencies
+      #   run: npm install
+
+      # - name: Build NPM Assets
+      #   run: npm run build
+
       - name: Deploy to Production Server
         uses: deployphp/action@v1
         with:
