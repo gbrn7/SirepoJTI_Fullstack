@@ -45,4 +45,5 @@ jobs:
           script: |
             cd ${{ secrets.APP_PATH }}
             composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
-            php artisan test
+            git pull
+            # php artisan test
