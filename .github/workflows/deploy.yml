@@ -44,7 +44,9 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
+            chmod +x ./build.sh
             ./build.sh
+
             # echo "Pulling from GitHub"
             # git pull origin
             # echo "Installing packages using composer"
