@@ -36,12 +36,12 @@ jobs:
       # - name: Build NPM Assets
       #   run: npm run build
 
-      - name: Deploy to Production Server
-        uses: deployphp/action@v1
+      - name: Run Remote/Artisan Commands
+        uses: appleboy/ssh-action@v0.1.6
         with:
-          dep: deploy
-          private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Deploy to Production
-        env:
-          DOT_ENV: ${{ secrets.DOT_ENV_PRODUCTION }}
-        run: php vendor/bin/dep deploy prod --branch="main" -vv
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.APP_PATH }}
+            ./build.sh
