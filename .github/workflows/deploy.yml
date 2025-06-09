@@ -17,8 +17,16 @@ jobs:
         with:
           php-version: 8.3
 
+      # with dev library install
       - name: Install Composer Dependencies
-        run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
+        run: composer install --optimize-autoloader --no-progress --no-interaction --prefer-dist
+
+      - name: Unit Test
+        run: php artisan test
+
+      # no dev library install
+      # - name: Install Composer Dependencies
+      #   run: composer install --optimize-autoloader --no-dev --no-progress --no-interaction --prefer-dist
 
       # - name: Install Node
       #   uses: actions/setup-node@v3
@@ -48,6 +56,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /var/www/sirepo-jti.raygbrn.site
-            php artisan test
             # php artisan migrate:fresh --seed
             # php artisan optimize
