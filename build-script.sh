@@ -1,5 +1,3 @@
-#!/bin/bash
-
 echo "Running deploy script"
 
 echo "[1/5] Pulling from GitHub"
