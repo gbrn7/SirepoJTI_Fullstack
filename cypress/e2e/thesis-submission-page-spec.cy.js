@@ -32,6 +32,7 @@ describe('Cek Fungsi Halaman Tugas Akhir', () => {
     cy.get('[data-cy="input-bibliography-document"]').selectFile("Cypress/document/document_test.pdf", { force: true });
     cy.get('[data-cy="input-attachment-document"]').selectFile("Cypress/document/document_test.pdf", { force: true });
     cy.get('[data-cy="btn-submit"]').click()
+    cy.get('[data-cy="btn-confirm-submit"]').click()
 
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal('/home/thesis-submission')

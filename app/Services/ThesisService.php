@@ -371,7 +371,7 @@ class ThesisService implements ThesisServiceInterface
 
   public function getThesisTotalPerLecturerPieChart(SupportCollection $data): LarapexChart
   {
-    $lecturerName = $this->LecturerRepository->getLecturers(new GetLecturerReqModel());
+    $lecturerName = $this->LecturerRepository->getLecturers(new GetLecturerReqModel(), false);
 
     $thesisTotalPerLecturerRaw = $data->groupBy('lecturer_id')->map(function ($items) {
       return $items->count();

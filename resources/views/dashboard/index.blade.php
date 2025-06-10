@@ -134,8 +134,8 @@
   </form>
   <div class="dashboard-wrapper col-12 col-lg-10 px-2">
     <div class=" d-flex flex-column flex-lg-row gap-2 gap-lg-0">
-      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column justify-content-between gap-1">
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column gap-1">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Jumlah Tugas Akhir</p>
             <p class="text-secondary subtitle-chart">Total Tugas Akhir</p>
@@ -145,7 +145,7 @@
             0
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Topik</p>
             <p class="text-secondary subtitle-chart">Total Tugas Akhir Per Topik</p>
@@ -154,7 +154,7 @@
             {!! $thesisTotalPerTopic->container() !!}
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Jenis</p>
             <p class="text-secondary subtitle-chart">Perbandingan jumlah tugas akhir berdasarkan jenis</p>
@@ -164,8 +164,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column justify-content-between gap-1">
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column gap-1">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Tahun</p>
             <p class="text-secondary subtitle-chart">Total tugas akhir 5 tahun terakhir</p>
@@ -174,7 +174,7 @@
             {!! $thesisPerYearChart->container() !!}
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Angkatan</p>
             <p class="text-secondary subtitle-chart">Tabel Total Tugas Akhir Berdasarkan Tahun Angkatan</p>
@@ -200,7 +200,7 @@
             </table>
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Tugas Akhir Per Gender</p>
             <p class="text-secondary subtitle-chart">Perbandingan jumlah tugas akhir setiap gender</p>
@@ -210,8 +210,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column justify-content-between gap-1">
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+      <div class="col-lg-4 col-12 chart-column px-1 d-flex flex-column gap-1">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Jumlah Tugas Akhir Per Dosen</p>
             <p class="text-secondary subtitle-chart">Total Jumlah Tugas Akhir Berdasarkan Dosen</p>
@@ -220,7 +220,7 @@
             {!! $thesisTotalPerLecturer->container() !!}
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Jumlah Tugas Akhir Per Program Studi</p>
             <p class="text-secondary subtitle-chart">Total Jumlah Tugas Akhir Berdasarkan Program Studi</p>
@@ -229,7 +229,7 @@
             {!! $thesisTotalPerPrody->container() !!}
           </div>
         </div>
-        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col-12">
+        <div class="content-wrapper chart-card p-2 bg-white rounded rounded-lg col">
           <div class="subtitle-wrapper">
             <p class="fw-semibold fs-6 mb-0 text-black text-uppercase">Pengunduhan Tugas Akhir</p>
             <p class="text-secondary subtitle-chart">Tabel Peringkat Tugas Akhir Berdasarkan Jumlah Pengunduhan</p>
