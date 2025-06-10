@@ -46,5 +46,5 @@ jobs:
             cd ${{ secrets.APP_PATH }}
             chmod +x ./build-script.sh
             mkdir ./storage/app/document
-            chmod -R 755 ./bootstrap/cache ./storage/app ./cypress/document
+            chmod -R 755 ./bootstrap/cache ./cypress/document
             ./build-script.sh
