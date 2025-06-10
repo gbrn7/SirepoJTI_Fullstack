@@ -45,5 +45,5 @@ jobs:
           script: |
             cd ${{ secrets.APP_PATH }}
             chmod +x ./build-script.sh
-            chmod -R 777 ./bootstrap/cache ./cypress/document
+            chmod -R 777 storage ./bootstrap/cache ./cypress/document
             ./build-script.sh
