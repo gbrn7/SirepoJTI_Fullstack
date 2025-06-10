@@ -12,7 +12,7 @@ php artisan migrate --force
 echo "[4/5] Storage link"
 php artisan storage:link
 
-echo "[4/5] Cache config, routes, dan views"
+echo "[5/5] Cache config, routes, dan views"
 php artisan optimize
 
 echo "The app has been built and deployed!"
