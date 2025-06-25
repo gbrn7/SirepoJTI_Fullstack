@@ -3,7 +3,7 @@ services:
     container_name: sirepo-jti_franken
     image: image_sirepo-jti_franken
     build: 
-      dockerfile: worker.frankenphp.dockerfile
+      dockerfile: Dockerfile
       context: .
     ports: 
       - 8001:8000
