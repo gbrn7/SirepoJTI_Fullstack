@@ -37,4 +37,5 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
 EXPOSE 8000
 
 #Executes when a container starts
-CMD php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000
+EXPOSE 8000
+CMD ["frankenphp", "--document-root", "public", "--listen", ":8000", "--worker"]
