@@ -23,7 +23,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build and Push Docker image
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v4
         with:
           context: .
           file: ./Dockerfile
@@ -35,16 +35,17 @@ jobs:
     environment: frankenphp
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to VPS
-        uses: appleboy/ssh-action@master
+      - name: Deploy To Production Server
+        uses: appleboy/ssh-action@v0.1.6
         with:
-          host: ${{ secrets.SERVER }}
-          username: ${{ secrets.SERVER_USERNAME}}
-          password: ${{ secrets.SERVER_PASSWORD}}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }} && git checkout -b frankenphp
             git pull origin frankenphp
             # Setup environment
             echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
+            docker compose down -v
             docker compose build 
             docker compose up -d
