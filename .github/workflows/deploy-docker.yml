@@ -5,7 +5,7 @@ on:
       - frankenphp
 
 jobs:
-  build-and-push:
+  Build-and-push:
     environment: frankenphp
     runs-on: ubuntu-latest
 
@@ -30,7 +30,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/laravel-app:latest
 
-  deployment:
+  Deployment:
     needs: build-and-push
     environment: frankenphp
     runs-on: ubuntu-latest
