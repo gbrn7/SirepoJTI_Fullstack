@@ -45,7 +45,7 @@ jobs:
             cd ${{ secrets.APP_PATH }} && git switch frankenphp
             git pull origin frankenphp
             # Setup environment
-            echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
             docker compose down -v
             docker compose build 
+            docker exec -it sirepo-jti_franken echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
             docker compose up -d
