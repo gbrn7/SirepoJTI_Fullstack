@@ -51,7 +51,11 @@ jobs:
             # Prune old images, containers, volumes
             docker system prune -af
 
+            # Docker compose build with specified .env and specifies docker compose file with -f
             docker compose --env-file .env -f docker-compose.yml pull
             docker compose --env-file .env -f docker-compose.yml up -d
+
+            #add .env file
+            docker exec -it sirepo-jti_franken echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
 
             echo "Deployment completed successfully!"
