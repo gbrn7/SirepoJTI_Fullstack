@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/laravel-app:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sirepojti-frankenphp:latest
 
   Deployment:
     needs: build-and-push
@@ -45,5 +45,7 @@ jobs:
           script: |
             cd ${{ secrets.APP_PATH }} && git checkout -b frankenphp
             git pull origin frankenphp
+            # Setup environment
+            echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
             docker compose build 
             docker compose up -d
