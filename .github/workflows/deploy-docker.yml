@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sirepojti-frankenphp:latest
+          tags: gbrn7/sirepojti-frankenphp:latest
 
   Deployment:
     needs: build-and-push
@@ -41,7 +41,6 @@ jobs:
           host: ${{ secrets.SERVER }}
           username: ${{ secrets.SERVER_USERNAME}}
           password: ${{ secrets.SERVER_PASSWORD}}
-          port: ${{ secrets.SERVER_PORT  }}
           script: |
             cd ${{ secrets.APP_PATH }} && git checkout -b frankenphp
             git pull origin frankenphp
