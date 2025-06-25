@@ -42,8 +42,13 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.APP_PATH }} && git switch frankenphp
+            #Go to project
+            cd ${{ secrets.APP_PATH }}
+
+            # Update project
+            git switch frankenphp
             git pull origin frankenphp
+
             # Setup environment
             echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
             docker compose down -v
