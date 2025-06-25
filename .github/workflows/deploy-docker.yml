@@ -28,7 +28,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: gbrn7/sirepojti-frankenphp:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sirepojti-frankenphp:${{ github.run_number }}
 
   Deployment:
     needs: build-and-push
