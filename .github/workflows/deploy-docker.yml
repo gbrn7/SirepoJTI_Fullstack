@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ${{ secrets.APP_PATH }} && git checkout -b frankenphp
+            cd ${{ secrets.APP_PATH }} && git switch frankenphp
             git pull origin frankenphp
             # Setup environment
             echo "${{ secrets.DOT_ENV_FRANKENPHP }}" > .env
