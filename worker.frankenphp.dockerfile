@@ -39,4 +39,4 @@ EXPOSE 8000
 #Executes when a container starts
 EXPOSE 8000
 
-CMD ["frankenphp", "--document-root", "public", "--listen", ":8080", "--worker"]
+CMD ["frankenphp", "--document-root", "public", "--listen", ":80", "--worker"]

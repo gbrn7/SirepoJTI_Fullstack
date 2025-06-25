@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
       context: .
     ports: 
-      - 8080:8000
+      - 8080:80
       - 444:443
       - 444:443/udp
     env_file: 
