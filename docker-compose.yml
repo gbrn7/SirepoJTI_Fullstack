@@ -11,6 +11,8 @@ services:
       - 444:443/udp
     env_file: 
       - .env 
+    volumes:
+      - .:/app
 
   mysql_database:
     container_name: mysql_sirepo
