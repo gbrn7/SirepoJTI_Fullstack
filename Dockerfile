@@ -6,6 +6,9 @@ WORKDIR /app
 
 COPY . /app
 
+# Create the folder for uploaded documents
+RUN mkdir -p /app/storage/app/document
+
 RUN apt update && apt install -y \
   zip \
   libzip-dev \
