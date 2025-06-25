@@ -1,6 +1,6 @@
 FROM dunglas/frankenphp:php8.3
 
-ENV SERVER_NAME=":8000"
+ENV SERVER_NAME=":8080"
 
 WORKDIR /app
 
