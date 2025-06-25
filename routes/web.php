@@ -112,6 +112,11 @@ Route::group(['prefix' => 'home'], function () {
     });
 });
 
+Route::get('/info', function () {
+    dd(phpinfo());
+});
+
+
 Route::any('/{any}', function () {
     abort(404);
 })->where('any', '.*');

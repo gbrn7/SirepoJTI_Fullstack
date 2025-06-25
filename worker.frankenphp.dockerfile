@@ -1,11 +1,10 @@
 FROM dunglas/frankenphp:php8.3
 
-ENV SERVER_NAME=":8000"
-
 WORKDIR /app
 
-COPY . /app
+COPY --chown=www-data:www-data . /app
 
+# Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
   zip \
   libzip-dev \
@@ -15,7 +14,7 @@ RUN apt update && apt install -y \
   libonig-dev \
   libxml2-dev \
   && docker-php-ext-configure zip \
-  && docker-php-ext-install zip \
+  && docker-php-ext-install zip pcntl\
   && docker-php-ext-configure gd --with-freetype --with-jpeg \
   && docker-php-ext-install gd \
   && docker-php-ext-install pdo_mysql
@@ -31,4 +30,11 @@ RUN { \
   echo 'max_input_time = 600'; \
   } > /usr/local/etc/php/conf.d/uploads.ini
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
+  composer require laravel/octane && \
+  php artisan octane:install --server=frankenphp
+
+EXPOSE 8000
+
+#Executes when a container starts
+CMD php artisan octane:start --server=frankenphp --host=0.0.0.0 --port=8000

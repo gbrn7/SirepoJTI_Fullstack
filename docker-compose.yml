@@ -2,9 +2,11 @@ services:
   sirepo-jti_franken:
     container_name: sirepo-jti_franken
     image: image_sirepo-jti_franken
-    build: .
+    build: 
+      dockerfile: worker.frankenphp.dockerfile
+      context: .
     ports: 
-      - 8001:80
+      - 8001:8000
       - 443:443
       - 443:443/udp
     env_file: 
