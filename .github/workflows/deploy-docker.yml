@@ -30,7 +30,7 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/laravel-app:latest
 
   deployment:
-    needs: build
+    needs: build-and-push
     environment: frankenphp
     runs-on: ubuntu-latest
     steps:
