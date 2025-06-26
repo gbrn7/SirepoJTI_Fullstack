@@ -2,8 +2,8 @@ FROM dunglas/frankenphp:php8.3
 
 WORKDIR /app
 
-# Copy all file & folder to the /app inside container
-COPY . /app
+# Copy all file & folder to the /app inside docker container
+COPY . /app 
 
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \

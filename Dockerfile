@@ -11,6 +11,7 @@ COPY . /app
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
 
+# Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
   zip \
   libzip-dev \
@@ -25,8 +26,6 @@ RUN apt update && apt install -y \
   && docker-php-ext-install gd \
   && docker-php-ext-install pdo_mysql
 
-COPY --from=composer:2.7.6 /usr/bin/composer /usr/bin/composer
-
 # Configure PHP for large file uploads (up to 1GB)
 RUN { \
   echo 'upload_max_filesize = 1024M'; \
@@ -35,6 +34,8 @@ RUN { \
   echo 'max_execution_time = 600'; \
   echo 'max_input_time = 600'; \
   } > /usr/local/etc/php/conf.d/uploads.ini
+
+COPY --from=composer:2.7.6 /usr/bin/composer /usr/bin/composer
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
