@@ -3,8 +3,8 @@ FROM dunglas/frankenphp:php8.3
 WORKDIR /app
 
 # give permission document folder 
-RUN chmod -R 775 /app/storage && \
-  chown -R www-data:www-data /app/storage
+RUN chmod -R 775 /storage && \
+  chown -R www-data:www-data /storage
 
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
