@@ -2,11 +2,6 @@ FROM dunglas/frankenphp:php8.3
 
 WORKDIR /app
 
-# Copy all file & folder to the /app inside docker container
-COPY . /app 
-
-COPY .env /app/.env 
-
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
@@ -42,6 +37,8 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
   php artisan octane:install --server=frankenphp
 
 # RUN frankenphp php-cli optimize
+RUN frankenphp php-cli artisan optimize
 
+# Run laravel octane with frankenphp using 20 workier in port 80
 CMD php artisan octane:frankenphp --workers 20 --port 80
 

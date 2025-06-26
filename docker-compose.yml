@@ -14,7 +14,8 @@ services:
       - .env 
     volumes:
       - .:/app #this copy all file and folder in this project to /app inside container path or its mean this current folder connected to the /app inside docker container if there a change its impact to other
-    #   - ./Caddyfile:/etc/caddy/Caddyfile #this copy caddy in this project to /etc/caddy/Caddyfile inside container path
+      - caddy_data:/data
+      - caddy_config:/config
 
   mysql_database:
     container_name: mysql_sirepo
@@ -36,3 +37,8 @@ services:
       PMA_ARBITARY: 1
       PMA_HOST : mysql_database
       PMA_PORT : 3306
+
+# Volumes needed for Caddy certificates and configuration
+volumes:
+  caddy_data:
+  caddy_config:
