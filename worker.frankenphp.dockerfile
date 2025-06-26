@@ -5,6 +5,8 @@ WORKDIR /app
 # Copy all file & folder to the /app inside docker container
 COPY . /app 
 
+COPY .env /app/.env 
+
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
