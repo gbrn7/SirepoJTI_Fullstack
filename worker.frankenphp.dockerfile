@@ -8,6 +8,9 @@ COPY . /app
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
 
+# Enabling the Worker Mode by Default
+ENV FRANKENPHP_CONFIG="worker ./public/index.php"
+
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
   zip \
@@ -38,7 +41,3 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
   composer require laravel/octane && \
   php artisan octane:install --server=frankenphp
 
-#Executes when a container starts
-EXPOSE 8000
-
-CMD ["frankenphp", "public", "--listen", ":80", "--worker"]
