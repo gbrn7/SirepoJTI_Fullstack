@@ -39,7 +39,7 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
   composer require laravel/octane && \
   php artisan octane:install --server=frankenphp
 
-RUN frankenphp php-cli artisan optimize
+# RUN frankenphp php-cli optimize
 
 CMD php artisan octane:frankenphp --workers 20 --port 80
 
