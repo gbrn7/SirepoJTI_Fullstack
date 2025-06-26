@@ -4,15 +4,10 @@ WORKDIR /app
 
 # Copy all file & folder to the /app inside container
 COPY . /app
-# Copy Caddyfile in this project to /etc/caddy/Caddyfile in the docker container 
-COPY Caddyfile /etc/caddy/Caddyfile
 
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
-
-# Enabling the Worker Mode by Default by add the bellow config to .to env
-ENV FRANKENPHP_CONFIG="worker ./public/index.php" 
 
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
@@ -41,6 +36,6 @@ RUN { \
   } > /usr/local/etc/php/conf.d/uploads.ini
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
-  php artisan octane:install --server=frankenphp \
-  php artisan octane:frankenphp --workers 8 --port 80
+  composer require laravel/octane && \
+  php artisan octane:install --server=frankenphp
 
