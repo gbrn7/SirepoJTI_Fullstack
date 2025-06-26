@@ -12,8 +12,8 @@ services:
       - 444:443/udp
     env_file: 
       - .env 
-    # volumes:
-    #   - .:/app #this copy all file and folder in this project to /app inside container path 
+    volumes:
+      - .:/app #this copy all file and folder in this project to /app inside container path 
     #   - ./Caddyfile:/etc/caddy/Caddyfile #this copy caddy in this project to /etc/caddy/Caddyfile inside container path
 
   mysql_database:
