@@ -1,0 +1,10 @@
+{
+frankenphp {
+worker /app/public/index.php
+}
+}
+
+localhost {
+# Execute PHP files in the current directory and serve assets
+php_server
+}

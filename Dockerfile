@@ -4,7 +4,8 @@ ENV SERVER_NAME=":80"
 
 WORKDIR /app
 
-COPY . /app
+# Copy all file & folder to the /app inside docker container
+COPY . /app 
 
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \
