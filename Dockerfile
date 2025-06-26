@@ -7,8 +7,7 @@ WORKDIR /app
 COPY . /app
 
 # Create the folder for uploaded documents
-RUN mkdir -p /app/storage/app/document && \
-  chmod -R 775 /app/storage && \
+RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
 
 RUN apt update && apt install -y \
