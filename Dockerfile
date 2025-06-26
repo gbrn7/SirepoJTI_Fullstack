@@ -1,11 +1,7 @@
 FROM dunglas/frankenphp:php8.3
 
-ENV SERVER_NAME=":80"
-
+# It defines where commands will be executed inside the container filesystem.
 WORKDIR /app
-
-# Copy all file & folder to the /app inside docker container
-COPY . /app 
 
 # give permission document folder 
 RUN chmod -R 775 /app/storage && \

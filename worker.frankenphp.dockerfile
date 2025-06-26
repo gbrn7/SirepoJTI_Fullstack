@@ -1,5 +1,6 @@
 FROM dunglas/frankenphp:php8.3
 
+# It defines where commands will be executed inside the container filesystem.
 WORKDIR /app
 
 # give permission document folder 
