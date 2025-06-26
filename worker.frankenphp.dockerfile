@@ -1,6 +1,5 @@
 FROM dunglas/frankenphp:php8.3
 
-# It defines where commands will be executed inside the container filesystem.
 WORKDIR /app
 
 # give permission document folder 
@@ -40,6 +39,5 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
 # RUN frankenphp php-cli optimize
 RUN frankenphp php-cli artisan optimize
 
-# Run laravel octane with frankenphp using 20 workier in port 80
 CMD php artisan octane:frankenphp --workers 20 --port 80
 
