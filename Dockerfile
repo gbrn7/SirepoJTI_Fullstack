@@ -6,7 +6,7 @@ WORKDIR /app
 
 COPY . /app
 
-# Create the folder for uploaded documents
+# give permission document folder 
 RUN chmod -R 775 /app/storage && \
   chown -R www-data:www-data /app/storage
 

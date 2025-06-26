@@ -55,6 +55,9 @@ jobs:
             # Prune old images, containers, volumes
             docker system prune -af
 
+            # Stop existing service
+            docker compose stop
+
             # Docker compose build with specified .env and can specifies docker compose file with -f
             docker compose build
             docker compose up -d

@@ -2,7 +2,11 @@ FROM dunglas/frankenphp:php8.3
 
 WORKDIR /app
 
-COPY --chown=www-data:www-data . /app
+COPY . /app
+
+# give permission document folder 
+RUN chmod -R 775 /app/storage && \
+  chown -R www-data:www-data /app/storage
 
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
@@ -33,8 +37,6 @@ RUN { \
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
   composer require laravel/octane && \
   php artisan octane:install --server=frankenphp
-
-EXPOSE 8000
 
 #Executes when a container starts
 EXPOSE 8000
