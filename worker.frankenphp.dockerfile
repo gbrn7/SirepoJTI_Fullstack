@@ -41,6 +41,6 @@ RUN { \
   } > /usr/local/etc/php/conf.d/uploads.ini
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
-  composer require laravel/octane && \
-  php artisan octane:install --server=frankenphp
+  php artisan octane:install --server=frankenphp \
+  php artisan octane:frankenphp --workers 8 --port 80
 
