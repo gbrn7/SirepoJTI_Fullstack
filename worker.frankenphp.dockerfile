@@ -41,4 +41,4 @@ RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
 #Executes when a container starts
 EXPOSE 8000
 
-CMD ["frankenphp", "--document-root", "public", "--listen", ":80", "--worker"]
+CMD ["frankenphp", "public", "--listen", ":80", "--worker"]
