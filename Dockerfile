@@ -37,3 +37,7 @@ RUN { \
   } > /usr/local/etc/php/conf.d/uploads.ini
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+RUN php artisan optimize
+
+RUN php artisan migrate
