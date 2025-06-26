@@ -4,7 +4,7 @@ services:
     image: image_sirepo-jti_franken
     restart: always
     build: 
-      dockerfile: Dockerfile
+      dockerfile: worker.frankenphp.dockerfile
       context: .
     ports: 
       - 8080:80
@@ -13,7 +13,7 @@ services:
     env_file: 
       - .env 
     volumes:
-      - .:/app #this copy all file and folder in this project to /app inside container path 
+      - .:/app #this copy all file and folder in this project to /app inside container path or its mean this current folder connected to the /app inside docker container if there a change its impact to other
     #   - ./Caddyfile:/etc/caddy/Caddyfile #this copy caddy in this project to /etc/caddy/Caddyfile inside container path
 
   mysql_database:
