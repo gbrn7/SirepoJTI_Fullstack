@@ -1,7 +1,5 @@
 FROM dunglas/frankenphp:php8.3
 
-ENV SERVER_NAME=":80"
-
 # It defines where commands will be executed inside the container filesystem.
 WORKDIR /app
 

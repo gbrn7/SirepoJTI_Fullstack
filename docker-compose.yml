@@ -14,8 +14,6 @@ services:
       - .env 
     volumes:
       - .:/app #this copy all file and folder in this project to /app inside container path or its mean this current folder connected to the /app inside docker container if there a change its impact to other
-      # uncomment this following volumes and use Dockerfile if you use want to regular method
-      - ./Caddyfile:/etc/caddy/Caddyfile
 
   mysql_database:
     container_name: mysql_sirepo
