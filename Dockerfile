@@ -1,7 +1,16 @@
 FROM dunglas/frankenphp:php8.3
 
+ENV SERVER_NAME=":80"
+
 # It defines where commands will be executed inside the container filesystem.
 WORKDIR /app
+
+# Copy all file & folder, this following command using for runner github action get the latest app and runner can push updated project to the docker hub (see the workflow on your github workflow deploy script)
+COPY . /app 
+
+# give permission document folder 
+RUN chmod -R 775 /app/storage && \
+  chown -R www-data:www-data /app/storage
 
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
@@ -31,7 +40,4 @@ COPY --from=composer:2.7.6 /usr/bin/composer /usr/bin/composer
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader
 
-# RUN frankenphp php-cli optimize
 RUN frankenphp php-cli artisan optimize
-
-RUN php artisan optimize
