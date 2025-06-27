@@ -34,8 +34,7 @@ RUN { \
 
 RUN composer install --no-interaction --prefer-dist --optimize-autoloader 
 
-
-# donwload and Instal octane
+# download and Instal octane
 RUN composer require laravel/octane && \
   php artisan octane:install --server=frankenphp
 
