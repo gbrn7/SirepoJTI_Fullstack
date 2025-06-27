@@ -32,9 +32,10 @@ RUN { \
   echo 'max_input_time = 600'; \
   } > /usr/local/etc/php/conf.d/uploads.ini
 
-RUN composer install --no-interaction --prefer-dist --optimize-autoloader && \
-  composer require laravel/octane && \
-  php artisan octane:install --server=frankenphp
+RUN composer install --no-interaction --prefer-dist --optimize-autoloader
+
+# Instal octane
+RUN php artisan octane:install --server=frankenphp
 
 # RUN frankenphp php-cli optimize
 RUN frankenphp php-cli artisan optimize
