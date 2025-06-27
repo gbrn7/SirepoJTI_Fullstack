@@ -6,6 +6,10 @@ WORKDIR /app
 # Copy all file & folder, this following command using for runner github action get the latest app and runner can push updated project to the docker hub (see the workflow on your github workflow deploy script)
 COPY . /app 
 
+# give permission document folder 
+RUN chmod -R 775 /app/storage && \
+  chown -R www-data:www-data /app/storage
+
 # Executes when the image is being built, used to install packages, copy files, or set up the environment
 RUN apt update && apt install -y \
   zip \
@@ -41,6 +45,6 @@ RUN composer require laravel/octane && \
 # RUN frankenphp php-cli optimize
 RUN frankenphp php-cli artisan optimize
 
-# this execute when the container it start not just when building
+# This execute when the container it start not just when building
 CMD php artisan octane:frankenphp --workers 20 --port 80
 
