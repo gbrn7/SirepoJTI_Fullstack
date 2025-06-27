@@ -2,7 +2,7 @@
     frankenphp
 }
 
-localhost:80 {
+localhost:8000 {
     root * /app/public
     php_server
     encode gzip
