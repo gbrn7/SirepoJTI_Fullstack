@@ -119,6 +119,7 @@ class ThesisRepository implements ThesisRepositoryInterface
   {
     return Thesis::select('title')
       ->where('title', 'like', '%' . $searchInput . '%')
+      ->where('submission_status', true)
       ->orderBy('id', 'desc')
       ->limit(7)
       ->get()

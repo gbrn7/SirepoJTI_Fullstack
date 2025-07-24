@@ -88,7 +88,7 @@
       title : searchInput
     },
       function (data, textStatus, jqXHR) {
-        if (data.length !== 0) {
+        if (data.data.length !== 0) {
           $('.suggestion-box').empty();
           $('.search-wrapper').addClass('active')
         }
