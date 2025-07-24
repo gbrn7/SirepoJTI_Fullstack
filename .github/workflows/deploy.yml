@@ -44,5 +44,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ${{ secrets.APP_PATH }}
-            chmod +x ./build-script.sh
             ./build-script.sh
