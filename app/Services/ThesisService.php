@@ -190,7 +190,7 @@ class ThesisService implements ThesisServiceInterface
       $pdf->UseTemplate($import_page);
       $pdf->SetWatermarkImage(
         $logo,
-        0.1,
+        0.05,
         '',
         'F'
       );
