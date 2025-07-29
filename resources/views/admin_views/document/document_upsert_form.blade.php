@@ -6,7 +6,8 @@
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">{{request()->routeIs('document-management.create') ? 'Tambah Dokumen' : 'Edit Dokumen'}}
+  <div class="page-title mb-1">{{request()->routeIs('document-management.create') ? 'Tambah Data Tugas Akhir' : 'Edit
+    Data Tugas Akhir'}}
   </div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
@@ -16,7 +17,7 @@
       <li class="breadcrumb-item" aria-current="page"><a href="{{route('document-management.index')}}"
           class="text-decoration-none">Tugas Akhir</a></li>
       <li class="breadcrumb-item active" aria-current="page">{{request()->routeIs('document-management.create') ?
-        'Tambah Dokumen' : 'Edit Dokumen'}}</li>
+        'Tambah Data Tugas Akhir' : 'Edit Data Tugas Akhir'}}</li>
     </ol>
   </nav>
 </div>
@@ -34,7 +35,7 @@
     <div class="mb-2">
       <label class="form-label">NIM</label>
       <div class="input-group p-1 shadow-none">
-        <input type="text" data-cy="input-username" class="form-control author-input" placeholder="Masukkan nim"
+        <input type="text" data-cy="input-username" class="form-control author-input" placeholder="Masukkan Nim"
           name="username" value="{{old('username', isset($thesis) ? $thesis->student->username : '')}}" />
       </div>
     </div>

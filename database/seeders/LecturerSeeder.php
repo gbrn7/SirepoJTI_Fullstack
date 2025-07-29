@@ -13,14 +13,25 @@ class LecturerSeeder extends Seeder
      */
     public function run(): void
     {
-        Lecturer::create([
-            "topic_id" => 1,
-            "name" => "Usman Nurhasan",
-            "username" => "usmannurhasan",
-            "email" => "usmen@gmail.com",
-            "password" => Hash::make("userpass"),
-            "created_at" => now(),
-            "updated_at" => now(),
+        Lecturer::insert([
+            [
+                "topic_id" => 1,
+                "name" => "Usman Nurhasan",
+                "username" => "usmannurhasan",
+                "email" => "usmen@gmail.com",
+                "password" => Hash::make("userpass"),
+                "created_at" => now(),
+                "updated_at" => now(),
+            ],
+            [
+                "topic_id" => 1,
+                "name" => "ade ismail",
+                "username" => "adeismail",
+                "email" => "adeismail@gmail.com",
+                "password" => Hash::make("userpass"),
+                "created_at" => now(),
+                "updated_at" => now(),
+            ],
         ]);
     }
 }

@@ -19,8 +19,10 @@ class Thesis extends Model
         'topic_id',
         'type_id',
         'lecturer_id',
+        'second_lecturer_id',
         'student_id',
         'title',
+        'repository_link',
         'abstract',
         'download_count',
         'submission_status',
@@ -37,6 +39,11 @@ class Thesis extends Model
     public function lecturer(): BelongsTo
     {
         return $this->belongsTo(Lecturer::class, 'lecturer_id', 'id')->withTrashed();
+    }
+
+    public function secondLecturer(): BelongsTo
+    {
+        return $this->belongsTo(Lecturer::class, 'second_lecturer_id', 'id')->withTrashed();
     }
 
     public function type(): BelongsTo

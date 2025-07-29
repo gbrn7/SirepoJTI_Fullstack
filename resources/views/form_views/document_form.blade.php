@@ -1,6 +1,6 @@
 <div class="mb-2">
   <label class="form-label">Judul</label>
-  <input data-cy="input-title" type="text" class="form-control" placeholder="Masukan judul"
+  <input data-cy="input-title" type="text" class="form-control" placeholder="Masukkan judul"
     value="{{old('title', isset($thesis) ? $thesis->title : '')}}" name="title" required />
 </div>
 <div class="mb-2">
@@ -45,6 +45,25 @@
   </select>
 </div>
 <div class="mb-2">
+  <label class="form-label">Dosen Pembimbing Pendamping</label>
+  <select data-cy="input-second-lecturer" class="form-select" aria-label="Default select example"
+    name="second_lecturer_id" required>
+    <option value="">Pilih Dosen Pembimbing Pendamping</option>
+    @foreach ($lecturers as $lecturer)
+    <option value="{{$lecturer->id}}" @selected(old('second_lecturer_id', isset($thesis->second_lecturer_id) ?
+      $thesis->second_lecturer_id :
+      '') ==$lecturer->id)>
+      {{$lecturer->name}}
+    </option>
+    @endforeach
+  </select>
+</div>
+<div class="mb-2">
+  <label class="form-label">Link Repositori (Opsional)</label>
+  <input data-cy="input-link-repository" type="text" class="form-control" placeholder="Masukkan Link Repositori"
+    value="{{old('repository_link', isset($thesis) ? $thesis->repository_link : '')}}" name="repository_link" />
+</div>
+<div class="mb-2">
   <label class="form-label">Dokumen Lengkap (Wajib)</label>
   <label class="w-100 drop-area" id="drop-area">
     <input type="file" name="required_file" data-cy="input-complete-document" hidden id="input-file" class="input-file">
@@ -63,7 +82,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="Abstrak" name="abstract_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="Abstrak" name="abstract_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -102,7 +121,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" value="BAB I" placeholder="Masukan judul" name=" chapter_1_label"
+          <input type="text" class="form-control" value="BAB I" placeholder="Masukkan judul" name=" chapter_1_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -122,7 +141,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB II" name="chapter_2_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB II" name="chapter_2_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -142,7 +161,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB III" name="chapter_3_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB III" name="chapter_3_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -162,7 +181,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB IV" name="chapter_4_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB IV" name="chapter_4_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -182,7 +201,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB V" name="chapter_5_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB V" name="chapter_5_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -202,7 +221,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VI" name="chapter_6_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB VI" name="chapter_6_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -222,7 +241,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="BAB VII" name="chapter_7_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="BAB VII" name="chapter_7_label"
             required disabled />
         </div>
         <div class="file-wrapper">
@@ -242,7 +261,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="Daftar Pustaka"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="Daftar Pustaka"
             name="bibliography_label" required disabled />
         </div>
         <div class="file-wrapper">
@@ -262,7 +281,7 @@
       <label class="w-100 drop-area" id="drop-area">
         <div class="wrapper text-start mb-3">
           <label class="form-label">Nama Dokumen</label>
-          <input type="text" class="form-control" placeholder="Masukan judul" value="Lampiran" name="attachment_label"
+          <input type="text" class="form-control" placeholder="Masukkan judul" value="Lampiran" name="attachment_label"
             required disabled />
         </div>
         <div class="file-wrapper">

@@ -79,6 +79,32 @@
     <hr>
     <div class="detail-field title-field d-lg-flex">
       <div class="label-wrapper col-12 col-lg-2 py-2 d-flex justify-content-lg-between gap-3 gap-lg-0">
+        <span class="label-field d-block">Dosen Pembimbing Pendamping</span>
+        <span class="d-block">:</span>
+      </div>
+      <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
+        <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
+          {{$document?->secondLecturer?->name
+          ? $document->secondLecturer->name : "-"}}</div>
+      </div>
+    </div>
+    <hr>
+    <div class="detail-field title-field d-lg-flex">
+      <div class="label-wrapper col-12 col-lg-2 py-2 d-flex justify-content-lg-between gap-3 gap-lg-0">
+        <span class="label-field d-block">Link Repositori</span>
+        <span class="d-block">:</span>
+      </div>
+      <div class="value-field-wrapper col-12 col-lg-10 ps-lg-3">
+        <div class="value-field bg-white px-2 rounded-2 h-100 d-flex py-2 py-lg-0 align-items-center">
+          <a class="text-decoration-none" target="blank" href={{$document?->repository_link
+            ? $document->repository_link : ""}}>{{$document?->repository_link
+            ? $document->repository_link : "-"}}
+        </div></a>
+      </div>
+    </div>
+    <hr>
+    <div class="detail-field title-field d-lg-flex">
+      <div class="label-wrapper col-12 col-lg-2 py-2 d-flex justify-content-lg-between gap-3 gap-lg-0">
         <span class="label-field d-block">Status Penyerahan</span>
         <span class="d-block">:</span>
       </div>

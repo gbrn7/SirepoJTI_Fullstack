@@ -80,6 +80,8 @@ class DocumentController extends Controller
             'topic_id' => 'required',
             'type_id' => 'required',
             'lecturer_id' => 'required',
+            'second_lecturer_id' => 'required|different:lecturer_id',
+            'repository_link' => 'nullable',
             'required_file' => 'required|mimes:pdf|max:16384',
             'abstract_file' => 'nullable|mimes:pdf|max:16384',
             'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
@@ -100,6 +102,7 @@ class DocumentController extends Controller
             'type_id.required' => 'Pilihlah Tipe Tugas Akhir',
             'lecturer_id.required' => 'Pilihlah Dosen Pembimbing',
             'required_file.required' => 'Dokumen Lengkap Tugas Akhir Wajib Diisi',
+            'second_lecturer_id.different' => 'Dosen Pembimbing Pendamping Harus Berbeda Dari Dosen Pendamping Utama',
         ]);
         if ($validator->fails()) {
             return back()
@@ -146,6 +149,8 @@ class DocumentController extends Controller
             'topic_id' => 'nullable',
             'type_id' => 'nullable',
             'lecturer_id' => 'nullable',
+            'second_lecturer_id' => 'nullable|different:lecturer_id',
+            'repository_link' => 'nullable',
             'required_file' => 'nullable|mimes:pdf|max:16384',
             'abstract_file' => 'nullable|mimes:pdf|max:16384',
             'list_of_content_file' => 'nullable|mimes:pdf|max:16384',
@@ -158,6 +163,8 @@ class DocumentController extends Controller
             'chapter_7_file' => 'nullable|mimes:pdf|max:16384',
             'bibliography_file' => 'nullable|mimes:pdf|max:16384',
             'attachment_file' => 'nullable|mimes:pdf|max:16384',
+        ], [
+            'second_lecturer_id.different' => 'Dosen Pembimbing Pendamping Harus Berbeda Dari Dosen Pendamping Utama',
         ]);
         if ($validator->fails()) {
             return back()

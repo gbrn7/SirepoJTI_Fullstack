@@ -7,7 +7,7 @@ echo "[2/5] Installing packages using composer"
 composer install
 
 echo "[3/5] Migrating database"
-php artisan migrate
+php artisan migrate --force
 
 echo "[4/5] Storage link"
 php artisan storage:link

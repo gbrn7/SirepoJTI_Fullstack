@@ -1,5 +1,5 @@
 describe('Cek Fungsi Halaman Welcome', () => {
-  it('Cek perilaku sistem jika memasukan judul tugas akhir yang valid', () => {
+  it('Cek perilaku sistem jika memasukkan judul tugas akhir yang valid', () => {
     cy.visit('/')
 
     const title = "Big Data Indonesia";
@@ -13,7 +13,7 @@ describe('Cek Fungsi Halaman Welcome', () => {
     cy.url().should('eq', Cypress.config().baseUrl + "/home?title=Big+Data+Indonesia")
   })
 
-  it('Cek perilaku sistem jika memasukan judul tugas akhir yang tidak valid', () => {
+  it('Cek perilaku sistem jika memasukkan judul tugas akhir yang tidak valid', () => {
     cy.visit('/')
 
     cy.get('[data-cy="input-search"]').type("judul tugas akhir");
