@@ -196,7 +196,7 @@ class ThesisService implements ThesisServiceInterface
       );
       $pdf->showWatermarkImage = true;
     }
-    $pdf->SetProtection(array('copy', 'print-highres'));
+    $pdf->SetProtection(array('copy'));
     $pdf->OutputFile(storage_path('app/document/' . $fileName));
   }
 

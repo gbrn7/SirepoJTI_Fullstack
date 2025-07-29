@@ -1,12 +1,12 @@
 @extends('layouts.base')
 
-@section('title', 'Detail Document')
+@section('title', 'Detail Tugas Akhir')
 
 @section('custom_css_link', asset('css/Detail-Document_style/main.css'))
 
 @section('breadcrumbs')
 <div class="breadcrumbs-box mt-1 py-2">
-  <div class="page-title mb-1">Detail Document</div>
+  <div class="page-title mb-1">Detail Tugas Akhir</div>
   <nav style="--bs-breadcrumb-divider: '>'" aria-label="breadcrumb">
     <ol class="breadcrumb m-0">
       <li class="breadcrumb-item">
