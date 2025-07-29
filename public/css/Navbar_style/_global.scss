@@ -8,6 +8,10 @@
 
     .dropdown-menu {
         background-color: #2d4059;
+
+        @include media-breakpoint-down(lg) {
+            font-size: 14px;
+        }
     }
 
     .dropdown-item:hover {

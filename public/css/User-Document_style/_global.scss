@@ -141,6 +141,9 @@ body {
     }
 
     .detail-wrapper {
+      @include media-breakpoint-down(md) {
+        font-size: 14px;
+      }
       .detail-thesis-wrapper {
         .detail-field {
           .label-wrapper {

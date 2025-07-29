@@ -175,6 +175,12 @@ body {
                     width: 90px;
                 }
 
+                @include media-breakpoint-down(lg) {
+                    .folder-logo {
+                        width: 55px;
+                    }
+                }
+
                 transition: all 0.2s ease-in-out;
             }
 

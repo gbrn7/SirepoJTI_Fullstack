@@ -110,6 +110,11 @@ body .content-wrapper .user-document-content .thesis-list-box .thesis-box .thesi
   line-clamp: 3;
   -webkit-box-orient: vertical;
 }
+@media (max-width: 767.98px) {
+  body .content-wrapper .detail-wrapper {
+    font-size: 14px;
+  }
+}
 body .content-wrapper .detail-wrapper .detail-thesis-wrapper .detail-field .label-wrapper {
   font-weight: 500;
 }/*# sourceMappingURL=main.css.map */

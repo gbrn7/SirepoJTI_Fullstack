@@ -166,6 +166,11 @@ body .content-wrapper .filter-wrapper .filter-box .filter-text {
 body .content-wrapper .filter-wrapper .filter-box .folder-logo {
   width: 90px;
 }
+@media (max-width: 991.98px) {
+  body .content-wrapper .filter-wrapper .filter-box .folder-logo {
+    width: 55px;
+  }
+}
 body .content-wrapper .filter-wrapper .filter-box:hover {
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;

@@ -8,6 +8,11 @@
 .navbar .dropdown-menu {
   background-color: #2d4059;
 }
+@media (max-width: 991.98px) {
+  .navbar .dropdown-menu {
+    font-size: 14px;
+  }
+}
 .navbar .dropdown-item:hover {
   background-color: #b14e56;
 }
